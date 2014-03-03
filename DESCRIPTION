@@ -1,9 +1,15 @@
 Package: simulariatools
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
+Title: Data analysis tools
+Version: 0.1
 Date: 2014-03-02
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Giuseppe Carlino <g.carlino@simularia.it>
+Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
+Description: A set of tools developed at Simularia to help the pre and post
+    processing of meteorological and air quality data.
+Imports:
+    openair,
+    ggplot2,
+    reshape2,
+    scales
+License: GPL-2
