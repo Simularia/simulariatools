@@ -2,12 +2,18 @@
 \alias{importSurferGrd}
 \title{Import Grid file}
 \usage{
-importSurferGrd(fname, k = 1000)
+importSurferGrd(fname, k = 1000, destaggering = TRUE)
 }
 \arguments{
   \item{fname}{Surfer grd file to be imported}
 
   \item{k}{Factor to apply to x and y coordinates}
+
+  \item{destaggering}{Boolean variable to apply or not
+  destaggering.}
+}
+\value{
+A dataset with x, y and z columns is returned.
 }
 \description{
 It imports Surfer like grid file
@@ -15,6 +21,14 @@ It imports Surfer like grid file
 \details{
 Surfer grd file is imported and an array of x, y, z columns
 is returned X and y coordinats can be converted from km to
-m (default k=1000) and viceversa.
+m (default k=1000) and viceversa. Destaggering is applied
+by default.
+}
+\examples{
+# Import Surfer Grd file and convert coordinates from km to m, with destaggering
+mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000)
+
+# Import Surfer Grd file and do not convert coordinates, without destaggering
+mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1, destaggering = FALSE)
 }
 

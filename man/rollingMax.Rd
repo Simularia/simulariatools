@@ -11,6 +11,18 @@ rollingMax(mydata, length = 24)
   values has to be picked.}
 }
 \description{
-The maximum value along a series of data is computed.
+The rolling maximum value along a series of data is
+computed.
+}
+\details{
+It computes the maximum value centered alonga a subset of
+data.
+}
+\examples{
+# Compute rolling max along 24 hours on hourly time serie
+t$radg24h <- rollingMax(mydata=t$radg, length=24)
+
+# Compute rolling max along 30 days on a hourly time serie
+t$radg30d <- rollingMax(mydata=t$radg24h, length=24*30)
 }
 

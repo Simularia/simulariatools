@@ -1,0 +1,31 @@
+\name{plotStabilityClass}
+\alias{plotStabilityClass}
+\title{Plot stability class}
+\usage{
+plotStabilityClass(mydata, sc = "sc", type = "season")
+}
+\arguments{
+  \item{simudata}{A data frame containing \code{date} and
+  \code{stability class} fields.}
+
+  \item{sc}{The name of the stability class field.}
+
+  \item{type}{type determines how the data are split and
+  then plotted. Accepetd values are "season" (default) and
+  "hour".}
+}
+\value{
+A \code{ggplot2} plot.
+}
+\description{
+Plot histogram of stability class on season or hour base.
+}
+\details{
+Numerical values of stability classes are mapped as: 1 = A,
+2 = B, ..., 6 = F.
+}
+\examples{
+plotStabClass(t, cs="ClassStab", type="season")
+plotStabClass(t, type="hour")
+}
+

@@ -1,0 +1,7 @@
+# 2014-03-17
+
+- stabilityClass() three methods to compute stability class: impact, as in ARIA Impact, pasquill (standard classification) and custom.
+- the plotStabClass() function has been renamed to plotStabilityClass().
+- It is now possibile to select the name of the column with stability class values in plotStabilityClass().
+- Destaggering of grid fiels is applied by default in importSurferGrd().
+- A little bit of cleanup in the documentaton.

@@ -6,6 +6,8 @@
 #' @param x vector of data to be cleaned
 #' @param k factor to applied to the interquartile range
 #' 
+#' @return vector of clenaed data
+#' 
 #' @export
 #' 
 #' @examples

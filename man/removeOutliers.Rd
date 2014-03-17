@@ -9,13 +9,16 @@ removeOutliers(x, k)
 
   \item{k}{factor to applied to the interquartile range}
 }
+\value{
+vector of clenaed data
+}
 \description{
 Outliers are removed from a data set. The interquartile
 range is computed. Data larger or smaller than k * IQR are
 removed.
 }
 \examples{
-# Example
+# Remove data outside 5 time the interquartile range
 mydata$ws <- removeOutliers(mydata$ws, 5)
 }
 

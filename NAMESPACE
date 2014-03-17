@@ -1,7 +1,7 @@
 export(importSurferGrd)
 export(plotAvgRad)
 export(plotAvgTemp)
-export(plotStabClass)
+export(plotStabilityClass)
 export(removeOutliers)
 export(rollingMax)
 export(stabilityClass)

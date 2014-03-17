@@ -4,16 +4,27 @@
 #' 
 #' Surfer grd file is imported and an array of x, y, z columns is returned
 #' X and y coordinats can be converted from km to m (default k=1000) and viceversa.
+#' Destaggering is applied by default.
 #' 
 #'  
 #' @param fname Surfer grd file to be imported
 #' @param k Factor to apply to x and y coordinates
+#' @param destaggering Boolean variable to apply or not destaggering.
+#' 
+#' @return A dataset with x, y and z columns is returned.
 #' 
 #' @import reshape2
 #' 
 #' @export
 #' 
-importSurferGrd <- function(fname, k=1000) {
+#' @examples
+#' # Import Surfer Grd file and convert coordinates from km to m, with destaggering
+#' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000)
+#' 
+#' # Import Surfer Grd file and do not convert coordinates, without destaggering
+#' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1, destaggering = FALSE)
+#' 
+importSurferGrd <- function(fname, k = 1000, destaggering = TRUE) {
     require("reshape2")
         
     t <- file(fname, "r")
@@ -29,14 +40,16 @@ importSurferGrd <- function(fname, k=1000) {
     ymax <- t2[6] * k
     zmin <- t2[7]
     zmax <- t2[8]
-    
-    #     # Destaggering
-    #     deltax <- (xmax - xmin) / nx
-    #     deltay <- (ymax - ymin) / ny
-    #     xmin <- xmin - deltax/2
-    #     xmax <- xmax - deltax/2
-    #     ymin <- ymin - deltay/2
-    #     ymax <- ymax - deltay/2
+
+    # Destaggering
+    if (destaggering == TRUE) {
+        deltax <- (xmax - xmin) / nx
+        deltay <- (ymax - ymin) / ny
+        xmin <- xmin - deltax/2
+        xmax <- xmax - deltax/2
+        ymin <- ymin - deltay/2
+        ymax <- ymax - deltay/2        
+    }
     
     print(paste("Z min = ", zmin), quote=F)
     print(paste("Z max = ", zmax), quote=F)

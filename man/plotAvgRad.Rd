@@ -1,6 +1,6 @@
 \name{plotAvgRad}
 \alias{plotAvgRad}
-\title{Plot monthly average radiation}
+\title{Plot hourly average radiation}
 \usage{
 plotAvgRad(mydata, rad = "radg")
 }
@@ -10,7 +10,16 @@ plotAvgRad(mydata, rad = "radg")
 
   \item{radg}{Name of the column representing radiation}
 }
+\value{
+A \code{ggplot2} plot.
+}
 \description{
-Plot monthly average radiation
+Plot a histogram with hourly average of solar radiation,
+together with June and December hourly averages (minimum
+and maximum).
+}
+\examples{
+plotAvgRad(mydata)
+plotAvgRad(mydata, rad="radg")
 }
 

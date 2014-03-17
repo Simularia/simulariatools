@@ -2,21 +2,34 @@
 \alias{stabilityClass}
 \title{Stability class.}
 \usage{
-stabilityClass(radg, tcc, ws, option = "impact")
+stabilityClass(rad, tcc, ws, option = "impact")
 }
 \arguments{
-  \item{radg}{The net radiation in W/m^2}
+  \item{rad}{The net radiation in W/m^2}
 
   \item{tcc}{The total cloud cover in a range from 1 to 8}
 
   \item{ws}{wind speed in m/s}
+
+  \item{option}{This is to determine which specifific
+  cateogories to use to determine the stability class. It
+  can be \code{impact} to comply with ARIA Impact(tm),
+  \code{pasquill} or \code{custom}.}
+}
+\value{
+\code{stabilityClass} returns a vector with stability
+Pasquill stability class as: A = 1, ... , F = 6.
 }
 \description{
 \code{stabilityClass} computes stability class.
 }
 \details{
-It computes stability class according to IAES method based
+It computes stability class according to IAEA method based
 on net radiation and wind. Net radiation and wind are used
 by day; tcc and wind are used by night.
+}
+\examples{
+# Compute Pasquill stability class as in ARIA Impact
+mydata$sc <- stabilityClass(mydata$rad, mydata$tcc, mydata$ws, option="pasquill")
 }
 
