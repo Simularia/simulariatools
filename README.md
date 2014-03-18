@@ -1,6 +1,6 @@
 # simulariatools
 
-simulariatools is a package of functions and tools usefule to pre-process and post-process
+`simulariatools` is a package of functions and tools usefule to pre-process and post-process
 data for air quality assessment.
 
 To install:
