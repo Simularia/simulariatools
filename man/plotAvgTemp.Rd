@@ -3,7 +3,7 @@
 \title{Plot average temperature}
 \usage{
 plotAvgTemp(mydata, temp = "temp", avg.time = "1 month",
-  ylabel = "Temperatura [°C]")
+  ylabel = "Temperatura [°C]", title = "")
 }
 \arguments{
   \item{mydata}{A data frame containing fields date and
@@ -15,14 +15,17 @@ plotAvgTemp(mydata, temp = "temp", avg.time = "1 month",
   to (see openair::timeAverage). Default is "1 month".}
 
   \item{ylabel}{The label to be plot along y axis}
+
+  \item{title}{Option plot title}
 }
 \value{
-A ggplot2 plot object.
+A plot with avereage, min and max temperature in a given
+range of time.
 }
 \description{
-\code{plotAvgTemp} builds a plot with histograms of monthly
-average temperature and two lines with maximim and minimum
-monthly temperature.
+\code{plotAvgTemp} builds a bar plot of time average
+temperature and two line plots with maximum and minimum
+temperature.
 }
 \note{
 \code{plotAvgTemp} uses \code{openair::timeAvearge} to
@@ -31,5 +34,6 @@ compute average.
 \examples{
 # Plot histogram with monthly averages together with maxima and minima curves
 plotAvgTemp(mydata)
+plotAvgTemp(mydata, temp="temperature", avg.time="1 month", ylabel="Temperatura [C]")
 }
 

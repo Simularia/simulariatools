@@ -1,12 +1,20 @@
+simulariatools 0.3
+==================
+
+* Added optional title parameter in `plotAvgTemp`.
+
+* In `plotAvgTemp`, plots table of plotted values below the graph.
+
+
 simulariatools 0.2.1
-------------------------------------------------------------------------------------------------
+====================
 
-- `stabilityClass()` has three methods to compute stability class: impact, as in ARIA Impact, pasquill (standard classification) and custom.
+* `stabilityClass()` has three methods to compute stability class: impact, as in ARIA Impact, pasquill (standard classification) and custom.
 
-- `plotStabClass()` function has been renamed to `plotStabilityClass()`.
+* `plotStabClass()` function has been renamed to `plotStabilityClass()`.
 
-- It is now possibile to select the name of the column with stability class values in `plotStabilityClass()`.
+* It is now possibile to select the name of the column with stability class values in `plotStabilityClass()`.
 
-- Destaggering of grid fiels is applied by default in `importSurferGrd()`.
+* Destaggering of grid fiels is applied by default in `importSurferGrd()`.
 
-- A little bit of cleanup in the documentaton.
+* A little bit of cleanup in the documentaton.
