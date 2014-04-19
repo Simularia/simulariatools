@@ -5,6 +5,8 @@ simulariatools 0.3
 
 * In `plotAvgTemp`, plots table of plotted values below the graph.
 
+* Bug fixes in `plotAvgRad`
+
 
 simulariatools 0.2.1
 ====================

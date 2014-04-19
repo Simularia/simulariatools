@@ -2,8 +2,8 @@
 #' 
 #' Plot a histogram with hourly average of solar radiation, together with June and December hourly averages (minimum and maximum).
 #'
-#' @param mydata A data frame containing fields date and radg
-#' @param radg   Name of the column representing radiation
+#' @param mydata A data frame containing fields `date` and `rad`
+#' @param rad   Name of the column representing radiation
 #' 
 #' @return A \code{ggplot2} plot.
 #' 
@@ -26,16 +26,20 @@ plotAvgRad <- function(mydata, rad="radg") {
     mydata_dec <- selectByDate(mydata, month=12)
     mydata_jun <- selectByDate(mydata, month=6)
     
-    means <- aggregate(mydata["radg"], format(mydata["date"],"%H"), mean, na.rm = TRUE)
-    max_jun <- aggregate(mydata_jun["radg"], format(mydata_jun["date"],"%H"), max, na.rm = TRUE)
-    max_dec <- aggregate(mydata_dec["radg"], format(mydata_dec["date"],"%H"), max, na.rm = TRUE)
+    means <- aggregate(mydata[rad], format(mydata["date"],"%H"), mean, na.rm = TRUE)
+    max_jun <- aggregate(mydata_jun[rad], format(mydata_jun["date"],"%H"), max, na.rm = TRUE)
+    max_dec <- aggregate(mydata_dec[rad], format(mydata_dec["date"],"%H"), max, na.rm = TRUE)
     means$date <- as.numeric(means$date)
     max_jun$date <- as.numeric(max_jun$date)
     max_dec$date <- as.numeric(max_dec$date)
     
-    v <- ggplot(data=means, aes(date, radg)) + geom_histogram(aes(date, radg, color="Media", fill="Media"), stat="identity", show_guide=FALSE)  + 
-        geom_line(data=max_dec, aes(x=date, y=radg, color="Massimo Dicembre"), size=1) + 
-        geom_line(data=max_jun, aes(x=date, y=radg, color="Massimo Giugno"), size=1) + 
+    means$rad <- means[[rad]]
+    max_jun$rad <- max_jun[[rad]]
+    max_dec$rad <- max_dec[[rad]]
+    
+    v <- ggplot(data=means, aes(x=date, y=rad)) + geom_histogram(aes(x=date, y=rad, color="Media", fill="Media"), stat="identity", show_guide=FALSE)  + 
+        geom_line(data=max_dec, aes(x=date, y=rad, color="Massimo Dicembre"), size=1) + 
+        geom_line(data=max_jun, aes(x=date, y=rad, color="Massimo Giugno"), size=1) + 
         #         scale_y_continuous(breaks=seq(0,1000,100)) + labs(x="", y=ylabel) +
         scale_y_continuous(breaks=seq(0,1000,100)) + labs(x="", y=expression(paste("Radiazione Globale [W/", m^{2},"]"))) +
         scale_x_continuous(breaks=0:23) +

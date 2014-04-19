@@ -22,7 +22,7 @@
 #' 
 plotAvgTemp <- function(mydata, temp = "temp", 
                         avg.time = "1 month", 
-                        ylabel = "Temperatura [°C]",
+                        ylabel = "Temperatura [C]",
                         title = "") {
     require("openair")
     require("ggplot2")

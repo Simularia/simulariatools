@@ -4,7 +4,7 @@
 #' 
 #' Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 #' 
-#' @param simudata A data frame containing \code{date} and \code{stability class} fields.
+#' @param mydata A data frame containing \code{date} and \code{stability class} fields.
 #' @param sc The name of the stability class field.
 #' @param type type determines how the data are split and then plotted. Accepetd values are "season" (default) and "hour".
 #'
@@ -30,8 +30,8 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
     if ( !(sc %in% colnames(mydata)) ) 
         stop("Undefined stability class field name.")
 
-    if (max(mydata[,sc]) > 6 || min(mydata[,sc]) < 0)
-        stop("Stability class is out of range [0,6].")
+#     if (max(mydata[,sc]) > 6 || min(mydata[,sc]) < 0)
+#         stop("Stability class is out of range [0,6].")
     
     pasquill <- c("A", "B", "C", "D", "E", "F")
     mydata$clname <- pasquill[mydata[,sc]]

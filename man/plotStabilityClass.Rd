@@ -5,7 +5,7 @@
 plotStabilityClass(mydata, sc = "sc", type = "season")
 }
 \arguments{
-  \item{simudata}{A data frame containing \code{date} and
+  \item{mydata}{A data frame containing \code{date} and
   \code{stability class} fields.}
 
   \item{sc}{The name of the stability class field.}

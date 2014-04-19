@@ -5,10 +5,10 @@
 plotAvgRad(mydata, rad = "radg")
 }
 \arguments{
-  \item{mydata}{A data frame containing fields date and
-  radg}
+  \item{mydata}{A data frame containing fields `date` and
+  `rad`}
 
-  \item{radg}{Name of the column representing radiation}
+  \item{rad}{Name of the column representing radiation}
 }
 \value{
 A \code{ggplot2} plot.
