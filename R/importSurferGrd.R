@@ -26,11 +26,11 @@
 #' 
 importSurferGrd <- function(fname, k = 1000, destaggering = TRUE) {
     require("reshape2")
-        
+    
     t <- file(fname, "r")
     
     t1 <- readLines(t, 1) # DSAA code
-    t2 <- scan(t, n=8, quiet = TRUE)    # Header
+    t2 <- scan(t, n = 8, quiet = TRUE)    # Header
     
     nx <- t2[1]
     ny <- t2[2]
@@ -40,22 +40,22 @@ importSurferGrd <- function(fname, k = 1000, destaggering = TRUE) {
     ymax <- t2[6] * k
     zmin <- t2[7]
     zmax <- t2[8]
-
+    
     # Destaggering
     if (destaggering == TRUE) {
         deltax <- (xmax - xmin) / nx
         deltay <- (ymax - ymin) / ny
-        xmin <- xmin - deltax/2
-        xmax <- xmax - deltax/2
-        ymin <- ymin - deltay/2
-        ymax <- ymax - deltay/2        
+        xmin <- xmin - deltax / 2
+        xmax <- xmax - deltax / 2
+        ymin <- ymin - deltay / 2
+        ymax <- ymax - deltay / 2        
     }
     
-    print(paste("Z min = ", zmin), quote=F)
-    print(paste("Z max = ", zmax), quote=F)
+    print(paste("Z min = ", zmin), quote = F)
+    print(paste("Z max = ", zmax), quote = F)
     
-    map <- scan(t, as.numeric(0), quiet = TRUE)
-    
+#     map <- scan(t, as.numeric(0), quiet = TRUE)
+    map <- scan(t, nmax = nx * ny, quiet = T)    
     close(t)
     
     if (length(as.vector(map)) != nx * ny) 
@@ -67,8 +67,8 @@ importSurferGrd <- function(fname, k = 1000, destaggering = TRUE) {
     stepx <- (xmax - xmin) / (nx - 1)
     stepy <- (ymax - ymin) / (ny - 1)
     
-    grd3d[,1] <- (grd3d[,1] - 1) * stepx + xmin
-    grd3d[,2] <- (grd3d[,2] - 1) * stepy + ymin
+    grd3d[, 1] <- (grd3d[, 1] - 1) * stepx + xmin
+    grd3d[, 2] <- (grd3d[, 2] - 1) * stepy + ymin
     names(grd3d) <- c("x", "y", "z")
     
     return(grd3d)
