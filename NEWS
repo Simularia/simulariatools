@@ -1,3 +1,9 @@
+simulariatools 0.4
+====================
+
+* New importRaster() function to read all 'gdal' supported raster files.
+
+
 simulariatools 0.3.1
 ====================
 
