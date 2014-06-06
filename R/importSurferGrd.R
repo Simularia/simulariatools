@@ -45,10 +45,10 @@ importSurferGrd <- function(fname, k = 1000, destaggering = TRUE) {
     if (destaggering == TRUE) {
         deltax <- (xmax - xmin) / nx
         deltay <- (ymax - ymin) / ny
-        xmin <- xmin - deltax / 2
-        xmax <- xmax - deltax / 2
-        ymin <- ymin - deltay / 2
-        ymax <- ymax - deltay / 2        
+        xmin <- xmin + deltax / 2
+        xmax <- xmax + deltax / 2
+        ymin <- ymin + deltay / 2
+        ymax <- ymax + deltay / 2        
     }
     
     print(paste("Z min = ", zmin), quote = F)

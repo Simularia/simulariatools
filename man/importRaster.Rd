@@ -3,7 +3,7 @@
 \alias{importRaster}
 \title{Import generic raster file}
 \usage{
-importRaster(fname, k = 1, destaggering = FALSE)
+importRaster(fname, k = 1, destaggering = FALSE, varname)
 }
 \arguments{
 \item{fname}{(character) raster file to be imported.}
@@ -11,6 +11,8 @@ importRaster(fname, k = 1, destaggering = FALSE)
 \item{k}{integer. Factor to be applied to x and y coordinates (default = 1).}
 
 \item{destaggering}{logical. If `TRUE` destaggering is applied (default = FALSE).}
+
+\item{varname}{(string) variable name to be extracted (if any).}
 }
 \value{
 A dataset with x, y and z columns is returned.

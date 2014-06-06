@@ -10,6 +10,7 @@
 #' @param fname (character) raster file to be imported.
 #' @param k integer. Factor to be applied to x and y coordinates (default = 1).
 #' @param destaggering logical. If `TRUE` destaggering is applied (default = FALSE).
+#' @param varname (string) variable name to be extracted (if any).
 #' 
 #' @return A dataset with x, y and z columns is returned.
 #' 
@@ -22,10 +23,14 @@
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, destaggering = FALSE)
 #' 
 #' 
-importRaster <- function(fname, k = 1, destaggering = FALSE) {
+importRaster <- function(fname, k = 1, destaggering = FALSE, varname) {
     require("raster")
     
-    t <- raster(fname)
+    if (is.null(varname)) {
+        t <- raster(fname)
+    } else {
+        t <- raster(fname, varname = varname)
+    }
     
     # Apply conversion factor
     xmax(t) <- xmax(t) * k
@@ -35,7 +40,7 @@ importRaster <- function(fname, k = 1, destaggering = FALSE) {
     
     # Apply destaggering
     if (destaggering == FALSE) {
-        t <- shift(t, x = -res(t)[1] / 2., y = -res(t)[2] / 2.)
+        t <- shift(t, x = res(t)[1] / 2., y = res(t)[2] / 2.)
     }
     
     # Print some values
