@@ -1,8 +1,8 @@
 Package: simulariatools
 Type: Package
 Title: Data analysis tools
-Version: 0.4.1
-Date: 2014-06-06
+Version: 0.5
+Date: 2014-06-09
 Author: Giuseppe Carlino <g.carlino@simularia.it>
 Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
 Description: A set of tools developed at Simularia to help the pre and post
@@ -13,5 +13,6 @@ Imports:
     reshape2,
     scales,
     grid,
-    raster
+    raster,
+    png
 License: GPL-2

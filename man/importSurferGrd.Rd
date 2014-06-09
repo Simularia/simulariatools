@@ -3,7 +3,7 @@
 \alias{importSurferGrd}
 \title{Import Grid file}
 \usage{
-importSurferGrd(fname, k = 1000, destaggering = TRUE)
+importSurferGrd(fname, k = 1000, destaggering = FALSE)
 }
 \arguments{
 \item{fname}{Surfer grd file to be imported}

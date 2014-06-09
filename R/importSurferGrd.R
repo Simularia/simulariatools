@@ -24,7 +24,7 @@
 #' # Import Surfer Grd file and do not convert coordinates, without destaggering
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1, destaggering = FALSE)
 #' 
-importSurferGrd <- function(fname, k = 1000, destaggering = TRUE) {
+importSurferGrd <- function(fname, k = 1000, destaggering = FALSE) {
     require("reshape2")
     
     t <- file(fname, "r")
@@ -42,13 +42,13 @@ importSurferGrd <- function(fname, k = 1000, destaggering = TRUE) {
     zmax <- t2[8]
     
     # Destaggering
-    if (destaggering == TRUE) {
-        deltax <- (xmax - xmin) / nx
-        deltay <- (ymax - ymin) / ny
-        xmin <- xmin + deltax / 2
-        xmax <- xmax + deltax / 2
-        ymin <- ymin + deltay / 2
-        ymax <- ymax + deltay / 2        
+    if (destaggering == FALSE) {
+        deltax <- (xmax - xmin) / (nx - 1)
+        deltay <- (ymax - ymin) / (ny - 1)
+        xmin <- xmin - deltax / 2
+        xmax <- xmax - deltax / 2
+        ymin <- ymin - deltay / 2
+        ymax <- ymax - deltay / 2        
     }
     
     print(paste("Z min = ", zmin), quote = F)

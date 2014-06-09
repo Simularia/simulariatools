@@ -1,3 +1,13 @@
+simulariatools 0.5
+====================
+
+* Added createBaseMap function to create base maps for contour plots.
+  It currently works only with png files.
+
+* Bug fix in destaggering of raster files. destaggering is now default to FALSE.
+
+* default fonts changed from Helvetica to Arial to avoid problems on windows machines.
+
 simulariatools 0.4.1
 ====================
 
