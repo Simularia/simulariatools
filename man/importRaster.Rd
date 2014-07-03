@@ -3,12 +3,17 @@
 \alias{importRaster}
 \title{Import generic raster file}
 \usage{
-importRaster(fname, k = 1, destaggering = FALSE, variable = NULL)
+importRaster(fname, k = 1, dx = 0, dy = 0, destaggering = FALSE,
+  variable = NULL)
 }
 \arguments{
 \item{fname}{(character) raster file to be imported.}
 
-\item{k}{integer. Factor to be applied to x and y coordinates (default = 1).}
+\item{k}{float. Factor to be applied to x and y coordinates (default = 1).}
+
+\item{dx}{float. Shift x coordinates by dx (default = 0).}
+
+\item{dy}{float. Shift y coordinates by dy (default = 0).}
 
 \item{destaggering}{logical. If `TRUE` destaggering is applied (default = FALSE).}
 
@@ -26,7 +31,10 @@ Destaggering is applied by default.
 In output summery data are plotted.
 }
 \examples{
-# Import binary grid file and convert coordinates from km to m, without destaggering:
+# Import binary file and convert coordinates from km to m, without destaggering:
 mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, destaggering = FALSE)
+
+# Import binary file and convert coordinates from km to m, with shift of 100 m in both directions:
+mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, dx = 100, dy = 100)
 }
 

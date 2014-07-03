@@ -8,7 +8,9 @@
 #' 
 #'  
 #' @param fname (character) raster file to be imported.
-#' @param k integer. Factor to be applied to x and y coordinates (default = 1).
+#' @param k float. Factor to be applied to x and y coordinates (default = 1).
+#' @param dx float. Shift x coordinates by dx (default = 0).
+#' @param dy float. Shift y coordinates by dy (default = 0).
 #' @param destaggering logical. If `TRUE` destaggering is applied (default = FALSE).
 #' @param variable (string) variable name to be extracted (if any).
 #' 
@@ -19,11 +21,13 @@
 #' @export
 #' 
 #' @examples
-#' # Import binary grid file and convert coordinates from km to m, without destaggering:
+#' # Import binary file and convert coordinates from km to m, without destaggering:
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, destaggering = FALSE)
 #' 
+#' # Import binary file and convert coordinates from km to m, with shift of 100 m in both directions:
+#' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, dx = 100, dy = 100)
 #' 
-importRaster <- function(fname, k = 1, destaggering = FALSE, variable = NULL) {
+importRaster <- function(fname, k = 1, dx = 0, dy = 0, destaggering = FALSE, variable = NULL) {
     require("raster")
     
     if ( is.null(variable)) {
@@ -42,6 +46,9 @@ importRaster <- function(fname, k = 1, destaggering = FALSE, variable = NULL) {
     if (destaggering == TRUE) {
         t <- shift(t, x = res(t)[1] / 2., y = res(t)[2] / 2.)
     }
+    
+    # Shift coordinates
+    t <- shift(t, x = dx, y = dy)
     
     # Print some values
     xvalues <- c(xmin(t), xmax(t), res(t)[1])
