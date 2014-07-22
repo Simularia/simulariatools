@@ -56,7 +56,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
                                       "Massima" = "darkorange2"), 
                            guide=guide_legend(title = NULL)) +
         scale_fill_manual(values = c("Media" = "steelblue"), guide = F)  + 
-        theme_bw(base_family = "Helvetica") +
+        theme_bw(base_family = "Arial") +
         theme(legend.position = c(0, 1), legend.justification = c(0, 1))
     
     # Prepare table of data to be plot in the lower part of the figure

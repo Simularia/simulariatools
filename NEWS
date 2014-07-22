@@ -1,4 +1,10 @@
+simulariatools 0.5.2
+====================
+
+* bugfixes
+
 simulariatools 0.5.1
+====================
 
 * in importRaster added the possibility to shift X and/or Y coordinates by dX/dY.
 
