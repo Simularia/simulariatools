@@ -18,9 +18,6 @@
 #' plotAvgRad(mydata, rad="radg")
 #'
 plotAvgRad <- function(mydata, rad="radg") {
-    require("openair")
-    require("ggplot2")
-    require("scales")
     
     mydata <- subset(mydata, select=c("date", rad))
     mydata_dec <- selectByDate(mydata, month=12)

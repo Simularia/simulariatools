@@ -25,7 +25,6 @@
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1, destaggering = FALSE)
 #' 
 importSurferGrd <- function(fname, k = 1000, destaggering = FALSE) {
-    require("reshape2")
     
     t <- file(fname, "r")
     

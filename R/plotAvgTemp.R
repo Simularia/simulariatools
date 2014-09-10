@@ -24,12 +24,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
                         avg.time = "1 month", 
                         ylabel = "Temperatura [C]",
                         title = "") {
-    require("openair")
-    require("ggplot2")
-    require("scales")
-    require("reshape2")
-    require("grid")
-    
+
     mydata_mean <- timeAverage(mydata, statistic = "mean", avg.time = avg.time)
     mydata_max <- timeAverage(mydata, statistic = "max", avg.time = avg.time)
     mydata_min <- timeAverage(mydata, statistic = "min", avg.time = avg.time)

@@ -28,7 +28,6 @@
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, dx = 100, dy = 100)
 #' 
 importRaster <- function(fname, k = 1, dx = 0, dy = 0, destaggering = FALSE, variable = NULL) {
-    require("raster")
     
     if ( is.null(variable)) {
         t <- raster(fname)

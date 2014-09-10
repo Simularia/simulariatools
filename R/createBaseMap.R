@@ -1,4 +1,4 @@
-#' Create base map
+#' Create base map (OBSOLETE)
 #' 
 #' Create base map. This is meant to be the deepest layer of contour plot map. Axes coordintaes are supposed to be in meters.
 #' 
@@ -19,10 +19,6 @@
 #' v <- createBaseMap(img, c(minx, miny, extent, extent, 9, 9), font_size=10)
 #' 
 createBaseMap <- function(imageFile, domain = c(0, 0, 1000, 1000, 5, 5), font_size = 10, font_family = "Arial") {
-    
-    # required packages
-    require("ggplot2")
-    require("png")
         
     # domain boundary
     xmin <- domain[1]
