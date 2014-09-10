@@ -1,6 +1,6 @@
 #' Plot hourly average radiation
 #' 
-#' Plot a histogram with hourly average of solar radiation, together with June and December hourly averages (minimum and maximum).
+#' Plot a histogram with hourly average of solar radiation, together with hourly maxima for June and December.
 #'
 #' @param mydata A data frame containing fields `date` and `rad`
 #' @param rad   Name of the column representing radiation
@@ -46,7 +46,7 @@ plotAvgRad <- function(mydata, rad="radg") {
         #         scale_x_datetime(breaks=date_breaks(width=avg.time)) +
         scale_color_manual(values=c("Media"="steelblue", "Massimo Dicembre"="darkgreen","Massimo Giugno"="darkorange2"), guide=guide_legend(title=NULL)) +
         scale_fill_manual(values=c("Media"="steelblue"), guide=F)  + 
-        theme_bw(base_family="Helvetica") +
+        theme_bw(base_family="Arial") +
         theme(legend.position=c(0,1), legend.justification=c(0,1))
     
     return(v)
