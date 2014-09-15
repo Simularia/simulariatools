@@ -1,4 +1,12 @@
+simulariatools 0.6.1
+====================
+
+* Fixed library dependence for `plotAvgTemp`.
+
+* Added stMeteo dataset for testing.
+
 simulariatools 0.6
+====================
 
 * New `contourPlot` function to plot contour levels diagrams of pollutant concentration.
 
