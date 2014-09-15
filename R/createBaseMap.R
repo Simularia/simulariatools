@@ -10,7 +10,6 @@
 #' @return A \code{ggplot2} plot.
 #' 
 #' @import ggplot2
-#' @import png
 #' 
 #' @export
 #' 
@@ -50,7 +49,7 @@ createBaseMap <- function(imageFile, domain = c(0, 0, 1000, 1000, 5, 5), font_si
     # background raster image
 #     img <- raster(image)
 #     img <- rasterToPoints(img)
-    img <- readPNG(imageFile)
+    img <- png::readPNG(imageFile)
     v <- v + annotation_raster(img, xmin, xmax, ymin, ymax)
     
     # apply graphical options

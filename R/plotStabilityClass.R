@@ -62,7 +62,7 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
         scale_fill_brewer(palette="Spectral") +
         labs(x="", y="Percentuale (%)") + 
         guides(fill=guide_legend(label.position="bottom", label.hjust=0.5, title=NULL, direction="horizontal")) +
-        theme_bw(base_family="Helvetica") + 
+        theme_bw(base_family="Arial") + 
         theme(legend.position="bottom")
     
     return(v)

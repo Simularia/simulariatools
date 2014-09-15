@@ -12,6 +12,10 @@
 #' 
 #' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 #' 
+#' @import ggplot2
+#' @import reshape2
+#' @import openair
+#' 
 #' @export
 #' 
 #' @examples
@@ -37,13 +41,15 @@ plotAvgTemp <- function(mydata, temp = "temp",
     # mydata_mean$month <- factor(mydata_mean$month, levels=month.name)
     
     v <- ggplot(data = mydata_mean, aes(date, temp)) + 
-        geom_histogram(aes(date, temp, color = "Media", fill = "Media"), 
-                       stat = "identity", 
-                       show_guide = FALSE) + 
-        geom_line(aes(x = date, y = temp.min, color = "Minima"), size = 1) + 
-        geom_line(aes(date, temp.max, color = "Massima"), size = 1) + 
-        scale_y_continuous(labels  = math_format(.x * degree), 
-            breaks = seq(-20, 40, 5)) + 
+            geom_histogram(aes(date, temp, color = "Media", fill = "Media"), 
+                           stat = "identity", 
+                           show_guide = FALSE) + 
+        geom_line(aes(x = date, y = temp.min, color = "Minima"), 
+                  size = 1) + 
+        geom_line(aes(date, temp.max, color = "Massima"), 
+                  size = 1) + 
+        scale_y_continuous(labels = math_format(.x * degree), 
+                           breaks = seq(-20, 40, 5)) + 
         labs(title = title, x = "", y = ylabel) +
         scale_x_datetime(breaks = date_breaks(width = avg.time), labels = date_format("%b")) +
         scale_color_manual(values = c("Media" = "steelblue", 
@@ -88,10 +94,5 @@ plotAvgTemp <- function(mydata, temp = "temp",
         print(b, vp = subplot(2, 1))
     }
 
-#     return( data_table)
-    
     myplot <- mmplot(v, data_table)
-
-    
-#     return(myplot)
 }

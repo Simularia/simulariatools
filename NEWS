@@ -1,3 +1,9 @@
+simulariatools 0.6
+
+* New `contourPlot` function to plot contour levels diagrams of pollutant concentration.
+
+* Code cleaning
+
 simulariatools 0.5.3
 ====================
 
@@ -11,12 +17,12 @@ simulariatools 0.5.2
 simulariatools 0.5.1
 ====================
 
-* in importRaster added the possibility to shift X and/or Y coordinates by dX/dY.
+* in `importRaster` added the possibility to shift X and/or Y coordinates by dX/dY.
 
 simulariatools 0.5
 ====================
 
-* Added createBaseMap function to create base maps for contour plots.
+* Added `createBaseMap` function to create base maps for contour plots.
   It currently works only with png files.
 
 * Bug fix in destaggering of raster files. destaggering is now default to FALSE.
