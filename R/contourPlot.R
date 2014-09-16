@@ -146,7 +146,7 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend,
                      breaks = levels, 
                      alpha = 0.66) + 
             scale_fill_manual(lgndname, 
-                          guide = guide_legend(reverse = T), 
+                          guide = guide_legend(reverse = T, label.vjust = 0), 
                           breaks = levels, 
                           limits = levels, 
                           values = myColors) +
