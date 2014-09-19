@@ -74,12 +74,8 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend,
     
     # Automatic scales
     if (missingArg(levels)) {
-        lmax <- max(values(tt))
-        lmax <- ceiling(lmax)
-        lmin <- min(values(tt))
-        lmin <- floor(lmin)
-        levels = seq(lmin, lmax, (lmax - lmin) / 6)
-        levels <- round(levels, digits = 1)
+        nlevels <- 7
+        levels <- pretty(range(values(tt), na.rm = T), n = nlevels, min.n = 4)
     } 
     
     # color palette (omit first color)
@@ -146,7 +142,8 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend,
                      breaks = levels, 
                      alpha = 0.66) + 
             scale_fill_manual(lgndname, 
-                          guide = guide_legend(reverse = T, label.vjust = 0), 
+# TODO: aggiungere una linea orizzontale a dx della scala di colore verso l'etichetta numerica
+                              guide = guide_legend(reverse = T, label.vjust = 0), 
                           breaks = levels, 
                           limits = levels, 
                           values = myColors) +
