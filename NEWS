@@ -1,3 +1,9 @@
+simulariatools 0.6.3
+
+* `contourPlot` is able to correctly plot negative values. Improved management of borders.
+
+
+
 simulariatools 0.6.2
 ====================
 
