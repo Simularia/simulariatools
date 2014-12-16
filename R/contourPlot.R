@@ -59,29 +59,63 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend,
         nx <- domain[5]         # number of ticks along x axis
         ny <- domain[6]         # number of ticks along y axis
     }
+    lab_levels <- levels
     
-    # Extend data domain to be plotted
+    # if we have negative values offset with the minimum value to get positive levels
+    #  next we will have to change the levels scale
+    mv <- min(data[3], na.rm = T)
+    if (mv < 0) {
+        data[3] <- data[3] - floor(mv)
+        lab_levels <- levels
+        levels <- levels - floor(mv)
+    } 
+    
+#     # Extend data domain to be plotted
     tt <- rasterFromXYZ(data)
-# TODO: provare a estendere il domino a 10 * res(tt)     
-    et <- extent(xmin(tt) - res(tt)[1],
-                 xmax(tt) + res(tt)[1], 
-                 ymin(tt) - res(tt)[2], 
-                 ymax(tt) + res(tt)[2])
-    ttE <- extend(tt, et, value = min(values(tt)) * 10^-5)
+    for (i in (1:1)) {
+        et <- extent(xmin(tt) - 1 * res(tt)[1],
+                     xmax(tt) + 1 * res(tt)[1], 
+                     ymin(tt) - 1 * res(tt)[2],
+                     ymax(tt) + 1 * res(tt)[2])
+        mv <- min(values(tt))
+        ev <- min(values(tt)) - 1
+#         ev <- levels[1]/10
+#     ev <- ifelse(mv > 0, mv * 10^-5, mv * 10^5)
+#  ATTENZIONE implementare una estensione senza raster::extend per evitare problemi con destaggering
+        ttE <- extend(tt, et, value = ev)
+        tt <- ttE
+    }
+# 
     ttP <- rasterToPoints(ttE)
     ttDF <- data.frame(ttP)
     colnames(ttDF) <- c("x", "y", "z")
-    
+#     #### 
+    xminE <- xmin(ttE)
+    yminE <- ymin(ttE)
+    xmaxE <- xmax(ttE)
+    ymaxE <- ymax(ttE)
+#     ####
+
+#     xminE = xmin
+#     yminE = ymin
+#     xmaxE = xmax
+# ymaxE = ymax
+# 
+# ids <- which(data[1] == xmin | data[1] == xmax | data[2] == ymin | data[2] == ymax)
+# data[ids, 3] <- min(data[3], na.rm = T)
+# 
+# ttDF <- data
+
+
     # Automatic scales
     if (missingArg(levels)) {
-        lmax <- max(values(tt))
-        lmax <- ceiling(lmax)
-        lmin <- min(values(tt))
-        lmin <- floor(lmin)
-        levels = seq(lmin, lmax, (lmax - lmin) / 6)
-        levels <- round(levels, digits = 1)
-    } 
-    
+        nlevels <- 7
+        levels <- pretty(range(values(tt), na.rm = T), n = nlevels, min.n = 4)
+        if (mv < 0) {
+            lab_levels <- levels + floor(mv)
+        }
+    }
+
     # color palette (omit first color)
     myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
     myColors <- myPalette(length(levels)+1)[-c(1,1)]
@@ -106,53 +140,56 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend,
         img <- png::readPNG(background)
         gimg <- grid::rasterGrob(img, interpolate = T)
     }
-
+    
     # Underlayer
     if (missingArg(underlayer)) {
         img <- matrix(data = NA, nrow = 10, ncol = 10)
         ugrob <- grid::rasterGrob(img, interpolate = T)
         underlayer <- annotation_custom(ugrob, -Inf, Inf, -Inf, Inf)
     }
-
+    
     # Overlayer
     if (missingArg(overlayer)) {
         img <- matrix(data = NA, nrow = 10, ncol = 10)
         ogrob <- grid::rasterGrob(img, interpolate = T)
         overlayer <- annotation_custom(ogrob, -Inf, Inf, -Inf, Inf)
     }
-
-    # Graphic Options
-    opts <- vector("list", length = 5)
+    
+    # Graphic Options    
+    opts <- vector("list", length = 3)
     opts[[1]] <- scale_x_continuous(name = "x [m]", 
-                                    limits = c(xmin, xmax),
+                                    limits = c(xminE, xmaxE),
                                     breaks = seq(xmin, xmax, length.out = nx),
                                     expand = c(0, 0))
     opts[[2]] <- scale_y_continuous(name = "y [m]", 
-                                    limits = c(ymin, ymax),
+                                    limits = c(yminE, ymaxE),
                                     breaks = seq(ymin, ymax, length.out = ny),
                                     expand = c(0, 0))
-    opts[[3]] <- coord_fixed(ratio = 1)
-    opts[[4]] <- theme_bw(base_size = 10, base_family = "Arial")
+#     opts[[3]] <- coord_fixed(ratio = 1)
+#     opts[[4]] <- theme_bw(base_size = 10, base_family = "Arial")
+opts[[3]] <- theme_bw(base_size = 10, base_family = "Arial")
     
-
     # Contour plot
-    #     v <- qplot(x = xmin:xmax, y = ymin:ymax, geom = "blank") +
-    v <- qplot(1:10, 1:10, geom = "blank") + 
-            annotation_custom(gimg, -Inf, Inf, -Inf, Inf) +
-            underlayer +
-            stat_contour(data = ttDF, 
-                     geom = "polygon", 
-                     aes(x, y, z = z, fill = factor(..level..)), 
-                     breaks = levels, 
-                     alpha = 0.66) + 
-            scale_fill_manual(lgndname, 
-                          guide = guide_legend(reverse = T, label.vjust = 0), 
-                          breaks = levels, 
-                          limits = levels, 
-                          values = myColors) +
-            overlayer +
-            opts
     
+v <- qplot(1:10, 1:10, geom = "blank") +
+    annotation_custom(gimg, -Inf, Inf, -Inf, Inf) +
+    underlayer +
+    stat_contour(data = ttDF, 
+                 geom = "polygon", 
+                 aes(x, y, z = z, fill = factor(..level..)), 
+                 breaks = levels, 
+                 alpha = 0.66) + 
+    # TODO: aggiungere una linea orizzontale a dx della scala di colore verso l'etichetta numerica
+    scale_fill_manual(lgndname, 
+                      guide = guide_legend(reverse = T, label.vjust = 0), 
+                      breaks = levels, 
+                      limits = levels, 
+                      labels = lab_levels,
+                      values = myColors) +
+    overlayer +
+    opts
+
+    v <- v + coord_fixed(ratio = 1, xlim = c(xmin, xmax), ylim = c(ymin, ymax))
+
     return(v)
 }
-
