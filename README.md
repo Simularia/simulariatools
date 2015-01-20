@@ -2,7 +2,7 @@
 
 `simulariatools` is a collection of functions and tools useful to pre and post process data for air quality assessment. It is developed and mantained by the people at [Simularia](www.simularia.it).
 
-## List of funcions
+## List of functions
 
 - `contourPlot()`.
 - `createBaseMap()` obsolete.
