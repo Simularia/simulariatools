@@ -1,6 +1,11 @@
+simulariatools 0.6.4
+
+* Added transparency level in `contourPlot` input.
+
+
 simulariatools 0.6.3
 
-* `contourPlot` is able to correctly plot negative values. Improved management of borders.
+* `contourPlot` is able to correctly plot negative values. Improved management of borders. Bugfixes.
 
 
 

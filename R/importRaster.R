@@ -12,7 +12,7 @@
 #' @param dx float. Shift x coordinates by dx (default = 0).
 #' @param dy float. Shift y coordinates by dy (default = 0).
 #' @param destaggering logical. If `TRUE` destaggering is applied (default = FALSE).
-#' @param variable (string) variable name to be extracted (if any).
+#' @param variable (string) name of the variable to be extracted (if any).
 #' 
 #' @return A dataset with x, y and z columns is returned.
 #' 
