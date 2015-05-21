@@ -9,10 +9,12 @@
 #'  
 #' @param fname (character) raster file to be imported.
 #' @param k float. Factor to be applied to x and y coordinates (default = 1).
+#' @param kz float. Factor to be applied to z values (default = 1).
 #' @param dx float. Shift x coordinates by dx (default = 0).
 #' @param dy float. Shift y coordinates by dy (default = 0).
 #' @param destaggering logical. If `TRUE` destaggering is applied (default = FALSE).
 #' @param variable (string) name of the variable to be extracted (if any).
+#' @param verbose logical. If `TRUE` print out basic statistics (default = TRUE).
 #' 
 #' @return A dataset with x, y and z columns is returned.
 #' 
@@ -27,9 +29,9 @@
 #' # Import binary file and convert coordinates from km to m, with shift of 100 m in both directions:
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, dx = 100, dy = 100)
 #' 
-importRaster <- function(fname, k = 1, dx = 0, dy = 0, destaggering = FALSE, variable = NULL) {
+importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FALSE, variable = NULL, verbose = TRUE) {
     
-    if ( is.null(variable)) {
+    if (is.null(variable)) {
         t <- raster(fname)
     } else {
         t <- raster(fname, varname = variable)
@@ -41,6 +43,9 @@ importRaster <- function(fname, k = 1, dx = 0, dy = 0, destaggering = FALSE, var
     ymax(t) <- ymax(t) * k
     ymin(t) <- ymin(t) * k
     
+    # Apply value factor
+    t <- t * kz
+    
     # Apply destaggering
     if (destaggering == TRUE) {
         t <- shift(t, x = res(t)[1] / 2., y = res(t)[2] / 2.)
@@ -50,17 +55,19 @@ importRaster <- function(fname, k = 1, dx = 0, dy = 0, destaggering = FALSE, var
     t <- shift(t, x = dx, y = dy)
     
     # Print some values
-    xvalues <- c(xmin(t), xmax(t), res(t)[1])
-    cat("\nX (min, max, dx)  :")
-    cat(sprintf(fmt = "%12.3f", xvalues))
-
-    yvalues <- c(ymin(t), ymax(t), res(t)[2])
-    cat("\nY (min, max, dy)  :")
-    cat(sprintf(fmt = "%12.3f", yvalues))
-
-    zvalues <- c(cellStats(t, min), cellStats(t, max), cellStats(t, mean))
-    cat("\nZ (min, max, mean):")
-    cat(sprintf(fmt = "%12.2e", zvalues))
+    if (verbose == TRUE) {
+        xvalues <- c(xmin(t), xmax(t), res(t)[1])
+        cat("\nX (min, max, dx)  :")
+        cat(sprintf(fmt = "%12.3f", xvalues))
+    
+        yvalues <- c(ymin(t), ymax(t), res(t)[2])
+        cat("\nY (min, max, dy)  :")
+        cat(sprintf(fmt = "%12.3f", yvalues))
+    
+        zvalues <- c(cellStats(t, min), cellStats(t, max), cellStats(t, mean))
+        cat("\nZ (min, max, mean):")
+        cat(sprintf(fmt = "%12.2e", zvalues))
+    }
 
     
     # Export matrix

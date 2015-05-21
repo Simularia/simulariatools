@@ -1,9 +1,17 @@
+simulariatools 0.6.5
+====================
+
+* Add verbose option in `importRaster`.
+* Add option `kz` in `importRaster` to multiply `z` values.
+
 simulariatools 0.6.4
+====================
 
 * Added transparency level in `contourPlot` input.
 
 
 simulariatools 0.6.3
+====================
 
 * `contourPlot` is able to correctly plot negative values. Improved management of borders. Bugfixes.
 

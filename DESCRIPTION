@@ -1,13 +1,13 @@
 Package: simulariatools
 Type: Package
 Title: Data analysis tools
-Version: 0.6.4
-Date: 2015-01-15
+Version: 0.6.5
+Date: 2015-05-11
 Author: Giuseppe Carlino <g.carlino@simularia.it>
 Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
 Description: A set of tools developed at Simularia to help the pre and post
     processing of meteorological and air quality data.
-Imports:
+Imports: 
     ggplot2,
     reshape2,
     scales,
