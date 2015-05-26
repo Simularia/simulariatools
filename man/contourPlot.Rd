@@ -4,8 +4,8 @@
 \alias{contourPlot}
 \title{Contour plot of pollutant concentration}
 \usage{
-contourPlot(data, domain, background, underlayer, overlayer, legend, levels,
-  transparency = 0.66)
+contourPlot(data, domain, background, underlayer, overlayer, legend = NULL,
+  levels = NULL, transparency = 0.66)
 }
 \arguments{
 \item{data}{A dataframe containing data to be plotted in the form of X, Y and Z (levels).}

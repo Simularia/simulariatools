@@ -43,7 +43,7 @@
 #' contourPlot(data = test, background = "path_to/basemap.png", underlayer = myUnderlayer)
 #' 
 
-contourPlot <- function(data, domain, background, underlayer, overlayer, legend, levels, transparency = 0.66) {
+contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66) {
     
 #     if (missingArg(domain)) {
 #         xmin <- min(data[1])    # x coordinates minimum
@@ -94,15 +94,10 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend,
         }
     
     # Automatic scales
-    if (missingArg(levels)) {
+    if (is.null(levels)) {
+    #if (missingArg(levels)) {
         nlevels <- 7
         levels <- pretty(range(values(tt), na.rm = T), n = nlevels, min.n = 4)
-#         if (mv < 0) {
-#             #             lab_levels <- levels + floor(mv)
-#             lab_levels <- levels
-#         } else {
-#             lab_levels <- levels
-#         }
     }
     lab_levels <- levels
 
@@ -135,7 +130,8 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend,
     myColors <- myPalette(length(levels)+1)[-c(1,1)]
     
     # Legend
-    if (missingArg(legend)) {
+    if (is.null(legend)) {
+    #if (missingArg(legend)) {
         legend <- ""
     }
     # prettify legend title
