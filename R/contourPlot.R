@@ -153,16 +153,18 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     
     # Underlayer
     if (missingArg(underlayer)) {
-        img <- matrix(data = NA, nrow = 10, ncol = 10)
-        ugrob <- grid::rasterGrob(img, interpolate = T)
-        underlayer <- annotation_custom(ugrob, -Inf, Inf, -Inf, Inf)
+        # img <- matrix(data = NA, nrow = 10, ncol = 10)
+        # ugrob <- grid::rasterGrob(img, interpolate = T)
+        # underlayer <- annotation_custom(ugrob, -Inf, Inf, -Inf, Inf)
+        underlayer <- geom_blank()
     }
     
     # Overlayer
     if (missingArg(overlayer)) {
-        img <- matrix(data = NA, nrow = 10, ncol = 10)
-        ogrob <- grid::rasterGrob(img, interpolate = T)
-        overlayer <- annotation_custom(ogrob, -Inf, Inf, -Inf, Inf)
+        # img <- matrix(data = NA, nrow = 10, ncol = 10)
+        # ogrob <- grid::rasterGrob(img, interpolate = T)
+        # overlayer <- annotation_custom(ogrob, -Inf, Inf, -Inf, Inf)
+        overlayer <- geom_blank()
     }
 
     # Transparency
@@ -183,23 +185,54 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     
     # Contour plot
     
-v <- qplot(1:10, 1:10, geom = "blank") +
-    annotation_custom(gimg, -Inf, Inf, -Inf, Inf) +
-    underlayer +
-    stat_contour(data = ttDF, 
-                 geom = "polygon", 
-                 aes(x, y, z = z, fill = factor(..level..)), 
-                 breaks = levels, 
-                 alpha = mAlpha) + 
-    # TODO: aggiungere una linea orizzontale a dx della scala di colore verso l'etichetta numerica
-    scale_fill_manual(lgndname, 
-                      guide = guide_legend(reverse = T, label.vjust = 0), 
-                      breaks = levels, 
-                      limits = levels, 
-                      labels = lab_levels,
-                      values = myColors) +
-    overlayer +
-    opts
+# # v <- qplot(1:10, 1:10, geom = "blank") +
+# #     annotation_custom(gimg, -Inf, Inf, -Inf, Inf) +
+# #     underlayer +
+# #     stat_contour(data = ttDF, 
+# #                  geom = "polygon", 
+# #                  aes(x, y, z = z, fill = factor(..level..)), 
+# #                  breaks = levels, 
+# #                  alpha = mAlpha) + 
+# #     # TODO: aggiungere una linea orizzontale a dx della scala di colore verso l'etichetta numerica
+# #     scale_fill_manual(lgndname, 
+# #                       guide = guide_legend(reverse = T, label.vjust = 0), 
+# #                       breaks = levels, 
+# #                       limits = levels, 
+# #                       labels = lab_levels,
+# #                       values = myColors) +
+# #     overlayer +
+# #     opts
+# #
+#   v <- ggplot(ttDF, aes(x = x, y = y, z = z)) + 
+#       # geom_blank() +
+#       annotation_custom(gimg, -Inf, Inf, -Inf, Inf) +
+#       underlayer + 
+#       stat_contour(
+#         aes(fill = factor(..level..)), 
+#         geom = "polygon", 
+#         breaks = levels, 
+#         alpha = mAlpha) + 
+#       scale_fill_manual(lgndname, 
+#                         guide = guide_legend(reverse = T, label.vjust = 0), 
+#                         breaks = levels, 
+#                         limits = levels, 
+#                         labels = lab_levels,
+#                         values = myColors) +
+#       overlayer +
+#       opts
 
+  v <- ggplot(ttDF, aes(x = x, y = y, z = z)) + 
+      geom_contourPlot() +
+      scale_fill_manual(lgndname, 
+                        guide = guide_legend(reverse = T, label.vjust = 0), 
+                        breaks = levels, 
+                        limits = levels, 
+                        labels = lab_levels,
+                        values = myColors) +
+      overlayer +
+      opts
+  
+  
+  
     return(v)
 }

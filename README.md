@@ -19,7 +19,7 @@
 
 You can install it from github repository, through the `devtools` package:
  
-    install("devtools")
+    library("devtools")
     install_github("Simularia/simulariatools")
 
 The last command is also needed to upgrade the package.
