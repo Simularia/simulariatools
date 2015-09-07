@@ -43,65 +43,65 @@
 #' contourPlot(data = test, background = "path_to/basemap.png", underlayer = myUnderlayer)
 #' 
 
-contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66) {
+contourPlot_old <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66) {
     
-#     if (missingArg(domain)) {
-#         xmin <- min(data[1])    # x coordinates minimum
-#         xmax <- max(data[1])    # x coordinates max
-#         ymin <- min(data[2])    # y coordinates min
-#         ymax <- max(data[2])    # y coordinates max
-#         nx <- 5                 # number of ticks along x axis
-#         ny <- 5                 # number of ticks along y axis
-#     } else {
-#         xmin <- domain[1]       # x coordinates minimum
-#         xmax <- domain[2]       # x coordinates max
-#         ymin <- domain[3]       # y coordinates min
-#         ymax <- domain[4]       # y coordinates max
-#         nx <- domain[5]         # number of ticks along x axis
-#         ny <- domain[6]         # number of ticks along y axis
-#     }
+    #     if (missingArg(domain)) {
+    #         xmin <- min(data[1])    # x coordinates minimum
+    #         xmax <- max(data[1])    # x coordinates max
+    #         ymin <- min(data[2])    # y coordinates min
+    #         ymax <- max(data[2])    # y coordinates max
+    #         nx <- 5                 # number of ticks along x axis
+    #         ny <- 5                 # number of ticks along y axis
+    #     } else {
+    #         xmin <- domain[1]       # x coordinates minimum
+    #         xmax <- domain[2]       # x coordinates max
+    #         ymin <- domain[3]       # y coordinates min
+    #         ymax <- domain[4]       # y coordinates max
+    #         nx <- domain[5]         # number of ticks along x axis
+    #         ny <- domain[6]         # number of ticks along y axis
+    #     }
     
     
-#     lab_levels <- levels
-#     
-#     # if we have negative values offset with the minimum value to get positive levels
-#     #  next we will have to change the levels scale
-#     mv <- min(data[3], na.rm = T)
-#     if (mv < 0) {
-#         data[3] <- data[3] - floor(mv)
-#         lab_levels <- levels
-#         levels <- levels - floor(mv)
-#     } 
-#   
+    #     lab_levels <- levels
+    #     
+    #     # if we have negative values offset with the minimum value to get positive levels
+    #     #  next we will have to change the levels scale
+    #     mv <- min(data[3], na.rm = T)
+    #     if (mv < 0) {
+    #         data[3] <- data[3] - floor(mv)
+    #         lab_levels <- levels
+    #         levels <- levels - floor(mv)
+    #     } 
+    #   
     # Convert input to raster
     tt <- rasterFromXYZ(data)
     
     # Define plot domain
-        if (missingArg(domain)) {
-            xmin <- xmin(tt)    # x coordinates minimum
-            xmax <- xmax(tt)    # x coordinates max
-            ymin <- ymin(tt)    # y coordinates min
-            ymax <- ymax(tt)    # y coordinates max
-            nx <- 5                 # number of ticks along x axis
-            ny <- 5                 # number of ticks along y axis
-        } else {
-            xmin <- domain[1]       # x coordinates minimum
-            xmax <- domain[2]       # x coordinates max
-            ymin <- domain[3]       # y coordinates min
-            ymax <- domain[4]       # y coordinates max
-            nx <- domain[5]         # number of ticks along x axis
-            ny <- domain[6]         # number of ticks along y axis
-        }
+    if (missingArg(domain)) {
+        xmin <- xmin(tt)    # x coordinates minimum
+        xmax <- xmax(tt)    # x coordinates max
+        ymin <- ymin(tt)    # y coordinates min
+        ymax <- ymax(tt)    # y coordinates max
+        nx <- 5                 # number of ticks along x axis
+        ny <- 5                 # number of ticks along y axis
+    } else {
+        xmin <- domain[1]       # x coordinates minimum
+        xmax <- domain[2]       # x coordinates max
+        ymin <- domain[3]       # y coordinates min
+        ymax <- domain[4]       # y coordinates max
+        nx <- domain[5]         # number of ticks along x axis
+        ny <- domain[6]         # number of ticks along y axis
+    }
     
     # Automatic scales
     if (is.null(levels)) {
-    #if (missingArg(levels)) {
+        #if (missingArg(levels)) {
         nlevels <- 7
         levels <- pretty(range(values(tt), na.rm = T), n = nlevels, min.n = 4)
     }
     lab_levels <- levels
-
-
+    
+    
     # Extend data domain to be plotted
     for (i in (1:1)) {
         et <- extent(xmin(tt) - 1 * res(tt)[1],
@@ -125,14 +125,13 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     xmaxE <- xmax(ttE)
     ymaxE <- ymax(ttE)
     
-    
     # color palette (omit first color)
     myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
     myColors <- myPalette(length(levels)+1)[-c(1,1)]
     
     # Legend
     if (is.null(legend)) {
-    #if (missingArg(legend)) {
+        #if (missingArg(legend)) {
         legend <- ""
     }
     # prettify legend title
@@ -142,7 +141,7 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     } else {
         lgndname <- legend
     }
-
+    
     # Background image
     if (missingArg(background)) {
         img <- matrix(data = NA, nrow = 10, ncol = 10)
@@ -167,37 +166,62 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
         # overlayer <- annotation_custom(ogrob, -Inf, Inf, -Inf, Inf)
         overlayer <- geom_blank()
     }
-
+    
+    # Transparency
+    mAlpha <- transparency
+    
+    # Graphic Options    
+    opts <- vector("list", length = 4)
+    opts[[1]] <- scale_x_continuous(name = "x [m]", 
+                                    limits = c(xminE, xmaxE),
+                                    breaks = seq(xmin, xmax, length.out = nx),
+                                    expand = c(0, 0))
+    opts[[2]] <- scale_y_continuous(name = "y [m]", 
+                                    limits = c(yminE, ymaxE),
+                                    breaks = seq(ymin, ymax, length.out = ny),
+                                    expand = c(0, 0))
+    opts[[3]] <- theme_bw(base_size = 10, base_family = "Arial")
+    opts[[4]] <- coord_fixed(ratio = 1, xlim = c(xmin, xmax), ylim = c(ymin, ymax))
     
     # Contour plot
     
-    v <- ggplot(ttDF, aes(x, y, z = z)) +
-        annotation_custom(gimg, -Inf, Inf, -Inf, Inf)  +
-        underlayer + 
-        stat_contour2( 
-            aes(fill = factor(..level..)),
-            geom = "polygon2",
-            breaks = levels) +
-            # breaks = levels,
-            # alpha = transparency) + 
-        scale_fill_manual(lgndname, 
-                          guide = guide_legend(reverse = T, label.vjust = 0), 
-                          breaks = levels, 
-                          limits = levels, 
-                          labels = lab_levels,
-                          values = myColors) +
-        scale_x_continuous(name = "x [m]", 
-                           limits = c(xminE, xmaxE),
-                           breaks = seq(xmin, xmax, length.out = nx),
-                           expand = c(0, 0)) +
-        scale_y_continuous(name = "y [m]", 
-                           limits = c(yminE, ymaxE),
-                           breaks = seq(ymin, ymax, length.out = ny),
-                           expand = c(0, 0)) +
-        theme_bw(base_size = 10, base_family = "Arial") +
-        coord_fixed(ratio = 1, xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
-        overlayer
-  
-  
+    # # v <- qplot(1:10, 1:10, geom = "blank") +
+    # #     annotation_custom(gimg, -Inf, Inf, -Inf, Inf) +
+    # #     underlayer +
+    # #     stat_contour(data = ttDF, 
+    # #                  geom = "polygon", 
+    # #                  aes(x, y, z = z, fill = factor(..level..)), 
+    # #                  breaks = levels, 
+    # #                  alpha = mAlpha) + 
+    # #     # TODO: aggiungere una linea orizzontale a dx della scala di colore verso l'etichetta numerica
+    # #     scale_fill_manual(lgndname, 
+    # #                       guide = guide_legend(reverse = T, label.vjust = 0), 
+    # #                       breaks = levels, 
+    # #                       limits = levels, 
+    # #                       labels = lab_levels,
+    # #                       values = myColors) +
+    # #     overlayer +
+    # #     opts
+    # #
+      v <- ggplot(ttDF, aes(x = x, y = y, z = z)) + 
+          # geom_blank() +
+          annotation_custom(gimg, -Inf, Inf, -Inf, Inf) +
+          underlayer + 
+          stat_contour(
+            aes(fill = factor(..level..)), 
+            geom = "polygon", 
+            breaks = levels, 
+            alpha = mAlpha) + 
+          scale_fill_manual(lgndname, 
+                            guide = guide_legend(reverse = T, label.vjust = 0), 
+                            breaks = levels, 
+                            limits = levels, 
+                            labels = lab_levels,
+                            values = myColors) +
+          overlayer +
+          opts
+    
+   
+    
     return(v)
 }

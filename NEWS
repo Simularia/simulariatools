@@ -1,3 +1,9 @@
+simulariatools 0.7
+==================
+
+* new `geom` and `stat` to correctly plot hollows in filled contour plots.
+
+
 simulariatools 0.6.5
 ====================
 
