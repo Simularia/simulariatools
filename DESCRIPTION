@@ -9,9 +9,10 @@ Description: A set of tools developed at Simularia to help the pre and post
     processing of meteorological and air quality data.
 Depends:
     R (>= 2.14),
-    ggplot2 (>= 1.0.1.9003),
-    raster
+    ggplot2 (>= 1.0.1.9003)
 Import:
+    raster,
+    scales,
     reshape2,
     grid,
     RColorBrewer,

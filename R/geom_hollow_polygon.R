@@ -7,7 +7,7 @@
 #'              See http://docs.ggplot2.org/dev/vignettes/extending-ggplot2.html
 #'  
 #'  
-#'  @import ggplot2 grid
+#'  @import ggplot2 grid scales
 #'  @export
 GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                              required_aes = c("x", "y"),
@@ -35,18 +35,18 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                                      rule = "evenodd",
                                      id = coords$piece,
                                      gp = grid::gpar(
-                                         col = first_row$colour,
-                                         col = alpha(first_row$fill, first_row$alpha),
+                                         # col = first_row$colour,
+                                         col =  scales::alpha(first_row$fill, first_row$alpha),
                                          fill = scales::alpha(first_row$fill, first_row$alpha),
-                                         lwd = first_row$size * .pt,
-                                         lty = first_row$linetype
+                                         lwd =  first_row$size * .pt,
+                                         lty =  first_row$linetype
                                      )
                                  )
                              }
 )
 
 #' @export
-geom_hollow_polygon <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_hollow_polygon <- function(mapping = NULL, data = NULL, stat = "hollow_contour",
                                 position = "identity", show.legend = NA, 
                                 inherit.aes = TRUE, ...) {
     layer(

@@ -16,7 +16,6 @@ ggplot(test, aes(x, y, z = z)) + stat_hollow_contour(aes(fill = factor(..level..
 
 
 contourPlot(test, background = "~/Simularia/Progetti/Arianet/Italcementi_Palermo/data/basemap.png", legend = "SO2", levels = levels)
-contourPlot_old(test, background = "~/Simularia/Progetti/Arianet/Italcementi_Palermo/data/basemap.png", legend = "SO2", levels = levels)
 
 levels <- c(0.1, 0.2, 0.3)
 contourPlot(test, legend = "SO2", levels = levels)
