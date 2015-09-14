@@ -10,9 +10,6 @@
 #'
 #' @return A \code{ggplot2} plot.
 #' 
-#' @import scales
-#' @import ggplot2
-#' 
 #' @export
 #' 
 #' @examples
@@ -55,12 +52,18 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
         v <- ggplot(data=mydata, aes(x=hour)) +
             geom_bar(aes(fill=clname), position="fill")
     }
-    v <- v + scale_y_continuous(labels=percent, breaks=seq(0,1,0.1)) +
+    v <- v + 
+        scale_y_continuous(labels = scales::percent, breaks=seq(0,1,0.1)) +
         scale_fill_brewer(palette="Spectral") +
-        labs(x="", y="Percentuale (%)") + 
-        guides(fill=guide_legend(label.position="bottom", label.hjust=0.5, title=NULL, direction="horizontal")) +
-        theme_bw(base_family="Arial") + 
-        theme(legend.position="bottom")
+        labs(x="", y="Percentuale (%)") +
+        theme_bw(base_family="Arial") +
+       theme(legend.position="bottom") +
+        guides(fill = guide_legend(
+            label.position = "bottom", 
+            label.hjust = 0.5, 
+            title = NULL, 
+            direction = "horizontal",
+            ncol = 6)) 
     
     return(v)
 }

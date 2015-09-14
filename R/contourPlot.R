@@ -15,8 +15,6 @@
 #' 
 #' @return A \code{ggplot2} plot
 #' 
-#' @import ggplot2 raster
-#' 
 #' @export
 #' 
 #' @examples
@@ -41,7 +39,6 @@
 #' myUnderlayer[[2]] <- geom_path(data = strada, aes(long, lat, group = group), colour = "grey", size = 0.1, alpha = 0.5)
 #' contourPlot(data = test, background = "path_to/basemap.png", underlayer = myUnderlayer)
 #' 
-
 contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66) {
     
     # Convert input to raster
@@ -68,7 +65,7 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     if (is.null(levels)) {
     #if (missingArg(levels)) {
         nlevels <- 7
-        levels <- pretty(range(values(tt), na.rm = T), n = nlevels, min.n = 4)
+        levels <- pretty(range(raster::values(tt), na.rm = T), n = nlevels, min.n = 4)
     }
     lab_levels <- levels
 

@@ -7,10 +7,6 @@
 #' 
 #' @return A \code{ggplot2} plot.
 #' 
-#' @import scales
-#' @import openair
-#' @import ggplot2
-#' 
 #' @export
 #' 
 #' @examples
@@ -20,8 +16,8 @@
 plotAvgRad <- function(mydata, rad="radg") {
     
     mydata <- subset(mydata, select=c("date", rad))
-    mydata_dec <- selectByDate(mydata, month=12)
-    mydata_jun <- selectByDate(mydata, month=6)
+    mydata_dec <- openair::selectByDate(mydata, month=12)
+    mydata_jun <- openair::selectByDate(mydata, month=6)
     
     means <- aggregate(mydata[rad], format(mydata["date"],"%H"), mean, na.rm = TRUE)
     max_jun <- aggregate(mydata_jun[rad], format(mydata_jun["date"],"%H"), max, na.rm = TRUE)
@@ -34,7 +30,8 @@ plotAvgRad <- function(mydata, rad="radg") {
     max_jun$rad <- max_jun[[rad]]
     max_dec$rad <- max_dec[[rad]]
     
-    v <- ggplot(data=means, aes(x=date, y=rad)) + geom_histogram(aes(x=date, y=rad, color="Media", fill="Media"), stat="identity", show_guide=FALSE)  + 
+    v <- ggplot(data=means, aes(x=date, y=rad)) +
+        geom_bar(aes(color="Media", fill="Media"), stat="identity", show.legend = FALSE)  + 
         geom_line(data=max_dec, aes(x=date, y=rad, color="Massimo Dicembre"), size=1) + 
         geom_line(data=max_jun, aes(x=date, y=rad, color="Massimo Giugno"), size=1) + 
         #         scale_y_continuous(breaks=seq(0,1000,100)) + labs(x="", y=ylabel) +

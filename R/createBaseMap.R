@@ -9,7 +9,7 @@
 #' 
 #' @return A \code{ggplot2} plot.
 #' 
-#' @import ggplot2
+#' @import ggplot2 png
 #' 
 #' @export
 #' 
