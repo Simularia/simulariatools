@@ -10,8 +10,8 @@
 #'
 #' @return A \code{ggplot2} plot.
 #' 
-#' @import ggplot2
 #' @import scales
+#' @import ggplot2
 #' 
 #' @export
 #' 
@@ -21,9 +21,6 @@
 #' 
 plotStabilityClass <- function(mydata, sc="sc", type="season") {
 
-#     require("ggplot2")
-#     require("scales")
-    
     if (type != "season" && type != "hour") 
         stop("Unspecified plot type.")
     

@@ -12,10 +12,10 @@
 #' 
 #' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 #' 
-#' @import ggplot2
-#' @import reshape2
-#' @import openair
 #' @import grid
+#' @import reshape2
+#' @import ggplot2
+#' @import openair
 #' 
 #' @export
 #' 

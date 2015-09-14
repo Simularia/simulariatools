@@ -15,8 +15,8 @@
 #' 
 #' @return A \code{ggplot2} plot
 #' 
-#' @import ggplot2
 #' @import raster
+#' @import ggplot2
 #'  
 #' @export
 #' 
@@ -74,14 +74,14 @@ contourPlot_old <- function(data, domain, background, underlayer, overlayer, leg
     #     } 
     #   
     # Convert input to raster
-    tt <- rasterFromXYZ(data)
+    tt <- raster::rasterFromXYZ(data)
     
     # Define plot domain
     if (missingArg(domain)) {
-        xmin <- xmin(tt)    # x coordinates minimum
-        xmax <- xmax(tt)    # x coordinates max
-        ymin <- ymin(tt)    # y coordinates min
-        ymax <- ymax(tt)    # y coordinates max
+        xmin <- raster::xmin(tt)    # x coordinates minimum
+        xmax <- raster::xmax(tt)    # x coordinates max
+        ymin <- raster::ymin(tt)    # y coordinates min
+        ymax <- raster::ymax(tt)    # y coordinates max
         nx <- 5                 # number of ticks along x axis
         ny <- 5                 # number of ticks along y axis
     } else {
@@ -104,7 +104,7 @@ contourPlot_old <- function(data, domain, background, underlayer, overlayer, leg
     
     # Extend data domain to be plotted
     for (i in (1:1)) {
-        et <- extent(xmin(tt) - 1 * res(tt)[1],
+        et <- raster::extent(xmin(tt) - 1 * res(tt)[1],
                      xmax(tt) + 1 * res(tt)[1], 
                      ymin(tt) - 1 * res(tt)[2],
                      ymax(tt) + 1 * res(tt)[2])

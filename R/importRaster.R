@@ -19,7 +19,6 @@
 #' @return A dataset with x, y and z columns is returned.
 #' 
 #' @import raster
-#' 
 #' @export
 #' 
 #' @examples
@@ -70,7 +69,7 @@ importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FA
     }
 
     
-    # Export matrix
+    # Export dataframe with x, y, x columns
     grd3D <- rasterToPoints(t)
     grd3D <- data.frame(grd3D)
     colnames(grd3D) <- c("x", "y", "z")

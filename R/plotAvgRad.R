@@ -7,9 +7,9 @@
 #' 
 #' @return A \code{ggplot2} plot.
 #' 
+#' @import scales
 #' @import openair
 #' @import ggplot2
-#' @import scales
 #' 
 #' @export
 #' 

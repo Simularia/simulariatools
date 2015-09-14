@@ -15,9 +15,8 @@
 #' 
 #' @return A \code{ggplot2} plot
 #' 
-#' @import ggplot2
-#' @import raster
-#'  
+#' @import ggplot2 raster
+#' 
 #' @export
 #' 
 #' @examples
@@ -45,43 +44,15 @@
 
 contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66) {
     
-#     if (missingArg(domain)) {
-#         xmin <- min(data[1])    # x coordinates minimum
-#         xmax <- max(data[1])    # x coordinates max
-#         ymin <- min(data[2])    # y coordinates min
-#         ymax <- max(data[2])    # y coordinates max
-#         nx <- 5                 # number of ticks along x axis
-#         ny <- 5                 # number of ticks along y axis
-#     } else {
-#         xmin <- domain[1]       # x coordinates minimum
-#         xmax <- domain[2]       # x coordinates max
-#         ymin <- domain[3]       # y coordinates min
-#         ymax <- domain[4]       # y coordinates max
-#         nx <- domain[5]         # number of ticks along x axis
-#         ny <- domain[6]         # number of ticks along y axis
-#     }
-    
-    
-#     lab_levels <- levels
-#     
-#     # if we have negative values offset with the minimum value to get positive levels
-#     #  next we will have to change the levels scale
-#     mv <- min(data[3], na.rm = T)
-#     if (mv < 0) {
-#         data[3] <- data[3] - floor(mv)
-#         lab_levels <- levels
-#         levels <- levels - floor(mv)
-#     } 
-#   
     # Convert input to raster
-    tt <- rasterFromXYZ(data)
+    tt <- raster::rasterFromXYZ(data)
     
     # Define plot domain
         if (missingArg(domain)) {
-            xmin <- xmin(tt)    # x coordinates minimum
-            xmax <- xmax(tt)    # x coordinates max
-            ymin <- ymin(tt)    # y coordinates min
-            ymax <- ymax(tt)    # y coordinates max
+            xmin <- raster::xmin(tt)    # x coordinates minimum
+            xmax <- raster::xmax(tt)    # x coordinates max
+            ymin <- raster::ymin(tt)    # y coordinates min
+            ymax <- raster::ymax(tt)    # y coordinates max
             nx <- 5                 # number of ticks along x axis
             ny <- 5                 # number of ticks along y axis
         } else {
@@ -104,26 +75,28 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
 
     # Extend data domain to be plotted
     for (i in (1:1)) {
-        et <- extent(xmin(tt) - 1 * res(tt)[1],
-                     xmax(tt) + 1 * res(tt)[1], 
-                     ymin(tt) - 1 * res(tt)[2],
-                     ymax(tt) + 1 * res(tt)[2])
-        mv <- min(values(tt))
-        ev <- min(values(tt)) - 1
-        ttE <- extend(tt, et, value = ev)
+        res1 = raster::res(tt)[1]
+        res2 = raster::res(tt)[2]
+        et <- raster::extent(raster::xmin(tt) - 1 * res1,
+                             raster::xmax(tt) + 1 * res1,
+                             raster::ymin(tt) - 1 * res2,
+                             raster::ymax(tt) + 1 * res2)
+        mv <- min(raster::values(tt))
+        ev <- min(raster::values(tt)) - 1
+        ttE <- raster::extend(tt, et, value = ev)
         tt <- ttE
     }
     
     # convert raster to dataframe 
-    ttP <- rasterToPoints(ttE)
+    ttP <- raster::rasterToPoints(ttE)
     ttDF <- data.frame(ttP)
     colnames(ttDF) <- c("x", "y", "z")
     
     # boundaries of extended domain
-    xminE <- xmin(ttE)
-    yminE <- ymin(ttE)
-    xmaxE <- xmax(ttE)
-    ymaxE <- ymax(ttE)
+    xminE <- raster::xmin(ttE)
+    yminE <- raster::ymin(ttE)
+    xmaxE <- raster::xmax(ttE)
+    ymaxE <- raster::ymax(ttE)
     
     
     # color palette (omit first color)
@@ -174,12 +147,12 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     v <- ggplot(ttDF, aes(x, y, z = z)) +
         annotation_custom(gimg, -Inf, Inf, -Inf, Inf)  +
         underlayer + 
-        stat_contour2( 
+        stat_hollow_contour(
+        # stat_contour( 
             aes(fill = factor(..level..)),
-            geom = "polygon2",
-            breaks = levels) +
-            # breaks = levels,
-            # alpha = transparency) + 
+            geom = "hollow_polygon",
+            breaks = levels,
+            alpha = transparency) +
         scale_fill_manual(lgndname, 
                           guide = guide_legend(reverse = T, label.vjust = 0), 
                           breaks = levels, 

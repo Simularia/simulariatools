@@ -4,20 +4,23 @@ dev_mode()
 library(grid)
 library(dplyr)
 library(ggplot2)
+library(simulariatools)
 
 test <- importRaster(fname = "~/Simularia/Progetti/Arianet/Italcementi_Palermo/data/spray/avg_SO2A15_inv.nc", k = 1000, destaggering = T, variable = "SO2A15")
 test <- test %>% filter(x < max(test$x), y < max(test$y))
 
-levels = c(0.1, 0.2)
+levels = c(0.1, 0.2, 0.3)
 
-ggplot(test, aes(x, y, z = z)) + stat_contour2(aes(fill = factor(..level..)), geom = "polygon2")
+ggplot(test, aes(x, y, z = z)) + stat_contour(aes(fill = factor(..level..)), breaks = levels, geom = "polygon")
+ggplot(test, aes(x, y, z = z)) + stat_hollow_contour(aes(fill = factor(..level..)), breaks = levels, geom = "hollow_polygon")
+
 
 contourPlot(test, background = "~/Simularia/Progetti/Arianet/Italcementi_Palermo/data/basemap.png", legend = "SO2", levels = levels)
 contourPlot_old(test, background = "~/Simularia/Progetti/Arianet/Italcementi_Palermo/data/basemap.png", legend = "SO2", levels = levels)
 
 levels <- c(0.1, 0.2, 0.3)
 contourPlot(test, legend = "SO2", levels = levels)
-contourPlot2(test, legend = "SO2", levels = levels)
+contourPlot_old(test, legend = "SO2", levels = levels)
 
 X = test$x; X <- unique(X); X <- sort(X)
 Y = test$y; Y <- unique(Y); Y <- sort(Y)
