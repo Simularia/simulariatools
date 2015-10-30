@@ -10,14 +10,12 @@ stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_poly
     layer(
         data = data,
         mapping = mapping,
-        stat = StatHollowContour,
         geom = geom,
+        stat = StatHollowContour,
         position = position, 
         show.legend = show.legend, 
         inherit.aes = inherit.aes,
-        params = list( na.rm = na.rm,
-                       ...
-                       )
+        params = list( na.rm = na.rm, ... )
     )
 }
 
@@ -26,7 +24,6 @@ stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_poly
 StatHollowContour <- ggproto("StatHollowContour", Stat,
                         required_aes = c("x", "y", "z"),
                         default_aes = aes(order = ..level..),
-                        
                         compute_group = function(data, scales, bins = NULL, binwidth = NULL,
                                                  breaks = NULL, complete = FALSE, na.rm = FALSE) {
                             # If no parameters set, use pretty bins
