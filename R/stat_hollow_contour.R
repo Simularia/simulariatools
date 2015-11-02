@@ -1,9 +1,7 @@
 #' Contour plot with hollow management
 #' 
 #' @import ggplot2
-#' 
 #' @export
-#' 
 stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_polygon",
                          position = "identity", na.rm = FALSE, show.legend = NA,
                          inherit.aes = TRUE, ...) {
@@ -90,7 +88,6 @@ contour_lines <- function(data, breaks, complete = FALSE) {
 
 setNewLevels <- function(levels) {
     lagLevels <- dplyr::lag(levels, n = 1, default = levels[1])
-
     i = 1
     newLevels <- c()
     for (ii in seq(1, length(levels))) {

@@ -9,7 +9,6 @@
 #' @return vector of clenaed data
 #' 
 #' @export
-#' 
 #' @examples
 #' # Remove data outside 5 time the interquartile range
 #' mydata$ws <- removeOutliers(mydata$ws, 5)

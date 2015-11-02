@@ -13,7 +13,6 @@
 #' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 #' 
 #' @export
-#' 
 #' @examples
 #' 
 #' # Plot histogram with monthly averages together with maxima and minima curves

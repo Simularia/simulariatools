@@ -11,7 +11,6 @@
 #' @return A \code{ggplot2} plot.
 #' 
 #' @export
-#' 
 #' @examples
 #' plotStabClass(t, cs="ClassStab", type="season")
 #' plotStabClass(t, type="hour")

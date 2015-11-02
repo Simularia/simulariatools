@@ -8,7 +8,6 @@
 #' @return A \code{ggplot2} plot.
 #' 
 #' @export
-#' 
 #' @examples
 #' plotAvgRad(mydata)
 #' plotAvgRad(mydata, rad="radg")

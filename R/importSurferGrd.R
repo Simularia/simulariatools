@@ -13,10 +13,8 @@
 #' 
 #' @return A dataset with x, y and z columns is returned.
 #' 
-#' @import reshape2
 #' 
 #' @export
-#' 
 #' @examples
 #' # Import Surfer Grd file and convert coordinates from km to m, with destaggering
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000)
@@ -62,7 +60,7 @@ importSurferGrd <- function(fname, k = 1000, destaggering = FALSE) {
     
     grd <- matrix(map, nx, ny)    
     
-    grd3d <- melt(grd)
+    grd3d <- reshape2::melt(grd)
     stepx <- (xmax - xmin) / (nx - 1)
     stepy <- (ymax - ymin) / (ny - 1)
     

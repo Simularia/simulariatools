@@ -8,7 +8,6 @@
 #' @param length The length of data subset where the maximum values has to be picked.
 #'   
 #' @export
-#' 
 #' @examples
 #' # Compute rolling max along 24 hours on hourly time serie
 #' t$radg24h <- rollingMax(mydata=t$radg, length=24)

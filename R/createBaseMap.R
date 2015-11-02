@@ -9,10 +9,7 @@
 #' 
 #' @return A \code{ggplot2} plot.
 #' 
-#' @import ggplot2 png
-#' 
 #' @export
-#' 
 #' @examples
 #' # Import image 'img'. Divide the axis with 9 ticks.
 #' v <- createBaseMap(img, c(minx, miny, extent, extent, 9, 9), font_size=10)

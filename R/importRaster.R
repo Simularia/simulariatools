@@ -23,7 +23,6 @@
 #'   
 #' @import raster
 #' @export
-#' 
 #' @examples
 #' # Import binary file and convert coordinates from km to m, without destaggering:
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, destaggering = FALSE)
@@ -34,9 +33,9 @@
 importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FALSE, variable = NULL, verbose = TRUE) {
     
     if (is.null(variable)) {
-        t <- raster::raster(fname)
+        t <- raster(fname)
     } else {
-        t <- raster::raster(fname, varname = variable)
+        t <- raster(fname, varname = variable)
     }
     
     # Apply conversion factor
@@ -78,5 +77,3 @@ importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FA
     colnames(grd3D) <- c("x", "y", "z")
     return(grd3D)
 }
-
-    

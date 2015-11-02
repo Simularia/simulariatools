@@ -15,8 +15,6 @@
 #' 
 #' @return A \code{ggplot2} plot
 #' 
-#' @export
-#' 
 #' @examples
 #' # Importa raster data
 #' data <- importRaster(paste(dir, inputfile, sep=""), k = 1000, variable = "CONCAN") 
@@ -39,6 +37,7 @@
 #' myUnderlayer[[2]] <- geom_path(data = strada, aes(long, lat, group = group), colour = "grey", size = 0.1, alpha = 0.5)
 #' contourPlot(data = test, background = "path_to/basemap.png", underlayer = myUnderlayer)
 #' 
+#' @export
 contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66) {
     
     # Convert input to raster

@@ -13,7 +13,6 @@
 #' @return \code{stabilityClass} returns a vector with stability Pasquill stability class as: A = 1, ... , F = 6.
 #' 
 #' @export
-#' 
 #' @examples
 #' # Compute Pasquill stability class as in ARIA Impact
 #' mydata$sc <- stabilityClass(mydata$rad, mydata$tcc, mydata$ws, option="pasquill")
