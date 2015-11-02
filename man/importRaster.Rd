@@ -18,19 +18,22 @@ importRaster(fname, k = 1, kz = 1, dx = 0, dy = 0,
 
 \item{dy}{float. Shift y coordinates by dy (default = 0).}
 
-\item{destaggering}{logical. If `TRUE` destaggering is applied (default = FALSE).}
+\item{destaggering}{logical. If `TRUE` destaggering is applied (default =
+FALSE).}
 
 \item{variable}{(string) name of the variable to be extracted (if any).}
 
-\item{verbose}{logical. If `TRUE` print out basic statistics (default = TRUE).}
+\item{verbose}{logical. If `TRUE` print out basic statistics (default =
+  TRUE).}
 }
 \value{
 A dataset with x, y and z columns is returned.
 }
 \description{
-The function import the first layer of a generic raster file. Data are imported as an array of x, y, z columns.
-X and y coordinats can be converted from km to m (default k=1000) and viceversa.
-Destaggering is applied by default.
+The function import the first layer of a generic raster file. Data are
+imported as an array of x, y, z columns. X and y coordinats can be converted
+from km to m (default k=1000) and viceversa. Destaggering is applied by
+default.
 }
 \details{
 In output summery data are plotted.

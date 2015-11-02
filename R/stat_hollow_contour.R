@@ -69,10 +69,16 @@ contour_lines <- function(data, breaks, complete = FALSE) {
     # group by levels and then in the geometry group by piece
     # mlevels <- gsub("[.]", "", levels)
     # groups <- paste(data$group[1], sprintf("%s", mlevels), sep = "-")
-    mlevels <- gsub("[.]", "0", levels)
-    groups <- paste(data$group[1], sprintf("%s", mlevels), sep = "-")
+    
+    # method 1
+    # mlevels <- gsub("[.]", "0", levels)
+    # groups <- paste(data$group[1], sprintf("%04s", mlevels), sep = "-")
+    
+    # method 2
+    nLevels <- setNewLevels(levels)
+    groups <- paste(data$group[1], sprintf("%03d", nLevels), sep = "-")
+    
     groups <- rep(groups, lengths)
-
     data.frame(
         level = rep(levels, lengths),
         x = xs,
@@ -82,3 +88,15 @@ contour_lines <- function(data, breaks, complete = FALSE) {
     )
 }
 
+setNewLevels <- function(levels) {
+    lagLevels <- dplyr::lag(levels, n = 1, default = levels[1])
+
+    i = 1
+    newLevels <- c()
+    for (ii in seq(1, length(levels))) {
+        if (levels[ii] != lagLevels[ii]) 
+            i = i + 1
+        newLevels[ii] = i
+    }
+    return(newLevels)
+}

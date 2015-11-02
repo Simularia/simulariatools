@@ -1,23 +1,26 @@
 #' Import generic raster file
 #' 
-#' The function import the first layer of a generic raster file. Data are imported as an array of x, y, z columns.
-#' X and y coordinats can be converted from km to m (default k=1000) and viceversa.
-#' Destaggering is applied by default.
+#' The function import the first layer of a generic raster file. Data are
+#' imported as an array of x, y, z columns. X and y coordinats can be converted
+#' from km to m (default k=1000) and viceversa. Destaggering is applied by
+#' default.
 #' 
 #' In output summery data are plotted.
 #' 
-#'  
+#' 
 #' @param fname (character) raster file to be imported.
 #' @param k float. Factor to be applied to x and y coordinates (default = 1).
 #' @param kz float. Factor to be applied to z values (default = 1).
 #' @param dx float. Shift x coordinates by dx (default = 0).
 #' @param dy float. Shift y coordinates by dy (default = 0).
-#' @param destaggering logical. If `TRUE` destaggering is applied (default = FALSE).
+#' @param destaggering logical. If `TRUE` destaggering is applied (default =
+#'   FALSE).
 #' @param variable (string) name of the variable to be extracted (if any).
-#' @param verbose logical. If `TRUE` print out basic statistics (default = TRUE).
-#' 
+#' @param verbose logical. If `TRUE` print out basic statistics (default =
+#'   TRUE).
+#'   
 #' @return A dataset with x, y and z columns is returned.
-#' 
+#'   
 #' @import raster
 #' @export
 #' 
@@ -31,9 +34,9 @@
 importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FALSE, variable = NULL, verbose = TRUE) {
     
     if (is.null(variable)) {
-        t <- raster(fname)
+        t <- raster::raster(fname)
     } else {
-        t <- raster(fname, varname = variable)
+        t <- raster::raster(fname, varname = variable)
     }
     
     # Apply conversion factor
