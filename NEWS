@@ -1,7 +1,7 @@
-simulariatools 0.7
+simulariatools 1.0
 ==================
 
-* new `geom_hollow_polygon` and `stat_hollow_contour` to correctly plot hollows in filled contour plots.
+* New `geom_hollow_polygon` and `stat_hollow_contour` to correctly plot hollows in filled contour plots.
 
 
 simulariatools 0.6.5
