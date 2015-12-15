@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 *.swp
+*.nc
+test_contour.R

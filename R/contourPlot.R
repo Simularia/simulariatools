@@ -7,7 +7,7 @@
 #' @param data A dataframe containing data to be plotted in the form of X, Y and Z (levels).
 #' @param domain An array with min X, max X, min Y, max Y, number of ticks on X axis, number of ticks on Y axis (optional).
 #' @param background String containing the path to the png file to be plotted as a basemap (optional).
-#' @param undelayer Array of strings containing layers to be plotted between basemap and contour plot (optional).
+#' @param underlayer Array of strings containing layers to be plotted between basemap and contour plot (optional).
 #' @param overlayer Array of strings containing layers to be plotted on top of the contour plot (optional).
 #' @param legend (string) Legend title (optional).
 #' @param levels Array of levels for contour plot. If not set, automatic levels are plotted.

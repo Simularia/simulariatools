@@ -5,23 +5,22 @@ Version: 0.6.5.9000
 Date: 2015-11-02
 Author: Giuseppe Carlino <g.carlino@simularia.it>
 Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
-Description: A set of tools developed at Simularia to help the pre and post
-    processing of meteorological and air quality data.
+Description: A set of tools developed at Simularia for Simularia, to help the
+    pre and post processing of meteorological and air quality data.
 Depends: 
-    R (>= 2.14),
-    ggplot2 (>= 1.0.1.9003)
-Import: 
+    R (>= 3.2.0)
+Imports: 
+    ggplot2 (>= 2.0.0),
     raster,
     grid,
     scales,
     reshape2,
     RColorBrewer,
     openair,
-    png
-Suggest: 
+    png,
+    dplyr
 License: GPL-2
 URL: https://github.com/Simularia/simulariatools
 BugReports: https://github.com/Simularia/simulariatools/issues
 LazyData: true
-RoxygenNote: 5.0.0
-Imports: raster
+RoxygenNote: 5.0.1

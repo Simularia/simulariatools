@@ -14,6 +14,8 @@ contourPlot(data, domain, background, underlayer, overlayer, legend = NULL,
 
 \item{background}{String containing the path to the png file to be plotted as a basemap (optional).}
 
+\item{underlayer}{Array of strings containing layers to be plotted between basemap and contour plot (optional).}
+
 \item{overlayer}{Array of strings containing layers to be plotted on top of the contour plot (optional).}
 
 \item{legend}{(string) Legend title (optional).}
@@ -21,8 +23,6 @@ contourPlot(data, domain, background, underlayer, overlayer, legend = NULL,
 \item{levels}{Array of levels for contour plot. If not set, automatic levels are plotted.}
 
 \item{transparency}{Transparency level of the contour plot (between 0 and 1)}
-
-\item{undelayer}{Array of strings containing layers to be plotted between basemap and contour plot (optional).}
 }
 \value{
 A \code{ggplot2} plot

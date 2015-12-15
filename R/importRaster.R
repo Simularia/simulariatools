@@ -21,7 +21,6 @@
 #'   
 #' @return A dataset with x, y and z columns is returned.
 #'   
-#' @import raster
 #' @export
 #' @examples
 #' # Import binary file and convert coordinates from km to m, without destaggering:
@@ -33,46 +32,46 @@
 importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FALSE, variable = NULL, verbose = TRUE) {
     
     if (is.null(variable)) {
-        t <- raster(fname)
+        t <- raster::raster(fname)
     } else {
-        t <- raster(fname, varname = variable)
+        t <- raster::raster(fname, varname = variable)
     }
     
     # Apply conversion factor
-    xmax(t) <- xmax(t) * k
-    xmin(t) <- xmin(t) * k
-    ymax(t) <- ymax(t) * k
-    ymin(t) <- ymin(t) * k
+    raster::xmax(t) <- raster::xmax(t) * k
+    raster::xmin(t) <- raster::xmin(t) * k
+    raster::ymax(t) <- raster::ymax(t) * k
+    raster::ymin(t) <- raster::ymin(t) * k
     
     # Apply value factor
     t <- t * kz
     
     # Apply destaggering
     if (destaggering == TRUE) {
-        t <- shift(t, x = res(t)[1] / 2., y = res(t)[2] / 2.)
+        t <- raster::shift(t, x = raster::res(t)[1] / 2., y = raster::res(t)[2] / 2.)
     }
     
     # Shift coordinates
-    t <- shift(t, x = dx, y = dy)
+    t <- raster::shift(t, x = dx, y = dy)
     
     # Print some values
     if (verbose == TRUE) {
-        xvalues <- c(xmin(t), xmax(t), res(t)[1])
+        xvalues <- c(raster::xmin(t), raster::xmax(t), raster::res(t)[1])
         cat("\nX (min, max, dx)  :")
         cat(sprintf(fmt = "%12.3f", xvalues))
     
-        yvalues <- c(ymin(t), ymax(t), res(t)[2])
+        yvalues <- c(raster::ymin(t), raster::ymax(t), raster::res(t)[2])
         cat("\nY (min, max, dy)  :")
         cat(sprintf(fmt = "%12.3f", yvalues))
     
-        zvalues <- c(cellStats(t, min), cellStats(t, max), cellStats(t, mean))
+        zvalues <- c(raster::cellStats(t, min), raster::cellStats(t, max), raster::cellStats(t, mean))
         cat("\nZ (min, max, mean):")
         cat(sprintf(fmt = "%12.2e", zvalues))
     }
 
     
     # Export dataframe with x, y, x columns
-    grd3D <- rasterToPoints(t)
+    grd3D <- raster::rasterToPoints(t)
     grd3D <- data.frame(grd3D)
     colnames(grd3D) <- c("x", "y", "z")
     return(grd3D)
