@@ -102,10 +102,11 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     # color palette (omit first color)
     if (is.null(colors)) {
         myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+        myColors <- myPalette(length(levels)+1)[-c(1,1)]
     } else {
         myPalette = colorRampPalette(colors)
+        myColors <- myPalette(length(levels))
     }
-    myColors <- myPalette(length(levels)+1)[-c(1,1)]
     
     # Legend
     if (is.null(legend)) {
