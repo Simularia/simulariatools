@@ -1,3 +1,9 @@
+simulariatools 1.0.1
+==================
+
+* new `colors` parameter to `contourPlot` for user defined color palette.
+
+
 simulariatools 1.0
 ==================
 

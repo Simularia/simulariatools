@@ -5,7 +5,7 @@
 \title{Contour plot of pollutant concentration}
 \usage{
 contourPlot(data, domain, background, underlayer, overlayer, legend = NULL,
-  levels = NULL, transparency = 0.66)
+  levels = NULL, transparency = 0.66, colors = NULL)
 }
 \arguments{
 \item{data}{A dataframe containing data to be plotted in the form of X, Y and Z (levels).}
@@ -23,6 +23,8 @@ contourPlot(data, domain, background, underlayer, overlayer, legend = NULL,
 \item{levels}{Array of levels for contour plot. If not set, automatic levels are plotted.}
 
 \item{transparency}{Transparency level of the contour plot (between 0 and 1)}
+
+\item{colors}{Color palette for contour plot}
 }
 \value{
 A \code{ggplot2} plot
@@ -54,6 +56,9 @@ myUnderlayer <- vector(mode = "list", length = 2)
 myUnderlayer[[1]] <- geom_polygon(data = perimetro, aes(long, lat, group = group), colour = "black", fill = NA, size = 0.1, alpha = 0.5)
 myUnderlayer[[2]] <- geom_path(data = strada, aes(long, lat, group = group), colour = "grey", size = 0.1, alpha = 0.5)
 contourPlot(data = test, background = "path_to/basemap.png", underlayer = myUnderlayer)
+
+# Change default colour palette
+contourPlot(data = test, colors = RColorBrewer::brewer.pal(3, name = "PiYG"))
 
 }
 

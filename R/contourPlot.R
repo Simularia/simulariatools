@@ -12,6 +12,7 @@
 #' @param legend (string) Legend title (optional).
 #' @param levels Array of levels for contour plot. If not set, automatic levels are plotted.
 #' @param transparency Transparency level of the contour plot (between 0 and 1)
+#' @param colors Color palette for contour plot
 #' 
 #' @return A \code{ggplot2} plot
 #' 
@@ -37,8 +38,11 @@
 #' myUnderlayer[[2]] <- geom_path(data = strada, aes(long, lat, group = group), colour = "grey", size = 0.1, alpha = 0.5)
 #' contourPlot(data = test, background = "path_to/basemap.png", underlayer = myUnderlayer)
 #' 
+#' # Change default colour palette
+#' contourPlot(data = test, colors = RColorBrewer::brewer.pal(3, name = "PiYG"))
+#' 
 #' @export
-contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66) {
+contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66, colors = NULL) {
     
     # Convert input to raster
     tt <- raster::rasterFromXYZ(data)
@@ -96,7 +100,11 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     
     
     # color palette (omit first color)
-    myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+    if (is.null(colors)) {
+        myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+    } else {
+        myPalette = colorRampPalette(colors)
+    }
     myColors <- myPalette(length(levels)+1)[-c(1,1)]
     
     # Legend
