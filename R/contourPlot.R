@@ -77,14 +77,22 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     for (i in (1:1)) {
         res1 = raster::res(tt)[1]
         res2 = raster::res(tt)[2]
-        et <- raster::extent(raster::xmin(tt) - 1 * res1,
-                             raster::xmax(tt) + 1 * res1,
-                             raster::ymin(tt) - 1 * res2,
-                             raster::ymax(tt) + 1 * res2)
+        et <- raster::extent(raster::xmin(tt) - 10 * res1,
+                             raster::xmax(tt) + 10 * res1,
+                             raster::ymin(tt) - 10 * res2,
+                             raster::ymax(tt) + 10 * res2)
         mv <- min(raster::values(tt))
-        ev <- min(raster::values(tt)) - 1
+        # ev <- min(raster::values(tt)) - 1
+        for (j in seq(1, length(lab_levels))) {
+            if (lab_levels[j] < mv)
+                ev <- lab_levels[j]
+        }
+        if (ev != min(lab_levels)) {
+            ev <- ev - lab_levels[j-1] / 10
+        } else {
+            ev <- ev - ev / 10.
+        }
         ttE <- raster::extend(tt, et, value = ev)
-        tt <- ttE
     }
     
     # convert raster to dataframe 
