@@ -12,11 +12,12 @@
 #' @param legend (string) Legend title (optional).
 #' @param levels Array of levels for contour plot. If not set, automatic levels are plotted.
 #' @param transparency Transparency level of the contour plot (between 0 and 1)
+#' @param colors Color palette for contour plot
 #' 
 #' @return A \code{ggplot2} plot
 #' 
 #' @examples
-#' # Importa raster data
+#' # Import raster data
 #' data <- importRaster(paste(dir, inputfile, sep=""), k = 1000, variable = "CONCAN") 
 #' 
 #' # Simple contour plot
@@ -37,8 +38,11 @@
 #' myUnderlayer[[2]] <- geom_path(data = strada, aes(long, lat, group = group), colour = "grey", size = 0.1, alpha = 0.5)
 #' contourPlot(data = test, background = "path_to/basemap.png", underlayer = myUnderlayer)
 #' 
+#' # Change default colour palette
+#' contourPlot(data = test, colors = RColorBrewer::brewer.pal(3, name = "PiYG"))
+#' 
 #' @export
-contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66) {
+contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66, colors = NULL) {
     
     # Convert input to raster
     tt <- raster::rasterFromXYZ(data)
@@ -62,7 +66,6 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     
     # Automatic scales
     if (is.null(levels)) {
-    #if (missingArg(levels)) {
         nlevels <- 7
         levels <- pretty(range(raster::values(tt), na.rm = T), n = nlevels, min.n = 4)
     }
@@ -71,16 +74,47 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
 
     # Extend data domain to be plotted
     for (i in (1:1)) {
-        res1 = raster::res(tt)[1]
-        res2 = raster::res(tt)[2]
-        et <- raster::extent(raster::xmin(tt) - 1 * res1,
-                             raster::xmax(tt) + 1 * res1,
-                             raster::ymin(tt) - 1 * res2,
-                             raster::ymax(tt) + 1 * res2)
-        mv <- min(raster::values(tt))
-        ev <- min(raster::values(tt)) - 1
-        ttE <- raster::extend(tt, et, value = ev)
-        tt <- ttE
+        
+        for (idx in seq(1, 1)) {
+            # Extend top and boottom rows
+            ttx1 = raster::crop(tt, raster::extent(tt, 1, 1, 1, raster::ncol(tt)))
+            raster::ymin(ttx1) <- raster::ymax(tt)
+            raster::ymax(ttx1) <- raster::ymax(tt) + raster::res(tt)[2]
+            ttxN = raster::crop(tt, raster::extent(tt, raster::nrow(tt), raster::nrow(tt), 1, raster::ncol(tt)))
+            raster::ymax(ttxN) <- raster::ymin(tt)
+            raster::ymin(ttxN) <- raster::ymin(tt) - raster::res(tt)[2]
+            ttE <- raster::merge(tt, ttx1)
+            ttE <- raster::merge(ttE, ttxN)
+        
+            # Extend left and right columns
+            tty1 = raster::crop(tt, raster::extent(tt, 1, raster::nrow(tt), 1, 1))
+            raster::xmin(tty1) = raster::xmin(tt) - raster::res(tt)[1]
+            raster::xmax(tty1) = raster::xmin(tt)
+            ttyN = raster::crop(tt, raster::extent(tt, 1, raster::nrow(tt), raster::ncol(tt), raster::ncol(tt)))
+            raster::xmin(ttyN) <- raster::xmax(tt)
+            raster::xmax(ttyN) <- raster::xmax(tt) + raster::res(tt)[1]
+            ttE <- raster::merge(ttE, tty1)
+            ttE <- raster::merge(ttE, ttyN)
+            tt <- ttE
+        }
+
+        et <- raster::extent(raster::xmin(ttE) - 1 * raster::res(tt)[1],
+                             raster::xmax(ttE) + 1 * raster::res(tt)[1],
+                             raster::ymin(ttE) - 1 * raster::res(tt)[2],
+                             raster::ymax(ttE) + 1 * raster::res(tt)[2])
+        mv <- min(raster::values(tt), na.rm = T)
+        j <- 1
+        while(lab_levels[j] < mv) {
+            j <- j + 1
+        }
+        if (j != 1) {
+            ev <- lab_levels[j - 1]
+        } else {
+            ev <- lab_levels[1]
+        }
+        # ev <- ev - ev/10.
+
+        ttE <- raster::extend(ttE, et, value = ev)
     }
     
     # convert raster to dataframe 
@@ -96,12 +130,16 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     
     
     # color palette (omit first color)
-    myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
-    myColors <- myPalette(length(levels)+1)[-c(1,1)]
+    if (is.null(colors)) {
+        myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+        myColors <- myPalette(length(levels)+1)[-c(1,1)]
+    } else {
+        myPalette = colorRampPalette(colors)
+        myColors <- myPalette(length(levels))
+    }
     
     # Legend
     if (is.null(legend)) {
-    #if (missingArg(legend)) {
         legend <- ""
     }
     # prettify legend title
@@ -139,20 +177,18 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
 
     
     # Contour plot
-    
     v <- ggplot(ttDF, aes(x, y, z = z)) +
         annotation_custom(gimg, -Inf, Inf, -Inf, Inf)  +
         underlayer + 
         stat_hollow_contour(
-        # stat_contour( 
             aes(fill = factor(..level..)),
             geom = "hollow_polygon",
             breaks = levels,
             alpha = transparency) +
         scale_fill_manual(lgndname, 
                           guide = guide_legend(reverse = T, label.vjust = 0), 
-                          breaks = levels, 
-                          limits = levels, 
+                          breaks = levels,
+                          limits = levels,
                           labels = lab_levels,
                           values = myColors) +
         scale_x_continuous(name = "x [m]", 
@@ -166,7 +202,6 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
         theme_bw(base_size = 10, base_family = "Arial") +
         coord_fixed(ratio = 1, xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
         overlayer
-  
   
     return(v)
 }

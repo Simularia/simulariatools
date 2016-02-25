@@ -18,7 +18,8 @@ Imports:
     RColorBrewer,
     openair,
     png,
-    dplyr
+    dplyr,
+    contoureR
 License: GPL-2
 URL: https://github.com/Simularia/simulariatools
 BugReports: https://github.com/Simularia/simulariatools/issues
