@@ -31,6 +31,7 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                                      coords$x, coords$y, 
                                      default.units = "native",
                                      rule = "evenodd",
+                                     # rule = "winding",
                                      id = coords$piece,
                                      gp = grid::gpar(
                                          # col = first_row$colour,
