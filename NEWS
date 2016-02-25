@@ -1,7 +1,31 @@
-simulariatools 0.7
+simulariatools 1.0.4
 ==================
 
-* new `geom_hollow_polygon` and `stat_hollow_contour` to correctly plot hollows in filled contour plots.
+* Improved treatment of borders in `contourPlot`.
+
+
+simulariatools 1.0.3
+==================
+
+* Fixed bug when extending domain to close contour lines.
+
+
+simulariatools 1.0.2
+==================
+
+* Fixed bug in user defined colors for `contourPlot`.
+
+
+simulariatools 1.0.1
+==================
+
+* New `colors` parameter to `contourPlot` for user defined color palette.
+
+
+simulariatools 1.0
+==================
+
+* New `geom_hollow_polygon` and `stat_hollow_contour` to correctly plot hollows in filled contour plots.
 
 
 simulariatools 0.6.5
