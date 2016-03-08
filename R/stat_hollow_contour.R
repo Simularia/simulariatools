@@ -5,7 +5,7 @@
 stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_polygon",
                          position = "identity", na.rm = FALSE, show.legend = NA,
                          inherit.aes = TRUE, ...) {
-    layer(
+    ggplot2::layer(
         data = data,
         mapping = mapping,
         geom = geom,
@@ -17,13 +17,12 @@ stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_poly
     )
 }
 
-
 #' @export
 StatHollowContour <- ggproto("StatHollowContour", Stat,
                         required_aes = c("x", "y", "z"),
-                        default_aes = aes(order = ..level..),
+                        # default_aes = aes(order = ..level..),
                         compute_group = function(data, scales, bins = NULL, binwidth = NULL,
-                                                 breaks = NULL, complete = FALSE, na.rm = FALSE) {
+                                                 breaks = NULL, na.rm = FALSE) {
                             # If no parameters set, use pretty bins
                             if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
                                 breaks <- pretty(range(data$z), 10)
@@ -36,54 +35,23 @@ StatHollowContour <- ggproto("StatHollowContour", Stat,
                             if (is.null(breaks)) {
                                 breaks <- fullseq(range(data$z), binwidth)
                             }
-                            contour_lines(data, breaks, complete = complete)
+                            # contour_lines(data, breaks, complete = complete)
+                            contour_lines(data, breaks)
                         }
 )
 
 
-contour_lines <- function(data, breaks, complete = FALSE) {
+# contour_lines <- function(data, breaks, complete = FALSE) {
+contour_lines <- function(data, breaks) {
     z <- tapply(data$z, data[c("x", "y")], identity)
 
-    # cl <- grDevices::contourLines(
-        # x = sort(unique(data$x)), y = sort(unique(data$y)), z = z,
-        # levels = breaks)
     cl2 <- contoureR::getContourLines(x = data$x, y = data$y, z = data$z, levels = breaks)
 
     if (length(cl2) == 0) {
         warning("Not possible to generate contour data", call. = FALSE)
         return(data.frame())
     }
-    
-    # # Convert list of lists into single data frame
-    # lengths <- vapply(cl, function(x) length(x$x), integer(1))
-    # levels <- vapply(cl, "[[", "level", FUN.VALUE = double(1))
-    # xs <- unlist(lapply(cl, "[[", "x"), use.names = FALSE)
-    # ys <- unlist(lapply(cl, "[[", "y"), use.names = FALSE)
-    # pieces <- rep(seq_along(cl), lengths)
-    # # Add leading zeros so that groups can be properly sorted later
-    # # groups <- paste(data$group[1], sprintf("%03d", pieces), sep = "-")
-    # 
-    # # group by levels and then in the geometry group by piece
-    # # mlevels <- gsub("[.]", "", levels)
-    # # groups <- paste(data$group[1], sprintf("%s", mlevels), sep = "-")
-    # 
-    # # method 1
-    # # mlevels <- gsub("[.]", "0", levels)
-    # # groups <- paste(data$group[1], sprintf("%04s", mlevels), sep = "-")
-    # 
-    # # method 2
-    # nLevels <- setNewLevels(levels)
-    # groups <- paste(data$group[1], sprintf("%03d", nLevels), sep = "-")
-    # 
-    # groups <- rep(groups, lengths)
-    # data.frame(
-    #     level = rep(levels, lengths),
-    #     x = xs,
-    #     y = ys,
-    #     piece = pieces,
-    #     group = groups
-    # )
-    # 
+
     data.frame(
         level = cl2$z,
         x = cl2$x,
@@ -92,15 +60,3 @@ contour_lines <- function(data, breaks, complete = FALSE) {
         group = cl2$LID
     )
 }
-
-# setNewLevels <- function(levels) {
-#     lagLevels <- dplyr::lag(levels, n = 1, default = levels[1])
-#     i = 1
-#     newLevels <- c()
-#     for (ii in seq(1, length(levels))) {
-#         if (levels[ii] != lagLevels[ii]) 
-#             i = i + 1
-#         newLevels[ii] = i
-#     }
-#     return(newLevels)
-# }

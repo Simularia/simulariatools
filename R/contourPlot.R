@@ -97,7 +97,7 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
             ttE <- raster::merge(ttE, ttyN)
             tt <- ttE
         }
-
+        
         et <- raster::extent(raster::xmin(ttE) - 1 * raster::res(tt)[1],
                              raster::xmax(ttE) + 1 * raster::res(tt)[1],
                              raster::ymin(ttE) - 1 * raster::res(tt)[2],
@@ -161,17 +161,11 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     
     # Underlayer
     if (missingArg(underlayer)) {
-        # img <- matrix(data = NA, nrow = 10, ncol = 10)
-        # ugrob <- grid::rasterGrob(img, interpolate = T)
-        # underlayer <- annotation_custom(ugrob, -Inf, Inf, -Inf, Inf)
         underlayer <- geom_blank()
     }
     
     # Overlayer
     if (missingArg(overlayer)) {
-        # img <- matrix(data = NA, nrow = 10, ncol = 10)
-        # ogrob <- grid::rasterGrob(img, interpolate = T)
-        # overlayer <- annotation_custom(ogrob, -Inf, Inf, -Inf, Inf)
         overlayer <- geom_blank()
     }
 
@@ -183,6 +177,7 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
         stat_hollow_contour(
             aes(fill = factor(..level..)),
             geom = "hollow_polygon",
+            size = 0.,
             breaks = levels,
             alpha = transparency) +
         scale_fill_manual(lgndname, 
