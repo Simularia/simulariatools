@@ -1,7 +1,7 @@
 Package: simulariatools
 Type: Package
 Title: Data analysis tools
-Version: 1.0.4
+Version: 1.0.4.9999
 Date: 2016-02-25
 Author: Giuseppe Carlino <g.carlino@simularia.it>
 Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
@@ -10,7 +10,7 @@ Description: A set of tools developed at Simularia for Simularia, to help the
 Depends: 
     R (>= 3.2.0)
 Imports: 
-    ggplot2 (>= 2.0.0),
+    ggplot2 (>= 2.1.0),
     raster,
     grid,
     scales,

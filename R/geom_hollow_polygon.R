@@ -6,17 +6,17 @@
 #'             See http://docs.ggplot2.org/dev/vignettes/extending-ggplot2.html
 #'
 #' @import ggplot2
-#' @export
+#' @export 
 GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                              required_aes = c("x", "y"),
-                             
                              default_aes = aes(
-                                 colour = NA, fill = "grey20", size = 0.5,
-                                 linetype = 1, alpha = 1
+                                 colour = NA, 
+                                 fill = "grey20", 
+                                 size = 0.5,
+                                 linetype = 1, 
+                                 alpha = 1
                              ),
-                             
                              draw_key = draw_key_polygon,
-                             
                              draw_group = function(data, panel_scales, coord) {
                                  n <- nrow(data)
                                  if (n <= 2) return(grid::nullGrob())
@@ -34,7 +34,6 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                                      # rule = "winding",
                                      id = coords$piece,
                                      gp = grid::gpar(
-                                         # col = first_row$colour,
                                          col =  scales::alpha(first_row$fill, first_row$alpha),
                                          fill = scales::alpha(first_row$fill, first_row$alpha),
                                          lwd =  first_row$size * .pt,
