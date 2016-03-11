@@ -97,7 +97,6 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
             ttE <- raster::merge(ttE, ttyN)
             tt <- ttE
         }
-        
         et <- raster::extent(raster::xmin(ttE) - 1 * raster::res(tt)[1],
                              raster::xmax(ttE) + 1 * raster::res(tt)[1],
                              raster::ymin(ttE) - 1 * raster::res(tt)[2],
