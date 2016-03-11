@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+.RDataTmp
 *.swp
 *.nc
 *.grd
