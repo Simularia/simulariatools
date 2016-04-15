@@ -1,3 +1,10 @@
+simulariatools 1.0.5.9999
+=========================
+
+* `contourPlot`:
+    - Fixed bug when lowest level to plot is negative, as in delta maps;
+    - Fixed bug when there is an overlay to plot. 
+
 simulariatools 1.0.5
 ====================
 
