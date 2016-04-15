@@ -71,7 +71,6 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     }
     lab_levels <- levels
 
-
     # Extend data domain to be plotted
     for (i in (1:1)) {
         
@@ -112,6 +111,9 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
             ev <- lab_levels[1]
         }
         # ev <- ev - ev/10.
+        if (lab_levels[1] < 0.) {
+            ev <- lab_levels[1] - 1.
+        }
 
         ttE <- raster::extend(ttE, et, value = ev)
     }
@@ -133,7 +135,7 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
         myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
         myColors <- myPalette(length(levels)+1)[-c(1,1)]
     } else {
-        myPalette = colorRampPalette(colors)
+        myPalette = colorRampPalette(colors, alpha = T)
         myColors <- myPalette(length(levels))
     }
     
@@ -168,17 +170,18 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
         overlayer <- geom_blank()
     }
 
-    
     # Contour plot
-    v <- ggplot(ttDF, aes(x, y, z = z)) +
+    v <- ggplot(ttDF) +
         annotation_custom(gimg, -Inf, Inf, -Inf, Inf)  +
         underlayer + 
         stat_hollow_contour(
-            aes(fill = factor(..level..)),
+            data = ttDF,
+            aes(x, y, z = z, fill = factor(..level..)),
             geom = "hollow_polygon",
             size = 0.,
             breaks = levels,
-            alpha = transparency) +
+            alpha = transparency,
+            na.rm = TRUE) +
         scale_fill_manual(lgndname, 
                           guide = guide_legend(reverse = T, label.vjust = 0), 
                           breaks = levels,
