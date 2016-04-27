@@ -6,8 +6,7 @@
 *.nc
 *.grd
 test_contour.R
-.RData
-.RBuilignore
+.RBuildignore
 .DS_Store
 .Rprofile
 test/
