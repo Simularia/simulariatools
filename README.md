@@ -1,5 +1,8 @@
 # simulariatools
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.165117)
+
+
 `simulariatools` is a collection of functions and tools useful to pre and post process data for air quality assessment. It is developed and mantained by the people at [Simularia](www.simularia.it).
 
 ## List of functions
@@ -18,7 +21,7 @@
 ## Install
 
 You can install it from github repository, through the `devtools` package:
- 
+
     library("devtools")
     install_github("Simularia/simulariatools")
 
@@ -32,7 +35,7 @@ If you are interested, you can track development and contribute at http://github
 Contact person:
     Giuseppe Carlino
     g.carlino@simularia.it
-    
+
 ## License
 
 `simulariatools` is distributed under the GPL-2 license.
