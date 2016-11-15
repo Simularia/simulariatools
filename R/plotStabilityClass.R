@@ -28,7 +28,8 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
     
     pasquill <- c("A", "B", "C", "D", "E", "F")
     mydata$clname <- pasquill[mydata[,sc]]
-    mydata$clname <- factor(mydata$clname, levels = c('F', 'E', 'D', 'C', 'B', 'A'))
+    # mydata$clname <- factor(mydata$clname, levels = c('F', 'E', 'D', 'C', 'B', 'A'))
+    mydata$clname <- factor(mydata$clname, levels = sort(unique(mydata$clname), decreasing = T))
     
 #     simudata$sc[simudata$sc == 1] <- "A"
 #     simudata$sc[simudata$sc == 2] <- "B"
@@ -39,14 +40,17 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
 
 
     if (type == "season") {
-        mydata$quarter <- quarters(mydata$date)
-        mydata$quarter[mydata$quarter == "Q1"] <- "Inverno"
-        mydata$quarter[mydata$quarter == "Q2"] <- "Primavera"
-        mydata$quarter[mydata$quarter == "Q3"] <- "Estate"
-        mydata$quarter[mydata$quarter == "Q4"] <- "Autunno"
-        mydata$quarter <- factor(mydata$quarter, levels = c("Inverno", "Primavera", "Estate", "Autunno"))
+        mydata <- openair::cutData(mydata, type = 'season')
+        # mydata$quarter <- quarters(mydata$date)
+        # mydata$quarter[mydata$quarter == "Q1"] <- "Inverno"
+        # mydata$quarter[mydata$quarter == "Q2"] <- "Primavera"
+        # mydata$quarter[mydata$quarter == "Q3"] <- "Estate"
+        # mydata$quarter[mydata$quarter == "Q4"] <- "Autunno"
+        # mydata$season <- factor(mydata$season, levels = c("Inverno", "Primavera", "Estate", "Autunno"))
         
-        v <- ggplot(mydata, aes(x = quarter, fill = clname)) +
+        mydata$season <- factor(mydata$season, levels = unique(mydata$season))
+
+        v <- ggplot(mydata, aes(x = season, fill = clname)) +
             geom_bar(position = "fill")
 
     } else {

@@ -1,7 +1,7 @@
 Package: simulariatools
 Type: Package
 Title: Data analysis tools
-Version: 1.0.7
+Version: 1.0.7.9999
 Date: 2016-11-15
 Author: Giuseppe Carlino <g.carlino@simularia.it>
 Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
