@@ -12,8 +12,8 @@
 #' 
 #' @export
 #' @examples
-#' plotStabClass(t, cs="ClassStab", type="season")
-#' plotStabClass(t, type="hour")
+#' plotStabClass(t, cs = "ClassStab", type = "season")
+#' plotStabClass(t, cs = "STABILITY", type = "hour")
 #' 
 plotStabilityClass <- function(mydata, sc="sc", type="season") {
 
@@ -28,6 +28,7 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
     
     pasquill <- c("A", "B", "C", "D", "E", "F")
     mydata$clname <- pasquill[mydata[,sc]]
+    mydata$clname <- factor(mydata$clname, levels = c('F', 'E', 'D', 'C', 'B', 'A'))
     
 #     simudata$sc[simudata$sc == 1] <- "A"
 #     simudata$sc[simudata$sc == 2] <- "B"
@@ -43,26 +44,29 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
         mydata$quarter[mydata$quarter == "Q2"] <- "Primavera"
         mydata$quarter[mydata$quarter == "Q3"] <- "Estate"
         mydata$quarter[mydata$quarter == "Q4"] <- "Autunno"
-        mydata$quarter <- factor(mydata$quarter, levels=c("Inverno", "Primavera", "Estate", "Autunno"))
-        v <- ggplot(data=mydata, aes(x=quarter)) + 
-            geom_bar(aes(fill=clname), position="fill")
+        mydata$quarter <- factor(mydata$quarter, levels = c("Inverno", "Primavera", "Estate", "Autunno"))
+        
+        v <- ggplot(mydata, aes(x = quarter, fill = clname)) +
+            geom_bar(position = "fill")
+
     } else {
-        mydata$hour <- factor(as.numeric(format(mydata$date, format="%H")))
-        v <- ggplot(data=mydata, aes(x=hour)) +
-            geom_bar(aes(fill=clname), position="fill")
+        mydata$hour <- factor(as.numeric(format(mydata$date, format = "%H")))
+        v <- ggplot(mydata, aes(x = hour, fill = clname)) +
+            geom_bar(position = "fill")
     }
     v <- v + 
         scale_y_continuous(labels = scales::percent, breaks=seq(0,1,0.1)) +
-        scale_fill_brewer(palette="Spectral") +
+        scale_fill_brewer(palette = "Spectral", direction = -1) + 
         labs(x="", y="Percentuale (%)") +
         theme_bw(base_family="Arial") +
-       theme(legend.position="bottom") +
+        theme(legend.position="bottom") +
         guides(fill = guide_legend(
             label.position = "bottom", 
             label.hjust = 0.5, 
             title = NULL, 
             direction = "horizontal",
-            ncol = 6)) 
+            ncol = 6,
+            reverse = TRUE)) 
     
     return(v)
 }

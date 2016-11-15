@@ -23,8 +23,8 @@ Plot histogram of stability class on season or hour base.
 Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 }
 \examples{
-plotStabClass(t, cs="ClassStab", type="season")
-plotStabClass(t, type="hour")
+plotStabClass(t, cs = "ClassStab", type = "season")
+plotStabClass(t, cs = "STABILITY", type = "hour")
 
 }
 

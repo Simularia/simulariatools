@@ -1,14 +1,23 @@
+simulariatools 1.0.7
+====================
+
+* `plotStabilityClass`:
+    - Correct order in color bars from 'A' to 'F'.
+    
+    
 simulariatools 1.0.6
-=========================
+====================
 
 * `contourPlot`:
     - Fixed bug when lowest level to plot is negative, as in delta maps;
     - Fixed bug when there is an overlay to plot. 
 
+
 simulariatools 1.0.5
 ====================
 
 * Borders in contour plots have width set to 0px by default.
+
 
 simulariatools 1.0.4
 ====================
