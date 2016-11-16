@@ -2,6 +2,7 @@ simulariatools 1.0.8
 ====================
 
 * `plotStabilityClass` uses seasons instead of quarters
+* `plotAvgTemp` correctly manages timezones.
 
 simulariatools 1.0.7
 ====================
