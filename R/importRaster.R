@@ -29,7 +29,14 @@
 #' # Import binary file and convert coordinates from km to m, with shift of 100 m in both directions:
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, dx = 100, dy = 100)
 #' 
-importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FALSE, variable = NULL, verbose = TRUE) {
+importRaster <- function(fname,
+                         k = 1,
+                         kz = 1,
+                         dx = 0,
+                         dy = 0,
+                         destaggering = FALSE,
+                         variable = NULL,
+                         verbose = TRUE) {
     
     if (is.null(variable)) {
         t <- raster::raster(fname)
@@ -56,17 +63,23 @@ importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FA
     
     # Print some values
     if (verbose == TRUE) {
+        cat("\nRaster statistics -----------------------------------------------")
         xvalues <- c(raster::xmin(t), raster::xmax(t), raster::res(t)[1])
-        cat("\nX (min, max, dx)  :")
+        # cat("\nX (min, max, dx)  :")
+        cat(sprintf("\n%8s (min, max, dx)  :", "X"))
         cat(sprintf(fmt = "%12.3f", xvalues))
     
         yvalues <- c(raster::ymin(t), raster::ymax(t), raster::res(t)[2])
-        cat("\nY (min, max, dy)  :")
+        # cat("\nY (min, max, dy)  :")
+        cat(sprintf("\n%8s (min, max, dy)  :", "Y"))
         cat(sprintf(fmt = "%12.3f", yvalues))
     
         zvalues <- c(raster::cellStats(t, min), raster::cellStats(t, max), raster::cellStats(t, mean))
-        cat("\nZ (min, max, mean):")
+        # cat("\nZ (min, max, mean):")
+        cat(sprintf("\n%8s (min, max, mean):", variable))
         cat(sprintf(fmt = "%12.2e", zvalues))
+        
+        cat("\n-----------------------------------------------------------------\n")
     }
 
     
