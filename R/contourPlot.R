@@ -2,7 +2,7 @@
 #' 
 #' \code{contourPlot} plots a contour map of pollutants
 #' 
-#' This is a high level function to plot contour levels of a pollutants matrix.
+#' This is a convenience function to plot contour levels of a pollutant matrix with \code{ggplot2}.
 #' 
 #' @param data A dataframe containing data to be plotted in the form of X, Y and Z (levels).
 #' @param domain An array with min X, max X, min Y, max Y, number of ticks on X axis, number of ticks on Y axis (optional).
@@ -11,7 +11,7 @@
 #' @param overlayer Array of strings containing layers to be plotted on top of the contour plot (optional).
 #' @param legend (string) Legend title (optional).
 #' @param levels Array of levels for contour plot. If not set, automatic levels are plotted.
-#' @param transparency Transparency level of the contour plot (between 0 and 1)
+#' @param transparency float (between 0 and 1, default=0.66). Transparency level of the contour plot.
 #' @param colors Color palette for contour plot
 #' 
 #' @return A \code{ggplot2} plot
@@ -42,13 +42,21 @@
 #' contourPlot(data = test, colors = RColorBrewer::brewer.pal(3, name = "PiYG"))
 #' 
 #' @export
-contourPlot <- function(data, domain, background, underlayer, overlayer, legend = NULL, levels = NULL, transparency = 0.66, colors = NULL) {
+contourPlot <- function(data,
+                        domain = NULL,
+                        background = NULL, 
+                        underlayer = NULL,
+                        overlayer = NULL,
+                        legend = NULL, 
+                        levels = NULL,
+                        transparency = 0.66,
+                        colors = NULL) {
     
     # Convert input to raster
     tt <- raster::rasterFromXYZ(data)
     
     # Define plot domain
-        if (missingArg(domain)) {
+        if (missing(domain)) {
             xmin <- raster::xmin(tt)    # x coordinates minimum
             xmax <- raster::xmax(tt)    # x coordinates max
             ymin <- raster::ymin(tt)    # y coordinates min
@@ -65,7 +73,8 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
         }
     
     # Automatic scales
-    if (is.null(levels)) {
+    # if (is.null(levels)) {
+    if (missing(levels)) {
         nlevels <- 7
         levels <- pretty(range(raster::values(tt), na.rm = T), n = nlevels, min.n = 4)
     }
@@ -73,7 +82,7 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
 
     # Extend data domain to be plotted
     for (i in (1:1)) {
-        
+
         for (idx in seq(1, 1)) {
             # Extend top and boottom rows
             ttx1 = raster::crop(tt, raster::extent(tt, 1, 1, 1, raster::ncol(tt)))
@@ -84,7 +93,7 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
             raster::ymin(ttxN) <- raster::ymin(tt) - raster::res(tt)[2]
             ttE <- raster::merge(tt, ttx1)
             ttE <- raster::merge(ttE, ttxN)
-        
+
             # Extend left and right columns
             tty1 = raster::crop(tt, raster::extent(tt, 1, raster::nrow(tt), 1, 1))
             raster::xmin(tty1) = raster::xmin(tt) - raster::res(tt)[1]
@@ -117,6 +126,33 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
 
         ttE <- raster::extend(ttE, et, value = ev)
     }
+    
+    # # minimum value
+    # mv <- min(raster::values(tt), na.rm = T)
+    # j <- 1
+    # while(lab_levels[j] < mv) {
+    #     j <- j + 1
+    # }
+    # if (j != 1) {
+    #     ev <- lab_levels[j - 1]
+    # } else {
+    #     ev <- lab_levels[1]
+    # }
+    # # ev <- ev - ev/10.
+    # if (lab_levels[1] < 0.) {
+    #     ev <- lab_levels[1] - 1.
+    # }
+    # 
+    # # Extend domain with minimum value
+    # et <- raster::extent(raster::xmin(tt) - 1 * raster::res(tt)[1],
+    #                      raster::xmax(tt) + 1 * raster::res(tt)[1],
+    #                      raster::ymin(tt) - 1 * raster::res(tt)[2],
+    #                      raster::ymax(tt) + 1 * raster::res(tt)[2])
+    # 
+    # ttE <- raster::extend(tt, et, value = ev)
+    
+    
+    
     
     # convert raster to dataframe 
     ttP <- raster::rasterToPoints(ttE)
@@ -152,7 +188,7 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     }
 
     # Background image
-    if (missingArg(background)) {
+    if (missing(background)) {
         img <- matrix(data = NA, nrow = 10, ncol = 10)
         gimg <- grid::rasterGrob(img, interpolate = T)
     } else {
@@ -161,12 +197,12 @@ contourPlot <- function(data, domain, background, underlayer, overlayer, legend 
     }
     
     # Underlayer
-    if (missingArg(underlayer)) {
+    if (missing(underlayer)) {
         underlayer <- geom_blank()
     }
     
     # Overlayer
-    if (missingArg(overlayer)) {
+    if (missing(overlayer)) {
         overlayer <- geom_blank()
     }
 
