@@ -14,9 +14,10 @@
 #' 
 #' @export
 #' @examples
+#' \dontrun{
 #' # Compute Pasquill stability class as in ARIA Impact
 #' mydata$sc <- stabilityClass(mydata$rad, mydata$tcc, mydata$ws, option="pasquill")
-#' 
+#' }
 stabilityClass <- function(rad, tcc, ws, option="impact") {
     
     # check if the input vectors have the same length

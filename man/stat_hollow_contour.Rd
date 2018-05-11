@@ -11,4 +11,3 @@ stat_hollow_contour(mapping = NULL, data = NULL, geom = "hollow_polygon",
 \description{
 Contour plot with hollow management
 }
-

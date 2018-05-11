@@ -28,10 +28,9 @@ A plot with avereage, min and max temperature in a given range of time.
 \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 }
 \examples{
-
+\dontrun{
 # Plot histogram with monthly averages together with maxima and minima curves
 plotAvgTemp(mydata)
 plotAvgTemp(mydata, temp="temperature", avg.time="1 month", ylabel="Temperatura [C]")
-
 }
-
+}

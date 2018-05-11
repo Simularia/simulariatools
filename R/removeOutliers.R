@@ -10,9 +10,10 @@
 #' 
 #' @export
 #' @examples
+#' \dontrun{
 #' # Remove data outside 5 time the interquartile range
 #' mydata$ws <- removeOutliers(mydata$ws, 5)
-#' 
+#' }
 #' 
 removeOutliers <- function(x, k) {
 

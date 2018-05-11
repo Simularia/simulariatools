@@ -1,40 +1,63 @@
 #' Import generic raster file
-#' 
+#'
 #' The function import the first layer of a generic raster file. Data are
-#' imported as an array of x, y, z columns. X and y coordinats can be converted
-#' from km to m (default k=1000) and viceversa. Destaggering is applied by
-#' default.
-#' 
-#' In output summery data are plotted.
-#' 
-#' 
-#' @param fname (character) raster file to be imported.
-#' @param k float. Factor to be applied to x and y coordinates (default = 1).
-#' @param kz float. Factor to be applied to z values (default = 1).
-#' @param dx float. Shift x coordinates by dx (default = 0).
+#' imported as an array of x, y, z columns.
+#'
+#' Supported files include those managed by the \pkg{raster} package (as
+#' netcdf),
+#'
+#' Destaggering is useful for importing data from the SPRAY model and it is not
+#' applied by default.
+#'
+#' An optional summary output can be printed by setting the `verbose` parameter.
+#'
+#'
+#' @param file The raster file to be imported.
+#' @param k A numerical factor to be applied to x and y coordinates (default =
+#'   1).
+#' @param kz A numerical factor to be applied to z values (default = 1).
+#' @param dx Shifts x coordinates by dx (default = 0).
 #' @param dy float. Shift y coordinates by dy (default = 0).
-#' @param destaggering logical. If `TRUE` destaggering is applied (default =
-#'   FALSE).
-#' @param variable (string) name of the variable to be extracted (if any).
-#' @param verbose logical. If `TRUE` print out basic statistics (default =
-#'   TRUE).
-#'   
-#' @return A dataset with x, y and z columns is returned.
-#'   
+#' @param destaggering Use `TRUE` to apply destaggering to X and Y coordinates
+#'   (default = FALSE).
+#' @param variable The name of the variable to be imported.
+#' @param verbose If `TRUE`, prints out basic statistics (default = FALSE).
+#'
+#' @return It returns a dataframe with x, y and z columns.
+#'
+#' @seealso \code{\link{importADSOBIN}} to import ADSO/BIN files. See
+#'   [importADSOBIN()].
+#'
 #' @export
+#'
 #' @examples
-#' # Import binary file and convert coordinates from km to m, without destaggering:
-#' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, destaggering = FALSE)
-#' 
-#' # Import binary file and convert coordinates from km to m, with shift of 100 m in both directions:
-#' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, dx = 100, dy = 100)
-#' 
-importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FALSE, variable = NULL, verbose = TRUE) {
-    
+#' \dontrun{
+#' # Import binary (netcdf) file and convert coordinates from km to m,
+#' without destaggering:
+#' mydata <- importRaster(file = "/path_to_file/filename.nc",
+#'                        k = 1000,
+#'                        destaggering = FALSE)
+#'
+#' # Import binary (netcdf) file and convert coordinates from km to m,
+#' with shift of 100 m in both directions:
+#' mydata <- importRaster(file = "/path_to_file/filename.nc",
+#'                        k = 1000,
+#'                        dx = 100,
+#'                        dy = 100)
+#' }
+importRaster <- function(file = file.choose(),
+                         k = 1,
+                         kz = 1,
+                         dx = 0,
+                         dy = 0,
+                         destaggering = FALSE,
+                         variable = NULL,
+                         verbose = FALSE) {
+
     if (is.null(variable)) {
-        t <- raster::raster(fname)
+        t <- raster::raster(file)
     } else {
-        t <- raster::raster(fname, varname = variable)
+        t <- raster::raster(file, varname = variable)
     }
     
     # Apply conversion factor
@@ -56,17 +79,23 @@ importRaster <- function(fname, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FA
     
     # Print some values
     if (verbose == TRUE) {
+        cat("\nRaster statistics -----------------------------------------------")
         xvalues <- c(raster::xmin(t), raster::xmax(t), raster::res(t)[1])
-        cat("\nX (min, max, dx)  :")
+        # cat("\nX (min, max, dx)  :")
+        cat(sprintf("\n%8s (min, max, dx)  :", "X"))
         cat(sprintf(fmt = "%12.3f", xvalues))
     
         yvalues <- c(raster::ymin(t), raster::ymax(t), raster::res(t)[2])
-        cat("\nY (min, max, dy)  :")
+        # cat("\nY (min, max, dy)  :")
+        cat(sprintf("\n%8s (min, max, dy)  :", "Y"))
         cat(sprintf(fmt = "%12.3f", yvalues))
     
         zvalues <- c(raster::cellStats(t, min), raster::cellStats(t, max), raster::cellStats(t, mean))
-        cat("\nZ (min, max, mean):")
+        # cat("\nZ (min, max, mean):")
+        cat(sprintf("\n%8s (min, max, mean):", variable))
         cat(sprintf(fmt = "%12.2e", zvalues))
+        
+        cat("\n-----------------------------------------------------------------\n")
     }
 
     

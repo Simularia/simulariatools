@@ -17,7 +17,7 @@ importSurferGrd(fname, k = 1000, destaggering = FALSE)
 A dataset with x, y and z columns is returned.
 }
 \description{
-It imports Surfer like grid file
+A function to import data from Surfer text grid file.
 }
 \details{
 Surfer grd file is imported and an array of x, y, z columns is returned
@@ -25,11 +25,12 @@ X and y coordinats can be converted from km to m (default k=1000) and viceversa.
 Destaggering is applied by default.
 }
 \examples{
+\dontrun{
 # Import Surfer Grd file and convert coordinates from km to m, with destaggering
 mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000)
 
 # Import Surfer Grd file and do not convert coordinates, without destaggering
 mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1, destaggering = FALSE)
-
 }
 
+}

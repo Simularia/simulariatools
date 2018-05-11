@@ -7,7 +7,7 @@
 plotAvgRad(mydata, rad = "radg")
 }
 \arguments{
-\item{mydata}{A data frame containing fields `date` and `rad`}
+\item{mydata}{A data frame containing fields \code{date} and \code{rad}}
 
 \item{rad}{Name of the column representing radiation}
 }
@@ -18,8 +18,8 @@ A \code{ggplot2} plot.
 Plot a histogram with hourly average of solar radiation, together with hourly maxima for June and December.
 }
 \examples{
+\dontrun{
 plotAvgRad(mydata)
 plotAvgRad(mydata, rad="radg")
-
 }
-
+}
