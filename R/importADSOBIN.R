@@ -120,8 +120,9 @@ importADSOBIN <- function(file = file.choose(),
     
     
     # If 2D variable set slice to 1
-    if (variable %in% nomvar2d) {
-        warning("\nA vertical level > 1 has been selected for a 2D variable.\n`slice`` is forced to 1\n",
+    if (variable %in% nomvar2d && slice != 1) {
+        warning("\nA vertical level > 1 has been selected for a 2D variable.",
+                "\n`slice` has been forced to 1\n",
                 call. = FALSE)
         slice <- 1
     }
