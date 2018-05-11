@@ -1,14 +1,17 @@
 # simulariatools
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.165117)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
 
-`simulariatools` is a collection of functions and tools useful to pre and post process data for air quality assessment. It is developed and mantained by the people at [Simularia](www.simularia.it).
+`simulariatools` is a collection of functions and tools useful to pre and post
+process data for air quality assessment. It is developed and mantained by the
+people at [Simularia](www.simularia.it).
 
 ## List of functions
 
 - `contourPlot()`.
 - `createBaseMap()` obsolete.
 - `ImportRaster()`.
+- `ImportADSOBIN()`.
 - `ImportSurferGrd()`.
 - `plotAvgRad()`.
 - `plotAvgTemp()`.
