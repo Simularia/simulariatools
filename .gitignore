@@ -8,4 +8,5 @@
 *.swp
 
 .DS_Store
+tests/
 test/

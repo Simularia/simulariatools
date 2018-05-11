@@ -40,7 +40,7 @@ dataframe with (X, Y, Z) columns (default = \code{FALSE}).}
 \value{
 In standard use, \code{importADSOBIN()} return a data frame with \code{(X, Y, Z)}
 columns. Column Z contains the values of the requested variable.
-If the \opt{raster.object} option is set, it returns a RasterLayer object.
+If the \code{raster.object} option is set, it returns a RasterLayer object.
 }
 \description{
 Function to import ADSO/BIN binary file type. It requires an installation of
@@ -78,5 +78,5 @@ nox <- importADSOBIN(file = "conc_01-10_07_2018",
 
 }
 \seealso{
-\code{\link[=importRaster]{importRaster()}} to import netcdf files.
+\code{\link{importRaster}} to import netcdf files. See also \code{\link[=importRaster]{importRaster()}}.
 }

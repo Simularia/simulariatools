@@ -6,6 +6,7 @@ simulariatools 1.1.0
 * `plotAvgTemp` correctly manages timezones.
 * Option `verbose of `importRaster` set to `FALSE` by default (it was `TRUE`).
 * Option `fname` of `importRaster` renamed to `file` and set to `file.chooser` by default.
+* Documentation improvement.
 
 
 simulariatools 1.0.7

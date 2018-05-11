@@ -12,9 +12,10 @@
 #' 
 #' @export
 #' @examples
+#' \dontrun{
 #' plotStabClass(t, cs = "ClassStab", type = "season")
 #' plotStabClass(t, cs = "STABILITY", type = "hour")
-#' 
+#' }
 plotStabilityClass <- function(mydata, sc="sc", type="season") {
 
     if (type != "season" && type != "hour") 

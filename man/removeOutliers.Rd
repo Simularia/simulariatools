@@ -19,8 +19,9 @@ Outliers are removed from a data set. The interquartile range is computed.
 Data larger or smaller than k * IQR are removed.
 }
 \examples{
+\dontrun{
 # Remove data outside 5 time the interquartile range
 mydata$ws <- removeOutliers(mydata$ws, 5)
-
+}
 
 }

@@ -26,7 +26,8 @@ It computes stability class according to IAEA method based on net radiation and 
 Net radiation and wind are used by day; tcc and wind are used by night.
 }
 \examples{
+\dontrun{
 # Compute Pasquill stability class as in ARIA Impact
 mydata$sc <- stabilityClass(mydata$rad, mydata$tcc, mydata$ws, option="pasquill")
-
+}
 }

@@ -34,7 +34,8 @@ The function import the first layer of a generic raster file. Data are
 imported as an array of x, y, z columns.
 }
 \details{
-Supported files include those managed by the \pkg{raster} package (as netcdf),
+Supported files include those managed by the \pkg{raster} package (as
+netcdf),
 
 Destaggering is useful for importing data from the SPRAY model and it is not
 applied by default.
@@ -42,21 +43,22 @@ applied by default.
 An optional summary output can be printed by setting the \code{verbose} parameter.
 }
 \examples{
-\dontrun {
-# Import binary (netcdf) file and convert coordinates from km to m, 
+\dontrun{
+# Import binary (netcdf) file and convert coordinates from km to m,
 without destaggering:
-mydata <- importRaster(file = "/path_to_file/filename.nc", 
-                       k = 1000, 
+mydata <- importRaster(file = "/path_to_file/filename.nc",
+                       k = 1000,
                        destaggering = FALSE)
 
-# Import binary (netcdf) file and convert coordinates from km to m, 
+# Import binary (netcdf) file and convert coordinates from km to m,
 with shift of 100 m in both directions:
-mydata <- importRaster(file = "/path_to_file/filename.nc", 
-                       k = 1000, 
-                       dx = 100, 
+mydata <- importRaster(file = "/path_to_file/filename.nc",
+                       k = 1000,
+                       dx = 100,
                        dy = 100)
 }
 }
 \seealso{
-\code{\link[=importADSBIN]{importADSBIN()}} to import ADSO/BIN files.
+\code{\link{importADSOBIN}} to import ADSO/BIN files. See
+\code{\link[=importADSOBIN]{importADSOBIN()}}.
 }

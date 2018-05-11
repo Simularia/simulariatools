@@ -9,9 +9,10 @@
 #' 
 #' @export
 #' @examples
+#' \dontrun{
 #' plotAvgRad(mydata)
 #' plotAvgRad(mydata, rad="radg")
-#'
+#' }
 plotAvgRad <- function(mydata, rad="radg") {
     
     mydata <- subset(mydata, select=c("date", rad))

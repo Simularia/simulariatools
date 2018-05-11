@@ -15,11 +15,11 @@
 #' @import dplyr
 #' @export
 #' @examples
-#' 
+#' \dontrun{
 #' # Plot histogram with monthly averages together with maxima and minima curves
 #' plotAvgTemp(mydata)
 #' plotAvgTemp(mydata, temp="temperature", avg.time="1 month", ylabel="Temperatura [C]")
-#' 
+#' }
 plotAvgTemp <- function(mydata, temp = "temp", 
                         avg.time = "1 month", 
                         ylabel = "Temperatura [C]",

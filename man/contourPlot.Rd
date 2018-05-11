@@ -9,42 +9,58 @@ contourPlot(data, domain = NULL, background = NULL, underlayer = NULL,
   colors = NULL)
 }
 \arguments{
-\item{data}{A dataframe containing data to be plotted in the form of X, Y and Z (levels).}
+\item{data}{A dataframe containing data to be plotted in the form of X, Y and
+Z (levels).}
 
-\item{domain}{An array with min X, max X, min Y, max Y, number of ticks on X axis, number of ticks on Y axis (optional).}
+\item{domain}{An array with min X, max X, min Y, max Y, number of ticks on X
+axis, number of ticks on Y axis (optional).}
 
-\item{background}{String containing the path to the png file to be plotted as a basemap (optional).}
+\item{background}{String containing the path to the png file to be plotted as
+a basemap (optional).}
 
-\item{underlayer}{Array of strings containing layers to be plotted between basemap and contour plot (optional).}
+\item{underlayer}{Array of strings containing layers to be plotted between
+basemap and contour plot (optional).}
 
-\item{overlayer}{Array of strings containing layers to be plotted on top of the contour plot (optional).}
+\item{overlayer}{Array of strings containing layers to be plotted on top of
+the contour plot (optional).}
 
 \item{legend}{(string) Legend title (optional).}
 
-\item{levels}{Array of levels for contour plot. If not set, automatic levels are plotted.}
+\item{levels}{Array of levels for contour plot. If not set, automatic levels
+are plotted.}
 
-\item{transparency}{float (between 0 and 1, default=0.66). Transparency level of the contour plot.}
+\item{transparency}{float (between 0 and 1, default=0.66). Transparency level
+of the contour plot.}
 
 \item{colors}{Color palette for contour plot}
 }
 \value{
-A \code{ggplot2} plot
+A \code{ggplot2} plot.
 }
 \description{
-\code{contourPlot} plots a contour map of pollutants
+\code{contourPlot} plots a contour map of pollutants.
 }
 \details{
-This is a convenience function to plot contour levels of a pollutant matrix with \code{ggplot2}.
+This is a convenience function to plot contour levels of a pollutant matrix
+with \code{ggplot2}.
 }
 \examples{
-# Import raster data
-data <- importRaster(paste(dir, inputfile, sep=""), k = 1000, variable = "CONCAN") 
+\dontrun{
+# Import variable CONCAN from inpufile, convert km to m (k = 1000):
+data <- importRaster(paste0(dir, inputfile), 
+                     k = 1000, 
+                     variable = "CONCAN")
 
 # Simple contour plot
 contourPlot(data)
 
-# Specifiy (sub)domain to be plotted; background image; legend title and pollutant levels.
-contourPlot(data, domain(500000, 510000, 6000000, 6010000, 7, 7), background = "img/background.png", legend = "no2 [ug/m3]", levels = c(10, 20, 30, 40))
+# Specifiy (sub)domain to be plotted; background image; legend title and 
+pollutant levels.
+contourPlot(data, 
+            domain(500000, 510000, 6000000, 6010000, 7, 7), 
+            background = "img/background.png", 
+            legend = "no2 [ug/m3]", 
+            levels = c(10, 20, 30, 40))
 
 # Add underlayer (same for overlayer)
 library(ggplot2)
@@ -54,11 +70,24 @@ perimetro <- fortify(perimetro)
 strada <- readShapeLines("path_to/strada.shp")
 strada <- fortify(strada)
 myUnderlayer <- vector(mode = "list", length = 2)
-myUnderlayer[[1]] <- geom_polygon(data = perimetro, aes(long, lat, group = group), colour = "black", fill = NA, size = 0.1, alpha = 0.5)
-myUnderlayer[[2]] <- geom_path(data = strada, aes(long, lat, group = group), colour = "grey", size = 0.1, alpha = 0.5)
-contourPlot(data = test, background = "path_to/basemap.png", underlayer = myUnderlayer)
+myUnderlayer[[1]] <- geom_polygon(data = perimetro, 
+                                  aes(long, lat, group = group), 
+                                  colour = "black", 
+                                  fill = NA, 
+                                  size = 0.1, 
+                                  alpha = 0.5)
+myUnderlayer[[2]] <- geom_path(data = strada, 
+                               aes(long, lat, group = group), 
+                               colour = "grey", 
+                               size = 0.1, 
+                               alpha = 0.5)
+contourPlot(data = test, 
+            background = "path_to/basemap.png", 
+            underlayer = myUnderlayer)
 
 # Change default colour palette
-contourPlot(data = test, colors = RColorBrewer::brewer.pal(3, name = "PiYG"))
+contourPlot(data = test, 
+            colors = RColorBrewer::brewer.pal(3, name = "PiYG"))
+}
 
 }
