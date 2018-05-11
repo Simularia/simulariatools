@@ -2,11 +2,10 @@
 .Rhistory
 .RData
 .RDataTmp
-*.swp
-*.nc
-*.grd
-test_contour.R
 .RBuildignore
-.DS_Store
 .Rprofile
+
+*.swp
+
+.DS_Store
 test/
