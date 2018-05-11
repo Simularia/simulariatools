@@ -2,7 +2,7 @@
 #' 
 #' @import reticulate
 #' 
-#' @param fname (character) raster file to be imported.
+#' @param file (character) ADSO/BIN file to be imported.
 #' @param k float. Factor to be applied to x and y coordinates (default = 1).
 #' @param kz float. Factor to be applied to z values (default = 1).
 #' @param dx float. Shift x coordinates by dx (default = 0).
@@ -19,7 +19,7 @@
 #'   
 #' @export
 #' 
-importADSOBIN <- function(fname,
+importADSOBIN <- function(file = file.choose(),
                           k = 1,
                           kz = 1,
                           dx = 0,
@@ -28,14 +28,31 @@ importADSOBIN <- function(fname,
                           variable = NULL,
                           slice = 1, 
                           deadline = 1,
-                          verbose = TRUE) {
+                          verbose = FALSE) {
     
+    # Load arinfopy lib with reticulate
     ap <- reticulate::import("arinfopy")
-    abin <- ap$adsobin(fname)
+    # Load file
+    abin <- ap$adsobin(file)
     
+    # Read rec3, rec4 and rec5
     rec3 <- abin$getRecord3(1)
     rec4 <- abin$getRecord4(1)
     rec5 <- abin$getRecord5(1)
+    
+    # Get list of variables
+    nomvar2d = unlist(rec5['nomvar2d'])
+    nomvar3d = unlist(rec5['nomvar3d'])
+    
+    # Check existence of the requested variable
+    if (is.null(variable) || (!(variable %in% nomvar2d) && !(variable %in% nomvar3d))) {
+
+        stop(paste0("\nVariable name not existing or unspecified.\n",
+                    "Please select a variable in the following list:\n",
+                    "2D: ", list(unname(nomvar2d)), "\n",
+                    "3D: ", list(unname(nomvar3d))),
+             call. = FALSE)
+    }
     
     xmin <- rec4$xlso * k
     ymin <- rec4$ylso * k
