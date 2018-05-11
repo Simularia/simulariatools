@@ -25,4 +25,3 @@ t$radg24h <- rollingMax(mydata=t$radg, length=24)
 t$radg30d <- rollingMax(mydata=t$radg24h, length=24*30)
 
 }
-

@@ -1,22 +1,31 @@
 #' Contour plot of pollutant concentration
 #' 
-#' \code{contourPlot} plots a contour map of pollutants
+#' \code{contourPlot} plots a contour map of pollutants.
 #' 
-#' This is a convenience function to plot contour levels of a pollutant matrix with \code{ggplot2}.
-#' 
-#' @param data A dataframe containing data to be plotted in the form of X, Y and Z (levels).
-#' @param domain An array with min X, max X, min Y, max Y, number of ticks on X axis, number of ticks on Y axis (optional).
-#' @param background String containing the path to the png file to be plotted as a basemap (optional).
-#' @param underlayer Array of strings containing layers to be plotted between basemap and contour plot (optional).
-#' @param overlayer Array of strings containing layers to be plotted on top of the contour plot (optional).
+#' This is a convenience function to plot contour levels of a pollutant matrix
+#' with \code{ggplot2}.
+#'
+#' @param data A dataframe containing data to be plotted in the form of X, Y and
+#'   Z (levels).
+#' @param domain An array with min X, max X, min Y, max Y, number of ticks on X
+#'   axis, number of ticks on Y axis (optional).
+#' @param background String containing the path to the png file to be plotted as
+#'   a basemap (optional).
+#' @param underlayer Array of strings containing layers to be plotted between
+#'   basemap and contour plot (optional).
+#' @param overlayer Array of strings containing layers to be plotted on top of
+#'   the contour plot (optional).
 #' @param legend (string) Legend title (optional).
-#' @param levels Array of levels for contour plot. If not set, automatic levels are plotted.
-#' @param transparency float (between 0 and 1, default=0.66). Transparency level of the contour plot.
+#' @param levels Array of levels for contour plot. If not set, automatic levels
+#'   are plotted.
+#' @param transparency float (between 0 and 1, default=0.66). Transparency level
+#'   of the contour plot.
 #' @param colors Color palette for contour plot
-#' 
-#' @return A \code{ggplot2} plot
+#'   
+#' @return A \code{ggplot2} plot.
 #' 
 #' @examples
+#' \dontrun {
 #' # Import raster data
 #' data <- importRaster(paste(dir, inputfile, sep=""), k = 1000, variable = "CONCAN") 
 #' 
@@ -40,8 +49,10 @@
 #' 
 #' # Change default colour palette
 #' contourPlot(data = test, colors = RColorBrewer::brewer.pal(3, name = "PiYG"))
+#' }
 #' 
 #' @export
+#' 
 contourPlot <- function(data,
                         domain = NULL,
                         background = NULL, 

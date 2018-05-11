@@ -27,4 +27,3 @@ plotStabClass(t, cs = "ClassStab", type = "season")
 plotStabClass(t, cs = "STABILITY", type = "hour")
 
 }
-

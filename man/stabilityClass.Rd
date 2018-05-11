@@ -30,4 +30,3 @@ Net radiation and wind are used by day; tcc and wind are used by night.
 mydata$sc <- stabilityClass(mydata$rad, mydata$tcc, mydata$ws, option="pasquill")
 
 }
-

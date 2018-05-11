@@ -34,11 +34,14 @@
 #'
 #' @return In standard use, `importADSOBIN()` return a data frame with `(X, Y, Z)`
 #'   columns. Column Z contains the values of the requested variable. 
-#'   If the \opt{raster.object} option is set, it returns a \pkg{raster} object.
+#'   If the \opt{raster.object} option is set, it returns a RasterLayer object.
 #'
+#' @seealso [importRaster()] to import netcdf files.
+
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Read ground level (slice = 1) value of variable M001S001.
 #' pm10 <- importADSOBIN(file = "average_2018.bin",
 #'                       variable = "M001S001",
@@ -56,6 +59,7 @@
 #'                      slice = 1,
 #'                      deadline = "2018/07/02 12:00",
 #'                      verbose = TRUE)
+#' }
 #' 
 importADSOBIN <- function(file = file.choose(),
                           variable = NULL,

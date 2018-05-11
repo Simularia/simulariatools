@@ -34,4 +34,3 @@ plotAvgTemp(mydata)
 plotAvgTemp(mydata, temp="temperature", avg.time="1 month", ylabel="Temperatura [C]")
 
 }
-

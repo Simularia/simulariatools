@@ -7,7 +7,7 @@
 plotAvgRad(mydata, rad = "radg")
 }
 \arguments{
-\item{mydata}{A data frame containing fields `date` and `rad`}
+\item{mydata}{A data frame containing fields \code{date} and \code{rad}}
 
 \item{rad}{Name of the column representing radiation}
 }
@@ -22,4 +22,3 @@ plotAvgRad(mydata)
 plotAvgRad(mydata, rad="radg")
 
 }
-

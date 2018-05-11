@@ -27,4 +27,3 @@ Create base map. This is meant to be the deepest layer of contour plot map. Axes
 v <- createBaseMap(img, c(minx, miny, extent, extent, 9, 9), font_size=10)
 
 }
-

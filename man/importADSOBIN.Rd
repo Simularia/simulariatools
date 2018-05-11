@@ -2,38 +2,81 @@
 % Please edit documentation in R/importADSOBIN.R
 \name{importADSOBIN}
 \alias{importADSOBIN}
-\title{Import ADSO/BIN as raster}
+\title{ADSO/BIN data import function}
 \usage{
-importADSOBIN(fname, k = 1, kz = 1, dx = 0, dy = 0,
-  destaggering = FALSE, variable = NULL, slice = 1, deadline = 1,
-  verbose = TRUE)
+importADSOBIN(file = file.choose(), variable = NULL, slice = 1,
+  deadline = 1, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FALSE,
+  raster.object = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{fname}{(character) raster file to be imported.}
+\item{file}{The ADSO/BIN file to be imported.}
 
-\item{k}{float. Factor to be applied to x and y coordinates (default = 1).}
+\item{variable}{A string with the name of the variable to be imported.}
 
-\item{kz}{float. Factor to be applied to z values (default = 1).}
+\item{slice}{An integer corresponding to the  horizontal slice (vertical
+level) of 3D variables (default = 1). In the case of a 2D variable, it is
+ignored.}
 
-\item{dx}{float. Shift x coordinates by dx (default = 0).}
+\item{deadline}{An integer representing the temporal deadline (default = 1).
+It can optionally be a string with date time (see examples).}
 
-\item{dy}{float. Shift y coordinates by dy (default = 0).}
+\item{k}{A numeric factor to be applied to x and y coordinates (default = 1).}
 
-\item{destaggering}{logical. If `TRUE` destaggering is applied (default =
-FALSE).}
+\item{kz}{A numeric factor to be applied to z values to rescale them (default
+= 1).}
 
-\item{variable}{string, the name of the variable to be imported.}
+\item{dx}{A number to shift x coordinates by dx (default = 0).}
 
-\item{slice}{integer, horizontal slice for 3D variables (default = 1).}
+\item{dy}{A number to shift y coordinates by dy (default = 0).}
 
-\item{deadline}{intefer, temporal deadline (default = 1)}
+\item{destaggering}{Use \code{TRUE} to apply destaggering to X and Y coordinates
+(default = \code{FALSE}).}
 
-\item{verbose}{logical. If `TRUE` print out basic statistics (default =
-TRUE).}
+\item{raster.object}{Use \code{TRUE} to return a \code{raster} object instead of a
+dataframe with (X, Y, Z) columns (default = \code{FALSE}).}
+
+\item{verbose}{Use \code{TRUE} to print out basic statistics (default = \code{FALSE}).}
 }
 \value{
-A dataset with x, y and z columns is returned.
+In standard use, \code{importADSOBIN()} return a data frame with \code{(X, Y, Z)}
+columns. Column Z contains the values of the requested variable.
+If the \opt{raster.object} option is set, it returns a RasterLayer object.
 }
 \description{
-Import ADSO/BIN as raster
+Function to import ADSO/BIN binary file type. It requires an installation of
+the \code{arinfopy} python library and uses the \pkg{reticulate} package to import
+it.
+}
+\details{
+The \code{importADSIOBIN()} function was developed to import data from an
+ADSO/BIN binary file. It relies on the `arinfopy' (version >= 2.2.0) python
+library. For more information on the library see the \href{https://github.com/Simularia/arinfopy}{githubrepository}.
+
+For more information on the active \code{python} installation, check the
+documentaion of \pkg{reticulate}.
+}
+\examples{
+\dontrun{
+# Read ground level (slice = 1) value of variable M001S001.
+pm10 <- importADSOBIN(file = "average_2018.bin",
+                      variable = "M001S001",
+                      slice = 1)
+
+# Read deadline 12 of the second vertical level of temperature:
+temperature <- importADSOBIN(file = "swift_surfpro_01-10_01_2018",
+                             variable = "TEMPK",
+                             slice = 2,
+                             deadline = 12)
+
+# Read varibale M001S001 at ground level, at given date and time, and print basic information:
+nox <- importADSOBIN(file = "conc_01-10_07_2018",
+                     variable = "M001S001",
+                     slice = 1,
+                     deadline = "2018/07/02 12:00",
+                     verbose = TRUE)
+}
+
+}
+\seealso{
+\code{\link[=importRaster]{importRaster()}} to import netcdf files.
 }

@@ -32,4 +32,3 @@ mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000)
 mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1, destaggering = FALSE)
 
 }
-

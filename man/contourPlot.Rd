@@ -4,8 +4,9 @@
 \alias{contourPlot}
 \title{Contour plot of pollutant concentration}
 \usage{
-contourPlot(data, domain, background, underlayer, overlayer, legend = NULL,
-  levels = NULL, transparency = 0.66, colors = NULL)
+contourPlot(data, domain = NULL, background = NULL, underlayer = NULL,
+  overlayer = NULL, legend = NULL, levels = NULL, transparency = 0.66,
+  colors = NULL)
 }
 \arguments{
 \item{data}{A dataframe containing data to be plotted in the form of X, Y and Z (levels).}
@@ -22,7 +23,7 @@ contourPlot(data, domain, background, underlayer, overlayer, legend = NULL,
 
 \item{levels}{Array of levels for contour plot. If not set, automatic levels are plotted.}
 
-\item{transparency}{Transparency level of the contour plot (between 0 and 1)}
+\item{transparency}{float (between 0 and 1, default=0.66). Transparency level of the contour plot.}
 
 \item{colors}{Color palette for contour plot}
 }
@@ -33,7 +34,7 @@ A \code{ggplot2} plot
 \code{contourPlot} plots a contour map of pollutants
 }
 \details{
-This is a high level function to plot contour levels of a pollutants matrix.
+This is a convenience function to plot contour levels of a pollutant matrix with \code{ggplot2}.
 }
 \examples{
 # Import raster data
@@ -61,4 +62,3 @@ contourPlot(data = test, background = "path_to/basemap.png", underlayer = myUnde
 contourPlot(data = test, colors = RColorBrewer::brewer.pal(3, name = "PiYG"))
 
 }
-

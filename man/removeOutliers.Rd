@@ -15,7 +15,7 @@ removeOutliers(x, k)
 vector of clenaed data
 }
 \description{
-Outliers are removed from a data set. The interquartile range is computed. 
+Outliers are removed from a data set. The interquartile range is computed.
 Data larger or smaller than k * IQR are removed.
 }
 \examples{
@@ -24,4 +24,3 @@ mydata$ws <- removeOutliers(mydata$ws, 5)
 
 
 }
-

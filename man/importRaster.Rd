@@ -4,46 +4,59 @@
 \alias{importRaster}
 \title{Import generic raster file}
 \usage{
-importRaster(fname, k = 1, kz = 1, dx = 0, dy = 0,
-  destaggering = FALSE, variable = NULL, verbose = TRUE)
+importRaster(file = file.choose(), k = 1, kz = 1, dx = 0, dy = 0,
+  destaggering = FALSE, variable = NULL, verbose = FALSE)
 }
 \arguments{
-\item{fname}{(character) raster file to be imported.}
+\item{file}{The raster file to be imported.}
 
-\item{k}{float. Factor to be applied to x and y coordinates (default = 1).}
+\item{k}{A numerical factor to be applied to x and y coordinates (default =
+1).}
 
-\item{kz}{float. Factor to be applied to z values (default = 1).}
+\item{kz}{A numerical factor to be applied to z values (default = 1).}
 
-\item{dx}{float. Shift x coordinates by dx (default = 0).}
+\item{dx}{Shifts x coordinates by dx (default = 0).}
 
 \item{dy}{float. Shift y coordinates by dy (default = 0).}
 
-\item{destaggering}{logical. If `TRUE` destaggering is applied (default =
-FALSE).}
+\item{destaggering}{Use \code{TRUE} to apply destaggering to X and Y coordinates
+(default = FALSE).}
 
-\item{variable}{(string) name of the variable to be extracted (if any).}
+\item{variable}{The name of the variable to be imported.}
 
-\item{verbose}{logical. If `TRUE` print out basic statistics (default =
-TRUE).}
+\item{verbose}{If \code{TRUE}, prints out basic statistics (default = FALSE).}
 }
 \value{
-A dataset with x, y and z columns is returned.
+It returns a dataframe with x, y and z columns.
 }
 \description{
 The function import the first layer of a generic raster file. Data are
-imported as an array of x, y, z columns. X and y coordinats can be converted
-from km to m (default k=1000) and viceversa. Destaggering is applied by
-default.
+imported as an array of x, y, z columns.
 }
 \details{
-In output summery data are plotted.
+Supported files include those managed by the \pkg{raster} package (as netcdf),
+
+Destaggering is useful for importing data from the SPRAY model and it is not
+applied by default.
+
+An optional summary output can be printed by setting the \code{verbose} parameter.
 }
 \examples{
-# Import binary file and convert coordinates from km to m, without destaggering:
-mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, destaggering = FALSE)
+\dontrun {
+# Import binary (netcdf) file and convert coordinates from km to m, 
+without destaggering:
+mydata <- importRaster(file = "/path_to_file/filename.nc", 
+                       k = 1000, 
+                       destaggering = FALSE)
 
-# Import binary file and convert coordinates from km to m, with shift of 100 m in both directions:
-mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000, dx = 100, dy = 100)
-
+# Import binary (netcdf) file and convert coordinates from km to m, 
+with shift of 100 m in both directions:
+mydata <- importRaster(file = "/path_to_file/filename.nc", 
+                       k = 1000, 
+                       dx = 100, 
+                       dy = 100)
 }
-
+}
+\seealso{
+\code{\link[=importADSBIN]{importADSBIN()}} to import ADSO/BIN files.
+}
