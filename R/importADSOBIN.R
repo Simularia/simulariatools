@@ -1,43 +1,53 @@
 #' ADSO/BIN data import function
-#' 
-#' Function to import ADSO/BIN binary file type. It requires an installation of the `arinfopy` python library and uses the \pkg{reticulate} package to import it.
-#' 
+#'
+#' Function to import ADSO/BIN binary file type. It requires an installation of
+#' the `arinfopy` python library and uses the \pkg{reticulate} package to import
+#' it.
+#'
 #' @import reticulate
-#' 
-#' @param file (character) ADSO/BIN file to be imported.
-#' @param k float. Factor to be applied to x and y coordinates (default = 1).
-#' @param kz float. Factor to be applied to z values (default = 1).
-#' @param dx float. Shift x coordinates by dx (default = 0).
-#' @param dy float. Shift y coordinates by dy (default = 0).
-#' @param destaggering logical. If `TRUE` destaggering is applied (default =
-#'   FALSE).
-#' @param variable string, the name of the variable to be imported.
-#' @param slice integer, horizontal slice for 3D variables (default = 1).
-#' @param deadline integer, temporal deadline (default = 1). It can optionally be a string with date time (see examples).
-#' @param raster.object boolean, if TRUE the function returns a `raster` object (default = FALSE).
-#' @param verbose logical. If `TRUE` print out basic statistics (default =
-#'   FALSE).
-#'   
-#' @details 
-#' The `importADSIOBIN()` function was developed to import data from an ADSO/BIN binary file. It relies on the `arinfopy` python library (https://github.com/Simularia/arinfopy). 
-#' 
-#' @return 
-#' In standard use, `importADSOBIN()` return a data frame with (X, Y, Z) columns. Column Z contains the values of the requested variable.
-#' 
-#' If \option{raster.object} option is activated the `importADSOBIN()` returns a `raster` object.
-#'   
+#'
+#' @param file     The ADSO/BIN file to be imported.
+#' @param variable A string with the name of the variable to be imported.
+#' @param slice    An integer corresponding to the  horizontal slice (vertical
+#'   level) of 3D variables (default = 1). In the case of a 2D variable, it is
+#'   ignored.
+#' @param deadline An integer representing the temporal deadline (default = 1).
+#'   It can optionally be a string with date time (see examples).
+#' @param k A numeric factor to be applied to x and y coordinates (default = 1).
+#' @param kz A numeric factor to be applied to z values to rescale them (default
+#'   = 1).
+#' @param dx A number to shift x coordinates by dx (default = 0).
+#' @param dy A number to shift y coordinates by dy (default = 0).
+#' @param destaggering Use `TRUE` to apply destaggering to X and Y coordinates
+#'   (default = `FALSE`).
+#' @param raster.object Use `TRUE` to return a `raster` object instead of a
+#'   dataframe with (X, Y, Z) columns (default = `FALSE`).
+#' @param verbose Use `TRUE` to print out basic statistics (default = `FALSE`).
+#'
+#' @details The `importADSIOBIN()` function was developed to import data from an
+#'   ADSO/BIN binary file. It relies on the `arinfopy' (version >= 2.2.0) python
+#'   library. For more information on the library see the [github
+#'   repository](https://github.com/Simularia/arinfopy).
+#'
+#'   For more information on the active `python` installation, check the
+#'   documentaion of \pkg{reticulate}.
+#'
+#' @return In standard use, `importADSOBIN()` return a data frame with `(X, Y, Z)`
+#'   columns. Column Z contains the values of the requested variable. 
+#'   If the \opt{raster.object} option is set, it returns a \pkg{raster} object.
+#'
 #' @export
-#' 
+#'
 #' @examples
 #' # Read ground level (slice = 1) value of variable M001S001.
-#' pm10 <- importADSOBIN(file = "average_2018.bin", 
-#'                       variable = "M001S001", 
+#' pm10 <- importADSOBIN(file = "average_2018.bin",
+#'                       variable = "M001S001",
 #'                       slice = 1)
-#' 
+#'
 #' # Read deadline 12 of the second vertical level of temperature:
 #' temperature <- importADSOBIN(file = "swift_surfpro_01-10_01_2018",
-#'                              variable = "TEMPK", 
-#'                              slice = 2, 
+#'                              variable = "TEMPK",
+#'                              slice = 2,
 #'                              deadline = 12)
 #'
 #' # Read varibale M001S001 at ground level, at given date and time, and print basic information:
@@ -48,14 +58,14 @@
 #'                      verbose = TRUE)
 #' 
 importADSOBIN <- function(file = file.choose(),
+                          variable = NULL,
+                          slice = 1, 
+                          deadline = 1,
                           k = 1,
                           kz = 1,
                           dx = 0,
                           dy = 0,
                           destaggering = FALSE,
-                          variable = NULL,
-                          slice = 1, 
-                          deadline = 1,
                           raster.object = FALSE,
                           verbose = FALSE) {
     
@@ -80,6 +90,42 @@ importADSOBIN <- function(file = file.choose(),
                     "Please select a variable in the following list:\n",
                     "2D: ", list(unname(nomvar2d)), "\n",
                     "3D: ", list(unname(nomvar3d))),
+             call. = FALSE)
+    }
+    
+    # Manage deadlines
+    ld <- abin$getDeadlines()
+    ld <- lapply(ld, lubridate::parse_date_time,
+                 orders = c("ymd H", "ymd HM", "ymd HMS",
+                            "dmy H", "dmy HM", "dmy HMS"),
+                 tz = "UTC")
+    if (!is.numeric(deadline)) {
+        tmp <- suppressWarnings(
+                    lubridate::parse_date_time(deadline, 
+                                               orders = c("ymd H", "ymd HM", "ymd HMS",
+                                                          "dmy H", "dmy HM", "dmy HMS"),
+                                               tz = "UTC"))
+        deadline <- match(tmp, ld)
+    }
+    
+    # Check if deadline is available
+    if (!(deadline <= length(ld)) | is.na(deadline)) {
+        stop(paste0("\nDeadline not existing.\n"),
+             call. = FALSE)
+    }
+    
+    
+    # If 2D variable set slice to 1
+    if (variable %in% nomvar2d) {
+        warning("\nA vertical level > 1 has been selected for a 2D variable.\n`slice`` is forced to 1\n",
+                call. = FALSE)
+        slice <- 1
+    }
+
+    # Chack if slice is available
+    vlevels <- rec4$sgrid
+    if (!(slice <= length(vlevels))) {
+        stop(paste0("\nSlice (vertical level) not available.\n"),
              call. = FALSE)
     }
     
@@ -108,19 +154,6 @@ importADSOBIN <- function(file = file.choose(),
     xv <- rep(X, times = jmmai)
     yv <- rep(Y, each = immai)
     
-    # Manage deadlines
-    ld <- abin$getDeadlines()
-    ld <- lapply(ld, lubridate::parse_date_time,
-                 orders = c("ymd H", "ymd HM", "ymd HMS",
-                            "dmy H", "dmy HM", "dmy HMS"),
-                 tz = "UTC")
-    if (!is.numeric(deadline)) {
-        tmp <- lubridate::parse_date_time(deadline, 
-                                          orders = c("ymd H", "ymd HM", "ymd HMS",
-                                                     "dmy H", "dmy HM", "dmy HMS"),
-                                          tz = "UTC")
-        deadline <- match(tmp, ld)
-    }
     
     # Get values from getSlice method of arinfopy
     value <- abin$getSlice(variable = variable, 
@@ -138,10 +171,12 @@ importADSOBIN <- function(file = file.choose(),
     # Print some values
     if (verbose == TRUE) {
         cat("\nADSO/BIN statistics ---------------------------------------------")
-        cat(sprintf("\n         Deadline        :%s", strftime(ld[[deadline]], 
-                                                               fmt = "%Y-%m-%d %H:%M:%S", 
-                                                               tz = "UTC")))
-        cat(sprintf("\n         Vertical level  : %d", slice))
+        cat(sprintf("\n         Deadline        : %d - %s", 
+                    deadline,
+                    strftime(ld[[deadline]], 
+                             format = "%Y-%m-%d %H:%M:%S", 
+                             tz = "UTC")))
+        cat(sprintf("\n         Vertical level  : %d - %.2f", slice, vlevels[slice]))
         xvalues <- c(min(X), max(X), xgrid)
         # cat("\nX (min, max, dx)  :")
         cat(sprintf("\n%8s (min, max, dx)  :", "X"))
