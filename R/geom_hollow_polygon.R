@@ -17,11 +17,11 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                                  alpha = 1
                              ),
                              draw_key = draw_key_polygon,
-                             draw_group = function(data, panel_scales, coord) {
+                             draw_group = function(data, panel_params, coord) {
                                  n <- nrow(data)
                                  if (n <= 2) return(grid::nullGrob())
                                  
-                                 coords <- coord$transform(data, panel_scales)
+                                 coords <- coord$transform(data, panel_params)
                                  coords <- coords[order(coords$piece), ]
                                  
                                  # A polygon can only have a single colour, fill, etc, so take from first row
