@@ -4,7 +4,7 @@
 \name{GeomHollowPolygon}
 \alias{GeomHollowPolygon}
 \title{geom_hollowpolygon}
-\format{An object of class \code{GeomHollowPolygon} (inherits from \code{Geom}, \code{ggproto}) of length 5.}
+\format{An object of class \code{GeomHollowPolygon} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 5.}
 \usage{
 GeomHollowPolygon
 }

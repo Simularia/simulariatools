@@ -20,6 +20,8 @@
 #'   are plotted.
 #' @param transparency float (between 0 and 1, default=0.66). Transparency level
 #'   of the contour plot.
+#' @param smoothness integer factor to improve the horizontal resolution 
+#'   (smaller cells) by bilinear interpolation.
 #' @param colors Color palette for contour plot
 #'
 #' @return A \code{ggplot2} plot.
@@ -80,10 +82,14 @@ contourPlot <- function(data,
                         legend = NULL, 
                         levels = NULL,
                         transparency = 0.66,
+                        smoothness = 1.,
                         colors = NULL) {
     
     # Convert input to raster
     tt <- raster::rasterFromXYZ(data)
+    
+    # Resample raster
+    tt <- raster::disaggregate(tt, fact=smoothness, method='bilinear')
     
     # Define plot domain
         if (missing(domain)) {

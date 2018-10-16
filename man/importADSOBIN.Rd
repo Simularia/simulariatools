@@ -5,8 +5,8 @@
 \title{ADSO/BIN data import function}
 \usage{
 importADSOBIN(file = file.choose(), variable = NULL, slice = 1,
-  deadline = 1, k = 1, kz = 1, dx = 0, dy = 0, destaggering = FALSE,
-  raster.object = FALSE, verbose = FALSE)
+  deadline = 1, k = 1, kz = 1, dx = 0, dy = 0,
+  destaggering = FALSE, raster.object = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{file}{The ADSO/BIN file to be imported.}
@@ -50,7 +50,7 @@ it.
 \details{
 The \code{importADSIOBIN()} function was developed to import data from an
 ADSO/BIN binary file. It relies on the `arinfopy' (version >= 2.2.0) python
-library. For more information on the library see the \href{https://github.com/Simularia/arinfopy}{githubrepository}.
+library. For more information on the library see the \href{https://github.com/Simularia/arinfopy}{github repository}.
 
 For more information on the active \code{python} installation, check the
 documentaion of \pkg{reticulate}.

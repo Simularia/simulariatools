@@ -127,7 +127,7 @@ importADSOBIN <- function(file = file.choose(),
         slice <- 1
     }
 
-    # Chack if slice is available
+    # Check if slice is available
     vlevels <- rec4$sgrid
     if (!(slice <= length(vlevels))) {
         stop(paste0("\nSlice (vertical level) not available.\n"),

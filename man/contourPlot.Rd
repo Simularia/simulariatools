@@ -4,8 +4,9 @@
 \alias{contourPlot}
 \title{Contour plot of pollutant concentration}
 \usage{
-contourPlot(data, domain = NULL, background = NULL, underlayer = NULL,
-  overlayer = NULL, legend = NULL, levels = NULL, transparency = 0.66,
+contourPlot(data, domain = NULL, background = NULL,
+  underlayer = NULL, overlayer = NULL, legend = NULL,
+  levels = NULL, transparency = 0.66, smoothness = 1,
   colors = NULL)
 }
 \arguments{
@@ -31,6 +32,9 @@ are plotted.}
 
 \item{transparency}{float (between 0 and 1, default=0.66). Transparency level
 of the contour plot.}
+
+\item{smoothness}{integer factor to improve the horizontal resolution
+(smaller cells) by bilinear interpolation.}
 
 \item{colors}{Color palette for contour plot}
 }

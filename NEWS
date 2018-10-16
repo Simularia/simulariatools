@@ -1,3 +1,8 @@
+simulariatools 1.2.0
+====================
+
+* Function `contourPlot` accepts a **smoothness** parameter to improve the horizontal resolution of the dataset (smaller cells) by the given (integer) factor. The new raster object to be plotted is obtained by bilinear interpolation. 
+
 simulariatools 1.1.0
 ====================
 
