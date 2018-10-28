@@ -7,7 +7,7 @@
 contourPlot(data, domain = NULL, background = NULL,
   underlayer = NULL, overlayer = NULL, legend = NULL,
   levels = NULL, transparency = 0.66, smoothness = 1,
-  colors = NULL)
+  colors = NULL, bare = FALSE)
 }
 \arguments{
 \item{data}{A dataframe containing data to be plotted in the form of X, Y and
@@ -37,6 +37,9 @@ of the contour plot.}
 (smaller cells) by bilinear interpolation.}
 
 \item{colors}{Color palette for contour plot}
+
+\item{bare}{Boolean (default FALSE) parameter to completely remove axis, legend, titles
+and any other graphical element from the plot.}
 }
 \value{
 A \code{ggplot2} plot.

@@ -23,6 +23,8 @@
 #' @param smoothness integer factor to improve the horizontal resolution 
 #'   (smaller cells) by bilinear interpolation.
 #' @param colors Color palette for contour plot
+#' @param bare Boolean (default FALSE) parameter to completely remove axis, legend, titles
+#'   and any other graphical element from the plot.
 #'
 #' @return A \code{ggplot2} plot.
 #'

@@ -36,7 +36,14 @@ If you are interested, you can track development and contribute at http://github
 
 Contact person:
     Giuseppe Carlino
+    Simularia s.r.l.
     g.carlino@simularia.it
+
+
+## Contributors
+
+Matteo Paolo Costa (Arianet s.r.l.)
+
 
 ## License
 
