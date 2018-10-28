@@ -23,6 +23,8 @@
 #' @param smoothness integer factor to improve the horizontal resolution 
 #'   (smaller cells) by bilinear interpolation.
 #' @param colors Color palette for contour plot
+#' @param bare Boolean (default FALSE) parameter to completely remove axis, legend, titles
+#'   and any other graphical element from the plot.
 #'
 #' @return A \code{ggplot2} plot.
 #'
@@ -83,7 +85,8 @@ contourPlot <- function(data,
                         levels = NULL,
                         transparency = 0.66,
                         smoothness = 1.,
-                        colors = NULL) {
+                        colors = NULL,
+                        bare = FALSE) {
     
     # Convert input to raster
     tt <- raster::rasterFromXYZ(data)
@@ -242,6 +245,24 @@ contourPlot <- function(data,
         overlayer <- geom_blank()
     }
 
+    # If requested, wipe all but main plot 
+    if (isTRUE(bare)) {
+        baretheme <- theme(axis.line=element_blank(),
+                     axis.text.x=element_blank(),
+                     axis.text.y=element_blank(),
+                     axis.ticks=element_blank(),
+                     axis.title.x=element_blank(),
+                     axis.title.y=element_blank(),
+                     legend.position="none",
+                     panel.background=element_blank(),
+                     panel.border=element_blank(),
+                     panel.grid.major=element_blank(),
+                     panel.grid.minor=element_blank(),
+                     plot.background=element_blank())
+    } else {
+        baretheme <- theme()
+    }
+
     # Contour plot
     v <- ggplot(ttDF) +
         annotation_custom(gimg, -Inf, Inf, -Inf, Inf)  +
@@ -270,7 +291,8 @@ contourPlot <- function(data,
                            expand = c(0, 0)) +
         theme_bw(base_size = 10, base_family = "Arial") +
         coord_fixed(ratio = 1, xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
-        overlayer
+        overlayer +
+        baretheme
   
     return(v)
 }

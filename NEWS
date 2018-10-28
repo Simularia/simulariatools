@@ -1,3 +1,9 @@
+simulariatools 1.2.1
+====================
+
+* Function `contourPlot` accepts a **bare** boolean parameter to remove any graphical element of
+the plot (axis, titles, legend, ...).
+
 simulariatools 1.2.0
 ====================
 
