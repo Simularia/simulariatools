@@ -25,6 +25,8 @@
 #' @param colors Color palette for contour plot
 #' @param bare Boolean (default FALSE) parameter to completely remove axis, legend, titles
 #'   and any other graphical element from the plot.
+#' @param size float with the thickness of the contour line.
+#' @param cover boolean (default TRUE) to specify whether the contour plot should be colour covered or not.
 #'
 #' @return A \code{ggplot2} plot.
 #'
@@ -83,6 +85,8 @@ contourPlot <- function(data,
                         overlayer = NULL,
                         legend = NULL, 
                         levels = NULL,
+                        size = 0.,
+                        cover = TRUE,
                         transparency = 0.66,
                         smoothness = 1.,
                         colors = NULL,
@@ -271,9 +275,10 @@ contourPlot <- function(data,
             data = ttDF,
             aes(x, y, z = z, fill = factor(..level..)),
             geom = "hollow_polygon",
-            size = 0.,
+            size = size,
             breaks = levels,
             alpha = transparency,
+            cover = cover,
             na.rm = TRUE) +
         scale_fill_manual(lgndname, 
                           guide = guide_legend(reverse = T, label.vjust = 0), 
