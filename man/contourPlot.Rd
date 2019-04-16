@@ -6,8 +6,8 @@
 \usage{
 contourPlot(data, domain = NULL, background = NULL,
   underlayer = NULL, overlayer = NULL, legend = NULL,
-  levels = NULL, transparency = 0.66, smoothness = 1,
-  colors = NULL, bare = FALSE)
+  levels = NULL, size = 0, cover = TRUE, transparency = 0.66,
+  smoothness = 1, colors = NULL, bare = FALSE)
 }
 \arguments{
 \item{data}{A dataframe containing data to be plotted in the form of X, Y and
@@ -29,6 +29,10 @@ the contour plot (optional).}
 
 \item{levels}{Array of levels for contour plot. If not set, automatic levels
 are plotted.}
+
+\item{size}{float with the thickness of the contour line.}
+
+\item{cover}{boolean (default TRUE) to specify whether the contour plot should be colour covered or not.}
 
 \item{transparency}{float (between 0 and 1, default=0.66). Transparency level
 of the contour plot.}

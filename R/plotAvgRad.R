@@ -2,7 +2,8 @@
 #' 
 #' Plot a histogram with hourly average of solar radiation, together with hourly maxima for June and December.
 #'
-#' @param mydata A data frame containing fields `date` and `rad`
+#' @param mydata A data frame containing fields `date` and `radg`
+#' @param date  Name of the column representing date and time
 #' @param rad   Name of the column representing radiation
 #' 
 #' @return A \code{ggplot2} plot.
@@ -13,9 +14,14 @@
 #' plotAvgRad(mydata)
 #' plotAvgRad(mydata, rad="radg")
 #' }
-plotAvgRad <- function(mydata, rad="radg") {
+plotAvgRad <- function(mydata, date="date", rad="radg") {
     
-    mydata <- subset(mydata, select=c("date", rad))
+    mydata <- as.data.frame(mydata)
+    # Rename columns
+    names(mydata)[names(mydata) == date] <- 'date'
+    names(mydata)[names(mydata) == rad] <- 'rad'
+    # Select datetime and radiation
+    mydata <- subset(mydata, select=c(date, rad))
     mydata_dec <- openair::selectByDate(mydata, month=12)
     mydata_jun <- openair::selectByDate(mydata, month=6)
     

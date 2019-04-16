@@ -4,10 +4,12 @@
 \alias{plotAvgRad}
 \title{Plot hourly average radiation}
 \usage{
-plotAvgRad(mydata, rad = "radg")
+plotAvgRad(mydata, date = "date", rad = "radg")
 }
 \arguments{
-\item{mydata}{A data frame containing fields \code{date} and \code{rad}}
+\item{mydata}{A data frame containing fields \code{date} and \code{radg}}
+
+\item{date}{Name of the column representing date and time}
 
 \item{rad}{Name of the column representing radiation}
 }

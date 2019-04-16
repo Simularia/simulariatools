@@ -11,11 +11,11 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                              required_aes = c("x", "y"),
                              default_aes = aes(
                                  colour = NA, 
-                                 fill = "grey20", 
+                                 fill = "grey20",
                                  size = 0.5,
                                  linetype = 1, 
-                                 alpha = 1
-                             ),
+                                 alpha = 1,
+                                 cover = TRUE),
                              draw_key = draw_key_polygon,
                              draw_group = function(data, panel_params, coord) {
                                  n <- nrow(data)
@@ -27,6 +27,12 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                                  # A polygon can only have a single colour, fill, etc, so take from first row
                                  first_row <- coords[1, , drop = FALSE]
                                  
+                                 if (first_row$cover) {
+                                     cfill = scales::alpha(first_row$fill, first_row$alpha)
+                                 } else {
+                                     cfill = NA
+                                 }
+
                                  grid::pathGrob(
                                      coords$x, coords$y, 
                                      default.units = "native",
@@ -35,7 +41,7 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                                      id = coords$piece,
                                      gp = grid::gpar(
                                          col =  scales::alpha(first_row$fill, first_row$alpha),
-                                         fill = scales::alpha(first_row$fill, first_row$alpha),
+                                         fill = cfill,
                                          lwd =  first_row$size * .pt,
                                          lty =  first_row$linetype
                                      )
@@ -44,12 +50,20 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
 )
 
 #' @export
-geom_hollow_polygon <- function(mapping = NULL, data = NULL, stat = "hollow_contour",
-                                position = "identity", show.legend = NA, 
+geom_hollow_polygon <- function(mapping = NULL, 
+                                data = NULL, 
+                                stat = "hollow_contour",
+                                position = "identity", 
+                                show.legend = NA, 
                                 inherit.aes = TRUE, ...) {
     layer(
-        geom = GeomHollowPolygon, mapping = mapping, data = data, stat = stat, 
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+        geom = GeomHollowPolygon, 
+        mapping = mapping, 
+        data = data, 
+        stat = stat, 
+        position = position, 
+        show.legend = show.legend, 
+        inherit.aes = inherit.aes,
         params = list(...)
     )
 }
