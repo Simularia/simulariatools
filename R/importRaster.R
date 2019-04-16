@@ -55,9 +55,9 @@ importRaster <- function(file = file.choose(),
                          verbose = FALSE) {
 
     if (is.null(variable)) {
-        t <- raster::raster(file)
+        t <- raster::raster(file, ncdf=TRUE)
     } else {
-        t <- raster::raster(file, varname = variable)
+        t <- raster::raster(file, varname = as.character(variable), ncdf=TRUE)
     }
     
     # Apply conversion factor
