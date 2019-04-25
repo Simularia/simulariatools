@@ -1,8 +1,8 @@
 Package: simulariatools
 Type: Package
 Title: Simularia Tools for the Analysis of Air Pollution Data
-Version: 1.3.0
-Date: 2019-04-16
+Version: 1.3.1
+Date: 2019-04-25
 Author: Giuseppe Carlino <g.carlino@simularia.it>
 Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
 Description: A set of tools developed at Simularia for Simularia, to help

@@ -84,8 +84,8 @@ importADSOBIN <- function(file = file.choose(),
     rec5 <- abin$getRecord5(1)
     
     # Get list of variables
-    nomvar2d = unlist(rec5['nomvar2d'])
-    nomvar3d = unlist(rec5['nomvar3d'])
+    nomvar2d = trimws(unlist(rec5['nomvar2d']), "both")
+    nomvar3d = trimws(unlist(rec5['nomvar3d']), 'both')
     
     # Check existence of the requested variable
     if (is.null(variable) || (!(variable %in% nomvar2d) && !(variable %in% nomvar3d))) {
