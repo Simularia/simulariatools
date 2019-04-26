@@ -19,6 +19,7 @@ people at [Simularia](www.simularia.it).
 - `removeOutliers()`.
 - `rollingMax()`.
 - `stabilityClass()`.
+- `vectorField()`.
 
 ## Install
 

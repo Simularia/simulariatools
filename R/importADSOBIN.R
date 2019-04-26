@@ -36,7 +36,7 @@
 #'   columns. Column Z contains the values of the requested variable. 
 #'   If the `raster.object` option is set, it returns a RasterLayer object.
 #'
-#' @seealso \code{\link{importRaster}} to import netcdf files. See also [importRaster()]. 
+#' @seealso \code{\link{importRaster}} to import netcdf files.
 #' 
 #' @examples
 #' \dontrun{
