@@ -3,6 +3,7 @@
 export(GeomHollowPolygon)
 export(StatHollowContour)
 export(contourPlot)
+export(contourPlot2)
 export(createBaseMap)
 export(geom_hollow_polygon)
 export(importADSOBIN)

@@ -4,9 +4,16 @@
 \alias{stat_hollow_contour}
 \title{Contour plot with hollow management}
 \usage{
-stat_hollow_contour(mapping = NULL, data = NULL,
-  geom = "hollow_polygon", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+stat_hollow_contour(
+  mapping = NULL,
+  data = NULL,
+  geom = "hollow_polygon",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \description{
 Contour plot with hollow management

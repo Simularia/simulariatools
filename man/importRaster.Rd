@@ -4,8 +4,16 @@
 \alias{importRaster}
 \title{Import generic raster file}
 \usage{
-importRaster(file = file.choose(), k = 1, kz = 1, dx = 0, dy = 0,
-  destaggering = FALSE, variable = NULL, verbose = FALSE)
+importRaster(
+  file = file.choose(),
+  k = 1,
+  kz = 1,
+  dx = 0,
+  dy = 0,
+  destaggering = FALSE,
+  variable = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{file}{The raster file to be imported.}

@@ -4,9 +4,19 @@
 \alias{importADSOBIN}
 \title{ADSO/BIN data import function}
 \usage{
-importADSOBIN(file = file.choose(), variable = NULL, slice = 1,
-  deadline = 1, k = 1, kz = 1, dx = 0, dy = 0,
-  destaggering = FALSE, raster.object = FALSE, verbose = FALSE)
+importADSOBIN(
+  file = file.choose(),
+  variable = NULL,
+  slice = 1,
+  deadline = 1,
+  k = 1,
+  kz = 1,
+  dx = 0,
+  dy = 0,
+  destaggering = FALSE,
+  raster.object = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{file}{The ADSO/BIN file to be imported.}
@@ -38,7 +48,7 @@ dataframe with (X, Y, Z) columns (default = \code{FALSE}).}
 \item{verbose}{Use \code{TRUE} to print out basic statistics (default = \code{FALSE}).}
 }
 \value{
-In standard use, \code{importADSOBIN()} return a data frame with \code{(X, Y, Z)}
+In standard use, \code{importADSOBIN()} return a data frame with \verb{(X, Y, Z)}
 columns. Column Z contains the values of the requested variable.
 If the \code{raster.object} option is set, it returns a RasterLayer object.
 }

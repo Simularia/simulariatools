@@ -26,7 +26,8 @@
 #' @param bare Boolean (default FALSE) parameter to completely remove axis, legend, titles
 #'   and any other graphical element from the plot.
 #' @param size float with the thickness of the contour line.
-#' @param cover boolean (default TRUE) to specify whether the contour plot should be colour covered or not.
+#' @param cover boolean (default TRUE) to specify whether the contour plot 
+#'   should be filled or not.
 #'
 #' @return A \code{ggplot2} plot.
 #'
@@ -96,7 +97,7 @@ contourPlot <- function(data,
     tt <- raster::rasterFromXYZ(data)
     
     # Resample raster
-    tt <- raster::disaggregate(tt, fact=smoothness, method='bilinear')
+    tt <- raster::disaggregate(tt, fact = smoothness, method = 'bilinear')
     
     # Define plot domain
         if (missing(domain)) {
@@ -116,7 +117,6 @@ contourPlot <- function(data,
         }
     
     # Automatic scales
-    # if (is.null(levels)) {
     if (missing(levels)) {
         nlevels <- 7
         levels <- pretty(range(raster::values(tt), na.rm = T), n = nlevels, min.n = 4)

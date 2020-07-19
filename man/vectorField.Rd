@@ -4,8 +4,15 @@
 \alias{vectorField}
 \title{Vector field plot}
 \usage{
-vectorField(data, scalex = 1, scaley = 1, everyx = 1, everyy = 1,
-  length = 0.1, size = 0.25)
+vectorField(
+  data,
+  scalex = 1,
+  scaley = 1,
+  everyx = 1,
+  everyy = 1,
+  length = 0.1,
+  size = 0.25
+)
 }
 \arguments{
 \item{data}{A dataframe containing data to be plotted in the form of: \emph{(x, y, u, v)}.}

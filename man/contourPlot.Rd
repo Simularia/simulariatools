@@ -4,10 +4,21 @@
 \alias{contourPlot}
 \title{Contour plot of pollutant concentration}
 \usage{
-contourPlot(data, domain = NULL, background = NULL,
-  underlayer = NULL, overlayer = NULL, legend = NULL,
-  levels = NULL, size = 0, cover = TRUE, transparency = 0.66,
-  smoothness = 1, colors = NULL, bare = FALSE)
+contourPlot(
+  data,
+  domain = NULL,
+  background = NULL,
+  underlayer = NULL,
+  overlayer = NULL,
+  legend = NULL,
+  levels = NULL,
+  size = 0,
+  cover = TRUE,
+  transparency = 0.66,
+  smoothness = 1,
+  colors = NULL,
+  bare = FALSE
+)
 }
 \arguments{
 \item{data}{A dataframe containing data to be plotted in the form of X, Y and

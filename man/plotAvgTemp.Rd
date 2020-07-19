@@ -4,8 +4,13 @@
 \alias{plotAvgTemp}
 \title{Plot average temperature}
 \usage{
-plotAvgTemp(mydata, temp = "temp", avg.time = "1 month",
-  ylabel = "Temperatura [C]", title = "")
+plotAvgTemp(
+  mydata,
+  temp = "temp",
+  avg.time = "1 month",
+  ylabel = "Temperatura [C]",
+  title = ""
+)
 }
 \arguments{
 \item{mydata}{A data frame containing fields date and temp}

@@ -4,8 +4,12 @@
 \alias{createBaseMap}
 \title{Create base map (OBSOLETE)}
 \usage{
-createBaseMap(imageFile, domain = c(0, 0, 1000, 1000, 5, 5),
-  font_size = 10, font_family = "Arial")
+createBaseMap(
+  imageFile,
+  domain = c(0, 0, 1000, 1000, 5, 5),
+  font_size = 10,
+  font_family = "Arial"
+)
 }
 \arguments{
 \item{imageFile}{(string) Path to the background 'png' file.}
