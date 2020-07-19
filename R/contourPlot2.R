@@ -83,8 +83,11 @@ contourPlot2 <- function(data,
     } 
 
     # labels for legend
-    # levels <- append(levels, Inf)
     nlevels <- length(levels)
+    if (levels[nlevels] != Inf) {
+        levels <- append(levels, Inf)
+        nlevels <- length(levels)
+    }
     lab_levels <- paste(levels[1:(nlevels - 1)], "\U2013", levels[2:nlevels])
     if (levels[nlevels] == Inf) {
         lab_levels[nlevels - 1] <- paste(">", levels[nlevels - 1])
@@ -94,15 +97,17 @@ contourPlot2 <- function(data,
         lab_levels[1] <- paste("<", levels[2])
     }
     
-    # Color palette 
+    # Colour palette 
     if (is.null(colors)) {
         myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
-        # Omit first color
-        myColors <- myPalette(length(levels))
+        # Omit first colour for aesthetic reasons
+        myColors <- myPalette(nlevels)
         myColors <- myColors[2:length(myColors)]
+        myColorsLines <- cbind(myColors, "black")
     } else {
         myPalette = colorRampPalette(colors, alpha = T)
         myColors <- myPalette(length(levels))
+        myColorsLines <- cbind(myColors, "black")
     }
     
     # Background image
@@ -138,25 +143,31 @@ contourPlot2 <- function(data,
                                 alpha = transparency) +
             scale_fill_manual(lgndname,
                               drop = FALSE,
-                              guide = guide_legend(reverse = T),
+                              guide = guide_legend(reverse = TRUE),
                               labels = lab_levels,
                               values = myColors) 
     }
 
     # Contour lines
     if (size != 0) {
+        lineLevels <- levels
+        if (levels[length(levels)] == "Inf") {
+            lineLevels <- levels[1:length(levels) - 1]
+            # myColorsLines <- myColors
+        }
         v <- v +
-            # geom_contour(aes(x = x, y = y, z = z, colour = after_scale(level)),
-            geom_contour(aes(x = x, y = y, z = z),
-                         breaks = levels,
+            geom_contour(aes(x = x, y = y, z = z, colour = factor(stat(level))),
+                         breaks = lineLevels,
                          size = size,
-                         # color = myColors,
-                         colour = "black",
                          linejoin = "round",
                          lineend = "round",
                          alpha = 1.,
-                         show.legend = FALSE) +
-            scale_color_manual(values = myColors)
+                         show.legend = isFALSE(fill)) +
+            scale_color_manual(lgndname,
+                               drop = FALSE,
+                               limits = factor(lineLevels),
+                               guide = guide_legend(reverse = TRUE),
+                               values = myColorsLines)
     }
 
     # Main scales and theme
