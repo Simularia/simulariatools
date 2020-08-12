@@ -101,7 +101,8 @@ importADSOBIN <- function(file = file.choose(),
     ld <- abin$getDeadlines()
     ld <- lapply(ld, lubridate::parse_date_time,
                  orders = c("ymd H", "ymd HM", "ymd HMS",
-                            "dmy H", "dmy HM", "dmy HMS"),
+                            "dmy H", "dmy HM", "dmy HMS",
+                            "ymd"),
                  tz = "UTC")
     if (!is.numeric(deadline)) {
         tmp <- suppressWarnings(
