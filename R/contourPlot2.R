@@ -47,12 +47,11 @@ contourPlot2 <- function(data,
                          bare = FALSE) {
 
     # Define plot domain
-    # TODO: passare il nome delle colonne x, y, z come parametri
     if (missing(domain)) {
-        xmin <- min(data$x)    # x coordinates minimum
-        xmax <- max(data$x)    # x coordinates max
-        ymin <- min(data$y)    # y coordinates min
-        ymax <- max(data$y)    # y coordinates max
+        xmin <- min(data$x)     # x coordinates minimum
+        xmax <- max(data$x)     # x coordinates max
+        ymin <- min(data$y)     # y coordinates min
+        ymax <- max(data$y)     # y coordinates max
         nx <- 5                 # number of ticks along x axis
         ny <- 5                 # number of ticks along y axis
     } else {
@@ -64,12 +63,7 @@ contourPlot2 <- function(data,
         ny <- domain[6]         # number of ticks along y axis
     }
 
-    # Legend
-    if (missing(legend)) {
-        legend <- ""
-    }
     # prettify legend title
-    # TODO: svincolarsi da openair per l'etichetta
     if (requireNamespace("openair", quietly = TRUE)) {
         lgndname <- openair::quickText(legend, auto.text = T)
     } else {
@@ -78,7 +72,11 @@ contourPlot2 <- function(data,
 
     # Automatic scales
     if (missing(levels)) {
-        nlevels <- 7
+        if (is.null(colors)) {
+            nlevels <- 7
+        } else {
+            nlevels <- length(colors)
+        }
         levels <- pretty(range(data$z, na.rm = T), n = nlevels, min.n = 4)
     } 
 
@@ -92,7 +90,6 @@ contourPlot2 <- function(data,
     if (levels[nlevels] == Inf) {
         lab_levels[nlevels - 1] <- paste(">", levels[nlevels - 1])
     }
-    
     if (levels[1] == -Inf) {
         lab_levels[1] <- paste("<", levels[2])
     }
@@ -106,7 +103,7 @@ contourPlot2 <- function(data,
         myColorsLines <- cbind(myColors, "black")
     } else {
         myPalette = colorRampPalette(colors, alpha = T)
-        myColors <- myPalette(length(levels))
+        myColors <- myPalette(length(levels) - 1)
         myColorsLines <- cbind(myColors, "black")
     }
     
@@ -185,7 +182,7 @@ contourPlot2 <- function(data,
                     xlim = c(xmin, xmax),
                     ylim = c(ymin, ymax)) +
         theme_bw(base_size = 10, base_family = "Arial")
-    
+
     # If requested, wipe all but main plot 
     if (isTRUE(bare)) {
         v <- v + theme(axis.line = element_blank(),
