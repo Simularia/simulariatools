@@ -6,6 +6,9 @@
 #' with \code{ggplot2}  version >= 3.3.0.
 #' 
 #' @param data A dataframe containing data to be plotted.
+#' @param x (string) Name of the column with Easting data.
+#' @param y (string) Name of the column with Northing data.
+#' @param z (string) Name of the column with value data.
 #' @param domain An array with min X, max X, min Y, max Y, number of ticks on X
 #'   axis, number of ticks on Y axis (optional).
 #' @param background String containing the path to the png file to be plotted as
@@ -19,8 +22,6 @@
 #'   are plotted.
 #' @param transparency float (between 0 and 1, default=0.66). Transparency level
 #'   of the contour plot.
-#' @param smoothness integer factor to improve the horizontal resolution 
-#'   (smaller cells) by bilinear interpolation.
 #' @param colors Colour palette for contour plot
 #' @param bare Boolean (default FALSE) parameter to completely remove axis, legend, titles
 #'   and any other graphical element from the plot.
@@ -33,6 +34,7 @@
 #' @export
 #' 
 contourPlot2 <- function(data,
+                         x = "x", y = "y", z = "z",
                          domain = NULL,
                          background = NULL, 
                          underlayer = NULL,
@@ -42,10 +44,13 @@ contourPlot2 <- function(data,
                          size = 0.,
                          fill = TRUE,
                          transparency = 0.75,
-                         smoothness = 1.,
                          colors = NULL,
                          bare = FALSE) {
 
+    # Check input data
+    data <- data[, c(x, y, z)]
+    colnames(data) <- c("x", "y", "z")
+    
     # Define plot domain
     if (missing(domain)) {
         xmin <- min(data$x)     # x coordinates minimum
@@ -134,7 +139,8 @@ contourPlot2 <- function(data,
     
     if (isTRUE(fill)) {
         v <- v +
-            geom_contour_filled(aes(x = x, y = y, z = z, fill = stat(level)), 
+            geom_contour_filled(aes(x = x, y = y, z = z,
+                                    fill = stat(level)),
                                 breaks = levels,
                                 size = 0,
                                 alpha = transparency) +
@@ -142,7 +148,7 @@ contourPlot2 <- function(data,
                               drop = FALSE,
                               guide = guide_legend(reverse = TRUE),
                               labels = lab_levels,
-                              values = myColors) 
+                              values = myColors)
     }
 
     # Contour lines
@@ -150,7 +156,6 @@ contourPlot2 <- function(data,
         lineLevels <- levels
         if (levels[length(levels)] == "Inf") {
             lineLevels <- levels[1:length(levels) - 1]
-            # myColorsLines <- myColors
         }
         v <- v +
             geom_contour(aes(x = x, y = y, z = z, colour = factor(stat(level))),
@@ -170,18 +175,19 @@ contourPlot2 <- function(data,
     # Main scales and theme
     v <- v +
         scale_x_continuous(name = "x [m]",
-                           # limits = c(xmin, xmax),
                            breaks = seq(xmin, xmax, length.out = nx),
                            expand = c(0, 0)) +
         scale_y_continuous(name = "y [m]",
-                           # limits = c(ymin, ymax),
                            breaks = seq(ymin, ymax, length.out = ny),
                            expand = c(0, 0)) +
         overlayer +
         coord_fixed(ratio = 1,
                     xlim = c(xmin, xmax),
                     ylim = c(ymin, ymax)) +
-        theme_bw(base_size = 10, base_family = "Arial")
+        theme_bw(base_size = 10, 
+                 base_family = "Arial") +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank())
 
     # If requested, wipe all but main plot 
     if (isTRUE(bare)) {
