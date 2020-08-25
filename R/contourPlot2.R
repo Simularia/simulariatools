@@ -3,7 +3,7 @@
 #' \code{contourPlot} plots a contour map of pollutants.
 #'
 #' This is a convenience function to plot contour levels of a pollutant matrix
-#' with \code{ggplot2}  version >= 3.3.0.
+#' with \code{ggplot2} version >= 3.3.0.
 #' 
 #' @param data A dataframe containing data to be plotted.
 #' @param x (string) Name of the column with Easting data.
@@ -50,6 +50,9 @@ contourPlot2 <- function(data,
     # Check input data
     data <- data[, c(x, y, z)]
     colnames(data) <- c("x", "y", "z")
+    data$x <- as.numeric(data$x)
+    data$y <- as.numeric(data$y)
+    data$z <- as.numeric(data$z)
     
     # Define plot domain
     if (missing(domain)) {

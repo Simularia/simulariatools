@@ -43,7 +43,8 @@ are plotted.}
 
 \item{size}{float with the thickness of the contour line.}
 
-\item{cover}{boolean (default TRUE) to specify whether the contour plot should be colour covered or not.}
+\item{cover}{boolean (default TRUE) to specify whether the contour plot
+should be filled or not.}
 
 \item{transparency}{float (between 0 and 1, default=0.66). Transparency level
 of the contour plot.}

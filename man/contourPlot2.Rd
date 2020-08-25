@@ -6,9 +6,9 @@
 \usage{
 contourPlot2(
   data,
-  x = x,
-  y = y,
-  z = z,
+  x = "x",
+  y = "y",
+  z = "z",
   domain = NULL,
   background = NULL,
   underlayer = NULL,
@@ -16,8 +16,8 @@ contourPlot2(
   legend = NULL,
   levels = NULL,
   size = 0,
-  cover = TRUE,
-  transparency = 0.66,
+  fill = TRUE,
+  transparency = 0.75,
   smoothness = 1,
   colors = NULL,
   bare = FALSE
@@ -26,11 +26,11 @@ contourPlot2(
 \arguments{
 \item{data}{A dataframe containing data to be plotted.}
 
-\item{x}{name of the x column.}
+\item{x}{(string) Name of the column with Easting data.}
 
-\item{y}{name of the y column.}
+\item{y}{(string) Name of the column with Northing data.}
 
-\item{z}{name of the z (levels) column.}
+\item{z}{(string) Name of the column with value data.}
 
 \item{domain}{An array with min X, max X, min Y, max Y, number of ticks on X
 axis, number of ticks on Y axis (optional).}
@@ -51,7 +51,8 @@ are plotted.}
 
 \item{size}{float with the thickness of the contour line.}
 
-\item{cover}{boolean (default TRUE) to specify whether the contour plot should be colour covered or not.}
+\item{fill}{boolean (default TRUE) to specify whether the contour plot
+should be filled or not.}
 
 \item{transparency}{float (between 0 and 1, default=0.66). Transparency level
 of the contour plot.}
@@ -59,7 +60,7 @@ of the contour plot.}
 \item{smoothness}{integer factor to improve the horizontal resolution
 (smaller cells) by bilinear interpolation.}
 
-\item{colors}{Color palette for contour plot}
+\item{colors}{Colour palette for contour plot}
 
 \item{bare}{Boolean (default FALSE) parameter to completely remove axis, legend, titles
 and any other graphical element from the plot.}
