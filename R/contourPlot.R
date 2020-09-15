@@ -211,10 +211,10 @@ contourPlot <- function(data,
     
     # color palette (omit first color)
     if (is.null(colors)) {
-        myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
-        myColors <- myPalette(length(levels)+1)[-c(1,1)]
+        myPalette <- grDevices::colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+        myColors <- myPalette(length(levels) + 1)[-c(1, 1)]
     } else {
-        myPalette = colorRampPalette(colors, alpha = T)
+        myPalette = grDevices::colorRampPalette(colors, alpha = T)
         myColors <- myPalette(length(levels))
     }
     
@@ -273,24 +273,23 @@ contourPlot <- function(data,
         underlayer + 
         stat_hollow_contour(
             data = ttDF,
-            aes(x, y, z = z, fill = factor(..level..)),
+            aes(x = x, y = y, z = z, fill = factor(..level..)),
             geom = "hollow_polygon",
             size = size,
             breaks = levels,
             alpha = transparency,
             cover = cover,
             na.rm = TRUE) +
-        scale_fill_manual(lgndname, 
-                          guide = guide_legend(reverse = T, label.vjust = 0), 
+        scale_fill_manual(lgndname,
+                          guide = guide_legend(reverse = T, label.vjust = 0),
                           breaks = levels,
-                          limits = levels,
                           labels = lab_levels,
                           values = myColors) +
-        scale_x_continuous(name = "x [m]", 
+        scale_x_continuous(name = "x [m]",
                            limits = c(xminE, xmaxE),
                            breaks = seq(xmin, xmax, length.out = nx),
                            expand = c(0, 0)) +
-        scale_y_continuous(name = "y [m]", 
+        scale_y_continuous(name = "y [m]",
                            limits = c(yminE, ymaxE),
                            breaks = seq(ymin, ymax, length.out = ny),
                            expand = c(0, 0)) +
