@@ -92,10 +92,13 @@ contourPlot <- function(data,
                         smoothness = 1.,
                         colors = NULL,
                         bare = FALSE) {
-    
-    # Convert input to raster
-    tt <- raster::rasterFromXYZ(data)
-    
+  
+  # Local binding for variables
+  x <- y <- z <- NULL
+  
+  # Convert input to raster
+  tt <- raster::rasterFromXYZ(data)
+  
     # Resample raster
     tt <- raster::disaggregate(tt, fact = smoothness, method = 'bilinear')
     
