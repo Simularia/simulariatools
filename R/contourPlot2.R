@@ -8,7 +8,7 @@
 #' @param data A dataframe containing data to be plotted.
 #' @param x (string) Name of the column with Easting data.
 #' @param y (string) Name of the column with Northing data.
-#' @param z (string) Name of the column with value data.
+#' @param z (string) Name of the column with values data.
 #' @param domain An array with min X, max X, min Y, max Y, number of ticks on X
 #'   axis, number of ticks on Y axis (optional).
 #' @param background String containing the path to the png file to be plotted as
@@ -34,7 +34,9 @@
 #' @export
 #' 
 contourPlot2 <- function(data,
-                         x = "x", y = "y", z = "z",
+                         x = "x",
+                         y = "y",
+                         z = "z",
                          domain = NULL,
                          background = NULL, 
                          underlayer = NULL,
@@ -49,10 +51,13 @@ contourPlot2 <- function(data,
 
     # Check input data
     data <- data[, c(x, y, z)]
+    vars <- c(x, y, z)
+    for (i in seq_along(vars)) {
+        if (!is.numeric(data[[vars[i]]])) {
+            data[[vars[i]]] <- as.numeric(data[[vars[i]]])
+        }
+    }
     colnames(data) <- c("x", "y", "z")
-    data$x <- as.numeric(data$x)
-    data$y <- as.numeric(data$y)
-    data$z <- as.numeric(data$z)
     
     # Define plot domain
     if (missing(domain)) {
@@ -104,13 +109,13 @@ contourPlot2 <- function(data,
     
     # Colour palette 
     if (is.null(colors)) {
-        myPalette <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+        myPalette <- grDevices::colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
         # Omit first colour for aesthetic reasons
         myColors <- myPalette(nlevels)
         myColors <- myColors[2:length(myColors)]
         myColorsLines <- cbind(myColors, "black")
     } else {
-        myPalette = colorRampPalette(colors, alpha = T)
+        myPalette = grDevices::colorRampPalette(colors, alpha = T)
         myColors <- myPalette(length(levels) - 1)
         myColorsLines <- cbind(myColors, "black")
     }
@@ -133,6 +138,11 @@ contourPlot2 <- function(data,
     # Overlayer
     if (missing(overlayer)) {
         overlayer <- geom_blank()
+    }
+    
+    # If fill is FALSE and size is 0 we set a default value for size
+    if (isFALSE(fill) & size == 0) {
+        size = 0.5
     }
     
     # Contour plot
@@ -161,7 +171,10 @@ contourPlot2 <- function(data,
             lineLevels <- levels[1:length(levels) - 1]
         }
         v <- v +
-            geom_contour(aes(x = x, y = y, z = z, colour = factor(stat(level))),
+            geom_contour(aes(x = x, 
+                             y = y, 
+                             z = z, 
+                             colour = factor(stat(level))),
                          breaks = lineLevels,
                          size = size,
                          linejoin = "round",
@@ -179,9 +192,11 @@ contourPlot2 <- function(data,
     v <- v +
         scale_x_continuous(name = "x [m]",
                            breaks = seq(xmin, xmax, length.out = nx),
+                           labels = myCoordsLabels,
                            expand = c(0, 0)) +
         scale_y_continuous(name = "y [m]",
                            breaks = seq(ymin, ymax, length.out = ny),
+                           labels = myCoordsLabels,
                            expand = c(0, 0)) +
         overlayer +
         coord_fixed(ratio = 1,
