@@ -9,6 +9,10 @@
 #' @return A \code{ggplot2} plot.
 #' 
 #' @export
+#' 
+#' @importFrom stats aggregate
+#' @importFrom openair selectByDate
+#' 
 #' @examples
 #' \dontrun{
 #' plotAvgRad(mydata)
@@ -25,16 +29,12 @@ plotAvgRad <- function(mydata, date="date", rad="radg") {
     mydata_dec <- openair::selectByDate(mydata, month = 12)
     mydata_jun <- openair::selectByDate(mydata, month = 6)
     
-    means <- aggregate(mydata["rad"], by = format(mydata["date"],"%H"), FUN = mean, na.rm = TRUE)
-    max_jun <- aggregate(mydata_jun["rad"], format(mydata_jun["date"],"%H"), max, na.rm = TRUE)
-    max_dec <- aggregate(mydata_dec["rad"], format(mydata_dec["date"],"%H"), max, na.rm = TRUE)
+    means <- stats::aggregate(mydata["rad"], by = format(mydata["date"],"%H"), FUN = mean, na.rm = TRUE)
+    max_jun <- stats::aggregate(mydata_jun["rad"], format(mydata_jun["date"],"%H"), FUN = max, na.rm = TRUE)
+    max_dec <- stats::aggregate(mydata_dec["rad"], format(mydata_dec["date"],"%H"), FUN = max, na.rm = TRUE)
     means$date <- as.numeric(means$date)
     max_jun$date <- as.numeric(max_jun$date)
     max_dec$date <- as.numeric(max_dec$date)
-    
-    # means$rad <- means[[rad]]
-    # max_jun$rad <- max_jun[[rad]]
-    # max_dec$rad <- max_dec[[rad]]
     
     v <- ggplot(data = means, aes(x = date, y = rad)) +
         geom_bar(aes(color = "Media", fill = "Media"), stat = "identity", show.legend = FALSE) + 
@@ -49,8 +49,9 @@ plotAvgRad <- function(mydata, date="date", rad="radg") {
         scale_fill_manual(values = c("Media" = "steelblue"), guide = F) + 
         labs(x = NULL, y = expression(paste("Radiazione Globale [W/", m^{2},"]"))) +
         theme_bw(base_family = "Arial") +
-        theme(legend.position = c(1,1), legend.justification = c(1,1), 
-              legend.box.margin = margin(t=1, unit="cm"))
+        theme(legend.position = c(0.01, 0.99), 
+              legend.justification = c(0, 1),
+              legend.box.margin = margin(t = 0, unit = "cm"))
 
     return(v)
 }
