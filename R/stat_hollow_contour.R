@@ -2,6 +2,7 @@
 #' 
 #' @import ggplot2
 #' @export
+#' 
 stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_polygon",
                          position = "identity", na.rm = FALSE, show.legend = NA,
                          inherit.aes = TRUE, ...) {
@@ -45,6 +46,10 @@ StatHollowContour <- ggproto("StatHollowContour", Stat,
 contour_lines <- function(data, breaks) {
     z <- tapply(data$z, data[c("x", "y")], identity)
 
+    if (!requireNamespace("contoureR", quietly = TRUE)) {
+        stop("Package \"contoureR\" needed for this function to work. Please install it.",
+             call. = FALSE)
+    }
     cl2 <- contoureR::getContourLines(x = data$x, y = data$y, z = data$z, levels = breaks)
 
     if (length(cl2) == 0) {
