@@ -1,4 +1,4 @@
-#' Time series of meteorologicas variables
+#' Time series of meteorological variables
 #' 
 #' A dataset containing time series of meteorological variables.
 #' The variables are as follows:
