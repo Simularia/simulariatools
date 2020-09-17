@@ -6,7 +6,6 @@
 #'             See http://docs.ggplot2.org/dev/vignettes/extending-ggplot2.html
 #'
 #' @import ggplot2
-#' @export 
 GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                              required_aes = c("x", "y"),
                              default_aes = aes(
@@ -49,7 +48,6 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                              }
 )
 
-#' @export
 geom_hollow_polygon <- function(mapping = NULL, 
                                 data = NULL, 
                                 stat = "hollow_contour",

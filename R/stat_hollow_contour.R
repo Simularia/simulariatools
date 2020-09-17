@@ -1,7 +1,6 @@
 #' Contour plot with hollow management
 #' 
 #' @import ggplot2
-#' @export
 #' 
 stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_polygon",
                          position = "identity", na.rm = FALSE, show.legend = NA,
@@ -18,7 +17,6 @@ stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_poly
     )
 }
 
-#' @export
 StatHollowContour <- ggproto("StatHollowContour", Stat,
                         required_aes = c("x", "y", "z"),
                         # default_aes = aes(order = ..level..),
