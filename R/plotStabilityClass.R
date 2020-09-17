@@ -10,13 +10,19 @@
 #'
 #' @return A \code{ggplot2} plot.
 #' 
+#' @importFrom openair cutData
+#' @importFrom scales percent
+#' 
 #' @export
 #' @examples
 #' \dontrun{
-#' plotStabClass(t, cs = "ClassStab", type = "season")
-#' plotStabClass(t, cs = "STABILITY", type = "hour")
+#' plotStabClass(t, cs = "PGT", type = "season")
+#' plotStabClass(t, cs = "stability", type = "hour")
 #' }
 plotStabilityClass <- function(mydata, sc="sc", type="season") {
+    
+    # Fix No visible binding for global variable
+    season <- clname <- hour <- NULL
 
     if (type != "season" && type != "hour") 
         stop("Unspecified plot type.")
@@ -24,24 +30,16 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
     if ( !(sc %in% colnames(mydata)) ) 
         stop("Undefined stability class field name.")
 
-#     if (max(mydata[,sc]) > 6 || min(mydata[,sc]) < 0)
-#         stop("Stability class is out of range [0,6].")
+    # Check if stability class is in range 1 to 6
+    if (max(mydata[,sc]) > 6 || min(mydata[,sc]) < 0)
+        stop("Stability class is out of range [0,6].")
     
     pasquill <- c("A", "B", "C", "D", "E", "F")
     mydata$clname <- pasquill[mydata[,sc]]
-    # mydata$clname <- factor(mydata$clname, levels = c('F', 'E', 'D', 'C', 'B', 'A'))
     mydata$clname <- factor(mydata$clname, levels = sort(unique(mydata$clname), decreasing = T))
     
-#     simudata$sc[simudata$sc == 1] <- "A"
-#     simudata$sc[simudata$sc == 2] <- "B"
-#     simudata$sc[simudata$sc == 3] <- "C"
-#     simudata$sc[simudata$sc == 4] <- "D"
-#     simudata$sc[simudata$sc == 5] <- "E"
-#     simudata$sc[simudata$sc == 6] <- "F"
-
-
     if (type == "season") {
-        mydata <- openair::cutData(mydata, type = 'season')
+        mydata <- openair::cutData(mydata, type = "season")
         # mydata$quarter <- quarters(mydata$date)
         # mydata$quarter[mydata$quarter == "Q1"] <- "Inverno"
         # mydata$quarter[mydata$quarter == "Q2"] <- "Primavera"
@@ -60,11 +58,11 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
             geom_bar(position = "fill")
     }
     v <- v + 
-        scale_y_continuous(labels = scales::percent, breaks=seq(0,1,0.1)) +
+        scale_y_continuous(labels = scales::percent, breaks = seq(0,1,0.1)) +
         scale_fill_brewer(palette = "Spectral", direction = -1) + 
-        labs(x="", y="Percentuale (%)") +
-        theme_bw(base_family="Arial") +
-        theme(legend.position="bottom") +
+        labs(x = "", y = "Percentuale (%)") +
+        theme_bw(base_family = "Arial") +
+        theme(legend.position = "bottom") +
         guides(fill = guide_legend(
             label.position = "bottom", 
             label.hjust = 0.5, 

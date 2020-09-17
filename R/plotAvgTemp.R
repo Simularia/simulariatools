@@ -13,6 +13,11 @@
 #' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 #' 
 #' @export
+#' 
+#' @import grid
+#' @importFrom openair timeAverage
+#' @importFrom reshape2 melt
+#' 
 #' @examples
 #' \dontrun{
 #' # Plot histogram with monthly averages together with maxima and minima curves
@@ -24,6 +29,10 @@ plotAvgTemp <- function(mydata, temp = "temp",
                         ylabel = "Temperatura [C]",
                         title = "") {
 
+    # Fix No visible binding for global variable
+    temp.min <- temp.max <- NULL
+    degree <- variable <- value <- .x <- NULL
+    
     TZ <- attr(mydata$date, "tzone")
     if (is.null(TZ))
         TZ <- "GMT"
@@ -49,16 +58,17 @@ plotAvgTemp <- function(mydata, temp = "temp",
         scale_color_manual(values = c("Media" = "steelblue", 
                                       "Minima" = "darkgreen", 
                                       "Massima" = "darkorange2"), 
-                           guide=guide_legend(title = NULL)) +
+                           guide = guide_legend(title = NULL)) +
         scale_fill_manual(values = c("Media" = "steelblue"), guide = F)  + 
         theme_bw(base_family = "Arial") +
         theme(legend.position = c(0.01, 0.99), 
-              legend.justification = c(0, 1))
-    
+              legend.justification = c(0, 1),
+              legend.box.margin = margin(t = 0, unit = "mm"))
+
     # Prepare table of data to be plot in the lower part of the figure
     # See http://learnr.wordpress.com/2009/04/29/
     #                   ggplot2-labelling-data-series-and-adding-a-data-table/
-    
+
     mydata <- reshape2::melt(mydata_mean, measure.vars = c("temp.min", "temp", "temp.max"))
     mydata$value <- round(mydata$value, digits = 1)
     data_table <- ggplot(mydata, 
