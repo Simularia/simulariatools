@@ -8,6 +8,8 @@
 #' 
 #' @return vector of clenaed data
 #' 
+#' @importFrom stats quantile
+#' 
 #' @export
 #' @examples
 #' \dontrun{
@@ -18,10 +20,10 @@
 removeOutliers <- function(x, k) {
 
     # Compute quantiles
-    qnt <- quantile(x, probs=c(0.25, 0.75), na.rm=TRUE)
+    qnt <- quantile(x, probs = c(1/4, 3/4), na.rm = TRUE)
     
     # Compute the interquartile range
-    H <- k * IQR(x, na.rm=TRUE)
+    H <- k * (qnt[2] - qnt[1])
     
     # set to NA what is outside k * IQR
     x[x < (qnt[1] - H)] <- NA

@@ -12,7 +12,6 @@
 #' 
 #' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 #' 
-#' @import dplyr
 #' @export
 #' @examples
 #' \dontrun{
