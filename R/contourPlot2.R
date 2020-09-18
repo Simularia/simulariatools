@@ -32,6 +32,12 @@
 #' @param size float with the thickness of the contour line.
 #' @param fill boolean (default TRUE) to specify whether the contour plot 
 #'   should be filled or not.
+#'   
+#' @importFrom openair quickText
+#' @importFrom grDevices colorRampPalette
+#' @importFrom ggplot2 ggplot annotation_custom geom_contour_filled 
+#'                     scale_fill_manual scale_x_continuous scale_y_continuous
+#'                     scale_color_manual coord_fixed theme_bw theme
 #'
 #' @examples 
 #' \dontrun{

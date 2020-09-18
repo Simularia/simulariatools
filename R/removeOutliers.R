@@ -20,7 +20,7 @@
 removeOutliers <- function(x, k) {
 
     # Compute quantiles
-    qnt <- quantile(x, probs = c(1/4, 3/4), na.rm = TRUE)
+    qnt <- stats::quantile(x, probs = c(1/4, 3/4), na.rm = TRUE)
     
     # Compute the interquartile range
     H <- k * (qnt[2] - qnt[1])

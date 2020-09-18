@@ -31,7 +31,8 @@ Imports:
     reshape2,
     reticulate,
     RColorBrewer,
-    scales
+    scales,
+    magick
 Suggests:
     contoureR
 License: GPL-2

@@ -30,7 +30,7 @@
 #'   should be filled or not.
 #'
 #' @return A \code{ggplot2} plot.
-#'
+#' 
 #' @examples
 #' \dontrun{
 #' # Import variable CONCAN from inpufile, convert km to m (k = 1000):
@@ -77,6 +77,11 @@
 #'             colors = RColorBrewer::brewer.pal(3, name = "PiYG"))
 #' }
 #'
+#' @import ggplot2
+#' @importFrom grDevices colorRampPalette
+#' @importFrom raster rasterFromXYZ disaggregate xmin xmax ymin ymax values
+#'                    crop merge extent extend rasterToPoints
+#' 
 #' @export
 #' 
 contourPlot <- function(data,

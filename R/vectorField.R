@@ -11,7 +11,7 @@
 #'
 #' @return A \code{ggplot2} plot.
 #' 
-#' @import ggplot2
+#' @importFrom ggplot2 ggplot geom_segment aes
 #' @importFrom dplyr filter
 #' 
 #' @param data A dataframe containing data to be plotted in the form of: *(x, y, u, v)*.
