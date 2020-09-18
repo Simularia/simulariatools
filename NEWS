@@ -2,12 +2,13 @@ simulariatools 2.0.0
 ====================
 
 * New `contourPlot2()` function:
-  - Based on ggplot2 v3.3.0 and `geom_contour_filled` function;
-  - Colour bands are not overlapped anymore therefore the maps are much more accurate;
-  - Legend labels are much more informatvie and smarter (you can also use +/- Inf for upper or lower bound);
-  - Legend type for contour lines (no filling) is now a line;
-  - Added possibility to specify column names to the data;
-  - Axis labels are rounded to 0 decimals (they are in metres).
+      - Based on ggplot2 v3.3.0 and `geom_contour_filled` function;
+      - Colour bands are not overlapped anymore therefore the maps are much more accurate;
+      - Legend labels are much more informatvie and smarter (you can also use +/- Inf for upper or lower bound);
+      - Legend type for contour lines (no filling) is now a line;
+      - Added possibility to specify column names to the data;
+      - Axis labels are rounded to 0 decimals (they are in metres).
+  
 * `vectorField` has better defaults for vector lengths.
 * Changed position of legend in `plotAvgRad()`.
 * The package is now compliant with R cmd check (CRAN).

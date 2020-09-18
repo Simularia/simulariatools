@@ -5,6 +5,7 @@
 #' @references See http://rpubs.com/kohske/352
 #'             See http://docs.ggplot2.org/dev/vignettes/extending-ggplot2.html
 #'
+#' @keywords internal
 #' @import ggplot2
 GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                              required_aes = c("x", "y"),

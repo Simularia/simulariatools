@@ -17,4 +17,4 @@ new geom to manage hollows in contour plot
 See http://rpubs.com/kohske/352
 See http://docs.ggplot2.org/dev/vignettes/extending-ggplot2.html
 }
-\keyword{datasets}
+\keyword{internal}

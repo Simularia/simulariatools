@@ -21,7 +21,7 @@
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
 #'   the default plot specification, e.g. [borders()].
 #' @param ... Other arguments passed on to [layer()].
-#' 
+#' @keywords internal
 stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_polygon",
                          position = "identity", na.rm = FALSE, show.legend = NA,
                          inherit.aes = TRUE, ...) {

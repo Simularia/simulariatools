@@ -47,3 +47,4 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \description{
 Contour plot with hollow management
 }
+\keyword{internal}
