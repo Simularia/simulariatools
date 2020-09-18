@@ -66,7 +66,8 @@ metV <- metV \%>\%
 met <- merge(metU, metV, by = c("x", "y"))
 
 vectorField(met, everyx = 2, everyy = 2, scalex = 10, scaley = 10) +
-    coord_fixed(ratio = 1, xlim = c(0, 1000), ylim = c(0, 1000))
+    coord_fixed(ratio = 1, xlim = c(0, 1000), ylim = c(0, 1000)) +
+    scale_color_viridis_c()
 
 }
 }

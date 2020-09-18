@@ -1,8 +1,7 @@
 #' ADSO/BIN data import function
 #'
-#' Function to import ADSO/BIN binary file type. It requires an installation of
-#' the `arinfopy` python library and uses the \pkg{reticulate} package to import
-#' it.
+#' Import data from ADSO/BIN binary file. It requires an active Python installation
+#' with the `arinfopy` library.
 #'
 #' @import reticulate
 #'

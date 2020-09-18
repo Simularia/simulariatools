@@ -53,9 +53,8 @@ columns. Column Z contains the values of the requested variable.
 If the \code{raster.object} option is set, it returns a RasterLayer object.
 }
 \description{
-Function to import ADSO/BIN binary file type. It requires an installation of
-the \code{arinfopy} python library and uses the \pkg{reticulate} package to import
-it.
+Import data from ADSO/BIN binary file. It requires an active Python installation
+with the \code{arinfopy} library.
 }
 \details{
 The \code{importADSIOBIN()} function was developed to import data from an

@@ -70,4 +70,14 @@ A \code{ggplot2} plot.
 \details{
 This is a convenience function to plot contour levels of a pollutant matrix
 with \code{ggplot2} version >= 3.3.0.
+
+Domain data are exptected to be on a regular rectangular grid with UTM coordinates.
+}
+\examples{
+\dontrun{
+volcano3d <- reshape::melt(volcano)
+names(volcano3d) <- c("x", "y", "z")
+contourPlot2(volcano3d, transparency = 1, 
+             levels = c(80, 100, 120, 140, 160, 180, 200, Inf))
+}
 }

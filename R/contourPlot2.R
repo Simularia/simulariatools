@@ -1,9 +1,13 @@
 #' Contour plot of pollutant concentration
 #'
-#' \code{contourPlot} plots a contour map of pollutants.
+#' \code{contourPlot} plots a contour map of pollutants. 
 #'
 #' This is a convenience function to plot contour levels of a pollutant matrix
-#' with \code{ggplot2} version >= 3.3.0.
+#' with \code{ggplot2} version >= 3.3.0. 
+#' 
+#' Domain data are exptected to be on a regular rectangular grid with UTM coordinates.
+#' 
+#' @return A \code{ggplot2} plot.
 #' 
 #' @param data A dataframe containing data to be plotted.
 #' @param x (string) Name of the column with Easting data.
@@ -29,8 +33,13 @@
 #' @param fill boolean (default TRUE) to specify whether the contour plot 
 #'   should be filled or not.
 #'
-#' @return A \code{ggplot2} plot.
-#'
+#' @examples 
+#' \dontrun{
+#' volcano3d <- reshape::melt(volcano)
+#' names(volcano3d) <- c("x", "y", "z")
+#' contourPlot2(volcano3d, transparency = 1, 
+#'              levels = c(80, 100, 120, 140, 160, 180, 200, Inf))
+#' }
 #' @export
 #' 
 contourPlot2 <- function(data,
