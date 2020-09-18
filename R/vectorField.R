@@ -1,13 +1,16 @@
 #' Vector field plot
 #'
-#' \code{vectorField} plots a vector field of two **velocities**.
+#' Simple function to plot a **velocities** vector field.
 #'
-#' This function plot a vector field given a data.frame with coordinates (x, y) 
-#' and corresponding velocities (u, v). Vectors are colored by magnitude (speed).
+#' This function plots a vector field given a data.frame with coordinates (x, y) 
+#' and corresponding velocity components (u, v). Vectors are colored by magnitude (speed).
+#' The coordinates are assumed to be on a regular rectangular domain in UTM reference system.
 #' 
 #' This function is heavily inspired by snippets of code in 
 #' *R Graphics Cookbook* by Winston Chang (https://r-graphics.org/index.html).
 #'
+#' @return A \code{ggplot2} plot.
+#' 
 #' @import ggplot2
 #' @importFrom dplyr filter
 #' 
@@ -42,7 +45,8 @@
 #' met <- merge(metU, metV, by = c("x", "y"))
 #' 
 #' vectorField(met, everyx = 2, everyy = 2, scalex = 10, scaley = 10) +
-#'     coord_fixed(ratio = 1, xlim = c(0, 1000), ylim = c(0, 1000))
+#'     coord_fixed(ratio = 1, xlim = c(0, 1000), ylim = c(0, 1000)) +
+#'     scale_color_viridis_c()
 #' 
 #' }
 #' @export
@@ -70,16 +74,15 @@ vectorField <- function(data,
     # Skip points
     keepx <- every_n(unique(data$x), by = everyx)
     keepy <- every_n(unique(data$y), by = everyy)
- 
-    # Filter data to reduce resolution
     datasub <- dplyr::filter(data, x %in% keepx  &  y %in% keepy)
     
     # Plot
     pl <- ggplot(datasub, aes(x = x, y = y)) +
-        geom_segment(aes(xend = x + scalex * 1000 * u, 
-                         yend = y + scaley * 1000 * v, 
-                         colour = speed), 
-                     arrow = arrow(length = unit(length, "cm")), size = size)
+        geom_segment(aes(xend = x + scalex * 100 * u, 
+                         yend = y + scaley * 100 * v, 
+                         colour = speed),
+                     arrow = arrow(length = unit(length, "cm")),
+                     size = size)
     return(pl)
     
 }

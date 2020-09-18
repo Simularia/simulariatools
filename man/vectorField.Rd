@@ -29,12 +29,16 @@ vectorField(
 
 \item{size}{arrow size.}
 }
+\value{
+A \code{ggplot2} plot.
+}
 \description{
-\code{vectorField} plots a vector field of two \strong{velocities}.
+Simple function to plot a \strong{velocities} vector field.
 }
 \details{
-This function plot a vector field given a data.frame with coordinates (x, y)
-and corresponding velocities (u, v). Vectors are colored by magnitude (speed).
+This function plots a vector field given a data.frame with coordinates (x, y)
+and corresponding velocity components (u, v). Vectors are colored by magnitude (speed).
+The coordinates are assumed to be on a regular rectangular domain in UTM reference system.
 
 This function is heavily inspired by snippets of code in
 \emph{R Graphics Cookbook} by Winston Chang (https://r-graphics.org/index.html).
