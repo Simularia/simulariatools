@@ -1,4 +1,4 @@
-#' Contour plot of pollutant concentration
+#' New contour plot of pollutant concentration
 #'
 #' \code{contourPlot} plots a contour map of pollutants. 
 #'

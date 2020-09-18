@@ -2,7 +2,7 @@
 % Please edit documentation in R/contourPlot2.R
 \name{contourPlot2}
 \alias{contourPlot2}
-\title{Contour plot of pollutant concentration}
+\title{New contour plot of pollutant concentration}
 \usage{
 contourPlot2(
   data,
