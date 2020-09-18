@@ -8,11 +8,10 @@ people at [Simularia](www.simularia.it).
 
 ## List of functions
 
-- `contourPlot()`.
-- `createBaseMap()` obsolete.
-- `ImportRaster()`.
-- `ImportADSOBIN()`.
-- `ImportSurferGrd()`.
+- `contpourPlot2()`
+- `importRaster()`.
+- `importADSOBIN()`.
+- `importSurferGrd()`.
 - `plotAvgRad()`.
 - `plotAvgTemp()`.
 - `plotStabilityClass()`.
@@ -20,6 +19,8 @@ people at [Simularia](www.simularia.it).
 - `rollingMax()`.
 - `stabilityClass()`.
 - `vectorField()`.
+- `contourPlot()` obsolete.
+- `createBaseMap()` obsolete.
 
 ## Install
 

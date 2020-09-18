@@ -1,17 +1,28 @@
 Package: simulariatools
 Type: Package
 Title: Simularia Tools for the Analysis of Air Pollution Data
-Version: 1.99999.9999
-Date: 2020-03-03
-Author: Giuseppe Carlino <g.carlino@simularia.it>
+Version: 1.9999.9999
+Date: 2020-09-18
+Authors@R: 
+    c(person(given = "Giuseppe", 
+             family = "Carlino", 
+             email = "g.carlino@simularia.it",
+             role = c("aut", "cre")),
+      person(given = "Matteo Paolo", 
+             family = "Costa", 
+             email = "costa@aria-net.it", 
+             role = c("ctb")),
+      person(given = "Simularia",
+             role = c("fnd"))
+    )
 Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
 Description: A set of tools developed at Simularia for Simularia, to help
     pre and post processing of meteorological and air quality data.
 Depends: 
     R (>= 3.3.0)
 Imports: 
-    dplyr,
     ggplot2 (>= 3.3.0),
+    dplyr,
     grid,
     lubridate,
     openair,
@@ -19,12 +30,15 @@ Imports:
     raster,
     reshape2,
     reticulate,
+    RColorBrewer,
     scales
 Suggests:
-    RColorBrewer
+    contoureR
 License: GPL-2
 URL: https://github.com/Simularia/simulariatools
 BugReports: https://github.com/Simularia/simulariatools/issues
-LazyData: true
+LazyLoad: yes
+LazyData: yes
+Encoding: UTF-8
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)

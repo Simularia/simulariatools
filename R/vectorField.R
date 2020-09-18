@@ -8,8 +8,8 @@
 #' This function is heavily inspired by snippets of code in 
 #' *R Graphics Cookbook* by Winston Chang (https://r-graphics.org/index.html).
 #'
-#' @import grid
 #' @import ggplot2
+#' @importFrom dplyr filter
 #' 
 #' @param data A dataframe containing data to be plotted in the form of: *(x, y, u, v)*.
 #' @param scalex length factor of vector *x* component
@@ -55,6 +55,9 @@ vectorField <- function(data,
                         length = 0.1,
                         size = 0.25) {
     
+    # Fix No visible binding for global variable
+    x <- y <- u <- v <- speed <- NULL
+    
     every_n <- function(x, by = 2) {
         x <- sort(x)
         x[seq(1, length(x), by = by)]
@@ -69,12 +72,14 @@ vectorField <- function(data,
     keepy <- every_n(unique(data$y), by = everyy)
  
     # Filter data to reduce resolution
-    datasub <- filter(data, x %in% keepx  &  y %in% keepy)
+    datasub <- dplyr::filter(data, x %in% keepx  &  y %in% keepy)
     
     # Plot
     pl <- ggplot(datasub, aes(x = x, y = y)) +
-        geom_segment(aes(xend = x + 10*u, yend = y + 10*v, colour = speed), 
+        geom_segment(aes(xend = x + scalex * 1000 * u, 
+                         yend = y + scaley * 1000 * v, 
+                         colour = speed), 
                      arrow = arrow(length = unit(length, "cm")), size = size)
- 
     return(pl)
+    
 }

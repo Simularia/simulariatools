@@ -18,7 +18,6 @@ contourPlot2(
   size = 0,
   fill = TRUE,
   transparency = 0.75,
-  smoothness = 1,
   colors = NULL,
   bare = FALSE
 )
@@ -30,7 +29,7 @@ contourPlot2(
 
 \item{y}{(string) Name of the column with Northing data.}
 
-\item{z}{(string) Name of the column with value data.}
+\item{z}{(string) Name of the column with values data.}
 
 \item{domain}{An array with min X, max X, min Y, max Y, number of ticks on X
 axis, number of ticks on Y axis (optional).}
@@ -57,9 +56,6 @@ should be filled or not.}
 \item{transparency}{float (between 0 and 1, default=0.66). Transparency level
 of the contour plot.}
 
-\item{smoothness}{integer factor to improve the horizontal resolution
-(smaller cells) by bilinear interpolation.}
-
 \item{colors}{Colour palette for contour plot}
 
 \item{bare}{Boolean (default FALSE) parameter to completely remove axis, legend, titles
@@ -73,5 +69,5 @@ A \code{ggplot2} plot.
 }
 \details{
 This is a convenience function to plot contour levels of a pollutant matrix
-with \code{ggplot2}  version >= 3.3.0.
+with \code{ggplot2} version >= 3.3.0.
 }

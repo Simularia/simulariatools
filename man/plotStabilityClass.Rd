@@ -24,7 +24,7 @@ Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 }
 \examples{
 \dontrun{
-plotStabClass(t, cs = "ClassStab", type = "season")
-plotStabClass(t, cs = "STABILITY", type = "hour")
+plotStabClass(t, cs = "PGT", type = "season")
+plotStabClass(t, cs = "stability", type = "hour")
 }
 }
