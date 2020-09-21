@@ -38,6 +38,8 @@
 #' @importFrom ggplot2 ggplot annotation_custom geom_contour_filled 
 #'                     scale_fill_manual scale_x_continuous scale_y_continuous
 #'                     scale_color_manual coord_fixed theme_bw theme
+#' @importFrom magick image_read
+#' @importFrom grid rasterGrob
 #'
 #' @examples 
 #' \dontrun{
@@ -138,11 +140,10 @@ contourPlot2 <- function(data,
     # Background image
     if (missing(background)) {
         img <- matrix(data = NA, nrow = 10, ncol = 10)
-        # TODO: verifica di interpolate TRUE or FALSE
         gimg <- grid::rasterGrob(img, interpolate = T)
     } else {
-        img <- png::readPNG(background)
-        gimg <- grid::rasterGrob(img, interpolate = T)
+        img <- magick::image_read(background)
+        gimg <- grid::rasterGrob(img)
     }
     
     # Underlayer

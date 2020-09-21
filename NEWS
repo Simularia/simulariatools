@@ -10,6 +10,7 @@ NEW FEATURES
 * Legend type for contour lines (no filling) is now a line;
 * Added possibility to specify column names to the data;
 * Axis labels are rounded to 0 decimals (they are in metres);
+* Backround image can be any format (jpeg, png, etc...);
 * Almost entirly a substitute of `contourPlot()`.
   
 BUG FIXES AND MINOR IMPROVEMENTS
