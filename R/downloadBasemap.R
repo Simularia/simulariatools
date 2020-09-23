@@ -1,16 +1,16 @@
 #' Download basemap from Italian National Geoportal 
 #' 
-#' This function try to download a png file from the 
-#' [Italian National Geoportal](http://www.pcn.minambiente.it/mattm/en/services/)
-#' with the aerial orthophoto of the requested domain.
+#' This function tries to download the aerial orthophoto of the requested domain from the 
+#' [Italian National Geoportal](http://www.pcn.minambiente.it/mattm/en/services/).
+#' The output is given in *png* format at the path given in the `file` parameter.
 #' 
 #' @return No value is returned.
 
 #' @param file Path to output file.
 #' @param xSW South West Easting UTM coordinate of the basemap (in metres).
 #' @param ySW South West Northing UTM coordinate of the basemap (in metres).
-#' @param xEst Easting extension in metres.
-#' @param yEst Northing extension in metres.
+#' @param xExt Easting extension in metres.
+#' @param yExt Northing extension in metres.
 #' @param crs UTM Coordinate Reference System: either 32 or 33.
 #' @param width The basemap width.
 #' @param height The basemap height.
@@ -19,8 +19,10 @@
 #' @param res The resolution in dpi. 
 #' 
 #' @export
+#' @importFrom utils download.file
 #' 
 #' @examples 
+#' \dontrun{
 #' # Download a basemap of a domain with SW coordinates (410000, 5000500) in the 
 #' # UTM32 CRS and extension 5000m in both directions.
 #' 
@@ -44,7 +46,8 @@
 #' downloadBasemap(file = "./basemap.png", 
 #'                 xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000, 
 #'                 width = 10, height = 10, units = "cm", res = 150)
-#'
+#' 
+#' }
 downloadBasemap <- function(file = file,
                             xSW = 410000, ySW = 5000500, 
                             xExt = 5000, yExt = 5000,

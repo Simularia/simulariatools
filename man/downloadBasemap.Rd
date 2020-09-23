@@ -6,10 +6,10 @@
 \usage{
 downloadBasemap(
   file = file,
-  xSW = 0,
-  ySW = 0,
-  xExt = 10000,
-  yExt = 10000,
+  xSW = 410000,
+  ySW = 5000500,
+  xExt = 5000,
+  yExt = 5000,
   crs = 32,
   width = 1024,
   height = 1024,
@@ -24,6 +24,10 @@ downloadBasemap(
 
 \item{ySW}{South West Northing UTM coordinate of the basemap (in metres).}
 
+\item{xExt}{Easting extension in metres.}
+
+\item{yExt}{Northing extension in metres.}
+
 \item{crs}{UTM Coordinate Reference System: either 32 or 33.}
 
 \item{width}{The basemap width.}
@@ -34,20 +38,17 @@ downloadBasemap(
 It can be \code{px} (pixels, the default), \verb{in} (inches), \code{cm} or \code{mm}}
 
 \item{res}{The resolution in dpi.}
-
-\item{xEst}{Easting extension in metres.}
-
-\item{yEst}{Northing extension in metres.}
 }
 \value{
 No value is returned.
 }
 \description{
-This function try to download a png file from the
-\href{http://www.pcn.minambiente.it/mattm/en/services/}{Italian National Geoportal}
-with the aerial orthophoto of the requested domain.
+This function tries to download the aerial orthophoto of the requested domain from the
+\href{http://www.pcn.minambiente.it/mattm/en/services/}{Italian National Geoportal}.
+The output is given in \emph{png} format at the path given in the \code{file} parameter.
 }
 \examples{
+\dontrun{
 # Download a basemap of a domain with SW coordinates (410000, 5000500) in the 
 # UTM32 CRS and extension 5000m in both directions.
 
@@ -72,4 +73,5 @@ downloadBasemap(file = "./basemap.png",
                 xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000, 
                 width = 10, height = 10, units = "cm", res = 150)
 
+}
 }
