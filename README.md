@@ -9,6 +9,7 @@ people at [Simularia](www.simularia.it).
 ## List of functions
 
 - `contpourPlot2()`
+- `downloadBasemap()`
 - `importRaster()`.
 - `importADSOBIN()`.
 - `importSurferGrd()`.
