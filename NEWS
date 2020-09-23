@@ -3,7 +3,7 @@ simulariatools 2.0.0
 
 NEW FEATURES
 
-* New `contourPlot2()` function;
+* New `contourPlot2()` function:
 * Based on ggplot2 v3.3.0 and `geom_contour_filled` function;
 * Colour bands are not overlapped anymore therefore the maps are more accurate;
 * Legend labels are more informatvie and smarter (you can also use +/- Inf for upper and lower bound);
@@ -12,7 +12,9 @@ NEW FEATURES
 * Axis labels are rounded to 0 decimals (they are in metres);
 * Backround image can be any format (jpeg, png, etc...);
 * Almost entirly a substitute of `contourPlot()`.
-  
+
+* New `downloadBasemap()` function to download basemap from the Italian National Geoportal.
+
 BUG FIXES AND MINOR IMPROVEMENTS
 
 * `vectorField` has better defaults for vector lengths.

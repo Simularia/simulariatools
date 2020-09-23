@@ -3,6 +3,7 @@
 export(contourPlot)
 export(contourPlot2)
 export(createBaseMap)
+export(downloadBasemap)
 export(importADSOBIN)
 export(importRaster)
 export(importSurferGrd)
