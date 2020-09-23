@@ -46,14 +46,20 @@
 #'                 width = 10, height = 10, units = "cm", res = 150)
 #'
 downloadBasemap <- function(file = file,
-                            xSW = 0, ySW = 0, 
-                            xExt = 10000, yExt = 10000, 
+                            xSW = 410000, ySW = 5000500, 
+                            xExt = 5000, yExt = 5000,
                             crs = 32,
                             width = 1024,
                             height = 1024,
                             units = "px",
                             res = 72) {
-   # Trying to access PCN
+
+    # Check if output file has been defined
+    if (missing(file)) {
+        stop("Please define the output file.")
+    }
+    
+    # Trying to access PCN
     message("Trying to access http://wms.pcn.minambiente.it")
     
     # Indirizzo base per WMS ortofoto 2012 da PCN
