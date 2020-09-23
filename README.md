@@ -9,6 +9,7 @@ people at [Simularia](www.simularia.it).
 ## List of functions
 
 - `contpourPlot2()`
+- `downloadBasemap()`
 - `importRaster()`.
 - `importADSOBIN()`.
 - `importSurferGrd()`.
@@ -24,12 +25,14 @@ people at [Simularia](www.simularia.it).
 
 ## Install
 
-You can install it from github repository, through the `devtools` package:
+Installation of `simulariatools` from GitHub can be easly done with the `devtools` packages:
 
+```{r}
     library("devtools")
     install_github("Simularia/simulariatools")
+```
 
-The last command is also needed to upgrade the package.
+The same commands can also be used to upgrade the package.
 
 
 ## Contact
