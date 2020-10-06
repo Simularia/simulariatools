@@ -1,3 +1,12 @@
+simulariatools 2.1.0
+====================
+
+* Breaking changes:
+    - `vectorField()` has now a unique parameter for scaling vector length;
+    - Length of the arrow head in `vectorField()` has been removed in exchange for a sensible default;
+* Bug fixes.
+
+
 simulariatools 2.0.0
 ====================
 

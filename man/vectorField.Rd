@@ -4,28 +4,16 @@
 \alias{vectorField}
 \title{Vector field plot}
 \usage{
-vectorField(
-  data,
-  scalex = 1,
-  scaley = 1,
-  everyx = 1,
-  everyy = 1,
-  length = 0.1,
-  size = 0.25
-)
+vectorField(data, scale = 1, everyx = 1, everyy = 1, size = 0.25)
 }
 \arguments{
 \item{data}{A dataframe containing data to be plotted in the form of: \emph{(x, y, u, v)}.}
 
-\item{scalex}{length factor of vector \emph{x} component}
-
-\item{scaley}{length factor of vector \emph{y} component}
+\item{scale}{length factor of vector components}
 
 \item{everyx}{keep one out of every \emph{everyx} values, along \emph{x} direction.}
 
 \item{everyy}{keep one out of every \emph{everyy} values, along \emph{y} direction.}
-
-\item{length}{arrow length.}
 
 \item{size}{arrow size.}
 }

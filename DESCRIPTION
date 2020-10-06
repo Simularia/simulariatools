@@ -1,8 +1,8 @@
 Package: simulariatools
 Type: Package
 Title: Simularia Tools for the Analysis of Air Pollution Data
-Version: 2.0.0
-Date: 2020-09-24
+Version: 2.1.0
+Date: 2020-10-06
 Authors@R: 
     c(person(given = "Giuseppe", 
              family = "Carlino", 

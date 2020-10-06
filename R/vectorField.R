@@ -15,11 +15,9 @@
 #' @importFrom dplyr filter
 #' 
 #' @param data A dataframe containing data to be plotted in the form of: *(x, y, u, v)*.
-#' @param scalex length factor of vector *x* component
-#' @param scaley length factor of vector *y* component
+#' @param scale length factor of vector components
 #' @param everyx keep one out of every *everyx* values, along *x* direction.
 #' @param everyy keep one out of every *everyy* values, along *y* direction.
-#' @param length arrow length.
 #' @param size arrow size.
 #' 
 #' @examples 
@@ -52,15 +50,15 @@
 #' @export
 #' 
 vectorField <- function(data,
-                        scalex = 1.,
-                        scaley = 1.,
+                        scale = 1.,
                         everyx = 1,
                         everyy = 1,
-                        length = 0.1,
                         size = 0.25) {
     
     # Fix No visible binding for global variable
-    x <- y <- u <- v <- speed <- NULL
+    x <- y <- u <- v <- magnitude <- NULL
+    # Arrow length
+    arrLength <- 0.01
     
     every_n <- function(x, by = 2) {
         x <- sort(x)
@@ -69,20 +67,25 @@ vectorField <- function(data,
     
     # Compute vector magnitude
     data <- as.data.frame(data)
-    data$speed = sqrt(data$u^2 + data$v^2)
+    data$magnitude <- sqrt(data$u^2 + data$v^2)
+    maxmag <- max(data$magnitude)
+    data$u <- data$u / maxmag
+    data$v <- data$v / maxmag
     
     # Skip points
     keepx <- every_n(unique(data$x), by = everyx)
     keepy <- every_n(unique(data$y), by = everyy)
     datasub <- dplyr::filter(data, x %in% keepx  &  y %in% keepy)
     
+    # Scale
+    scale <- scale * 1000
+    
     # Plot
     pl <- ggplot(datasub, aes(x = x, y = y)) +
-        geom_segment(aes(xend = x + scalex * 100 * u, 
-                         yend = y + scaley * 100 * v, 
-                         colour = speed),
-                     arrow = arrow(length = unit(length, "cm")),
+        geom_segment(aes(xend = x + scale * u, 
+                         yend = y + scale * v, 
+                         colour = magnitude),
+                     arrow = arrow(length = unit(arrLength, "npc")),
                      size = size)
     return(pl)
-    
 }

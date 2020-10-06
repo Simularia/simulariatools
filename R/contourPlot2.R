@@ -101,7 +101,7 @@ contourPlot2 <- function(data,
     }
 
     # Automatic scales
-    if (missing(levels)) {
+    if (is.null(levels)) {
         if (is.null(colors)) {
             nlevels <- 7
         } else {
