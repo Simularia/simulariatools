@@ -55,9 +55,10 @@ importRaster <- function(file = file.choose(),
                          verbose = FALSE) {
 
     if (is.null(variable)) {
-        t <- raster::raster(file, ncdf=TRUE)
+        t <- raster::raster(file, ncdf = TRUE)
+        variable <- as.character(t@data@names)
     } else {
-        t <- raster::raster(file, varname = as.character(variable), ncdf=TRUE)
+        t <- raster::raster(file, varname = as.character(variable), ncdf = TRUE)
     }
     
     # Apply conversion factor
@@ -71,27 +72,26 @@ importRaster <- function(file = file.choose(),
     
     # Apply destaggering
     if (destaggering == TRUE) {
-        t <- raster::shift(t, x = raster::res(t)[1] / 2., y = raster::res(t)[2] / 2.)
+        t <- raster::shift(t, 
+                           dx = raster::res(t)[1] / 2., 
+                           dy = raster::res(t)[2] / 2.)
     }
     
     # Shift coordinates
-    t <- raster::shift(t, x = dx, y = dy)
+    t <- raster::shift(t, dx = dx, dy = dy)
     
     # Print some values
     if (verbose == TRUE) {
         cat("\nRaster statistics -----------------------------------------------")
         xvalues <- c(raster::xmin(t), raster::xmax(t), raster::res(t)[1])
-        # cat("\nX (min, max, dx)  :")
         cat(sprintf("\n%8s (min, max, dx)  :", "X"))
         cat(sprintf(fmt = "%12.3f", xvalues))
     
         yvalues <- c(raster::ymin(t), raster::ymax(t), raster::res(t)[2])
-        # cat("\nY (min, max, dy)  :")
         cat(sprintf("\n%8s (min, max, dy)  :", "Y"))
         cat(sprintf(fmt = "%12.3f", yvalues))
     
         zvalues <- c(raster::cellStats(t, min), raster::cellStats(t, max), raster::cellStats(t, mean))
-        # cat("\nZ (min, max, mean):")
         cat(sprintf("\n%8s (min, max, mean):", variable))
         cat(sprintf(fmt = "%12.2e", zvalues))
         
