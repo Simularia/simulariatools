@@ -17,6 +17,7 @@ contourPlot2(
   levels = NULL,
   size = 0,
   fill = TRUE,
+  tile = FALSE,
   transparency = 0.75,
   colors = NULL,
   bare = FALSE
@@ -52,6 +53,8 @@ are plotted.}
 
 \item{fill}{boolean (default TRUE) to specify whether the contour plot
 should be filled or not.}
+
+\item{tile}{boolean (default FALSE) to do tiles instead of contour}
 
 \item{transparency}{float (between 0 and 1, default=0.66). Transparency level
 of the contour plot.}

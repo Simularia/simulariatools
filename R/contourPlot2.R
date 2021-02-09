@@ -32,6 +32,7 @@
 #' @param size float with the thickness of the contour line.
 #' @param fill boolean (default TRUE) to specify whether the contour plot 
 #'   should be filled or not.
+#' @param tile boolean (default FALSE) to do tiles instead of contour
 #'   
 #' @importFrom openair quickText
 #' @importFrom grDevices colorRampPalette
@@ -40,6 +41,8 @@
 #'                     scale_color_manual coord_fixed theme_bw theme
 #' @importFrom magick image_read
 #' @importFrom grid rasterGrob
+#' 
+#' @details 
 #'
 #' @examples 
 #' \dontrun{
@@ -62,10 +65,18 @@ contourPlot2 <- function(data,
                          levels = NULL,
                          size = 0.,
                          fill = TRUE,
+                         tile = FALSE,
                          transparency = 0.75,
                          colors = NULL,
                          bare = FALSE) {
 
+    # Consistency check
+    if (isTRUE(tile)) {
+        fill = FALSE
+        bare = FALSE
+        size = 0.
+    }
+    
     # Check input data
     data <- data[, c(x, y, z)]
     vars <- c(x, y, z)
@@ -160,12 +171,30 @@ contourPlot2 <- function(data,
     if (isFALSE(fill) & size == 0) {
         size = 0.5
     }
+    if (isTRUE(tile)) {
+        size = 0.
+        # data$z <- factor(data$z, levels = levels)
+    }
+        
     
-    # Contour plot
+    # Base layer
     v <- ggplot(data) +
         annotation_custom(gimg, -Inf, Inf, -Inf, Inf)  +
         underlayer
     
+    # Tile plot
+    if (isTRUE(tile)) {
+        v <- v +
+            geom_raster(aes(x = x, y = y, fill = cut(z, breaks = levels)),
+                        alpha = transparency) +
+            scale_fill_manual(lgndname,
+                              drop = FALSE,
+                              guide = guide_legend(reverse = TRUE),
+                              labels = lab_levels,
+                              values = myColors)
+    }
+    
+    # Contour plot
     if (isTRUE(fill)) {
         v <- v +
             geom_contour_filled(aes(x = x, y = y, z = z,
@@ -179,7 +208,7 @@ contourPlot2 <- function(data,
                               labels = lab_levels,
                               values = myColors)
     }
-
+    
     # Contour lines
     if (size != 0) {
         lineLevels <- levels
