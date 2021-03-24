@@ -6,6 +6,9 @@
 process data for air quality assessment. It is developed and mantained by the
 people at [Simularia](www.simularia.it).
 
+If you use this package in your work, please consider citing it. Refer to its [Zenodo DOI to cite it](https://doi.org/10.5281/zenodo.596741).
+
+
 ## List of functions
 
 - `contpourPlot2()`
@@ -47,7 +50,7 @@ Contact person:
 
 ## Contributors
 
-Matteo Paolo Costa (Arianet s.r.l.)
+Matteo Paolo Costa
 
 
 ## License
