@@ -82,5 +82,8 @@ volcano3d <- reshape::melt(volcano)
 names(volcano3d) <- c("x", "y", "z")
 contourPlot2(volcano3d, transparency = 1, 
              levels = c(80, 100, 120, 140, 160, 180, 200, Inf))
+
+# To properly format the legend title:
+contourPlot2(data, legend = expression(PM[10]~"["~mu*g~m^-3~"]"))
 }
 }

@@ -1,3 +1,13 @@
+simulariatools 2.2.2
+====================
+
+- Fixed labels of `contourPlot2` which occasionally were not properly formatted.
+
+simulariatools 2.2.1
+====================
+
+- Minor update in the documentation.
+
 simulariatools 2.2.0
 ====================
 

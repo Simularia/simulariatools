@@ -1,8 +1,8 @@
 Package: simulariatools
 Type: Package
 Title: Simularia Tools for the Analysis of Air Pollution Data
-Version: 2.2.1
-Date: 2021-03-24
+Version: 2.2.2
+Date: 2021-07-08
 Authors@R: 
     c(person(given = "Giuseppe", 
              family = "Carlino", 
@@ -18,9 +18,9 @@ Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
 Description: A set of tools developed at Simularia for Simularia, to help
     pre and post processing of meteorological and air quality data.
 Depends: 
-    R (>= 3.3.0)
+    R (>= 3.3)
 Imports: 
-    ggplot2 (>= 3.3.0),
+    ggplot2 (>= 3.3),
     dplyr,
     grid,
     lubridate,
@@ -34,7 +34,7 @@ Imports:
     magick
 Suggests:
     contoureR
-License: GPL-2
+License: GPL-2 + file LICENSE
 URL: https://github.com/Simularia/simulariatools
 BugReports: https://github.com/Simularia/simulariatools/issues
 LazyLoad: yes

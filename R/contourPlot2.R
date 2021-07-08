@@ -50,6 +50,9 @@
 #' names(volcano3d) <- c("x", "y", "z")
 #' contourPlot2(volcano3d, transparency = 1, 
 #'              levels = c(80, 100, 120, 140, 160, 180, 200, Inf))
+#' 
+#' # To properly format the legend title:
+#' contourPlot2(data, legend = expression(PM[10]~"["~mu*g~m^-3~"]"))
 #' }
 #' @export
 #' 
@@ -127,12 +130,13 @@ contourPlot2 <- function(data,
         levels <- append(levels, Inf)
         nlevels <- length(levels)
     }
-    lab_levels <- paste(levels[1:(nlevels - 1)], "\U2013", levels[2:nlevels])
+    prettyLevels <- prettyNum(levels)
+    lab_levels <- paste(prettyLevels[1:(nlevels - 1)], "\U2013", prettyLevels[2:nlevels])
     if (levels[nlevels] == Inf) {
-        lab_levels[nlevels - 1] <- paste(">", levels[nlevels - 1])
+        lab_levels[nlevels - 1] <- paste(">", prettyLevels[nlevels - 1])
     }
     if (levels[1] == -Inf) {
-        lab_levels[1] <- paste("<", levels[2])
+        lab_levels[1] <- paste("<", prettyLevels[2])
     }
     
     # Colour palette 
@@ -235,14 +239,13 @@ contourPlot2 <- function(data,
 
     # Main scales and theme
     v <- v +
-        scale_x_continuous(name = "x [m]",
-                           breaks = seq(xmin, xmax, length.out = nx),
+        scale_x_continuous(breaks = seq(xmin, xmax, length.out = nx),
                            labels = myCoordsLabels,
                            expand = c(0, 0)) +
-        scale_y_continuous(name = "y [m]",
-                           breaks = seq(ymin, ymax, length.out = ny),
+        scale_y_continuous(breaks = seq(ymin, ymax, length.out = ny),
                            labels = myCoordsLabels,
                            expand = c(0, 0)) +
+        labs(x = "x [m]", y = "y [m]") +
         overlayer +
         coord_fixed(ratio = 1,
                     xlim = c(xmin, xmax),
