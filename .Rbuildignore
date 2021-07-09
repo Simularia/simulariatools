@@ -3,3 +3,4 @@
 ^todo_and_fixme\.txt
 ^test$
 ^README\.Rmd$
+^\.github$
