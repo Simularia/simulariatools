@@ -9,9 +9,9 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
 <!-- badges: end -->
 
-`simulariatools` is a collection of functions and tools useful to pre
-and post process data for air quality assessment. The package is
-developed and maintained by the people at
+`simulariatools` is an open source collection of functions and tools
+useful to pre and post process data for air quality modelling and
+assessment. The package is developed and maintained by the people at
 [Simularia](https://www.simularia.it) and it is extensively used therein
 for daily jobs.
 
@@ -35,14 +35,16 @@ We also try to keep up to date versions of the package
 if you can’t build the package yourself.
 
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files,
-a working installation of *Python 3* is required.
+a working installation of *Python 3* is required. For more information
+about *R* and *Python* interoperability, please refer to
+[reticulate](https://rstudio.github.io/reticulate/) documentation.
 
 ## Brief examples
 
 ### Contour plot
 
-Air quality data from *NetCDF* or *ADSO/BIN* files need to be imported
-first.
+Firt, import air quality data from *NetCDF* or *ADSO/BIN* files with the
+appropriate convenience function:
 
 ``` r
 library(simulariatools)
@@ -60,16 +62,16 @@ mydata <- importRaster(file = "./test/ave_anno_nox_all.nc",
 #> -----------------------------------------------------------------
 ```
 
-By running *contourPlot2()* without any argument, a quick plot with
-default customization is obtained:
+A quick contour plot with default customiztion can be easily obtained by
+running *contourPlot2()* without any argument:
 
 ``` r
 contourPlot2(mydata)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" /> The
-plot is easily customizable by using *contourPlot2()* arguments and by
-piping *ggplot2* instructions:
+plot is customizable by using *contourPlot2()* arguments and by piping
+*ggplot2* instructions:
 
 ``` r
 library(ggplot2)
@@ -83,7 +85,15 @@ contourPlot2(mydata,
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
+Use `ggsave()` to save the last plot to file:
+
+``` r
+ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
+```
+
 ## List of functions
+
+Available functions are listed below:
 
 -   `contpourPlot2()`
 -   `downloadBasemap()`
@@ -100,13 +110,15 @@ contourPlot2(mydata,
 -   `contourPlot()` obsolete.
 -   `createBaseMap()` obsolete.
 
-If you are interested, you can track development and contribute at
-<http://github.com/simularia/simulariatools>
-
 ## Contact
 
-Contact person: Giuseppe Carlino Simularia s.r.l.
-<g.carlino@simularia.it>
+Contact person:
+
+    Giuseppe Carlino
+
+    Simularia s.r.l.
+
+    g.carlino@simularia.it
 
 ## Contributors
 
