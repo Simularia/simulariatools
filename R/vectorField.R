@@ -57,8 +57,6 @@ vectorField <- function(data,
     
     # Fix No visible binding for global variable
     x <- y <- u <- v <- magnitude <- NULL
-    # Arrow length
-    arrLength <- 0.01
     
     every_n <- function(x, by = 2) {
         x <- sort(x)
@@ -68,17 +66,20 @@ vectorField <- function(data,
     # Compute vector magnitude
     data <- as.data.frame(data)
     data$magnitude <- sqrt(data$u^2 + data$v^2)
-    maxmag <- max(data$magnitude)
-    data$u <- data$u / maxmag
-    data$v <- data$v / maxmag
+    # maxmag <- max(data$magnitude)
+    # data$u <- data$u / maxmag
+    # data$v <- data$v / maxmag
+    
+    # Arrow length
+    arrLength <- 0.01
     
     # Skip points
     keepx <- every_n(unique(data$x), by = everyx)
     keepy <- every_n(unique(data$y), by = everyy)
     datasub <- dplyr::filter(data, x %in% keepx  &  y %in% keepy)
     
-    # Scale
-    scale <- scale * 1000
+    # Vectors scale factor (1 m/s -> 100 m)
+    scale <- scale * 100
     
     # Plot
     pl <- ggplot(datasub, aes(x = x, y = y)) +
@@ -87,5 +88,6 @@ vectorField <- function(data,
                          colour = magnitude),
                      arrow = arrow(length = unit(arrLength, "npc")),
                      size = size)
+
     return(pl)
 }
