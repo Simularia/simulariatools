@@ -39,13 +39,10 @@
 #' @importFrom ggplot2 ggplot annotation_custom geom_contour_filled 
 #'                     scale_fill_manual scale_x_continuous scale_y_continuous
 #'                     scale_color_manual coord_fixed theme_bw theme
-#' @importFrom magick image_read
 #' @importFrom grid rasterGrob
 #' 
 #' @details 
 #'
-#' @examples 
-#' \dontrun{
 #' volcano3d <- reshape::melt(volcano)
 #' names(volcano3d) <- c("x", "y", "z")
 #' contourPlot2(volcano3d, transparency = 1, 
@@ -153,12 +150,15 @@ contourPlot2 <- function(data,
     }
     
     # Background image
-    if (missing(background)) {
-        img <- matrix(data = NA, nrow = 10, ncol = 10)
-        gimg <- grid::rasterGrob(img, interpolate = T)
-    } else {
-        img <- magick::image_read(background)
-        gimg <- grid::rasterGrob(img)
+    img <- matrix(data = NA, nrow = 10, ncol = 10)
+    gimg <- grid::rasterGrob(img, interpolate = FALSE)
+    if (!missing(background)) {
+        if (requireNamespace("magick", quietly = TRUE)) {
+            img <- magick::image_read(background)
+            gimg <- grid::rasterGrob(img)
+        } else {
+            warning("Missing magick package. Please install it to be able to read background basemap.")
+        }
     }
     
     # Underlayer
