@@ -1,3 +1,18 @@
+simulariatools 2.2.3
+====================
+
+- `magick` package is now suggested (not required). If it is not installed, it will not be possible
+to read (and plot) background basemaps in `contourPlot2`.
+
+- In `contourPlot2` do not add Inf as upper limit in levels in the case of delta maps, when the 
+first level is negative. Note that this will probably change the output of some scripts.
+
+- Vector field lengths are not normalised anymore and changed default scale factor. This modification
+aims to facilitate comparison of vector fields from different source files.
+
+- Updated readme and added a brief example.
+
+
 simulariatools 2.2.2
 ====================
 
