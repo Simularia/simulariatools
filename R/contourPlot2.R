@@ -33,7 +33,11 @@
 #' @param fill boolean (default TRUE) to specify whether the contour plot 
 #'   should be filled or not.
 #' @param tile boolean (default FALSE) to do tiles instead of contour
-#'   
+#' 
+#' @details 
+#' Since version 2.4.0, when `tile = TRUE` the intervals include the lowest value and exclude the
+#' highest value: [min, max). In previous version it was the opposite.
+#'
 #' @importFrom openair quickText
 #' @importFrom grDevices colorRampPalette
 #' @importFrom ggplot2 ggplot annotation_custom geom_contour_filled 
@@ -41,9 +45,11 @@
 #'                     scale_color_manual coord_fixed theme_bw theme
 #' @importFrom grid rasterGrob
 #' 
-#' @details 
+#' @export
 #'
-#' volcano3d <- reshape::melt(volcano)
+#' @examples 
+#' \dontrun{
+#' volcano3d <- reshape2::melt(volcano)
 #' names(volcano3d) <- c("x", "y", "z")
 #' contourPlot2(volcano3d, transparency = 1, 
 #'              levels = c(80, 100, 120, 140, 160, 180, 200, Inf))
@@ -51,8 +57,6 @@
 #' # To properly format the legend title:
 #' contourPlot2(data, legend = expression(PM[10]~"["~mu*g~m^-3~"]"))
 #' }
-#' @export
-#' 
 contourPlot2 <- function(data,
                          x = "x",
                          y = "y",
@@ -129,8 +133,11 @@ contourPlot2 <- function(data,
     }
     prettyLevels <- prettyNum(levels)
     lab_levels <- paste(prettyLevels[1:(nlevels - 1)], "\U2013", prettyLevels[2:nlevels])
-    if (levels[nlevels] == Inf) {
-        lab_levels[nlevels - 1] <- paste(">", prettyLevels[nlevels - 1])
+    if (levels[nlevels] == Inf & !isTRUE(tile)) {
+        # lab_levels[nlevels - 1] <- paste(">", prettyLevels[nlevels - 1])
+        lab_levels[nlevels - 1] <- paste("\U2265", prettyLevels[nlevels - 1])
+    } else if (levels[nlevels] == Inf & isTRUE(tile)) {
+        lab_levels[nlevels - 1] <- paste("\U2265", prettyLevels[nlevels - 1])
     }
     if (levels[1] == -Inf) {
         lab_levels[1] <- paste("<", prettyLevels[2])
@@ -189,7 +196,7 @@ contourPlot2 <- function(data,
     # Tile plot
     if (isTRUE(tile)) {
         v <- v +
-            geom_raster(aes(x = x, y = y, fill = cut(z, breaks = levels)),
+            geom_raster(aes(x = x, y = y, fill = cut(z, breaks = levels, right = FALSE)),
                         alpha = transparency) +
             scale_fill_manual(lgndname,
                               drop = FALSE,

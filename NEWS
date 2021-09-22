@@ -1,3 +1,10 @@
+simulariatools 2.4.0
+====================
+
+- BREAKING CHANGE: in raster plots in `contourPlot2` (tile = TRUE) intervals are closed on the 
+left and open on the right. In previous versions it was the opposite. In this way an interval
+`0 - 1` does include values equal to 0 and does not include values equale to 1.
+
 simulariatools 2.2.3
 ====================
 

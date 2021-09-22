@@ -76,12 +76,17 @@ with \code{ggplot2} version >= 3.3.0.
 
 Domain data are exptected to be on a regular rectangular grid with UTM coordinates.
 
-volcano3d <- reshape::melt(volcano)
+Since version 2.4.0, when \code{tile = TRUE} the intervals include the lowest value and exclude the
+highest value: [min, max). In previous version it was the opposite.
+}
+\examples{
+\dontrun{
+volcano3d <- reshape2::melt(volcano)
 names(volcano3d) <- c("x", "y", "z")
-contourPlot2(volcano3d, transparency = 1,
-levels = c(80, 100, 120, 140, 160, 180, 200, Inf))
-}
-\section{To properly format the legend title:}{
+contourPlot2(volcano3d, transparency = 1, 
+             levels = c(80, 100, 120, 140, 160, 180, 200, Inf))
 
+# To properly format the legend title:
+contourPlot2(data, legend = expression(PM[10]~"["~mu*g~m^-3~"]"))
 }
-
+}

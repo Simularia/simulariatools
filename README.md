@@ -115,9 +115,7 @@ Available functions are listed below:
 Contact person:
 
     Giuseppe Carlino
-
     Simularia s.r.l.
-
     g.carlino@simularia.it
 
 ## Contributors
