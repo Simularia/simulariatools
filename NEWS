@@ -1,4 +1,4 @@
-simulariatools 2.4.0
+simulariatools 2.3.0
 ====================
 
 - BREAKING CHANGE: in raster plots in `contourPlot2` (tile = TRUE) intervals are closed on the 
