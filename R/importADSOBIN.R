@@ -25,11 +25,11 @@
 #'
 #' @details The `importADSIOBIN()` function was developed to import data from an
 #'   ADSO/BIN binary file. It relies on the `arinfopy' (version >= 2.2.0) python
-#'   library. For more information on the library see the [github
+#'   library. For more information on the library see the [GitHub
 #'   repository](https://github.com/Simularia/arinfopy).
 #'
 #'   For more information on the active `python` installation, check the
-#'   documentaion of \pkg{reticulate}.
+#'   documentation of \pkg{reticulate}.
 #'
 #' @return In standard use, `importADSOBIN()` return a data frame with `(X, Y, Z)`
 #'   columns. Column Z contains the values of the requested variable. 

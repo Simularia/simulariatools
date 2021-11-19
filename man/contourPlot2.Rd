@@ -74,7 +74,7 @@ A \code{ggplot2} plot.
 This is a convenience function to plot contour levels of a pollutant matrix
 with \code{ggplot2} version >= 3.3.0.
 
-Domain data are exptected to be on a regular rectangular grid with UTM coordinates.
+Domain data are expected to be on a regular rectangular grid with UTM coordinates.
 
 Since version 2.4.0, when \code{tile = TRUE} the intervals include the lowest value and exclude the
 highest value: [min, max). In previous version it was the opposite.

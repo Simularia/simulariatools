@@ -3,7 +3,7 @@
 #' A function to import data from Surfer text grid file.
 #' 
 #' Surfer grd file is imported and an array of x, y, z columns is returned
-#' X and y coordinats can be converted from km to m (default k=1000) and viceversa.
+#' X and y coordinates can be converted from km to m (default k=1000) and vice versa.
 #' Destaggering is applied by default.
 #' 
 #'  

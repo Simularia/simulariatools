@@ -59,10 +59,10 @@ with the \code{arinfopy} library.
 \details{
 The \code{importADSIOBIN()} function was developed to import data from an
 ADSO/BIN binary file. It relies on the `arinfopy' (version >= 2.2.0) python
-library. For more information on the library see the \href{https://github.com/Simularia/arinfopy}{github repository}.
+library. For more information on the library see the \href{https://github.com/Simularia/arinfopy}{GitHub repository}.
 
 For more information on the active \code{python} installation, check the
-documentaion of \pkg{reticulate}.
+documentation of \pkg{reticulate}.
 }
 \examples{
 \dontrun{

@@ -24,7 +24,7 @@ plotAvgTemp(
 \item{title}{Option plot title}
 }
 \value{
-A plot with avereage, min and max temperature in a given range of time.
+A plot with average, min and max temperature in a given range of time.
 }
 \description{
 \code{plotAvgTemp} builds a bar plot of time average temperature and two line plots with maximum and minimum temperature.

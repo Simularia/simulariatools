@@ -12,7 +12,7 @@ removeOutliers(x, k)
 \item{k}{factor to applied to the interquartile range}
 }
 \value{
-vector of clenaed data
+vector of cleaned data
 }
 \description{
 Outliers are removed from a data set. The interquartile range is computed.

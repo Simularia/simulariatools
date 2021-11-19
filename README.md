@@ -46,7 +46,7 @@ if you can’t build the package yourself.
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files,
 a working installation of *Python 3* is required. For more information
 about *R* and *Python* interoperability, please refer to
-[reticulate](https://rstudio.github.io/reticulate/) documentation.
+[`reticulate`](https://rstudio.github.io/reticulate/) documentation.
 
 ## Brief examples
 
@@ -71,15 +71,15 @@ mydata <- importRaster(file = "./test/ave_anno_nox_all.nc",
 #> -----------------------------------------------------------------
 ```
 
-A quick contour plot with default customiztion can be easily obtained by
-running *contourPlot2()* without any argument:
+A quick contour plot with default customisation can be easily obtained
+by running *contourPlot2()* without any argument:
 
 ``` r
 contourPlot2(mydata)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" /> The
-plot is customizable by using *contourPlot2()* arguments and by piping
+plot is customisable by using *contourPlot2()* arguments and by piping
 *ggplot2* instructions:
 
 ``` r

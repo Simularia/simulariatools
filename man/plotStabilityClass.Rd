@@ -11,7 +11,8 @@ plotStabilityClass(mydata, sc = "sc", type = "season")
 
 \item{sc}{The name of the stability class field.}
 
-\item{type}{type determines how the data are split and then plotted. Accepetd values are "season" (default) and "hour".}
+\item{type}{type determines how the data are split and then plotted. Accepted values are
+"season" (default) and "hour".}
 }
 \value{
 A \code{ggplot2} plot.

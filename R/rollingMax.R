@@ -2,7 +2,7 @@
 #' 
 #' The rolling maximum value along a series of data is computed.
 #' 
-#' It computes the maximum value centered alonga a subset of data.
+#' It computes the maximum value centered along a subset of data.
 #' 
 #' @param mydata A vector of data
 #' @param length The length of data subset where the maximum values has to be picked.

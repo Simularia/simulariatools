@@ -6,7 +6,8 @@
 #' 
 #' @param mydata A data frame containing \code{date} and \code{stability class} fields.
 #' @param sc The name of the stability class field.
-#' @param type type determines how the data are split and then plotted. Accepetd values are "season" (default) and "hour".
+#' @param type type determines how the data are split and then plotted. Accepted values are
+#' "season" (default) and "hour".
 #'
 #' @return A \code{ggplot2} plot.
 #' 

@@ -15,7 +15,7 @@ rollingMax(mydata, length = 24)
 The rolling maximum value along a series of data is computed.
 }
 \details{
-It computes the maximum value centered alonga a subset of data.
+It computes the maximum value centered along a subset of data.
 }
 \examples{
 \dontrun{

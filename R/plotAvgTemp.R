@@ -8,7 +8,7 @@
 #' @param ylabel The label to be plot along y axis
 #' @param title Option plot title
 #' 
-#' @return A plot with avereage, min and max temperature in a given range of time.
+#' @return A plot with average, min and max temperature in a given range of time.
 #' 
 #' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 #' 

@@ -1,14 +1,14 @@
 #' Create base map (OBSOLETE)
 #'
 #' Create base map. This is meant to be the deepest layer of contour plot map.
-#' Axes coordintaes are supposed to be in meters.
+#' Axes coordinates are supposed to be in meters.
 #'
 #' @param imageFile (string) Path to the background 'png' file.
 #' @param domain Six components vector with the domain SW corner coordinates,
-#'   the X and Y estensions, and the number of breaks along the to axis (X, Y,
+#'   the X and Y extensions, and the number of breaks along the to axis (X, Y,
 #'   DX, DY, NX, NY)
-#' @param font_size This is the font size for axis labeles
-#' @param font_family This is the font familiy for labes
+#' @param font_size This is the font size for axis labels
+#' @param font_family This is the font family for labels
 #'
 #' @return A \code{ggplot2} plot.
 #'
