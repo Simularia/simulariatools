@@ -1,62 +1,63 @@
-simulariatools 2.3.1
-====================
+# simulariatools 2.3.2
 
-- Trying to fix issues with fonts in contourPlot2().
-- Updated readme file and fixed some minor issues in the documentation.
+* The package is ready to be submitted to CRAN.
+* Renamed `NEWS` to `NEWS.md`.
+* Fixed many syntax errors.
 
-simulariatools 2.3.0
-====================
 
-- BREAKING CHANGE: in raster plots in `contourPlot2` (tile = TRUE) intervals are closed on the 
+# simulariatools 2.3.1
+
+* Trying to fix issues with fonts in contourPlot2().
+* Updated readme file and fixed some minor issues in the documentation.
+
+
+# simulariatools 2.3.0
+
+* BREAKING CHANGE: in raster plots in `contourPlot2` (tile = TRUE) intervals are closed on the 
 left and open on the right. In previous versions it was the opposite. In this way an interval
 `0 - 1` does include values equal to 0 and does not include values equale to 1.
 
-simulariatools 2.2.3
-====================
 
-- `magick` package is now suggested (not required). If it is not installed, it will not be possible
+# simulariatools 2.2.3
+
+* `magick` package is now suggested (not required). If it is not installed, it will not be possible
 to read (and plot) background basemaps in `contourPlot2`.
-
-- In `contourPlot2` do not add Inf as upper limit in levels in the case of delta maps, when the 
+* In `contourPlot2` do not add Inf as upper limit in levels in the case of delta maps, when the 
 first level is negative. Note that this will probably change the output of some scripts.
-
-- Vector field lengths are not normalised anymore and changed default scale factor. This modification
+* Vector field lengths are not normalised anymore and changed default scale factor. This modification
 aims to facilitate comparison of vector fields from different source files.
+* Updated readme and added a brief example.
 
-- Updated readme and added a brief example.
+
+# simulariatools 2.2.2
+
+* Fixed labels of `contourPlot2` which occasionally were not properly formatted.
 
 
-simulariatools 2.2.2
-====================
-
-- Fixed labels of `contourPlot2` which occasionally were not properly formatted.
-
-simulariatools 2.2.1
-====================
+# simulariatools 2.2.1
 
 - Minor update in the documentation.
 
-simulariatools 2.2.0
-====================
 
-- Added boolean option `tile` to plot tiles instead of contours.
+# simulariatools 2.2.0
 
-simulariatools 2.1.1
-====================
+* Added boolean option `tile` to plot tiles instead of contours.
+
+
+# simulariatools 2.1.1
 
 * Fixed bug in `importRaster()`.
 
-simulariatools 2.1.0
-====================
 
-* Breaking changes:
+# simulariatools 2.1.0
+
+- Breaking changes:
     - `vectorField()` has now a unique parameter for scaling vector length;
     - Length of the arrow head in `vectorField()` has been removed in exchange for a sensible default;
-* Bug fixes.
+- Bug fixes.
 
 
-simulariatools 2.0.0
-====================
+# simulariatools 2.0.0
 
 NEW FEATURES
 
@@ -79,36 +80,30 @@ BUG FIXES AND MINOR IMPROVEMENTS
 * The package is now compliant with R cmd check (CRAN).
 * Many other minor bugfixes and checks.
 
-simulariatools 1.4.0
-====================
+# simulariatools 1.4.0
 
 * Introduced function `vectorField` to plot meteorological vector field.
 
-simulariatools 1.3.1
-=======================
+# simulariatools 1.3.1
 
 * Function `importADSOBIN` is now compatible with `arinfopy` version 2.3.2.
 
-simulariatools 1.3.0
-=======================
+# simulariatools 1.3.0
 
 * Function `contourPlot` accepts a **size** parameter for contour line thickness.
 * Function `contourPlot` accepts a **cover** boolean parameter to specify if contours should be colour covered or not.
 * Bugfix in `plotAvgRad`.
 
-simulariatools 1.2.1
-====================
+# simulariatools 1.2.1
 
 * Function `contourPlot` accepts a **bare** boolean parameter to remove any graphical element of
 the plot (axis, titles, legend, ...).
 
-simulariatools 1.2.0
-====================
+# simulariatools 1.2.0
 
 * Function `contourPlot` accepts a **smoothness** parameter to improve the horizontal resolution of the dataset (smaller cells) by the given (integer) factor. The new raster object to be plotted is obtained by bilinear interpolation. 
 
-simulariatools 1.1.0
-====================
+# simulariatools 1.1.0
 
 * New `importADSOBIN` function to read ADSO/BIN files.
 * `plotStabilityClass` uses seasons instead of quarters.
@@ -118,158 +113,128 @@ simulariatools 1.1.0
 * Documentation improvement.
 
 
-simulariatools 1.0.7
-====================
+# simulariatools 1.0.7
 
 * `plotStabilityClass`:
     - Correct order in color bars from 'A' to 'F'.
     
     
-simulariatools 1.0.6
-====================
+# simulariatools 1.0.6
 
 * `contourPlot`:
     - Fixed bug when lowest level to plot is negative, as in delta maps;
     - Fixed bug when there is an overlay to plot. 
 
 
-simulariatools 1.0.5
-====================
+# simulariatools 1.0.5
 
 * Borders in contour plots have width set to 0px by default.
 
 
-simulariatools 1.0.4
-====================
+# simulariatools 1.0.4
 
 * Improved treatment of borders in `contourPlot`.
 
 
-simulariatools 1.0.3
-====================
+# simulariatools 1.0.3
 
 * Fixed bug when extending domain to close contour lines.
 
 
-simulariatools 1.0.2
-====================
+# simulariatools 1.0.2
 
 * Fixed bug in user defined colors for `contourPlot`.
 
 
-simulariatools 1.0.1
-====================
+# simulariatools 1.0.1
 
 * New `colors` parameter to `contourPlot` for user defined color palette.
 
 
-simulariatools 1.0
-==================
+# simulariatools 1.0
 
 * New `geom_hollow_polygon` and `stat_hollow_contour` to correctly plot hollows in filled contour plots.
 
 
-simulariatools 0.6.5
-====================
+# simulariatools 0.6.5
 
 * Add verbose option in `importRaster`.
 * Add option `kz` in `importRaster` to multiply `z` values.
 
-simulariatools 0.6.4
-====================
+# simulariatools 0.6.4
 
 * Added transparency level in `contourPlot` input.
 
 
-simulariatools 0.6.3
-====================
+# simulariatools 0.6.3
 
 * `contourPlot` is able to correctly plot negative values. Improved management of borders. Bugfixes.
 
 
-
-simulariatools 0.6.2
-====================
+# simulariatools 0.6.2
 
 * Vertical shift of the labels in the contourPlot legend.
 
 
-simulariatools 0.6.1
-====================
+# simulariatools 0.6.1
 
 * Fixed library dependence for `plotAvgTemp`.
-
 * Added stMeteo dataset for testing.
 
-simulariatools 0.6
-====================
+# simulariatools 0.6
 
 * New `contourPlot` function to plot contour levels diagrams of pollutant concentration.
-
 * Code cleaning
 
-simulariatools 0.5.3
-====================
+# simulariatools 0.5.3
 
 * bugfixes
 
-simulariatools 0.5.2
-====================
+
+# simulariatools 0.5.2
 
 * bugfixes
 
-simulariatools 0.5.1
-====================
+
+# simulariatools 0.5.1
 
 * in `importRaster` added the possibility to shift X and/or Y coordinates by dX/dY.
 
-simulariatools 0.5
-====================
+
+# simulariatools 0.5
 
 * Added `createBaseMap` function to create base maps for contour plots.
   It currently works only with png files.
-
 * Bug fix in destaggering of raster files. destaggering is now default to FALSE.
-
 * default fonts changed from Helvetica to Arial to avoid problems on windows machines.
 
-simulariatools 0.4.1
-====================
+
+# simulariatools 0.4.1
 
 * bugfix in destaggering of raster files.
 
 
-simulariatools 0.4
-====================
+# simulariatools 0.4
 
 * New importRaster() function to read all 'gdal' supported raster files.
 
 
-simulariatools 0.3.1
-====================
+# simulariatools 0.3.1
 
 * Patched importSurferGrd.R to read GRD files generated by CALPUFF/CALPOST.
 
 
-simulariatools 0.3
-==================
+# simulariatools 0.3
 
 * Added optional title parameter in `plotAvgTemp`.
-
 * In `plotAvgTemp`, plots table of plotted values below the graph.
-
 * Bug fixes in `plotAvgRad`
 
 
-simulariatools 0.2.1
-====================
+# simulariatools 0.2.1
 
 * `stabilityClass()` has three methods to compute stability class: impact, as in ARIA Impact, pasquill (standard classification) and custom.
-
 * `plotStabClass()` function has been renamed to `plotStabilityClass()`.
-
 * It is now possibile to select the name of the column with stability class values in `plotStabilityClass()`.
-
 * Destaggering of grid fiels is applied by default in `importSurferGrd()`.
-
 * A little bit of cleanup in the documentaton.
