@@ -258,7 +258,7 @@ contourPlot2 <- function(data,
                     xlim = c(xmin, xmax),
                     ylim = c(ymin, ymax)) +
         theme_bw(base_size = 10, 
-                 base_family = "Arial") +
+                 base_family = "sans") +
         theme(panel.grid.major = element_blank(),
               panel.grid.minor = element_blank())
 

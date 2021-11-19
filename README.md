@@ -4,8 +4,7 @@
 # simulariatools
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/Simularia/simulariatools/workflows/R-CMD-check/badge.svg)](https://github.com/Simularia/simulariatools/actions)
-
+<!-- [![R-CMD-check](https://github.com/Simularia/simulariatools/workflows/R-CMD-check/badge.svg)](https://github.com/Simularia/simulariatools/actions) -->
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
 <!-- badges: end -->
 
@@ -17,6 +16,16 @@ for daily jobs.
 
 If you use this package in your work, please consider citing it. Refer
 to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
+
+## simulariatools Table of Contents
+
+-   [Installation](#installation)
+-   [Brief examples](#brief_examples)
+-   [List of Functions](#list_of_functions)
+-   [Contact](#contact)
+-   [Contributors](#contributors)
+-   [License](https://github.com/Simularia/simulariatools/blob/master/LICENSE.md)
+-   [Changelog](https://github.com/Simularia/simulariatools/blob/master/NEWS)
 
 ## Installation
 
@@ -121,7 +130,3 @@ Contact person:
 ## Contributors
 
 Matteo Paolo Costa
-
-## License
-
-`simulariatools` is distributed under the GPL-2 license.
