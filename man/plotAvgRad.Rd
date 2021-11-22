@@ -17,7 +17,8 @@ plotAvgRad(mydata, date = "date", rad = "radg")
 A \code{ggplot2} plot.
 }
 \description{
-Plot a histogram with hourly average of solar radiation, together with hourly maxima for June and December.
+Plot a histogram with hourly average of solar radiation, together with
+hourly maxima for June and December.
 }
 \examples{
 \dontrun{

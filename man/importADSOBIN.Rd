@@ -48,13 +48,13 @@ dataframe with (X, Y, Z) columns (default = \code{FALSE}).}
 \item{verbose}{Use \code{TRUE} to print out basic statistics (default = \code{FALSE}).}
 }
 \value{
-In standard use, \code{importADSOBIN()} return a data frame with \verb{(X, Y, Z)}
-columns. Column Z contains the values of the requested variable.
+In standard use, \code{importADSOBIN()} return a data frame with
+\verb{(X, Y, Z)} columns. Column Z contains the values of the requested variable.
 If the \code{raster.object} option is set, it returns a RasterLayer object.
 }
 \description{
-Import data from ADSO/BIN binary file. It requires an active Python installation
-with the \code{arinfopy} library.
+Import data from ADSO/BIN binary file. It requires an active Python
+installation with the \code{arinfopy} library.
 }
 \details{
 The \code{importADSIOBIN()} function was developed to import data from an
@@ -77,7 +77,8 @@ temperature <- importADSOBIN(file = "swift_surfpro_01-10_01_2018",
                              slice = 2,
                              deadline = 12)
 
-# Read varibale M001S001 at ground level, at given date and time, and print basic information:
+# Read varibale M001S001 at ground level, at given date and time,
+# and print basic information:
 nox <- importADSOBIN(file = "conc_01-10_07_2018",
                      variable = "M001S001",
                      slice = 1,

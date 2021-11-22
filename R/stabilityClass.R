@@ -2,16 +2,20 @@
 #'
 #' \code{stabilityClass} computes stability class.
 #' 
-#' It computes stability class according to IAEA method based on net radiation and wind.
-#' Net radiation and wind are used by day; tcc and wind are used by night.
+#' It computes stability class according to IAEA method based on net radiation 
+#' and wind. #' Net radiation and wind are used by day; tcc and wind are used 
+#' by night.
 #' 
 #' @param rad The net radiation in W/m^2
 #' @param tcc The total cloud cover in a range from 1  to 8
 #' @param ws wind speed in m/s
-#' @param option This is to determine which specific categories to use to determine the stability
-#'  class. It can be \code{impact} to comply with ARIA Impact(tm), \code{pasquill} or \code{custom}.
+#' @param option This is to determine which specific categories to use
+#' to determine the stability
+#'  class. It can be \code{impact} to comply with ARIA Impact(tm),
+#'  \code{pasquill} or \code{custom}.
 #' 
-#' @return \code{stabilityClass} returns a vector with stability Pasquill stability class as: A = 1, ... , F = 6.
+#' @return \code{stabilityClass} returns a vector with stability Pasquill
+#' stability class as: A = 1, ... , F = 6.
 #' 
 #' @export
 #' @examples

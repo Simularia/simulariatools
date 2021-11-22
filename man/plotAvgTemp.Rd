@@ -17,25 +17,31 @@ plotAvgTemp(
 
 \item{temp}{Name of the column representing temperature}
 
-\item{avg.time}{This defines the time period to average to (see openair::timeAverage). Default is "1 month".}
+\item{avg.time}{This defines the time period to average to
+(see openair::timeAverage). Default is "1 month".}
 
 \item{ylabel}{The label to be plot along y axis}
 
 \item{title}{Option plot title}
 }
 \value{
-A plot with average, min and max temperature in a given range of time.
+A plot with average, min and max temperature in a given
+range of time.
 }
 \description{
-\code{plotAvgTemp} builds a bar plot of time average temperature and two line plots with maximum and minimum temperature.
+\code{plotAvgTemp} builds a bar plot of time average temperature and two
+line plots with maximum and minimum temperature.
 }
 \note{
-\code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
+\code{plotAvgTemp} uses \code{openair::timeAvearge} to compute
+average.
 }
 \examples{
 \dontrun{
-# Plot histogram with monthly averages together with maxima and minima curves
+# Plot histogram with monthly averages together with maxima and minima 
+# curves
 plotAvgTemp(mydata)
-plotAvgTemp(mydata, temp="temperature", avg.time="1 month", ylabel="Temperatura [C]")
+plotAvgTemp(mydata, temp = "temperature", 
+            avg.time = "1 month", ylabel = "Temperatura [C]")
 }
 }

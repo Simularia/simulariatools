@@ -91,7 +91,8 @@ importRaster <- function(file = file.choose(),
         cat(sprintf("\n%8s (min, max, dy)  :", "Y"))
         cat(sprintf(fmt = "%12.3f", yvalues))
     
-        zvalues <- c(raster::cellStats(t, min), raster::cellStats(t, max), raster::cellStats(t, mean))
+        zvalues <- c(raster::cellStats(t, min), raster::cellStats(t, max),
+                     raster::cellStats(t, mean))
         cat(sprintf("\n%8s (min, max, mean):", variable))
         cat(sprintf(fmt = "%12.2e", zvalues))
         

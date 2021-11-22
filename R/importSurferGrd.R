@@ -3,8 +3,8 @@
 #' A function to import data from Surfer text grid file.
 #' 
 #' Surfer grd file is imported and an array of x, y, z columns is returned
-#' X and y coordinates can be converted from km to m (default k=1000) and vice versa.
-#' Destaggering is applied by default.
+#' X and y coordinates can be converted from km to m (default k=1000) 
+#' and vice versa. Destaggering is applied by default.
 #' 
 #'  
 #' @param fname Surfer grd file to be imported
@@ -16,11 +16,14 @@
 #' 
 #' @examples
 #' \dontrun{
-#' # Import Surfer Grd file and convert coordinates from km to m, with destaggering
+#' # Import Surfer Grd file and convert coordinates from km to m, 
+#' # with destaggering
 #' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000)
 #' 
-#' # Import Surfer Grd file and do not convert coordinates, without destaggering
-#' mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1, destaggering = FALSE)
+#' # Import Surfer Grd file and do not convert coordinates, without
+#' #  destaggering
+#' mydata <- importSurferGrd("path_to_file/filename.grd", k = 1,
+#'                           destaggering = FALSE)
 #' }
 #' 
 #' @export
@@ -51,11 +54,11 @@ importSurferGrd <- function(fname, k = 1000, destaggering = FALSE) {
         ymax <- ymax - deltay / 2        
     }
     
-    print(paste("Z min = ", zmin), quote = F)
-    print(paste("Z max = ", zmax), quote = F)
+    print(paste("Z min = ", zmin), quote = FALSE)
+    print(paste("Z max = ", zmax), quote = FALSE)
     
-#     map <- scan(t, as.numeric(0), quiet = TRUE)
-    map <- scan(t, nmax = nx * ny, quiet = T)    
+    # map <- scan(t, as.numeric(0), quiet = TRUE)
+    map <- scan(t, nmax = nx * ny, quiet = TRUE)    
     close(t)
     
     if (length(as.vector(map)) != nx * ny) 

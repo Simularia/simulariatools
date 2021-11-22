@@ -22,9 +22,10 @@
 #'   the default plot specification, e.g. [borders()].
 #' @param ... Other arguments passed on to [layer()].
 #' @keywords internal
-stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_polygon",
-                         position = "identity", na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+stat_hollow_contour <- function(mapping = NULL, data = NULL, 
+                                geom = "hollow_polygon", position = "identity",
+                                na.rm = FALSE, show.legend = NA,
+                                inherit.aes = TRUE, ...) {
     ggplot2::layer(
         data = data,
         mapping = mapping,
@@ -40,10 +41,14 @@ stat_hollow_contour <- function(mapping = NULL, data = NULL, geom = "hollow_poly
 StatHollowContour <- ggproto("StatHollowContour", Stat,
                         required_aes = c("x", "y", "z"),
                         # default_aes = aes(order = ..level..),
-                        compute_group = function(data, scales, bins = NULL, binwidth = NULL,
-                                                 breaks = NULL, na.rm = FALSE) {
+                        compute_group = function(data, scales,
+                                                 bins = NULL,
+                                                 binwidth = NULL,
+                                                 breaks = NULL, 
+                                                 na.rm = FALSE) {
                             # If no parameters set, use pretty bins
-                            if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
+                            if (is.null(bins) && is.null(binwidth) &&
+                                is.null(breaks)) {
                                 breaks <- pretty(range(data$z), 10)
                             }
                             # If provided, use bins to calculate binwidth
@@ -68,7 +73,8 @@ contour_lines <- function(data, breaks) {
         stop("Package \"contoureR\" needed for this function to work. Please install it.",
              call. = FALSE)
     }
-    cl2 <- contoureR::getContourLines(x = data$x, y = data$y, z = data$z, levels = breaks)
+    cl2 <- contoureR::getContourLines(x = data$x, y = data$y, z = data$z,
+                                      levels = breaks)
 
     if (length(cl2) == 0) {
         warning("Not possible to generate contour data", call. = FALSE)

@@ -1,7 +1,7 @@
 #' ADSO/BIN data import function
 #'
-#' Import data from ADSO/BIN binary file. It requires an active Python installation
-#' with the `arinfopy` library.
+#' Import data from ADSO/BIN binary file. It requires an active Python
+#' installation with the `arinfopy` library.
 #'
 #' @import reticulate
 #'
@@ -31,9 +31,9 @@
 #'   For more information on the active `python` installation, check the
 #'   documentation of \pkg{reticulate}.
 #'
-#' @return In standard use, `importADSOBIN()` return a data frame with `(X, Y, Z)`
-#'   columns. Column Z contains the values of the requested variable. 
-#'   If the `raster.object` option is set, it returns a RasterLayer object.
+#' @return In standard use, `importADSOBIN()` return a data frame with
+#' `(X, Y, Z)` columns. Column Z contains the values of the requested variable. 
+#' If the `raster.object` option is set, it returns a RasterLayer object.
 #'
 #' @seealso \code{\link{importRaster}} to import netcdf files.
 #' 
@@ -50,7 +50,8 @@
 #'                              slice = 2,
 #'                              deadline = 12)
 #'
-#' # Read varibale M001S001 at ground level, at given date and time, and print basic information:
+#' # Read varibale M001S001 at ground level, at given date and time,
+#' # and print basic information:
 #' nox <- importADSOBIN(file = "conc_01-10_07_2018",
 #'                      variable = "M001S001",
 #'                      slice = 1,
@@ -83,8 +84,8 @@ importADSOBIN <- function(file = file.choose(),
     rec5 <- abin$getRecord5(1)
     
     # Get list of variables
-    nomvar2d = trimws(unlist(rec5['nomvar2d']), "both")
-    nomvar3d = trimws(unlist(rec5['nomvar3d']), 'both')
+    nomvar2d <- trimws(unlist(rec5['nomvar2d']), "both")
+    nomvar3d <- trimws(unlist(rec5['nomvar3d']), 'both')
     
     # Check existence of the requested variable
     if (is.null(variable) || (!(variable %in% nomvar2d) && !(variable %in% nomvar3d))) {

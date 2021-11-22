@@ -4,10 +4,11 @@
 #' 
 #' Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 #' 
-#' @param mydata A data frame containing \code{date} and \code{stability class} fields.
+#' @param mydata A data frame containing \code{date} and \code{stability class}
+#' fields.
 #' @param sc The name of the stability class field.
-#' @param type type determines how the data are split and then plotted. Accepted values are
-#' "season" (default) and "hour".
+#' @param type type determines how the data are split and then plotted.
+#' Accepted values are "season" (default) and "hour".
 #'
 #' @return A \code{ggplot2} plot.
 #' 
@@ -37,7 +38,8 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
     
     pasquill <- c("A", "B", "C", "D", "E", "F")
     mydata$clname <- pasquill[mydata[,sc]]
-    mydata$clname <- factor(mydata$clname, levels = sort(unique(mydata$clname), decreasing = T))
+    mydata$clname <- factor(mydata$clname, levels = sort(unique(mydata$clname),
+                                                         decreasing = TRUE))
     
     if (type == "season") {
         mydata <- openair::cutData(mydata, type = "season")
@@ -46,7 +48,8 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
         # mydata$quarter[mydata$quarter == "Q2"] <- "Primavera"
         # mydata$quarter[mydata$quarter == "Q3"] <- "Estate"
         # mydata$quarter[mydata$quarter == "Q4"] <- "Autunno"
-        # mydata$season <- factor(mydata$season, levels = c("Inverno", "Primavera", "Estate", "Autunno"))
+        # mydata$season <- factor(mydata$season, 
+        # levels = c("Inverno", "Primavera", "Estate", "Autunno"))
         
         mydata$season <- factor(mydata$season, levels = unique(mydata$season))
 
@@ -55,7 +58,7 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
 
     } else {
         mydata$hour <- factor(as.numeric(format(mydata$date, format = "%H")))
-        v <- ggplot(mydata, aes(x = hour, fill = clname)) +
+        # v <- ggplot(mydata, aes(x = hour, fill = clname)) +
             geom_bar(position = "fill")
     }
     v <- v + 

@@ -13,18 +13,22 @@ stabilityClass(rad, tcc, ws, option = "impact")
 
 \item{ws}{wind speed in m/s}
 
-\item{option}{This is to determine which specific categories to use to determine the stability
-class. It can be \code{impact} to comply with ARIA Impact(tm), \code{pasquill} or \code{custom}.}
+\item{option}{This is to determine which specific categories to use
+to determine the stability
+class. It can be \code{impact} to comply with ARIA Impact(tm),
+\code{pasquill} or \code{custom}.}
 }
 \value{
-\code{stabilityClass} returns a vector with stability Pasquill stability class as: A = 1, ... , F = 6.
+\code{stabilityClass} returns a vector with stability Pasquill
+stability class as: A = 1, ... , F = 6.
 }
 \description{
 \code{stabilityClass} computes stability class.
 }
 \details{
-It computes stability class according to IAEA method based on net radiation and wind.
-Net radiation and wind are used by day; tcc and wind are used by night.
+It computes stability class according to IAEA method based on net radiation
+and wind. #' Net radiation and wind are used by day; tcc and wind are used
+by night.
 }
 \examples{
 \dontrun{

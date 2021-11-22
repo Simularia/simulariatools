@@ -1,8 +1,10 @@
 #' Download basemap from Italian National Geoportal 
 #' 
-#' This function tries to download the aerial orthophoto of the requested domain from the 
+#' This function tries to download the aerial orthophoto of the requested 
+#' domain from the 
 #' [Italian National Geoportal](http://www.pcn.minambiente.it/mattm/en/services/).
-#' The output is given in *png* format at the path given in the `file` parameter.
+#' The output is given in *png* format at the path given in the `file`
+#' parameter.
 #' 
 #' @return No value is returned.
 
@@ -23,15 +25,15 @@
 #' 
 #' @examples 
 #' \dontrun{
-#' # Download a basemap of a domain with SW coordinates (410000, 5000500) in the 
-#' # UTM32 CRS and extension 5000m in both directions.
+#' # Download a basemap of a domain with SW coordinates (410000, 5000500) 
+#' # in the UTM32 CRS and extension 5000m in both directions.
 #' 
 #' downloadBasemap(file = "./basemap.png", 
 #'                 xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000)
 #'
 #'
-#' # Download a basemap of a domain with SW coordinates (410000, 5000500) in the 
-#' # UTM32 CRS and extension 5000m in both directions.
+#' # Download a basemap of a domain with SW coordinates (410000, 5000500) 
+#' # in the UTM32 CRS and extension 5000m in both directions.
 #' # The file has to be 2048 x 2048 pixels.
 #' 
 #' downloadBasemap(file = "./basemap.png", 
@@ -39,8 +41,8 @@
 #'                 width = 2048, height = 2048)
 #'                 
 #'                 
-#' # Download a basemap of a domain with SW coordinates (410000, 5000500) in the 
-#' # UTM32 CRS and extension 5000m in both directions.
+#' # Download a basemap of a domain with SW coordinates (410000, 5000500)
+#' # in the UTM32 CRS and extension 5000m in both directions.
 #' # The file has to be 10cm x 10cm with a resolution of 150 dpi.
 #' 
 #' downloadBasemap(file = "./basemap.png", 
@@ -103,7 +105,8 @@ downloadBasemap <- function(file = file,
     
     url2 <- paste("VERSION=1.3.0&REQUEST=GetMap&LAYERS=OI.ORTOIMMAGINI.2012&STYLES=default&CRS=",
                   crsStr, "&BBOX=", xSW, ",", ySW, ",", xSW + xExt, ",",
-                  ySW + yExt, "&WIDTH=", width, "&HEIGHT=", height, "&FORMAT=image/",
+                  ySW + yExt, "&WIDTH=", width, "&HEIGHT=",
+                  height, "&FORMAT=image/",
                   format, sep = "")
     url <- paste(url1, url2, sep = "")
     

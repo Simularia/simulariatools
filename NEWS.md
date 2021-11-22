@@ -1,8 +1,9 @@
-# simulariatools 2.3.2
+# simulariatools 2.3.9999
 
 * The package is ready to be submitted to CRAN.
 * Renamed `NEWS` to `NEWS.md`.
 * Fixed many syntax errors.
+* Cleaned up code to try to comply with best practices.
 
 
 # simulariatools 2.3.1

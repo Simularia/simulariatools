@@ -23,8 +23,8 @@
 #' @param smoothness integer factor to improve the horizontal resolution 
 #'   (smaller cells) by bilinear interpolation.
 #' @param colors Color palette for contour plot
-#' @param bare Boolean (default FALSE) parameter to completely remove axis, legend, titles
-#'   and any other graphical element from the plot.
+#' @param bare Boolean (default FALSE) parameter to completely remove axis,
+#'  legend, titles and any other graphical element from the plot.
 #' @param size float with the thickness of the contour line.
 #' @param cover boolean (default TRUE) to specify whether the contour plot 
 #'   should be filled or not.
@@ -98,6 +98,8 @@ contourPlot <- function(data,
                         colors = NULL,
                         bare = FALSE) {
   
+  .Deprecated("contourPlot2")
+
   # Local binding for variables
   x <- y <- z <- NULL
   
@@ -127,7 +129,8 @@ contourPlot <- function(data,
     # Automatic scales
     if (missing(levels)) {
         nlevels <- 7
-        levels <- pretty(range(raster::values(tt), na.rm = T), n = nlevels, min.n = 4)
+        levels <- pretty(range(raster::values(tt), na.rm = TRUE),
+                         n = nlevels, min.n = 4)
     }
     lab_levels <- levels
 
@@ -136,20 +139,27 @@ contourPlot <- function(data,
 
         for (idx in seq(1, 1)) {
             # Extend top and boottom rows
-            ttx1 = raster::crop(tt, raster::extent(tt, 1, 1, 1, raster::ncol(tt)))
+            ttx1 <- raster::crop(tt, raster::extent(tt, 1, 1, 1,
+                                                    raster::ncol(tt)))
             raster::ymin(ttx1) <- raster::ymax(tt)
             raster::ymax(ttx1) <- raster::ymax(tt) + raster::res(tt)[2]
-            ttxN = raster::crop(tt, raster::extent(tt, raster::nrow(tt), raster::nrow(tt), 1, raster::ncol(tt)))
+            ttxN <- raster::crop(tt, raster::extent(tt, raster::nrow(tt),
+                                                    raster::nrow(tt), 1, 
+                                                    raster::ncol(tt)))
             raster::ymax(ttxN) <- raster::ymin(tt)
             raster::ymin(ttxN) <- raster::ymin(tt) - raster::res(tt)[2]
             ttE <- raster::merge(tt, ttx1)
             ttE <- raster::merge(ttE, ttxN)
 
             # Extend left and right columns
-            tty1 = raster::crop(tt, raster::extent(tt, 1, raster::nrow(tt), 1, 1))
-            raster::xmin(tty1) = raster::xmin(tt) - raster::res(tt)[1]
-            raster::xmax(tty1) = raster::xmin(tt)
-            ttyN = raster::crop(tt, raster::extent(tt, 1, raster::nrow(tt), raster::ncol(tt), raster::ncol(tt)))
+            tty1 <- raster::crop(tt, raster::extent(tt, 1,
+                                                    raster::nrow(tt), 1, 1))
+            raster::xmin(tty1) <- raster::xmin(tt) - raster::res(tt)[1]
+            raster::xmax(tty1) <- raster::xmin(tt)
+            ttyN <- raster::crop(tt, raster::extent(tt, 1, 
+                                                    raster::nrow(tt),
+                                                    raster::ncol(tt),
+                                                    raster::ncol(tt)))
             raster::xmin(ttyN) <- raster::xmax(tt)
             raster::xmax(ttyN) <- raster::xmax(tt) + raster::res(tt)[1]
             ttE <- raster::merge(ttE, tty1)
@@ -160,9 +170,9 @@ contourPlot <- function(data,
                              raster::xmax(ttE) + 1 * raster::res(tt)[1],
                              raster::ymin(ttE) - 1 * raster::res(tt)[2],
                              raster::ymax(ttE) + 1 * raster::res(tt)[2])
-        mv <- min(raster::values(tt), na.rm = T)
+        mv <- min(raster::values(tt), na.rm = TRUE)
         j <- 1
-        while(lab_levels[j] < mv) {
+        while (lab_levels[j] < mv) {
             j <- j + 1
         }
         if (j != 1) {
@@ -178,33 +188,6 @@ contourPlot <- function(data,
         ttE <- raster::extend(ttE, et, value = ev)
     }
     
-    # # minimum value
-    # mv <- min(raster::values(tt), na.rm = T)
-    # j <- 1
-    # while(lab_levels[j] < mv) {
-    #     j <- j + 1
-    # }
-    # if (j != 1) {
-    #     ev <- lab_levels[j - 1]
-    # } else {
-    #     ev <- lab_levels[1]
-    # }
-    # # ev <- ev - ev/10.
-    # if (lab_levels[1] < 0.) {
-    #     ev <- lab_levels[1] - 1.
-    # }
-    # 
-    # # Extend domain with minimum value
-    # et <- raster::extent(raster::xmin(tt) - 1 * raster::res(tt)[1],
-    #                      raster::xmax(tt) + 1 * raster::res(tt)[1],
-    #                      raster::ymin(tt) - 1 * raster::res(tt)[2],
-    #                      raster::ymax(tt) + 1 * raster::res(tt)[2])
-    # 
-    # ttE <- raster::extend(tt, et, value = ev)
-    
-    
-    
-    
     # convert raster to dataframe 
     ttP <- raster::rasterToPoints(ttE)
     ttDF <- data.frame(ttP)
@@ -216,13 +199,13 @@ contourPlot <- function(data,
     xmaxE <- raster::xmax(ttE)
     ymaxE <- raster::ymax(ttE)
     
-    
     # color palette (omit first color)
     if (is.null(colors)) {
-        myPalette <- grDevices::colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+        myPalette <- grDevices::colorRampPalette(
+            rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
         myColors <- myPalette(length(levels) + 1)[-c(1, 1)]
     } else {
-        myPalette = grDevices::colorRampPalette(colors, alpha = T)
+        myPalette <- grDevices::colorRampPalette(colors, alpha = TRUE)
         myColors <- myPalette(length(levels))
     }
     
@@ -233,7 +216,7 @@ contourPlot <- function(data,
     # prettify legend title
     # TODO: svincolarsi da openair per l'etichetta
     if (requireNamespace("openair", quietly = TRUE)) {
-        lgndname <- openair::quickText(legend, auto.text=T)
+        lgndname <- openair::quickText(legend, auto.text = TRUE)
     } else {
         lgndname <- legend
     }
@@ -241,10 +224,10 @@ contourPlot <- function(data,
     # Background image
     if (missing(background)) {
         img <- matrix(data = NA, nrow = 10, ncol = 10)
-        gimg <- grid::rasterGrob(img, interpolate = T)
+        gimg <- grid::rasterGrob(img, interpolate = TRUE)
     } else {
         img <- png::readPNG(background)
-        gimg <- grid::rasterGrob(img, interpolate = T)
+        gimg <- grid::rasterGrob(img, interpolate = TRUE)
     }
     
     # Underlayer
@@ -260,17 +243,17 @@ contourPlot <- function(data,
     # If requested, wipe all but main plot 
     if (isTRUE(bare)) {
         baretheme <- theme(axis.line=element_blank(),
-                     axis.text.x=element_blank(),
-                     axis.text.y=element_blank(),
-                     axis.ticks=element_blank(),
-                     axis.title.x=element_blank(),
-                     axis.title.y=element_blank(),
-                     legend.position="none",
-                     panel.background=element_blank(),
-                     panel.border=element_blank(),
-                     panel.grid.major=element_blank(),
-                     panel.grid.minor=element_blank(),
-                     plot.background=element_blank())
+                           axis.text.x=element_blank(),
+                           axis.text.y=element_blank(),
+                           axis.ticks=element_blank(),
+                           axis.title.x=element_blank(),
+                           axis.title.y=element_blank(),
+                           legend.position="none",
+                           panel.background=element_blank(),
+                           panel.border=element_blank(),
+                           panel.grid.major=element_blank(),
+                           panel.grid.minor=element_blank(),
+                           plot.background=element_blank())
     } else {
         baretheme <- theme()
     }
@@ -289,7 +272,7 @@ contourPlot <- function(data,
             cover = cover,
             na.rm = TRUE) +
         scale_fill_manual(lgndname,
-                          guide = guide_legend(reverse = T, label.vjust = 0),
+                          guide = guide_legend(reverse = TRUE, label.vjust = 0),
                           breaks = levels,
                           labels = lab_levels,
                           values = myColors) +

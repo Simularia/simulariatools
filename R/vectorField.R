@@ -3,8 +3,10 @@
 #' Simple function to plot a **velocities** vector field.
 #'
 #' This function plots a vector field given a data.frame with coordinates (x, y) 
-#' and corresponding velocity components (u, v). Vectors are colored by magnitude (speed).
-#' The coordinates are assumed to be on a regular rectangular domain in UTM reference system.
+#' and corresponding velocity components (u, v). Vectors are coloured by
+#' magnitude (speed).
+#' The coordinates are assumed to be on a regular rectangular domain in 
+#' UTM reference system.
 #' 
 #' This function is heavily inspired by snippets of code in 
 #' *R Graphics Cookbook* by Winston Chang (https://r-graphics.org/index.html).
@@ -14,7 +16,8 @@
 #' @importFrom ggplot2 ggplot geom_segment aes
 #' @importFrom dplyr filter
 #' 
-#' @param data A dataframe containing data to be plotted in the form of: *(x, y, u, v)*.
+#' @param data A dataframe containing data to be plotted in the form of:
+#' *(x, y, u, v)*.
 #' @param scale length factor of vector components
 #' @param everyx keep one out of every *everyx* values, along *x* direction.
 #' @param everyy keep one out of every *everyy* values, along *y* direction.

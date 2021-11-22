@@ -5,7 +5,8 @@
 #' This is a convenience function to plot contour levels of a pollutant matrix
 #' with \code{ggplot2} version >= 3.3.0. 
 #' 
-#' Domain data are expected to be on a regular rectangular grid with UTM coordinates.
+#' Domain data are expected to be on a regular rectangular grid with 
+#' UTM coordinates.
 #' 
 #' @return A \code{ggplot2} plot.
 #' 
@@ -27,16 +28,17 @@
 #' @param transparency float (between 0 and 1, default=0.66). Transparency level
 #'   of the contour plot.
 #' @param colors Colour palette for contour plot
-#' @param bare Boolean (default FALSE) parameter to completely remove axis, legend, titles
-#'   and any other graphical element from the plot.
+#' @param bare Boolean (default FALSE) parameter to completely remove axis,
+#' legend, titles and any other graphical element from the plot.
 #' @param size float with the thickness of the contour line.
 #' @param fill boolean (default TRUE) to specify whether the contour plot 
 #'   should be filled or not.
 #' @param tile boolean (default FALSE) to do tiles instead of contour
 #' 
 #' @details 
-#' Since version 2.4.0, when `tile = TRUE` the intervals include the lowest value and exclude the
-#' highest value: [min, max). In previous version it was the opposite.
+#' Since version 2.4.0, when `tile = TRUE` the intervals include the lowest
+#' value and exclude the highest value: [min, max).
+#' In previous version it was the opposite.
 #'
 #' @importFrom openair quickText
 #' @importFrom grDevices colorRampPalette
@@ -76,9 +78,9 @@ contourPlot2 <- function(data,
 
     # Consistency check
     if (isTRUE(tile)) {
-        fill = FALSE
-        bare = FALSE
-        size = 0.
+        fill <- FALSE
+        bare <- FALSE
+        size <- 0.
     }
     
     # Check input data
@@ -110,7 +112,7 @@ contourPlot2 <- function(data,
 
     # prettify legend title
     if (requireNamespace("openair", quietly = TRUE)) {
-        lgndname <- openair::quickText(legend, auto.text = T)
+        lgndname <- openair::quickText(legend, auto.text = TRUE)
     } else {
         lgndname <- legend
     }
@@ -122,7 +124,7 @@ contourPlot2 <- function(data,
         } else {
             nlevels <- length(colors)
         }
-        levels <- pretty(range(data$z, na.rm = T), n = nlevels, min.n = 4)
+        levels <- pretty(range(data$z, na.rm = TRUE), n = nlevels, min.n = 4)
     } 
 
     # labels for legend
@@ -132,7 +134,8 @@ contourPlot2 <- function(data,
         nlevels <- length(levels)
     }
     prettyLevels <- prettyNum(levels)
-    lab_levels <- paste(prettyLevels[1:(nlevels - 1)], "\U2013", prettyLevels[2:nlevels])
+    lab_levels <- paste(prettyLevels[1:(nlevels - 1)], "\U2013", 
+                        prettyLevels[2:nlevels])
     if (levels[nlevels] == Inf & !isTRUE(tile)) {
         # lab_levels[nlevels - 1] <- paste(">", prettyLevels[nlevels - 1])
         lab_levels[nlevels - 1] <- paste("\U2265", prettyLevels[nlevels - 1])
@@ -145,13 +148,14 @@ contourPlot2 <- function(data,
     
     # Colour palette 
     if (is.null(colors)) {
-        myPalette <- grDevices::colorRampPalette(rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+        myPalette <- grDevices::colorRampPalette(
+            rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
         # Omit first colour for aesthetic reasons
         myColors <- myPalette(nlevels)
         myColors <- myColors[2:length(myColors)]
         myColorsLines <- cbind(myColors, "black")
     } else {
-        myPalette = grDevices::colorRampPalette(colors, alpha = T)
+        myPalette <- grDevices::colorRampPalette(colors, alpha = TRUE)
         myColors <- myPalette(length(levels) - 1)
         myColorsLines <- cbind(myColors, "black")
     }
@@ -180,23 +184,23 @@ contourPlot2 <- function(data,
     
     # If fill is FALSE and size is 0 we set a default value for size
     if (isFALSE(fill) & size == 0) {
-        size = 0.5
+        size <- 0.5
     }
     if (isTRUE(tile)) {
-        size = 0.
+        size <- 0.
         # data$z <- factor(data$z, levels = levels)
     }
-        
     
     # Base layer
     v <- ggplot(data) +
         annotation_custom(gimg, -Inf, Inf, -Inf, Inf)  +
         underlayer
-    
+
     # Tile plot
     if (isTRUE(tile)) {
         v <- v +
-            geom_raster(aes(x = x, y = y, fill = cut(z, breaks = levels, right = FALSE)),
+            geom_raster(aes(x = x, y = y, 
+                            fill = cut(z, breaks = levels, right = FALSE)),
                         alpha = transparency) +
             scale_fill_manual(lgndname,
                               drop = FALSE,

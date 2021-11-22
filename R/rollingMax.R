@@ -5,7 +5,8 @@
 #' It computes the maximum value centered along a subset of data.
 #' 
 #' @param mydata A vector of data
-#' @param length The length of data subset where the maximum values has to be picked.
+#' @param length The length of data subset where the maximum values has 
+#' to be picked.
 #'   
 #' @export
 #' @examples
@@ -16,7 +17,7 @@
 #' # Compute rolling max along 30 days on a hourly time serie
 #' t$radg30d <- rollingMax(mydata=t$radg24h, length=24*30)
 #' }
-rollingMax <- function(mydata, length=24) {
+rollingMax <- function(mydata, length = 24) {
     
     lvec <- length(mydata)
     out <- rep(NA, lvec)
@@ -28,9 +29,9 @@ rollingMax <- function(mydata, length=24) {
         iimax <- iimin
     }
     for (i in 1:lvec) {
-        imin = max(0, i - iimin)
-        imax = min(i + iimax, lvec)
-        out[i] <- max(mydata[imin:imax], na.rm=T)
+        imin <- max(0, i - iimin)
+        imax <- min(i + iimax, lvec)
+        out[i] <- max(mydata[imin:imax], na.rm = TRUE)
     }
     
     return(out)

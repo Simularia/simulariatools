@@ -24,13 +24,15 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                                  coords <- coord$transform(data, panel_params)
                                  coords <- coords[order(coords$piece), ]
                                  
-                                 # A polygon can only have a single colour, fill, etc, so take from first row
+                                 # A polygon can only have a single colour, 
+                                 # fill, etc, so take from first row
                                  first_row <- coords[1, , drop = FALSE]
                                  
                                  if (first_row$cover) {
-                                     cfill = scales::alpha(first_row$fill, first_row$alpha)
+                                     cfill <- scales::alpha(first_row$fill,
+                                                            first_row$alpha)
                                  } else {
-                                     cfill = NA
+                                     cfill <- NA
                                  }
 
                                  grid::pathGrob(
@@ -40,7 +42,8 @@ GeomHollowPolygon <- ggproto("GeomHollowPolygon", Geom,
                                      # rule = "winding",
                                      id = coords$piece,
                                      gp = grid::gpar(
-                                         col =  scales::alpha(first_row$fill, first_row$alpha),
+                                         col =  scales::alpha(first_row$fill,
+                                                              first_row$alpha),
                                          fill = cfill,
                                          lwd =  first_row$size * .pt,
                                          lty =  first_row$linetype

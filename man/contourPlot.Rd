@@ -54,8 +54,8 @@ of the contour plot.}
 
 \item{colors}{Color palette for contour plot}
 
-\item{bare}{Boolean (default FALSE) parameter to completely remove axis, legend, titles
-and any other graphical element from the plot.}
+\item{bare}{Boolean (default FALSE) parameter to completely remove axis,
+legend, titles and any other graphical element from the plot.}
 }
 \value{
 A \code{ggplot2} plot.

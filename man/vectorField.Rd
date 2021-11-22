@@ -7,7 +7,8 @@
 vectorField(data, scale = 1, everyx = 1, everyy = 1, size = 0.25)
 }
 \arguments{
-\item{data}{A dataframe containing data to be plotted in the form of: \emph{(x, y, u, v)}.}
+\item{data}{A dataframe containing data to be plotted in the form of:
+\emph{(x, y, u, v)}.}
 
 \item{scale}{length factor of vector components}
 
@@ -25,8 +26,10 @@ Simple function to plot a \strong{velocities} vector field.
 }
 \details{
 This function plots a vector field given a data.frame with coordinates (x, y)
-and corresponding velocity components (u, v). Vectors are colored by magnitude (speed).
-The coordinates are assumed to be on a regular rectangular domain in UTM reference system.
+and corresponding velocity components (u, v). Vectors are coloured by
+magnitude (speed).
+The coordinates are assumed to be on a regular rectangular domain in
+UTM reference system.
 
 This function is heavily inspired by snippets of code in
 \emph{R Graphics Cookbook} by Winston Chang (https://r-graphics.org/index.html).

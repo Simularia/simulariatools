@@ -1,16 +1,20 @@
 #' Plot average temperature
 #' 
-#' \code{plotAvgTemp} builds a bar plot of time average temperature and two line plots with maximum and minimum temperature.
+#' \code{plotAvgTemp} builds a bar plot of time average temperature and two
+#' line plots with maximum and minimum temperature.
 #'  
 #' @param mydata A data frame containing fields date and temp
 #' @param temp   Name of the column representing temperature
-#' @param avg.time This defines the time period to average to (see openair::timeAverage). Default is "1 month".
+#' @param avg.time This defines the time period to average to 
+#' (see openair::timeAverage). Default is "1 month".
 #' @param ylabel The label to be plot along y axis
 #' @param title Option plot title
 #' 
-#' @return A plot with average, min and max temperature in a given range of time.
+#' @return A plot with average, min and max temperature in a given 
+#' range of time.
 #' 
-#' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
+#' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute
+#' average.
 #' 
 #' @export
 #' 
@@ -20,9 +24,11 @@
 #' 
 #' @examples
 #' \dontrun{
-#' # Plot histogram with monthly averages together with maxima and minima curves
+#' # Plot histogram with monthly averages together with maxima and minima 
+#' # curves
 #' plotAvgTemp(mydata)
-#' plotAvgTemp(mydata, temp="temperature", avg.time="1 month", ylabel="Temperatura [C]")
+#' plotAvgTemp(mydata, temp = "temperature", 
+#'             avg.time = "1 month", ylabel = "Temperatura [C]")
 #' }
 plotAvgTemp <- function(mydata, temp = "temp", 
                         avg.time = "1 month", 
@@ -36,18 +42,26 @@ plotAvgTemp <- function(mydata, temp = "temp",
     TZ <- attr(mydata$date, "tzone")
     if (is.null(TZ))
         TZ <- "GMT"
-    mydata_mean <- openair::timeAverage(mydata, statistic = "mean", avg.time = avg.time)
-    mydata_max <- openair::timeAverage(mydata, statistic = "max", avg.time = avg.time)
-    mydata_min <- openair::timeAverage(mydata, statistic = "min", avg.time = avg.time)
-    mydata_mean <- merge(mydata_mean, mydata_min, by = "date", all = T)
-    mydata_mean <- merge(mydata_mean, mydata_max, by = "date", all = T)
+    mydata_mean <- openair::timeAverage(mydata,
+                                        statistic = "mean",
+                                        avg.time = avg.time)
+    mydata_max <- openair::timeAverage(mydata,
+                                       statistic = "max",
+                                       avg.time = avg.time)
+    mydata_min <- openair::timeAverage(mydata,
+                                       statistic = "min",
+                                       avg.time = avg.time)
+    mydata_mean <- merge(mydata_mean, mydata_min, by = "date", all = TRUE)
+    mydata_mean <- merge(mydata_mean, mydata_max, by = "date", all = TRUE)
     mydata_mean <- subset(mydata_mean, 
                           select = c("date", "temp.x", "temp.y", "temp"))
     colnames(mydata_mean) <- c("date", "temp", "temp.min", "temp.max")
     mydata_mean$date <- as.Date(mydata_mean$date, tz = TZ)
     
     v <- ggplot(mydata_mean, aes(date, temp)) + 
-        geom_bar(aes(color = "Media", fill = "Media"),  stat = "identity",  show.legend = FALSE) + 
+        geom_bar(aes(color = "Media",  fill = "Media"),
+                 stat = "identity",
+                 show.legend = FALSE) + 
         geom_line(aes(x = date, y = temp.min, color = "Minima"),  size = 1) + 
         geom_line(aes(date, temp.max, color = "Massima"),  size = 1) + 
         scale_y_continuous(labels = scales::math_format(.x * degree), 
@@ -59,7 +73,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
                                       "Minima" = "darkgreen", 
                                       "Massima" = "darkorange2"), 
                            guide = guide_legend(title = NULL)) +
-        scale_fill_manual(values = c("Media" = "steelblue"), guide = F)  + 
+        scale_fill_manual(values = c("Media" = "steelblue"), guide = FALSE)  + 
         theme_bw(base_family = "Arial") +
         theme(legend.position = c(0.01, 0.99), 
               legend.justification = c(0, 1),
@@ -69,10 +83,11 @@ plotAvgTemp <- function(mydata, temp = "temp",
     # See http://learnr.wordpress.com/2009/04/29/
     #                   ggplot2-labelling-data-series-and-adding-a-data-table/
 
-    mydata <- reshape2::melt(mydata_mean, measure.vars = c("temp.min", "temp", "temp.max"))
+    mydata <- reshape2::melt(mydata_mean, 
+                             measure.vars = c("temp.min", "temp", "temp.max"))
     mydata$value <- round(mydata$value, digits = 1)
-    data_table <- ggplot(mydata, 
-                         aes(date, factor(variable), label = format(value, nsmall = 1))) +
+    data_table <- ggplot(mydata,  aes(date, factor(variable),
+                                      label = format(value, nsmall = 1))) +
         geom_text(size = 3.5) +
         scale_y_discrete(labels = c("min", "media", "max")) +
         theme_bw() + 
@@ -84,7 +99,9 @@ plotAvgTemp <- function(mydata, temp = "temp",
             panel.border = element_blank(),
             panel.grid = element_blank())
     
-    mylayout <- grid::grid.layout(nrow = 2, ncol = 1, heights = unit(c(2, 0.25), c("null", "null")))
+    mylayout <- grid::grid.layout(nrow = 2,
+                                  ncol = 1,
+                                  heights = unit(c(2, 0.25), c("null", "null")))
     
     #     grid.show.layout(mylayout)
     vplayout <- function(...) {
