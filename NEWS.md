@@ -1,7 +1,8 @@
-# simulariatools 2.3.9999
+# simulariatools 2.4.0
 
 * The package is ready to be submitted to CRAN.
 * Renamed `NEWS` to `NEWS.md`.
+* Updated `README` file.
 * Fixed many syntax errors.
 * Cleaned up code to try to comply with best practices.
 
@@ -16,7 +17,7 @@
 
 * BREAKING CHANGE: in raster plots in `contourPlot2` (tile = TRUE) intervals are closed on the 
 left and open on the right. In previous versions it was the opposite. In this way an interval
-`0 - 1` does include values equal to 0 and does not include values equale to 1.
+`0 - 1` does include values equal to 0 and does not include values equals to 1.
 
 
 # simulariatools 2.2.3
@@ -64,13 +65,13 @@ NEW FEATURES
 
 * New `contourPlot2()` function:
 * Based on ggplot2 v3.3.0 and `geom_contour_filled` function;
-* Colour bands are not overlapped anymore therefore the maps are more accurate;
-* Legend labels are more informatvie and smarter (you can also use +/- Inf for upper and lower bound);
+* Colour bands are not overlapped any more therefore the maps are more accurate;
+* Legend labels are more informative and smarter (you can also use +/- Inf for upper and lower bound);
 * Legend type for contour lines (no filling) is now a line;
 * Added possibility to specify column names to the data;
 * Axis labels are rounded to 0 decimals (they are in metres);
-* Backround image can be any format (jpeg, png, etc...);
-* Almost entirly a substitute of `contourPlot()`.
+* Background image can be any format (jpeg, png, etc...);
+* Almost entirely a substitute of `contourPlot()`.
 
 * New `downloadBasemap()` function to download basemap from the Italian National Geoportal.
 
@@ -236,6 +237,6 @@ the plot (axis, titles, legend, ...).
 
 * `stabilityClass()` has three methods to compute stability class: impact, as in ARIA Impact, pasquill (standard classification) and custom.
 * `plotStabClass()` function has been renamed to `plotStabilityClass()`.
-* It is now possibile to select the name of the column with stability class values in `plotStabilityClass()`.
-* Destaggering of grid fiels is applied by default in `importSurferGrd()`.
-* A little bit of cleanup in the documentaton.
+* It is now possible to select the name of the column with stability class values in `plotStabilityClass()`.
+* Destaggering of grid fields is applied by default in `importSurferGrd()`.
+* A little bit of clean-up in the documentation.

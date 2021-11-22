@@ -52,10 +52,6 @@ Installation of `simulariatools` from GitHub can be easily done using the `devto
 
 The same commands can also be used to upgrade the package.
 
-We also try to keep up to date versions of the package 
-[here](https://www.dropbox.com/sh/71252ydg6h3xvgc/AADiWKkh_tJHK97e5-ILAQVWa?dl=0) 
-if you can’t build the package yourself.
-
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files, 
 a working installation of *Python 3* is required.
 For more information about *R* and *Python* interoperability, please refer to [`reticulate`](https://rstudio.github.io/reticulate/) documentation.
@@ -66,26 +62,26 @@ For more information about *R* and *Python* interoperability, please refer to [`
 
 Firt, import air quality data from *NetCDF* or *ADSO/BIN* files with the appropriate 
 convenience function:
-```{r eval=TRUE, include=TRUE}
+```{r echo=TRUE}
 library(simulariatools)
-mydata <- importRaster(file = "./test/ave_anno_nox_all.nc",
+mydata <- importRaster(file = "./test/conc_avg.nc",
                        k = 1000,
                        destaggering = TRUE,
-                       variable = "NOX",
+                       variable = "nox",
                        verbose = TRUE)
 ```
 
-A quick contour plot with default customisation can be easily obtained 
+A quick contour plot with default configuration can be easily obtained 
 by running *contourPlot2()* without any argument:
 ```{r}
 contourPlot2(mydata)
 ```
 The plot is customisable by using *contourPlot2()* arguments and by piping *ggplot2* instructions:
-```{r}
+```{r echo=TRUE}
 library(ggplot2)
 contourPlot2(mydata, 
-             domain = c(280000, 303000, 5028000, 5052000, 5, 5),
-             levels = c(-Inf, 10, 15, 20, 30, 40),
+             domain = c(502000, 519000, 4943125, 4955125, 5, 5),
+             levels = c(-Inf, 0.5, 1, 1.5, 2, Inf),
              legend = "NOx [ug/m3]") + 
   labs(x = NULL, y = NULL) +
   theme_minimal()
@@ -95,6 +91,17 @@ Use `ggsave()` to save the last plot to file:
 ```{r eval=FALSE}
 ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
+
+If a *tile* plot is required:
+```{r echo=TRUE}
+library(ggplot2)
+contourPlot2(mydata, 
+             tile = TRUE,
+             legend = "NOx [ug/m3]") + 
+  labs(x = NULL, y = NULL) +
+  theme_minimal()
+```
+
 
 ## List of functions
 

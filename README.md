@@ -39,10 +39,6 @@ the `devtools` package:
 
 The same commands can also be used to upgrade the package.
 
-We also try to keep up to date versions of the package
-[here](https://www.dropbox.com/sh/71252ydg6h3xvgc/AADiWKkh_tJHK97e5-ILAQVWa?dl=0)
-if you can’t build the package yourself.
-
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files,
 a working installation of *Python 3* is required. For more information
 about *R* and *Python* interoperability, please refer to
@@ -57,21 +53,21 @@ appropriate convenience function:
 
 ``` r
 library(simulariatools)
-mydata <- importRaster(file = "./test/ave_anno_nox_all.nc",
+mydata <- importRaster(file = "./test/conc_avg.nc",
                        k = 1000,
                        destaggering = TRUE,
-                       variable = "NOX",
+                       variable = "nox",
                        verbose = TRUE)
 #> Loading required namespace: ncdf4
 #> 
 #> Raster statistics -----------------------------------------------
-#>        X (min, max, dx)  :  278000.000   303200.000      200.000
-#>        Y (min, max, dy)  : 5027000.000  5052200.000      200.000
-#>      NOX (min, max, mean):    0.00e+00     6.41e+01     7.78e-01
+#>        X (min, max, dx)  :  496000.000   519250.000      250.000
+#>        Y (min, max, dy)  : 4943000.000  4955250.000      250.000
+#>      nox (min, max, mean):    0.00e+00     2.71e+00     1.52e-01
 #> -----------------------------------------------------------------
 ```
 
-A quick contour plot with default customisation can be easily obtained
+A quick contour plot with default configuration can be easily obtained
 by running *contourPlot2()* without any argument:
 
 ``` r
@@ -85,8 +81,8 @@ plot is customisable by using *contourPlot2()* arguments and by piping
 ``` r
 library(ggplot2)
 contourPlot2(mydata, 
-             domain = c(280000, 303000, 5028000, 5052000, 5, 5),
-             levels = c(-Inf, 10, 15, 20, 30, 40),
+             domain = c(502000, 519000, 4943125, 4955125, 5, 5),
+             levels = c(-Inf, 0.5, 1, 1.5, 2, Inf),
              legend = "NOx [ug/m3]") + 
   labs(x = NULL, y = NULL) +
   theme_minimal()
@@ -99,6 +95,19 @@ Use `ggsave()` to save the last plot to file:
 ``` r
 ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
+
+If a *tile* plot is required:
+
+``` r
+library(ggplot2)
+contourPlot2(mydata, 
+             tile = TRUE,
+             legend = "NOx [ug/m3]") + 
+  labs(x = NULL, y = NULL) +
+  theme_minimal()
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
 
 ## List of functions
 
