@@ -23,13 +23,12 @@
 #' @importFrom reshape2 melt
 #' 
 #' @examples
-#' \dontrun{
 #' # Plot histogram with monthly averages together with maxima and minima 
 #' # curves
-#' plotAvgTemp(mydata)
-#' plotAvgTemp(mydata, temp = "temperature", 
+#' data(stMeteo)
+#' plotAvgTemp(stMeteo)
+#' plotAvgTemp(stMeteo, temp = "temperature", 
 #'             avg.time = "1 month", ylabel = "Temperatura [C]")
-#' }
 plotAvgTemp <- function(mydata, temp = "temp", 
                         avg.time = "1 month", 
                         ylabel = "Temperatura [C]",
@@ -73,8 +72,8 @@ plotAvgTemp <- function(mydata, temp = "temp",
                                       "Minima" = "darkgreen", 
                                       "Massima" = "darkorange2"), 
                            guide = guide_legend(title = NULL)) +
-        scale_fill_manual(values = c("Media" = "steelblue"), guide = FALSE)  + 
-        theme_bw(base_family = "Arial") +
+        scale_fill_manual(values = c("Media" = "steelblue"), guide = NULL)  + 
+        theme_bw(base_family = "sans") +
         theme(legend.position = c(0.01, 0.99), 
               legend.justification = c(0, 1),
               legend.box.margin = margin(t = 0, unit = "mm"))

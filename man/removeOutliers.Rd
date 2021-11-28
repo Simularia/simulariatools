@@ -4,24 +4,29 @@
 \alias{removeOutliers}
 \title{Remove data outliers}
 \usage{
-removeOutliers(x, k)
+removeOutliers(x, k = 1.5)
 }
 \arguments{
-\item{x}{vector of data to be cleaned}
+\item{x}{vector of data.}
 
-\item{k}{factor to applied to the interquartile range}
+\item{k}{factor to applied to the interquartile range (default = 1.5).}
 }
 \value{
-vector of cleaned data
+A numeric vector with the same length as input vector.
 }
 \description{
-Outliers are removed from a data set. The interquartile range is computed.
-Data larger or smaller than k * IQR are removed.
+Remove data outliers based on the interquartile range.
+}
+\details{
+The interquartile range IQR is computed from input dataset as IQR = Q3 - Q1,
+where Q1 is 25th percentile and Q3 is the 75th percentile.
+Values larger than Q3 + k * IQR and smaller than Q1 - k * IQR are deemed
+as outliers and substituted with NA's.
+
+The default value of k is 1.5.
 }
 \examples{
-\dontrun{
-# Remove data outside 5 time the interquartile range
-mydata$ws <- removeOutliers(mydata$ws, 5)
-}
+mydata <- c(-10 * runif(10), runif(10))
+removeOutliers(mydata)
 
 }

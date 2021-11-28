@@ -33,6 +33,13 @@
 #' 
 #' @examples
 #' \dontrun{
+#' # Load example data in long format
+#' data(volcano)
+#' volcano3d <- reshape2::melt(volcano)
+#' names(volcano3d) <- c("x", "y", "z")
+#' # Contour plot with default options
+#' contourPlot(volcano3d)
+#' 
 #' # Import variable CONCAN from inpufile, convert km to m (k = 1000):
 #' data <- importRaster(paste0(dir, inputfile), 
 #'                      k = 1000, 
@@ -42,7 +49,7 @@
 #' contourPlot(data)
 #'
 #' # Specifiy (sub)domain to be plotted; background image; legend title and 
-#' pollutant levels.
+#' # pollutant levels.
 #' contourPlot(data, 
 #'             domain(500000, 510000, 6000000, 6010000, 7, 7), 
 #'             background = "img/background.png", 
@@ -284,7 +291,7 @@ contourPlot <- function(data,
                            limits = c(yminE, ymaxE),
                            breaks = seq(ymin, ymax, length.out = ny),
                            expand = c(0, 0)) +
-        theme_bw(base_size = 10, base_family = "Arial") +
+        theme_bw(base_size = 10, base_family = "sans") +
         coord_fixed(ratio = 1, xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
         overlayer +
         baretheme

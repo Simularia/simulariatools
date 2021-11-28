@@ -7,11 +7,12 @@
 plotAvgRad(mydata, date = "date", rad = "radg")
 }
 \arguments{
-\item{mydata}{A data frame containing fields \code{date} and \code{radg}}
+\item{mydata}{A data frame containing fields with solar radiation time
+series.}
 
-\item{date}{Name of the column representing date and time}
+\item{date}{Name of the column representing date and time.}
 
-\item{rad}{Name of the column representing radiation}
+\item{rad}{Name of the column representing radiation.}
 }
 \value{
 A \code{ggplot2} plot.
@@ -21,8 +22,7 @@ Plot a histogram with hourly average of solar radiation, together with
 hourly maxima for June and December.
 }
 \examples{
-\dontrun{
-plotAvgRad(mydata)
-plotAvgRad(mydata, rad="radg")
-}
+data(stMeteo)
+plotAvgRad(stMeteo, date = "date", rad = "radg")
+
 }

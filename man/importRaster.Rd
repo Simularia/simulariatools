@@ -53,13 +53,13 @@ An optional summary output can be printed by setting the \code{verbose} paramete
 \examples{
 \dontrun{
 # Import binary (netcdf) file and convert coordinates from km to m,
-without destaggering:
+# without destaggering:
 mydata <- importRaster(file = "/path_to_file/filename.nc",
                        k = 1000,
                        destaggering = FALSE)
 
 # Import binary (netcdf) file and convert coordinates from km to m,
-with shift of 100 m in both directions:
+# with shift of 100 m in both directions:
 mydata <- importRaster(file = "/path_to_file/filename.nc",
                        k = 1000,
                        dx = 100,

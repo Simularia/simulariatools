@@ -65,7 +65,7 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
         scale_y_continuous(labels = scales::percent, breaks = seq(0,1,0.1)) +
         scale_fill_brewer(palette = "Spectral", direction = -1) + 
         labs(x = "", y = "Percentuale (%)") +
-        theme_bw(base_family = "Arial") +
+        theme_bw(base_family = "sans") +
         theme(legend.position = "bottom") +
         guides(fill = guide_legend(
             label.position = "bottom", 

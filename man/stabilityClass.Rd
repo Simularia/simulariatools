@@ -27,12 +27,12 @@ stability class as: A = 1, ... , F = 6.
 }
 \details{
 It computes stability class according to IAEA method based on net radiation
-and wind. #' Net radiation and wind are used by day; tcc and wind are used
-by night.
+and wind.
+Net radiation and wind are used by day; tcc and wind are used by night.
 }
 \examples{
 \dontrun{
-# Compute Pasquill stability class as in ARIA Impact
+# Compute Pasquill stability class
 mydata$sc <- stabilityClass(mydata$rad, mydata$tcc, mydata$ws, option="pasquill")
 }
 }

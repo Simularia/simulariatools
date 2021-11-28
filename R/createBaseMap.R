@@ -22,7 +22,7 @@
 createBaseMap <- function(imageFile, 
                           domain = c(0, 0, 1000, 1000, 5, 5), 
                           font_size = 10, 
-                          font_family = "Arial") {
+                          font_family = "sans") {
         
     # domain boundary
     xmin <- domain[1]

@@ -1,10 +1,14 @@
 # simulariatools 2.4.0
 
-* The package is ready to be submitted to CRAN.
+* The package is ready to be submitted to CRAN. 
+* Fixed many syntax errors, cleaned up code to try to comply with best practices.
+* Fixed warnings in the  documentation and added some working examples in
+some functions.
+* Added some tests.
+* Added a sample dataset `stMeteo` with hourly values of wind speed, wind 
+direction, temperature, global radiation, total cloud cover and stability class.
 * Renamed `NEWS` to `NEWS.md`.
 * Updated `README` file.
-* Fixed many syntax errors.
-* Cleaned up code to try to comply with best practices.
 
 
 # simulariatools 2.3.1
@@ -235,7 +239,8 @@ the plot (axis, titles, legend, ...).
 
 # simulariatools 0.2.1
 
-* `stabilityClass()` has three methods to compute stability class: impact, as in ARIA Impact, pasquill (standard classification) and custom.
+* `stabilityClass()` has three methods to compute stability class: impact, as 
+in ARIA Impact, pasquill (standard classification) and custom.
 * `plotStabClass()` function has been renamed to `plotStabilityClass()`.
 * It is now possible to select the name of the column with stability class values in `plotStabilityClass()`.
 * Destaggering of grid fields is applied by default in `importSurferGrd()`.

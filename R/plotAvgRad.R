@@ -3,9 +3,10 @@
 #' Plot a histogram with hourly average of solar radiation, together with
 #' hourly maxima for June and December.
 #'
-#' @param mydata A data frame containing fields `date` and `radg`
-#' @param date  Name of the column representing date and time
-#' @param rad   Name of the column representing radiation
+#' @param mydata A data frame containing fields with solar radiation time 
+#' series.
+#' @param date  Name of the column representing date and time.
+#' @param rad   Name of the column representing radiation.
 #' 
 #' @return A \code{ggplot2} plot.
 #' 
@@ -15,10 +16,9 @@
 #' @importFrom openair selectByDate
 #' 
 #' @examples
-#' \dontrun{
-#' plotAvgRad(mydata)
-#' plotAvgRad(mydata, rad="radg")
-#' }
+#' data(stMeteo)
+#' plotAvgRad(stMeteo, date = "date", rad = "radg")
+#' 
 plotAvgRad <- function(mydata, date="date", rad="radg") {
     
     mydata <- as.data.frame(mydata)
@@ -56,10 +56,10 @@ plotAvgRad <- function(mydata, date="date", rad="radg") {
                                       "Massimo Dicembre" = "darkgreen",
                                       "Massimo Giugno" = "darkorange2"),
                            guide = guide_legend(title = NULL)) +
-        scale_fill_manual(values = c("Media" = "steelblue"), guide = FALSE) + 
+        scale_fill_manual(values = c("Media" = "steelblue"), guide = NULL) + 
         labs(x = NULL,
              y = expression(paste("Radiazione Globale [W/", m^{2},"]"))) +
-        theme_bw(base_family = "Arial") +
+        theme_bw(base_family = "sans") +
         theme(legend.position = c(0.01, 0.99), 
               legend.justification = c(0, 1),
               legend.box.margin = margin(t = 0, unit = "cm"))

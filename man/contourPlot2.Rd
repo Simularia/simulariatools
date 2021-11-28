@@ -82,13 +82,28 @@ value and exclude the highest value: [min, max).
 In previous version it was the opposite.
 }
 \examples{
-\dontrun{
+# Load example data in long format
+data(volcano)
 volcano3d <- reshape2::melt(volcano)
 names(volcano3d) <- c("x", "y", "z")
-contourPlot2(volcano3d, transparency = 1, 
-             levels = c(80, 100, 120, 140, 160, 180, 200, Inf))
+# Contour plot with default options
+contourPlot2(volcano3d)
 
-# To properly format the legend title:
-contourPlot2(data, legend = expression(PM[10]~"["~mu*g~m^-3~"]"))
-}
+# Set levels, and properly format the legend title:
+contourPlot2(volcano3d, 
+             levels = c(-Inf, seq(100, 200, 20), Inf),
+             legend = expression(PM[10]~"["~mu*g~m^-3~"]"))
+
+# Sometimes, instead of a contour plot it is better to plot the original
+# raster data, without any interpolation:
+contourPlot2(volcano3d, 
+             levels = c(-Inf, seq(100, 200, 20), Inf), 
+             tile = TRUE)
+
+# Since contourPlot2 returns a `ggplot2` object, you can add instructions as:
+library(ggplot2)
+contourPlot2(volcano3d) +
+    ggtitle("Example volcano data") +
+    labs(x = NULL, y = NULL)
+
 }

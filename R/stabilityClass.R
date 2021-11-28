@@ -3,8 +3,8 @@
 #' \code{stabilityClass} computes stability class.
 #' 
 #' It computes stability class according to IAEA method based on net radiation 
-#' and wind. #' Net radiation and wind are used by day; tcc and wind are used 
-#' by night.
+#' and wind. 
+#' Net radiation and wind are used by day; tcc and wind are used by night.
 #' 
 #' @param rad The net radiation in W/m^2
 #' @param tcc The total cloud cover in a range from 1  to 8
@@ -20,7 +20,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' # Compute Pasquill stability class as in ARIA Impact
+#' # Compute Pasquill stability class
 #' mydata$sc <- stabilityClass(mydata$rad, mydata$tcc, mydata$ws, option="pasquill")
 #' }
 stabilityClass <- function(rad, tcc, ws, option="impact") {
@@ -91,14 +91,12 @@ stabilityClass <- function(rad, tcc, ws, option="impact") {
         tabStab[4,] <- c(4, 4, 4, 4, 3, 3, 3)
         tabStab[5,] <- c(4, 4, 4, 4, 4, 4, 3)        
     }
-
     
     catStab <- -9
     
     lvec <- length(rad)
     
     for (i in 1:lvec) {
-
         iv <- 1
         while (ws[i] >= vel[iv]) iv <- iv + 1
     
