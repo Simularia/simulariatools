@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 # simulariatools
 
   <!-- badges: start -->
-  <!-- [![R-CMD-check](https://github.com/Simularia/simulariatools/workflows/R-CMD-check/badge.svg)](https://github.com/Simularia/simulariatools/actions) -->
+  [![R-CMD-check](https://github.com/Simularia/simulariatools/workflows/R-CMD-check/badge.svg)](https://github.com/Simularia/simulariatools/actions) 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
   <!-- badges: end -->
 
@@ -43,14 +43,17 @@ Refer to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
 ## Installation
 
-Installation of `simulariatools` from GitHub can be easily done using the `devtools` package:
+The easiest way to install `simulariatools` is form CRAN:
 
 ```{r eval=FALSE, include=TRUE}
-    library("devtools")
-    install_github("Simularia/simulariatools")
+    install.packages("simulariatools")
 ```
 
-The same commands can also be used to upgrade the package.
+The development version can be installed from GitHub using the `devtools` package:
+
+```{r eval=FALSE, include=TRUE}
+    devtools::install_github("Simularia/simulariatools")
+```
 
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files, 
 a working installation of *Python 3* is required.

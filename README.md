@@ -4,7 +4,7 @@
 # simulariatools
 
 <!-- badges: start -->
-<!-- [![R-CMD-check](https://github.com/Simularia/simulariatools/workflows/R-CMD-check/badge.svg)](https://github.com/Simularia/simulariatools/actions) -->
+[![R-CMD-check](https://github.com/Simularia/simulariatools/workflows/R-CMD-check/badge.svg)](https://github.com/Simularia/simulariatools/actions)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
 <!-- badges: end -->
 
@@ -29,15 +29,18 @@ to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
 ## Installation
 
-Installation of `simulariatools` from GitHub can be easily done using
-the `devtools` package:
+The easiest way to install `simulariatools` is form CRAN:
 
 ``` r
-    library("devtools")
-    install_github("Simularia/simulariatools")
+    install.packages("simulariatools")
 ```
 
-The same commands can also be used to upgrade the package.
+The development version can be installed from GitHub using the
+`devtools` package:
+
+``` r
+    devtools::install_github("Simularia/simulariatools")
+```
 
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files,
 a working installation of *Python 3* is required. For more information
@@ -74,7 +77,7 @@ by running *contourPlot2()* without any argument:
 contourPlot2(mydata)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" /> The
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" /> The
 plot is customisable by using *contourPlot2()* arguments and by piping
 *ggplot2* instructions:
 
@@ -88,7 +91,7 @@ contourPlot2(mydata,
   theme_minimal()
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 Use `ggsave()` to save the last plot to file:
 
@@ -107,7 +110,7 @@ contourPlot2(mydata,
   theme_minimal()
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 ## List of functions
 
