@@ -4,7 +4,9 @@
 # simulariatools
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/Simularia/simulariatools/workflows/R-CMD-check/badge.svg)](https://github.com/Simularia/simulariatools/actions)
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/simulariatools)](https://CRAN.R-project.org/package=simulariatools)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
 <!-- badges: end -->
 
