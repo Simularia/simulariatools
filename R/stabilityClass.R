@@ -34,18 +34,18 @@ stabilityClass <- function(rad, tcc, ws, option="impact") {
         stop("Invalid stability option.")
     
     if (option == "impact") {
-        # Impact raditaion vector (night, night, night, day)
+        # Impact radiation vector (night, night, night, day)
         limrad <- 6
         radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, 9999)
         
         # Impact velocity table
         vel <- c(1, 2, 4, 6, 7,  999)
         
-        # Impact cloud cove table
+        # Impact cloud code table
         nuvo <- c(4, 8, 999)
         
         # Impact stability classes
-        tabStab <- array(NA, dim=c(6,7))
+        tabStab <- array(NA, dim = c(6,7))
         tabStab[1,] <- c(6, 6, 4, 4, 2, 1, 1)
         tabStab[2,] <- c(6, 5, 4, 4, 2, 2, 1)
         tabStab[3,] <- c(6, 5, 4, 4, 3, 2, 1)
@@ -67,7 +67,7 @@ stabilityClass <- function(rad, tcc, ws, option="impact") {
         
         # Pasquill stability classes
         tabStab <- array(NA, dim = c(5, 5))
-        tabStab[1,] <- c(6, 6, 2, 1, 1)
+        tabStab[1,] <- c(6, 5, 2, 1, 1)
         tabStab[2,] <- c(6, 5, 3, 2, 1)
         tabStab[3,] <- c(5, 4, 3, 3, 2)
         tabStab[4,] <- c(4, 4, 4, 4, 3)
