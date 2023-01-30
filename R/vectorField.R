@@ -14,7 +14,6 @@
 #' @return A \code{ggplot2} plot.
 #' 
 #' @importFrom ggplot2 ggplot geom_segment aes
-#' @importFrom dplyr filter
 #' 
 #' @param data A dataframe containing data to be plotted in the form of:
 #' *(x, y, u, v)*.
@@ -79,7 +78,8 @@ vectorField <- function(data,
     # Skip points
     keepx <- every_n(unique(data$x), by = everyx)
     keepy <- every_n(unique(data$y), by = everyy)
-    datasub <- dplyr::filter(data, x %in% keepx  &  y %in% keepy)
+    datasub <- subset(data, x %in% keepx)
+    datasub <- subset(datasub, y %in% keepy)
     
     # Vectors scale factor (1 m/s -> 100 m)
     scale <- scale * 100

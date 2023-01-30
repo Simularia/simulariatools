@@ -1,6 +1,7 @@
 # simulariatools 2.4.0.9999
 
-* Remove dependency from `RColorBrewer`.
+* Remove dependency from `RColorBrewer`, `dplyr`.
+* `Openair` is now a suggested package.
 * Bug fix in Pasquill stability class in `stabilityClass()`.
 * Updated `README` file.
 

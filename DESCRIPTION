@@ -20,7 +20,6 @@ Depends:
     R (>= 3.3)
 Imports: 
     ggplot2 (>= 3.3),
-    dplyr,
     grid,
     lubridate,
     png,
