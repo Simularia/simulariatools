@@ -23,6 +23,10 @@
 #' }
 plotStabilityClass <- function(mydata, sc="sc", type="season") {
     
+    if (!requireNamespace("openair", quietly = TRUE)) {
+        stop("Please install openair from CRAN.")
+    }
+    
     # Fix No visible binding for global variable
     season <- clname <- hour <- NULL
 
