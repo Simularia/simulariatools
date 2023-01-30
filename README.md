@@ -21,24 +21,23 @@ to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
 ## simulariatools Table of Contents
 
--   [Installation](#installation)
--   [Brief examples](#brief_examples)
--   [List of Functions](#list_of_functions)
--   [Contact](#contact)
--   [Contributors](#contributors)
--   [License](https://github.com/Simularia/simulariatools/blob/master/LICENSE.md)
--   [Changelog](https://github.com/Simularia/simulariatools/blob/master/NEWS)
+- [Installation](#installation)
+- [Brief examples](#brief_examples)
+- [List of Functions](#list_of_functions)
+- [Contact](#contact)
+- [Contributors](#contributors)
+- [License](https://github.com/Simularia/simulariatools/blob/master/LICENSE.md)
+- [Changelog](https://github.com/Simularia/simulariatools/blob/master/NEWS)
 
 ## Installation
 
-The easiest way to install `simulariatools` is form CRAN:
+Install the latest official release from CRAN via:
 
 ``` r
     install.packages("simulariatools")
 ```
 
-The development version can be installed from GitHub using the
-`devtools` package:
+Install the current development version from GitHub via:
 
 ``` r
     devtools::install_github("Simularia/simulariatools")
@@ -77,6 +76,11 @@ by running *contourPlot2()* without any argument:
 
 ``` r
 contourPlot2(mydata)
+#> Warning: `stat(level)` was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `after_stat(level)` instead.
+#> ℹ The deprecated feature was likely used in the simulariatools package.
+#>   Please report the issue at
+#>   <]8;;https://github.com/Simularia/simulariatools/issueshttps://github.com/Simularia/simulariatools/issues]8;;>.
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" /> The
@@ -118,20 +122,20 @@ contourPlot2(mydata,
 
 Available functions are listed below:
 
--   `contpourPlot2()`
--   `downloadBasemap()`
--   `importRaster()`.
--   `importADSOBIN()`.
--   `importSurferGrd()`.
--   `plotAvgRad()`.
--   `plotAvgTemp()`.
--   `plotStabilityClass()`.
--   `removeOutliers()`.
--   `rollingMax()`.
--   `stabilityClass()`.
--   `vectorField()`.
--   `contourPlot()` obsolete.
--   `createBaseMap()` obsolete.
+- `contpourPlot2()`
+- `downloadBasemap()`
+- `importRaster()`.
+- `importADSOBIN()`.
+- `importSurferGrd()`.
+- `plotAvgRad()`.
+- `plotAvgTemp()`.
+- `plotStabilityClass()`.
+- `removeOutliers()`.
+- `rollingMax()`.
+- `stabilityClass()`.
+- `vectorField()`.
+- `contourPlot()` obsolete.
+- `createBaseMap()` obsolete.
 
 ## Contact
 

@@ -44,13 +44,13 @@ Refer to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
 ## Installation
 
-The easiest way to install `simulariatools` is form CRAN:
+Install the latest official release from CRAN via:
 
 ```{r eval=FALSE, include=TRUE}
     install.packages("simulariatools")
 ```
 
-The development version can be installed from GitHub using the `devtools` package:
+Install the current development version from GitHub via:
 
 ```{r eval=FALSE, include=TRUE}
     devtools::install_github("Simularia/simulariatools")

@@ -1,3 +1,10 @@
+# simulariatools 2.4.0.9999
+
+* Remove dependency from `RColorBrewer`.
+* Bug fix in Pasquill stability class in `stabilityClass()`.
+* Updated `README` file.
+
+
 # simulariatools 2.4.0
 
 * The package is ready to be submitted to CRAN. 
