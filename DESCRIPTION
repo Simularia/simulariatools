@@ -22,7 +22,6 @@ Imports:
     ggplot2 (>= 3.3),
     grid,
     lubridate,
-    png,
     raster,
     reshape2,
     reticulate,

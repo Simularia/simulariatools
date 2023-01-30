@@ -230,13 +230,17 @@ contourPlot <- function(data,
     }
 
     # Background image
-    if (missing(background)) {
-        img <- matrix(data = NA, nrow = 10, ncol = 10)
-        gimg <- grid::rasterGrob(img, interpolate = TRUE)
-    } else {
-        img <- png::readPNG(background)
-        gimg <- grid::rasterGrob(img, interpolate = TRUE)
+    img <- matrix(data = NA, nrow = 10, ncol = 10)
+    gimg <- grid::rasterGrob(img, interpolate = FALSE)
+    if (!missing(background)) {
+      if (requireNamespace("magick", quietly = TRUE)) {
+        img <- magick::image_read(background)
+        gimg <- grid::rasterGrob(img)
+      } else {
+        warning("Missing magick package. Please install it to be able to read background basemap.")
+      }
     }
+    
     
     # Underlayer
     if (missing(underlayer)) {
