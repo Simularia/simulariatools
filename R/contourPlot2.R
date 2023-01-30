@@ -142,7 +142,7 @@ contourPlot2 <- function(data,
         levels <- pretty(range(data$z, na.rm = TRUE), n = nlevels, min.n = 4)
     } 
 
-    # labels for legend
+    # Labels for legend
     nlevels <- length(levels)
     if (levels[1] >= 0) {
         levels <- append(levels, Inf)
@@ -231,7 +231,7 @@ contourPlot2 <- function(data,
             geom_contour_filled(aes(x = x, y = y, z = z,
                                     fill = stat(level)),
                                 breaks = levels,
-                                size = 0,
+                                linewidth = 0,
                                 alpha = transparency) +
             scale_fill_manual(lgndname,
                               drop = FALSE,
