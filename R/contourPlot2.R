@@ -229,7 +229,7 @@ contourPlot2 <- function(data,
     if (isTRUE(fill)) {
         v <- v +
             geom_contour_filled(aes(x = x, y = y, z = z,
-                                    fill = stat(level)),
+                                    fill = after_stat(level)),
                                 breaks = levels,
                                 linewidth = 0,
                                 alpha = transparency) +
@@ -250,7 +250,7 @@ contourPlot2 <- function(data,
             geom_contour(aes(x = x, 
                              y = y, 
                              z = z, 
-                             colour = factor(stat(level))),
+                             colour = factor(after_stat(level))),
                          breaks = lineLevels,
                          size = size,
                          linejoin = "round",

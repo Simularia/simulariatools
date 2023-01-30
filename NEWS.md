@@ -3,6 +3,7 @@
 * Remove dependency from `RColorBrewer`, `dplyr`, `png`.
 * `Openair` is now a suggested package.
 * Bug fix in Pasquill stability class in `stabilityClass()`.
+* Fixed `stat(level)` deprecation in ggplot2()
 * Updated `README` file.
 
 
