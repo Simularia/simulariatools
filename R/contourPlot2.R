@@ -162,9 +162,10 @@ contourPlot2 <- function(data,
     }
     
     # Colour palette 
+    spectral <- c("#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", "#FFFFBF",
+                           "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142")
     if (is.null(colors)) {
-        myPalette <- grDevices::colorRampPalette(
-            rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+        myPalette <- grDevices::colorRampPalette(spectral)
         # Omit first colour for aesthetic reasons
         myColors <- myPalette(nlevels)
         myColors <- myColors[2:length(myColors)]

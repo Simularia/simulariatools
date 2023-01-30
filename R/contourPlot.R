@@ -207,9 +207,10 @@ contourPlot <- function(data,
     ymaxE <- raster::ymax(ttE)
     
     # color palette (omit first color)
+    spectral <- c("#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", "#FFFFBF",
+                           "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142")
     if (is.null(colors)) {
-        myPalette <- grDevices::colorRampPalette(
-            rev(RColorBrewer::brewer.pal(11, name = "Spectral")))
+        myPalette <- grDevices::colorRampPalette(spectral)
         myColors <- myPalette(length(levels) + 1)[-c(1, 1)]
     } else {
         myPalette <- grDevices::colorRampPalette(colors, alpha = TRUE)
