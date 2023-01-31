@@ -40,7 +40,6 @@
 #' value and exclude the highest value: [min, max).
 #' In previous version it was the opposite.
 #'
-#' @importFrom openair quickText
 #' @importFrom grDevices colorRampPalette
 #' @importFrom ggplot2 ggplot annotation_custom geom_contour_filled 
 #'                     scale_fill_manual scale_x_continuous scale_y_continuous

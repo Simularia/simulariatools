@@ -54,7 +54,12 @@ createBaseMap <- function(imageFile,
     # background raster image
 #     img <- raster(image)
 #     img <- rasterToPoints(img)
-    img <- png::readPNG(imageFile)
+    
+    if (requireNamespace("magick", quietly = TRUE)) {
+            img <- magick::image_read(imageFile)
+    } else {
+        stop("Please install the 'magick' package")
+    }
     v <- v + annotation_raster(img, xmin, xmax, ymin, ymax)
     
     # apply graphical options

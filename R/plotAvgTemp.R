@@ -19,7 +19,6 @@
 #' @export
 #' 
 #' @import grid
-#' @importFrom openair timeAverage
 #' @importFrom reshape2 melt
 #' 
 #' @examples
@@ -44,17 +43,16 @@ plotAvgTemp <- function(mydata, temp = "temp",
     
     if (!requireNamespace("openair", quietly = TRUE)) {
         stop("Please install openair from CRAN.")
-    } else {
-        mydata_mean <- openair::timeAverage(mydata,
-                                            statistic = "mean",
-                                            avg.time = avg.time)
-        mydata_max <- openair::timeAverage(mydata,
-                                           statistic = "max",
-                                           avg.time = avg.time)
-        mydata_min <- openair::timeAverage(mydata,
-                                           statistic = "min",
-                                           avg.time = avg.time)
     }
+    mydata_mean <- openair::timeAverage(mydata,
+                                        statistic = "mean",
+                                        avg.time = avg.time)
+    mydata_max <- openair::timeAverage(mydata,
+                                       statistic = "max",
+                                       avg.time = avg.time)
+    mydata_min <- openair::timeAverage(mydata,
+                                       statistic = "min",
+                                       avg.time = avg.time)
     
     mydata_mean <- merge(mydata_mean, mydata_min, by = "date", all = TRUE)
     mydata_mean <- merge(mydata_mean, mydata_max, by = "date", all = TRUE)

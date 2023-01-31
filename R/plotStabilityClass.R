@@ -12,7 +12,6 @@
 #'
 #' @return A \code{ggplot2} plot.
 #' 
-#' @importFrom openair cutData
 #' @importFrom scales percent
 #' 
 #' @export
