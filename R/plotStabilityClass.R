@@ -16,9 +16,9 @@
 #' 
 #' @export
 #' @examples
-#' \dontrun{
-#' plotStabClass(t, cs = "PGT", type = "season")
-#' plotStabClass(t, cs = "stability", type = "hour")
+#' data(stMeteo)
+#' plotStabilityClass(stMeteo, sc = "pgt", type = "season")
+#' plotStabilityClass(stMeteo, sc = "pgt", type = "hour")
 #' }
 plotStabilityClass <- function(mydata, sc="sc", type="season") {
     
@@ -61,7 +61,7 @@ plotStabilityClass <- function(mydata, sc="sc", type="season") {
 
     } else {
         mydata$hour <- factor(as.numeric(format(mydata$date, format = "%H")))
-        # v <- ggplot(mydata, aes(x = hour, fill = clname)) +
+        v <- ggplot(mydata, aes(x = hour, fill = clname)) +
             geom_bar(position = "fill")
     }
     v <- v + 
