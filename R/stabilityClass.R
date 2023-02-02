@@ -19,10 +19,13 @@
 #' 
 #' @export
 #' @examples
-#' \dontrun{
 #' # Compute Pasquill stability class
-#' mydata$sc <- stabilityClass(mydata$rad, mydata$tcc, mydata$ws, option="pasquill")
-#' }
+#' stMeteo$pgt <- stabilityClass(stMeteo$rad, stMeteo$tcc, stMeteo$ws,
+#'                               option="pasquill")
+#'                               
+#' # Plot stability classes by season
+#' plotStabilityClass(stMeteo, sc = "pgt", type = "season")
+#' 
 stabilityClass <- function(rad, tcc, ws, option="impact") {
     
     # check if the input vectors have the same length

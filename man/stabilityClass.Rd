@@ -31,8 +31,11 @@ and wind.
 Net radiation and wind are used by day; tcc and wind are used by night.
 }
 \examples{
-\dontrun{
 # Compute Pasquill stability class
-mydata$sc <- stabilityClass(mydata$rad, mydata$tcc, mydata$ws, option="pasquill")
-}
+stMeteo$pgt <- stabilityClass(stMeteo$rad, stMeteo$tcc, stMeteo$ws,
+                              option="pasquill")
+                              
+# Plot stability classes by season
+plotStabilityClass(stMeteo, sc = "pgt", type = "season")
+
 }
