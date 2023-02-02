@@ -37,7 +37,10 @@
 #'
 #' @seealso \code{\link{importRaster}} to import netcdf files.
 #' 
+#' @importFrom terra rast
+#' 
 #' @examples
+#' 
 #' \dontrun{
 #' # Read ground level (slice = 1) value of variable M001S001.
 #' pm10 <- importADSOBIN(file = "average_2018.bin",
@@ -203,7 +206,7 @@ importADSOBIN <- function(file = file.choose(),
     
     # Return as grid
     if (raster.object == TRUE) {
-        grd3D <- raster::rasterFromXYZ(grd3D)
+        grd3D <- terra::rast(grd3D, type = "xyz")
     }
     return(grd3D)
 }

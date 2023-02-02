@@ -2,6 +2,8 @@
 
 * Remove dependency from `RColorBrewer`, `dplyr`, `png`.
 * `Openair` is now a suggested package.
+* `terra` is a required package while `raster` becomes suggested. `raster` is 
+only required by the deprecated `contourPlot()` function.
 * Bug fix in Pasquill stability class in `stabilityClass()`.
 * Fixed `stat(level)` deprecation in ggplot2()
 * Updated `README` file.

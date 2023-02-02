@@ -22,11 +22,18 @@
 #'   (default = FALSE).
 #' @param variable The name of the variable to be imported.
 #' @param verbose If `TRUE`, prints out basic statistics (default = FALSE).
+#' 
+#' @details
+#' This function is based on the `terra` package and it can import any format
+#' managed by it.
+#' 
 #'
 #' @return It returns a dataframe with x, y and z columns.
 #'
 #' @seealso \code{\link{importADSOBIN}} to import ADSO/BIN files. See
 #'   [importADSOBIN()].
+#'
+#' @importFrom terra rast res xmin xmax ymin ymax shift global as.data.frame
 #'
 #' @export
 #'
@@ -55,44 +62,44 @@ importRaster <- function(file = file.choose(),
                          verbose = FALSE) {
 
     if (is.null(variable)) {
-        t <- raster::raster(file, ncdf = TRUE)
+        t <- terra::rast(file)
         variable <- as.character(t@data@names)
     } else {
-        t <- raster::raster(file, varname = as.character(variable), ncdf = TRUE)
+        t <- terra::rast(file, subds = as.character(variable))
     }
     
     # Apply conversion factor
-    raster::xmax(t) <- raster::xmax(t) * k
-    raster::xmin(t) <- raster::xmin(t) * k
-    raster::ymax(t) <- raster::ymax(t) * k
-    raster::ymin(t) <- raster::ymin(t) * k
+    terra::xmax(t) <- terra::xmax(t) * k
+    terra::xmin(t) <- terra::xmin(t) * k
+    terra::ymax(t) <- terra::ymax(t) * k
+    terra::ymin(t) <- terra::ymin(t) * k
     
     # Apply value factor
     t <- t * kz
     
     # Apply destaggering
     if (destaggering == TRUE) {
-        t <- raster::shift(t, 
-                           dx = raster::res(t)[1] / 2., 
-                           dy = raster::res(t)[2] / 2.)
+        t <- terra::shift(t, 
+                           dx = terra::res(t)[1] / 2., 
+                           dy = terra::res(t)[2] / 2.)
     }
     
     # Shift coordinates
-    t <- raster::shift(t, dx = dx, dy = dy)
+    t <- terra::shift(t, dx = dx, dy = dy)
     
     # Print some values
     if (verbose == TRUE) {
         cat("\nRaster statistics -----------------------------------------------")
-        xvalues <- c(raster::xmin(t), raster::xmax(t), raster::res(t)[1])
+        xvalues <- c(terra::xmin(t), terra::xmax(t), terra::res(t)[1])
         cat(sprintf("\n%8s (min, max, dx)  :", "X"))
         cat(sprintf(fmt = "%12.3f", xvalues))
     
-        yvalues <- c(raster::ymin(t), raster::ymax(t), raster::res(t)[2])
+        yvalues <- c(terra::ymin(t), terra::ymax(t), terra::res(t)[2])
         cat(sprintf("\n%8s (min, max, dy)  :", "Y"))
         cat(sprintf(fmt = "%12.3f", yvalues))
     
-        zvalues <- c(raster::cellStats(t, min), raster::cellStats(t, max),
-                     raster::cellStats(t, mean))
+        zvalues <- c(terra::global(t, min), terra::global(t, max),
+                     terra::global(t, mean))
         cat(sprintf("\n%8s (min, max, mean):", variable))
         cat(sprintf(fmt = "%12.2e", zvalues))
         
@@ -101,8 +108,7 @@ importRaster <- function(file = file.choose(),
 
     
     # Export dataframe with x, y, x columns
-    grd3D <- raster::rasterToPoints(t)
-    grd3D <- data.frame(grd3D)
+    grd3D <- terra::as.data.frame(t, xy = TRUE)
     colnames(grd3D) <- c("x", "y", "z")
     return(grd3D)
 }

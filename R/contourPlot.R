@@ -86,8 +86,6 @@
 #'
 #' @import ggplot2
 #' @importFrom grDevices colorRampPalette
-#' @importFrom raster rasterFromXYZ disaggregate xmin xmax ymin ymax values
-#'                    crop merge extent extend rasterToPoints
 #' 
 #' @export
 #' 
@@ -106,6 +104,11 @@ contourPlot <- function(data,
                         bare = FALSE) {
   
   .Deprecated("contourPlot2")
+  
+  if (!requireNamespace("raster", quietly = TRUE)) {
+    stop("Please install raster from CRAN.", call. = FALSE)
+  }
+    
 
   # Local binding for variables
   x <- y <- z <- NULL

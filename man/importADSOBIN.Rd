@@ -65,6 +65,7 @@ For more information on the active \code{python} installation, check the
 documentation of \pkg{reticulate}.
 }
 \examples{
+
 \dontrun{
 # Read ground level (slice = 1) value of variable M001S001.
 pm10 <- importADSOBIN(file = "average_2018.bin",

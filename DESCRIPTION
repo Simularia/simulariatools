@@ -20,19 +20,18 @@ Depends:
     R (>= 3.3)
 Imports: 
     ggplot2 (>= 3.3),
-    grid,
-    lubridate,
-    raster,
     reshape2,
     reticulate,
-    scales
+    scales,
+    terra
 Suggests:
     magick,
     contoureR,
     testthat (>= 3.0.0),
+    raster,
     openair
 License: GPL (>= 2)
-URL: https://github.com/Simularia/simulariatools
+URL: https://www.simularia.it/simulariatools, https://github.com/Simularia/simulariatools
 BugReports: https://github.com/Simularia/simulariatools/issues
 LazyLoad: yes
 LazyData: yes

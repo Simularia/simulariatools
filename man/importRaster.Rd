@@ -49,6 +49,9 @@ Destaggering is useful for importing data from the SPRAY model and it is not
 applied by default.
 
 An optional summary output can be printed by setting the \code{verbose} parameter.
+
+This function is based on the \code{terra} package and it can import any format
+managed by it.
 }
 \examples{
 \dontrun{
