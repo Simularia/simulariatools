@@ -1,0 +1,9 @@
+url: https://www.simularia.it/simulariatools/
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#bda967"
+authors:
+   Simularia:
+     href: "https://www.simularia.it"
+     html: "<img src='https://www.simularia.it/common/images/logo_header.png' width=72>"
