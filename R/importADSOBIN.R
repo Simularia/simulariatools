@@ -38,6 +38,7 @@
 #' @seealso \code{\link{importRaster}} to import netcdf files.
 #' 
 #' @importFrom terra rast
+#' @importFrom lubridate parse_date_time
 #' 
 #' @examples
 #' 
