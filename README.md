@@ -10,7 +10,7 @@ status](https://www.r-pkg.org/badges/version/simulariatools)](https://CRAN.R-pro
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
 <!-- badges: end -->
 
-`simulariatools` is an open source collection of functions and tools
+`simulariatools` is a free collection collection of functions and tools
 useful to pre and post process data for air quality modelling and
 assessment. The package is developed and maintained by the people at
 [Simularia](https://www.simularia.it) and it is extensively used therein
@@ -19,7 +19,7 @@ for daily jobs.
 If you use this package in your work, please consider citing it. Refer
 to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
-## simulariatools Table of Contents
+## Table of Contents
 
 - [Installation](#installation)
 - [Brief examples](#brief_examples)
@@ -31,16 +31,12 @@ to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
 ## Installation
 
-Install the latest official release from CRAN via:
-
 ``` r
-    install.packages("simulariatools")
-```
+# Install release version from CRAN:
+install.packages("simulariatools")
 
-Install the current development version from GitHub via:
-
-``` r
-    devtools::install_github("Simularia/simulariatools")
+# Install development version from GitHub:
+devtools::install_github("Simularia/simulariatools")
 ```
 
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files,
@@ -62,7 +58,6 @@ mydata <- importRaster(file = "./test/conc_avg.nc",
                        destaggering = TRUE,
                        variable = "nox",
                        verbose = TRUE)
-#> Loading required namespace: ncdf4
 #> 
 #> Raster statistics -----------------------------------------------
 #>        X (min, max, dx)  :  496000.000   519250.000      250.000
@@ -76,16 +71,11 @@ by running *contourPlot2()* without any argument:
 
 ``` r
 contourPlot2(mydata)
-#> Warning: `stat(level)` was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `after_stat(level)` instead.
-#> ℹ The deprecated feature was likely used in the simulariatools package.
-#>   Please report the issue at
-#>   <]8;;https://github.com/Simularia/simulariatools/issueshttps://github.com/Simularia/simulariatools/issues]8;;>.
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" /> The
-plot is customisable by using *contourPlot2()* arguments and by piping
-*ggplot2* instructions:
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="80%" height="80%" />
+The plot is customisable by using *contourPlot2()* arguments and by
+piping *ggplot2* instructions:
 
 ``` r
 library(ggplot2)
@@ -97,7 +87,7 @@ contourPlot2(mydata,
   theme_minimal()
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="80%" height="80%" />
 
 Use `ggsave()` to save the last plot to file:
 
@@ -105,7 +95,7 @@ Use `ggsave()` to save the last plot to file:
 ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
 
-If a *tile* plot is required:
+Use `tile` optional argument to produce a plot without interpolation:
 
 ``` r
 library(ggplot2)
@@ -116,7 +106,7 @@ contourPlot2(mydata,
   theme_minimal()
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="80%" height="80%" />
 
 ## List of functions
 
@@ -134,8 +124,10 @@ Available functions are listed below:
 - `rollingMax()`.
 - `stabilityClass()`.
 - `vectorField()`.
-- `contourPlot()` obsolete.
-- `createBaseMap()` obsolete.
+- `contourPlot()` deprecated.
+- `createBaseMap()` deprecated.
+
+Deprecated functions will be removed in the near future.
 
 ## Contact
 

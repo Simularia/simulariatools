@@ -11,7 +11,7 @@ Authors@R:
              family = "Costa", 
              role = c("ctb")),
       person(given = "Simularia",
-             role = c("fnd"))
+             role = c("cph", "fnd"))
     )
 Maintainer: Giuseppe Carlino <g.carlino@simularia.it>
 Description: A set of tools developed at Simularia for Simularia, to help

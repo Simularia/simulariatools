@@ -11,7 +11,8 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   fig.retina = 2,
   dpi = 300,
-  out.width = "100%"
+  out.width = "80%",
+  out.height = "80%"
 )
 ```
 
@@ -24,7 +25,7 @@ knitr::opts_chunk$set(
   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
   <!-- badges: end -->
 
-`simulariatools` is an open source collection of functions and tools useful to pre and post
+`simulariatools` is a free collection collection of functions and tools useful to pre and post
 process data for air quality modelling and assessment. 
 The package is developed and maintained by the people at [Simularia](https://www.simularia.it)
 and it is extensively used therein for daily jobs.
@@ -32,7 +33,7 @@ and it is extensively used therein for daily jobs.
 If you use this package in your work, please consider citing it.
 Refer to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
-## simulariatools Table of Contents
+## Table of Contents
 
 - [Installation](#installation)
 - [Brief examples](#brief_examples)
@@ -44,16 +45,12 @@ Refer to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
 ## Installation
 
-Install the latest official release from CRAN via:
-
 ```{r eval=FALSE, include=TRUE}
-    install.packages("simulariatools")
-```
+# Install release version from CRAN:
+install.packages("simulariatools")
 
-Install the current development version from GitHub via:
-
-```{r eval=FALSE, include=TRUE}
-    devtools::install_github("Simularia/simulariatools")
+# Install development version from GitHub:
+devtools::install_github("Simularia/simulariatools")
 ```
 
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files, 
@@ -96,7 +93,7 @@ Use `ggsave()` to save the last plot to file:
 ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
 
-If a *tile* plot is required:
+Use `tile` optional argument to produce a plot without interpolation:
 ```{r echo=TRUE}
 library(ggplot2)
 contourPlot2(mydata, 
@@ -123,8 +120,10 @@ Available functions are listed below:
 - `rollingMax()`.
 - `stabilityClass()`.
 - `vectorField()`.
-- `contourPlot()` obsolete.
-- `createBaseMap()` obsolete.
+- `contourPlot()` deprecated.
+- `createBaseMap()` deprecated.
+
+Deprecated functions will be removed in the near future.
 
 
 ## Contact

@@ -1,10 +1,12 @@
 # simulariatools 2.4.0.9999
 
 * Remove dependency from `RColorBrewer`, `dplyr`, `png`.
-* `Openair` is now a suggested package.
 * `terra` is a required package while `raster` becomes suggested. `raster` is 
 only required by the deprecated `contourPlot()` function.
-* Bug fix in Pasquill stability class in `stabilityClass()`.
+* `Openair` is now a suggested package.
+* Bug fix in the computation of the Pasquill stability class in `stabilityClass()`
+and added working examples.
+* Bug fix in `plotStabilityClass()` and added working examples.
 * Fixed `stat(level)` deprecation in ggplot2()
 * Updated `README` file.
 
