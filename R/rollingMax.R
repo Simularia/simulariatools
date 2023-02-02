@@ -19,7 +19,7 @@
 rollingMax <- function(mydata, length = 24) {
     
     if (length <= 2) 
-        stop("The window length must be greater than 2.")
+        stop("The window length must be greater than 2.", call. = FALSE)
     
     lvec <- length(mydata)
     out <- rep(NA, lvec)

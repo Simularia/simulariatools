@@ -42,7 +42,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
         TZ <- "GMT"
     
     if (!requireNamespace("openair", quietly = TRUE)) {
-        stop("Please install openair from CRAN.")
+        stop("Please install openair from CRAN.", call. = FALSE)
     }
     mydata_mean <- openair::timeAverage(mydata,
                                         statistic = "mean",

@@ -58,7 +58,7 @@ downloadBasemap <- function(file = file,
 
     # Check if output file has been defined
     if (missing(file)) {
-        stop("Please define the output file.")
+        stop("Please define the output file.", call. = FALSE)
     }
     
     # Trying to access PCN
@@ -81,7 +81,7 @@ downloadBasemap <- function(file = file,
         width <- width
         height <- height
     } else {
-        stop("units not recognized.")
+        stop("units not recognized.", call. = FALSE)
     }
     width <- round(width, digits = 0)
     height <- round(height, digits = 0)
@@ -94,7 +94,7 @@ downloadBasemap <- function(file = file,
         # "EPSG:32633" UTM 33
         crsStr <- "EPSG:32633"
     } else {
-        stop("CRS not recognized.")
+        stop("CRS not recognized.", call. = FALSE)
     }
     
     # FORMAT

@@ -62,7 +62,7 @@ importSurferGrd <- function(fname, k = 1000, destaggering = FALSE) {
     close(t)
     
     if (length(as.vector(map)) != nx * ny) 
-        stop("Dimension of grid data does not match that of header")
+        stop("Dimension of grid data does not match that of header", call. = FALSE)
     
     grd <- matrix(map, nx, ny)    
     

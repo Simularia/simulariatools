@@ -21,7 +21,7 @@
 plotAvgRad <- function(mydata, date="date", rad="radg") {
     
     if (!requireNamespace("openair", quietly = TRUE)) {
-        stop("Please install openair from CRAN.")
+        stop("Please install openair from CRAN.", call. = FALSE)
     }
     mydata <- as.data.frame(mydata)
     # Rename columns

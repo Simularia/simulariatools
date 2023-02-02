@@ -27,11 +27,11 @@ stabilityClass <- function(rad, tcc, ws, option="impact") {
     
     # check if the input vectors have the same length
     if (length(rad) != length(tcc) || length(tcc) != length(ws) || length(rad) != length(ws))
-        stop("The length of the three vectors is different.")
+        stop("The length of the three vectors is different.", call. = FALSE)
     
     # check for stability option
     if (option != "impact" && option != "pasquill" && option != "custom") 
-        stop("Invalid stability option.")
+        stop("Invalid stability option.", call. = FALSE)
     
     if (option == "impact") {
         # Impact radiation vector (night, night, night, day)

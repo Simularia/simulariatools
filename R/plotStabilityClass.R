@@ -23,21 +23,21 @@
 plotStabilityClass <- function(mydata, sc="sc", type="season") {
     
     if (!requireNamespace("openair", quietly = TRUE)) {
-        stop("Please install openair from CRAN.")
+        stop("Please install openair from CRAN.", call. = FALSE)
     }
     
     # Fix No visible binding for global variable
     season <- clname <- hour <- NULL
 
     if (type != "season" && type != "hour") 
-        stop("Unspecified plot type.")
+        stop("Unspecified plot type.", call. = FALSE)
     
     if ( !(sc %in% colnames(mydata)) ) 
-        stop("Undefined stability class field name.")
+        stop("Undefined stability class field name.", call. = FALSE)
 
     # Check if stability class is in range 1 to 6
     if (max(mydata[,sc]) > 6 || min(mydata[,sc]) < 0)
-        stop("Stability class is out of range [0,6].")
+        stop("Stability class is out of range [0,6].", call. = FALSE)
     
     pasquill <- c("A", "B", "C", "D", "E", "F")
     mydata$clname <- pasquill[mydata[,sc]]
