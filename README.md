@@ -4,7 +4,7 @@
 # simulariatools
 
 <!-- badges: start -->
-
+[![R-CMD-check](https://github.com/Simularia/simulariatools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Simularia/simulariatools/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/simulariatools)](https://CRAN.R-project.org/package=simulariatools)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
@@ -27,7 +27,7 @@ to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 - [Contact](#contact)
 - [Contributors](#contributors)
 - [License](https://github.com/Simularia/simulariatools/blob/master/LICENSE.md)
-- [Changelog](https://github.com/Simularia/simulariatools/blob/master/NEWS)
+- [Changelog](https://github.com/Simularia/simulariatools/blob/master/NEWS.md)
 
 ## Installation
 

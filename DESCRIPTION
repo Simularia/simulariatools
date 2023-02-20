@@ -32,7 +32,7 @@ Suggests:
     raster,
     openair
 License: GPL (>= 2)
-URL: https://www.simularia.it/simulariatools, https://github.com/Simularia/simulariatools
+URL: https://www.simularia.it/simulariatools/, https://github.com/Simularia/simulariatools
 BugReports: https://github.com/Simularia/simulariatools/issues
 LazyLoad: yes
 LazyData: yes
