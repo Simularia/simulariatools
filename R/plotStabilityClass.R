@@ -19,7 +19,7 @@
 #' data(stMeteo)
 #' plotStabilityClass(stMeteo, sc = "pgt", type = "season")
 #' plotStabilityClass(stMeteo, sc = "pgt", type = "hour")
-#' }
+#' 
 plotStabilityClass <- function(mydata, sc="sc", type="season") {
     
     if (!requireNamespace("openair", quietly = TRUE)) {

@@ -24,3 +24,9 @@ Plot histogram of stability class on season or hour base.
 \details{
 Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 }
+\examples{
+data(stMeteo)
+plotStabilityClass(stMeteo, sc = "pgt", type = "season")
+plotStabilityClass(stMeteo, sc = "pgt", type = "hour")
+
+}
