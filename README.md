@@ -1,9 +1,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# simulariatools
+# simulariatools <a href="https://www.simularia.it/simulariatools"><img src="man/figures/logo.png" align="right" height="138" width="120" alt="" /></a>
 
 <!-- badges: start -->
+
 [![R-CMD-check](https://github.com/Simularia/simulariatools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Simularia/simulariatools/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/simulariatools)](https://CRAN.R-project.org/package=simulariatools)
@@ -13,8 +14,8 @@ status](https://www.r-pkg.org/badges/version/simulariatools)](https://CRAN.R-pro
 `simulariatools` is a free collection collection of functions and tools
 useful to pre and post process data for air quality modelling and
 assessment. The package is developed and maintained by the people at
-[Simularia](https://www.simularia.it) and it is extensively used therein
-for daily jobs.
+[Simularia](https://www.simularia.it) and it is extensively used for
+their daily job.
 
 If you use this package in your work, please consider citing it. Refer
 to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
@@ -31,11 +32,15 @@ to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
 ## Installation
 
-``` r
-# Install release version from CRAN:
-install.packages("simulariatools")
+Install the released version of `simulariatools` from CRAN:
 
-# Install development version from GitHub:
+``` r
+install.packages("simulariatools")
+```
+
+Or install the development version from GitHub with:
+
+``` r
 devtools::install_github("Simularia/simulariatools")
 ```
 
@@ -58,10 +63,12 @@ mydata <- importRaster(file = "./test/conc_avg.nc",
                        destaggering = TRUE,
                        variable = "nox",
                        verbose = TRUE)
+#> Warning: [rast] GDAL did not find an extent. installing the ncdf4 package may
+#> help
 #> 
 #> Raster statistics -----------------------------------------------
-#>        X (min, max, dx)  :  496000.000   519250.000      250.000
-#>        Y (min, max, dy)  : 4943000.000  4955250.000      250.000
+#>        X (min, max, dx)  :     500.000    93500.000     1000.000
+#>        Y (min, max, dy)  :     500.000    49500.000     1000.000
 #>      nox (min, max, mean):    0.00e+00     2.71e+00     1.52e-01
 #> -----------------------------------------------------------------
 ```
@@ -73,7 +80,8 @@ by running *contourPlot2()* without any argument:
 contourPlot2(mydata)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="80%" height="80%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="80%" height="80%" />
+
 The plot is customisable by using *contourPlot2()* arguments and by
 piping *ggplot2* instructions:
 
@@ -87,7 +95,7 @@ contourPlot2(mydata,
   theme_minimal()
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="80%" height="80%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="80%" height="80%" />
 
 Use `ggsave()` to save the last plot to file:
 
@@ -106,7 +114,7 @@ contourPlot2(mydata,
   theme_minimal()
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="80%" height="80%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="80%" height="80%" />
 
 ## List of functions
 
@@ -114,18 +122,18 @@ Available functions are listed below:
 
 - `contpourPlot2()`
 - `downloadBasemap()`
-- `importRaster()`.
-- `importADSOBIN()`.
-- `importSurferGrd()`.
-- `plotAvgRad()`.
-- `plotAvgTemp()`.
-- `plotStabilityClass()`.
-- `removeOutliers()`.
-- `rollingMax()`.
-- `stabilityClass()`.
-- `vectorField()`.
-- `contourPlot()` deprecated.
-- `createBaseMap()` deprecated.
+- `importRaster()`
+- `importADSOBIN()`
+- `importSurferGrd()`
+- `plotAvgRad()`
+- `plotAvgTemp()`
+- `plotStabilityClass()`
+- `removeOutliers()`
+- `rollingMax()`
+- `stabilityClass()`
+- `vectorField()`
+- `contourPlot()` (deprecated)
+- `createBaseMap()` (deprecated)
 
 Deprecated functions will be removed in the near future.
 
