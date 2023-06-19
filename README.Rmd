@@ -16,9 +16,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+# simulariatools <a href="https://www.simularia.it/simulariatools/"><img src="man/figures/logo.png" align="right" height="80" /></a>
 
-# simulariatools  <a href="https://www.simularia.it/simulariatools"><img src="man/figures/logo.png" align="right" height="138" width="120" alt="" /></a>
- 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Simularia/simulariatools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Simularia/simulariatools/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/simulariatools)](https://CRAN.R-project.org/package=simulariatools)
@@ -63,7 +62,7 @@ For more information about *R* and *Python* interoperability, please refer to [`
 
 ### Contour plot
 
-Firt, import air quality data from *NetCDF* or *ADSO/BIN* files with the appropriate 
+First, import air quality data from *NetCDF* or *ADSO/BIN* files with the appropriate 
 convenience function:
 ```{r echo=TRUE}
 library(simulariatools)

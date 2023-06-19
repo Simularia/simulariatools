@@ -8,7 +8,7 @@
 #' @param length The length of data subset where the maximum values has 
 #' to be picked. The value must be greater or equal than 3.
 #' 
-#' @return A numneric vector of the same length as `mydata`.
+#' @return A numeric vector of the same length as `mydata`.
 #'   
 #' @export
 #' @examples

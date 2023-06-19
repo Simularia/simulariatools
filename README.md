@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# simulariatools <a href="https://www.simularia.it/simulariatools"><img src="man/figures/logo.png" align="right" height="138" width="120" alt="" /></a>
+# simulariatools <a href="https://www.simularia.it/simulariatools/"><img src="man/figures/logo.png" align="right" height="80" /></a>
 
 <!-- badges: start -->
 
@@ -53,8 +53,8 @@ about *R* and *Python* interoperability, please refer to
 
 ### Contour plot
 
-Firt, import air quality data from *NetCDF* or *ADSO/BIN* files with the
-appropriate convenience function:
+First, import air quality data from *NetCDF* or *ADSO/BIN* files with
+the appropriate convenience function:
 
 ``` r
 library(simulariatools)
@@ -63,12 +63,10 @@ mydata <- importRaster(file = "./test/conc_avg.nc",
                        destaggering = TRUE,
                        variable = "nox",
                        verbose = TRUE)
-#> Warning: [rast] GDAL did not find an extent. installing the ncdf4 package may
-#> help
 #> 
 #> Raster statistics -----------------------------------------------
-#>        X (min, max, dx)  :     500.000    93500.000     1000.000
-#>        Y (min, max, dy)  :     500.000    49500.000     1000.000
+#>        X (min, max, dx)  :  496000.000   519250.000      250.000
+#>        Y (min, max, dy)  : 4943000.000  4955250.000      250.000
 #>      nox (min, max, mean):    0.00e+00     2.71e+00     1.52e-01
 #> -----------------------------------------------------------------
 ```

@@ -1,7 +1,7 @@
 Package: simulariatools
 Type: Package
 Title: Simularia Tools for the Analysis of Air Pollution Data
-Version: 2.4.0.9999
+Version: 2.4.0.9000
 Authors@R: 
     c(person(given = "Giuseppe", 
              family = "Carlino", 

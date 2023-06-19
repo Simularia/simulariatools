@@ -13,7 +13,7 @@ rollingMax(mydata, length = 24)
 to be picked. The value must be greater or equal than 3.}
 }
 \value{
-A numneric vector of the same length as \code{mydata}.
+A numeric vector of the same length as \code{mydata}.
 }
 \description{
 The rolling maximum value along a series of data is computed.
