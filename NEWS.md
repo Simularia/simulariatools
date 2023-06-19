@@ -7,7 +7,7 @@ only required by the deprecated `contourPlot()` function.
 * Bug fix in the computation of the Pasquill stability class in `stabilityClass()`
 and added working examples.
 * Bug fix in `plotStabilityClass()` and added working examples.
-* Fixed `stat(level)` and `size` deprecation in ggplot2()
+* Fixed `stat(level)` and `size` deprecations in ggplot2()
 * Updated `README` file.
 
 

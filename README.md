@@ -41,7 +41,7 @@ install.packages("simulariatools")
 Or install the development version from GitHub with:
 
 ``` r
-devtools::install_github("Simularia/simulariatools")
+pak::pkg_install("Simularia/simulariatools")
 ```
 
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files,
