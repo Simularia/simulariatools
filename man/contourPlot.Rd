@@ -61,7 +61,9 @@ legend, titles and any other graphical element from the plot.}
 A \code{ggplot2} plot.
 }
 \description{
-\code{contourPlot} plots a contour map of pollutants.
+\code{contourPlot} plots a contour map of pollutants. This function has been
+deprecated since version 2.0.0 and will be removed very soon.
+Use \code{\link{contourPlot2}}.
 }
 \details{
 This is a convenience function to plot contour levels of a pollutant matrix

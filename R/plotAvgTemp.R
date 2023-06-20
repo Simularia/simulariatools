@@ -13,8 +13,9 @@
 #' @return A plot with average, min and max temperature in a given 
 #' range of time.
 #' 
-#' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute
-#' average.
+#' @note \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
+#' 
+#' @seealso [plotStabilityClass()], [plotAvgRad()]
 #' 
 #' @export
 #' 

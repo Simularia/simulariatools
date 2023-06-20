@@ -33,8 +33,7 @@ range of time.
 line plots with maximum and minimum temperature.
 }
 \note{
-\code{plotAvgTemp} uses \code{openair::timeAvearge} to compute
-average.
+\code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 }
 \examples{
 # Plot histogram with monthly averages together with maxima and minima 
@@ -43,4 +42,7 @@ data(stMeteo)
 plotAvgTemp(stMeteo)
 plotAvgTemp(stMeteo, temp = "temperature", 
             avg.time = "1 month", ylabel = "Temperatura [C]")
+}
+\seealso{
+\code{\link[=plotStabilityClass]{plotStabilityClass()}}, \code{\link[=plotAvgRad]{plotAvgRad()}}
 }

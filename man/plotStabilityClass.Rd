@@ -26,7 +26,14 @@ Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 }
 \examples{
 data(stMeteo)
+
+# Season plot of stability class pgt
 plotStabilityClass(stMeteo, sc = "pgt", type = "season")
+
+# Hourly plot of stability class pgt
 plotStabilityClass(stMeteo, sc = "pgt", type = "hour")
 
+}
+\seealso{
+\code{\link[=stabilityClass]{stabilityClass()}}, \code{\link[=plotAvgRad]{plotAvgRad()}}, \code{\link[=plotAvgTemp]{plotAvgTemp()}}
 }

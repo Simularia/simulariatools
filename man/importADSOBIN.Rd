@@ -89,5 +89,5 @@ nox <- importADSOBIN(file = "conc_01-10_07_2018",
 
 }
 \seealso{
-\code{\link{importRaster}} to import NetCDF files.
+\code{\link[=importRaster]{importRaster()}}, \code{\link[=importSurferGrd]{importSurferGrd()}}
 }

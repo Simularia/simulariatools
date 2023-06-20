@@ -1,10 +1,13 @@
 #' Stability class.
 #'
-#' \code{stabilityClass} computes stability class.
+#' Computes stability class given net radiation, total cloud cover and wind
+#' speed.
 #' 
-#' It computes stability class according to IAEA method based on net radiation 
-#' and wind. 
+#' `stabilityClass()` computes stability class according to IAEA method based
+#' on net radiation, total cloud cover tcc and wind speed. 
 #' Net radiation and wind are used by day; tcc and wind are used by night.
+#' 
+#' Three different alogorithms are implemented; see source code for details.
 #' 
 #' @param rad The net radiation in W/m^2
 #' @param tcc The total cloud cover in a range from 1  to 8
@@ -14,18 +17,21 @@
 #'  class. It can be \code{impact} to comply with ARIA Impact(tm),
 #'  \code{pasquill} or \code{custom}.
 #' 
-#' @return \code{stabilityClass} returns a vector with stability Pasquill
-#' stability class as: A = 1, ... , F = 6.
+#' @return \code{stabilityClass} returns a numeric vector with Pasquill
+#' stability classes coded as: A = 1, B = 2, ... , F = 6.
+#' 
+#' @seealso [plotStabilityClass()]
 #' 
 #' @export
-#' @examples
-#' # Compute Pasquill stability class
-#' stMeteo$pgt <- stabilityClass(stMeteo$rad, stMeteo$tcc, stMeteo$ws,
-#'                               option="pasquill")
-#'                               
-#' # Plot stability classes by season
-#' plotStabilityClass(stMeteo, sc = "pgt", type = "season")
 #' 
+#' @examples
+#' 
+#' # Compute stability class with custom algorithm
+#' stMeteo$cst <- stabilityClass(rad = stMeteo$rad,
+#'                               tcc = stMeteo$tcc,
+#'                               ws = stMeteo$ws,
+#'                               option = "custom")
+#'                               
 stabilityClass <- function(rad, tcc, ws, option="impact") {
     
     # check if the input vectors have the same length
@@ -80,13 +86,13 @@ stabilityClass <- function(rad, tcc, ws, option="impact") {
         limrad <- 1
         radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, 9999)
         
-        # Pasquill velcocity vector
+        # Velocity vector
         vel <- c(2, 3, 4, 6, 999)  
         
-        # Pasquill cloud cover vector
+        # Cloud cover vector
         nuvo <- c(2, 5, 999)
         
-        # Pasquill stability classes
+        # Stability classes
         tabStab <- array(NA, dim = c(5, 7))
         tabStab[1,] <- c(6, 5, 4, 4, 2, 1, 1)
         tabStab[2,] <- c(6, 5, 4, 4, 2, 2, 1)

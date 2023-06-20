@@ -70,6 +70,5 @@ mydata <- importRaster(file = "/path_to_file/filename.nc",
 }
 }
 \seealso{
-\code{\link{importADSOBIN}} to import ADSO/BIN files. See
-\code{\link[=importADSOBIN]{importADSOBIN()}}.
+\code{\link[=importADSOBIN]{importADSOBIN()}}, \code{\link[=importSurferGrd]{importSurferGrd()}}
 }

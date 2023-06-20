@@ -24,22 +24,23 @@ contourPlot2(
 )
 }
 \arguments{
-\item{data}{A dataframe containing data to be plotted.}
+\item{data}{A dataframe containing data to be plotted organised in long
+format, with three columns for x, y and value to be plotted.}
 
 \item{x}{(string) Name of the column with Easting data.}
 
 \item{y}{(string) Name of the column with Northing data.}
 
-\item{z}{(string) Name of the column with values data.}
+\item{z}{(string) Name of the column with the values to be plotted.}
 
 \item{domain}{An array with min X, max X, min Y, max Y, number of ticks on X
 axis, number of ticks on Y axis (optional).}
 
-\item{background}{String containing the path to the png file to be plotted as
-a basemap (optional).}
+\item{background}{String containing the path to a png file to be plotted as
+a base map (optional).}
 
 \item{underlayer}{Array of strings containing layers to be plotted between
-basemap and contour plot (optional).}
+base map and contour plot (optional).}
 
 \item{overlayer}{Array of strings containing layers to be plotted on top of
 the contour plot (optional).}
@@ -47,39 +48,47 @@ the contour plot (optional).}
 \item{legend}{(string) Legend title (optional).}
 
 \item{levels}{Array of levels for contour plot. If not set, automatic levels
-are plotted.}
+are computed. If the -Inf and Inf are used as the lowest and highest bound
+of the array, the lowest and highest bands are unbounded and the legend
+shows \code{<} and \code{>=} symbols.}
 
-\item{size}{float with the thickness of the contour line.}
+\item{size}{thickness of the contour line.}
 
-\item{fill}{boolean (default TRUE) to specify whether the contour plot
-should be filled or not.}
+\item{fill}{boolean (default TRUE). If TRUE the contour plot is filled with
+colour.}
 
-\item{tile}{boolean (default FALSE) to do tiles instead of contour}
+\item{tile}{boolean (default FALSE). If TRUE rectangular tiles are plotted.}
 
-\item{transparency}{float (between 0 and 1, default=0.66). Transparency level
+\item{transparency}{float (between 0 and 1, default=0.75). Transparency level
 of the contour plot.}
 
-\item{colors}{Colour palette for contour plot}
+\item{colors}{Colour palette for contour plot, as an array of colours.}
 
-\item{bare}{Boolean (default FALSE) parameter to completely remove axis,
-legend, titles and any other graphical element from the plot.}
+\item{bare}{boolean (default FALSE). If TRUE only the bare plot is shown:
+axis, legend, titles and any other graphical element of the plot are removed.}
 }
 \value{
-A \code{ggplot2} plot.
+A \code{ggplot2} object.
 }
 \description{
-\code{contourPlot} plots a contour map of pollutants.
+\code{contourPlot2} plots a contour map of a given quantity on regular grid.
 }
 \details{
-This is a convenience function to plot contour levels of a pollutant matrix
-with \code{ggplot2} version >= 3.3.0.
+This is a convenience function to plot contour levels of a scalar quantity
+such as pollutants computed by a dispersion model, with \code{ggplot2}
+version >= 3.3.0.
 
-Domain data are expected to be on a regular rectangular grid with
-UTM coordinates.
+Data are required to be on a regular grid, typically in UTM coordinates.
+The input dataframe has to be in long format, i.e. one line per value to be
+plotted. The names of the columns corresponding to \code{x}, \code{y} and \code{z} can be
+specified in the input parameters.
 
+If \code{tile = TRUE} a tile plot is shown without any graphical interpolation
+required for contour plots. This is helpful when you want to visualise the
+raw data.
 Since version 2.4.0, when \code{tile = TRUE} the intervals include the lowest
-value and exclude the highest value: [min, max).
-In previous version it was the opposite.
+bound and exclude the highest bound: [min, max). Note: In previous version
+it was the opposite.
 }
 \examples{
 # Load example data in long format
@@ -87,7 +96,8 @@ data(volcano)
 volcano3d <- reshape2::melt(volcano)
 names(volcano3d) <- c("x", "y", "z")
 # Contour plot with default options
-contourPlot2(volcano3d)
+v <- contourPlot2(volcano3d)
+v
 
 # Set levels, and properly format the legend title:
 contourPlot2(volcano3d, 
@@ -102,8 +112,7 @@ contourPlot2(volcano3d,
 
 # Since contourPlot2 returns a `ggplot2` object, you can add instructions as:
 library(ggplot2)
-contourPlot2(volcano3d) +
-    ggtitle("Example volcano data") +
+v + ggtitle("Example volcano data") +
     labs(x = NULL, y = NULL)
 
 }

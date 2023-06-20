@@ -30,8 +30,7 @@
 #'
 #' @return It returns a dataframe with x, y and z columns.
 #'
-#' @seealso \code{\link{importADSOBIN}} to import ADSO/BIN files. See
-#'   [importADSOBIN()].
+#' @seealso [importADSOBIN()], [importSurferGrd()]
 #'
 #' @importFrom terra rast res xmin xmax ymin ymax shift global as.data.frame
 #'

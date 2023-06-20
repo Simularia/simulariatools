@@ -26,3 +26,6 @@ data(stMeteo)
 plotAvgRad(stMeteo, date = "date", rad = "radg")
 
 }
+\seealso{
+\code{\link[=plotStabilityClass]{plotStabilityClass()}}, \code{\link[=plotAvgTemp]{plotAvgTemp()}}
+}

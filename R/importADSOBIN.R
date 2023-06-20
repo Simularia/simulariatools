@@ -35,7 +35,7 @@
 #' `(X, Y, Z)` columns. Column Z contains the values of the requested variable. 
 #' If the `raster.object` option is set, it returns a RasterLayer object.
 #'
-#' @seealso \code{\link{importRaster}} to import NetCDF files.
+#' @seealso [importRaster()], [importSurferGrd()]
 #' 
 #' @importFrom terra rast
 #' @importFrom lubridate parse_date_time

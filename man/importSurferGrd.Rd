@@ -35,5 +35,7 @@ mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000)
 mydata <- importSurferGrd("path_to_file/filename.grd", k = 1,
                           destaggering = FALSE)
 }
-
+}
+\seealso{
+\code{\link[=importRaster]{importRaster()}}, \code{\link[=importADSOBIN]{importADSOBIN()}}
 }

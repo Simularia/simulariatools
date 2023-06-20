@@ -12,12 +12,18 @@
 #'
 #' @return A \code{ggplot2} plot.
 #' 
+#' @seealso [stabilityClass()], [plotAvgRad()], [plotAvgTemp()]
+#' 
 #' @importFrom scales percent
 #' 
 #' @export
 #' @examples
 #' data(stMeteo)
+#'
+#' # Season plot of stability class pgt
 #' plotStabilityClass(stMeteo, sc = "pgt", type = "season")
+#' 
+#' # Hourly plot of stability class pgt
 #' plotStabilityClass(stMeteo, sc = "pgt", type = "hour")
 #' 
 plotStabilityClass <- function(mydata, sc="sc", type="season") {

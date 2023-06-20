@@ -10,6 +10,8 @@
 #' 
 #' @return A \code{ggplot2} plot.
 #' 
+#' @seealso [plotStabilityClass()], [plotAvgTemp()]
+#' 
 #' @export
 #' 
 #' @importFrom stats aggregate

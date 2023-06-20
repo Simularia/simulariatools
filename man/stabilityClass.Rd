@@ -19,23 +19,29 @@ class. It can be \code{impact} to comply with ARIA Impact(tm),
 \code{pasquill} or \code{custom}.}
 }
 \value{
-\code{stabilityClass} returns a vector with stability Pasquill
-stability class as: A = 1, ... , F = 6.
+\code{stabilityClass} returns a numeric vector with Pasquill
+stability classes coded as: A = 1, B = 2, ... , F = 6.
 }
 \description{
-\code{stabilityClass} computes stability class.
+Computes stability class given net radiation, total cloud cover and wind
+speed.
 }
 \details{
-It computes stability class according to IAEA method based on net radiation
-and wind.
+\code{stabilityClass()} computes stability class according to IAEA method based
+on net radiation, total cloud cover tcc and wind speed.
 Net radiation and wind are used by day; tcc and wind are used by night.
+
+Three different alogorithms are implemented; see source code for details.
 }
 \examples{
-# Compute Pasquill stability class
-stMeteo$pgt <- stabilityClass(stMeteo$rad, stMeteo$tcc, stMeteo$ws,
-                              option="pasquill")
-                              
-# Plot stability classes by season
-plotStabilityClass(stMeteo, sc = "pgt", type = "season")
 
+# Compute stability class with custom algorithm
+stMeteo$cst <- stabilityClass(rad = stMeteo$rad,
+                              tcc = stMeteo$tcc,
+                              ws = stMeteo$ws,
+                              option = "custom")
+                              
+}
+\seealso{
+\code{\link[=plotStabilityClass]{plotStabilityClass()}}
 }

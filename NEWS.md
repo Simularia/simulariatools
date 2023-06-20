@@ -1,4 +1,4 @@
-# simulariatools 2.4.0.9999
+# simulariatools 2.4.0.9000
 
 * Dependency from other packages has been reviewed. `RColorBrewer`, `dplyr` and
 `png` are not required anymore.
@@ -10,7 +10,7 @@
 and `plotStabilityClass()`. Furthermore, some working examples have been added.
 * In `contourPlot2()`, deprecation of `stat(level)` and `size` of `ggplot2()`
 have been fixed.
-* Updated `README` file.
+* Improved documentation and `README` file.
 
 
 # simulariatools 2.4.0

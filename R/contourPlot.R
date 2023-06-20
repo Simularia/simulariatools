@@ -1,6 +1,8 @@
 #' Contour plot of pollutant concentration
 #'
-#' \code{contourPlot} plots a contour map of pollutants.
+#' \code{contourPlot} plots a contour map of pollutants. This function has been
+#' deprecated since version 2.0.0 and will be removed very soon.
+#' Use \code{\link{contourPlot2}}.
 #'
 #' This is a convenience function to plot contour levels of a pollutant matrix
 #' with \code{ggplot2}.
