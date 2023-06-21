@@ -1,4 +1,4 @@
-# simulariatools 2.4.0.9000
+# simulariatools 2.5.0
 
 * Dependency from other packages has been reviewed. `RColorBrewer`, `dplyr` and
 `png` are not required anymore.
