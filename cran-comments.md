@@ -1,6 +1,8 @@
 ## Resubmission
 
-Fix CRAN canonical URL for package in README.md
+This is a resubmission. In this version I have:
+
+* Fixed CRAN canonical URL for package in README.md
 
 
 ## R CMD check results
