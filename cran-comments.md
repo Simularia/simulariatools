@@ -1,3 +1,8 @@
+## Resubmission
+
+Fix CRAN canonical URL for package in README.md
+
+
 ## R CMD check results
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔

@@ -9,7 +9,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/simulariatools)](https://CRAN.R-project.org/package=simulariatools)
 [![CRAN
-downloads](https://cranlogs.r-pkg.org/badges/grand-total/simulariatools?color=brightgreen)](https://cran.r-project.org/web/packages/simulariatools/index.html)
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/simulariatools?color=brightgreen)](https://CRAN.R-project.org/package=simulariatools)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
 <!-- badges: end -->
 
