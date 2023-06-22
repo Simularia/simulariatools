@@ -10,5 +10,6 @@
 .DS_Store
 test/
 todo_and_fixme.txt
-docs
+docs/
+pkgdown/ 
 revdep/
