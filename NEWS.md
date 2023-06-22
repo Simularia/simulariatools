@@ -1,3 +1,5 @@
+# simulariatools (development version)
+
 # simulariatools 2.5.0
 
 * Dependency from other packages has been reviewed. `RColorBrewer`, `dplyr` and
