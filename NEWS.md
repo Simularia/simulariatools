@@ -1,5 +1,9 @@
 # simulariatools (development version)
 
+# simulariatools 2.5.0.9000
+
+* Explicitly add x and y scales limits to `contourPlot2`.
+
 # simulariatools 2.5.0
 
 * Dependency from other packages has been reviewed. `RColorBrewer`, `dplyr` and

@@ -275,10 +275,12 @@ contourPlot2 <- function(data,
 
     # Main scales and theme
     v <- v +
-        scale_x_continuous(breaks = seq(xmin, xmax, length.out = nx),
+        scale_x_continuous(limits = c(xmin, xmax),
+                           breaks = seq(xmin, xmax, length.out = nx),
                            labels = myCoordsLabels,
                            expand = c(0, 0)) +
-        scale_y_continuous(breaks = seq(ymin, ymax, length.out = ny),
+        scale_y_continuous(limits = c(ymin, ymax),
+                           breaks = seq(ymin, ymax, length.out = ny),
                            labels = myCoordsLabels,
                            expand = c(0, 0)) +
         labs(x = "x [m]", y = "y [m]") +
