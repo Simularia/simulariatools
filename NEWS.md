@@ -2,6 +2,7 @@
 
 # simulariatools 2.5.0.9000
 
+* Remove unicode symbols (on CRAN request).
 * Explicitly add x and y scales limits to `contourPlot2`.
 
 # simulariatools 2.5.0

@@ -158,16 +158,14 @@ contourPlot2 <- function(data,
         nlevels <- length(levels)
     }
     prettyLevels <- prettyNum(levels)
-    lab_levels <- paste(prettyLevels[1:(nlevels - 1)], "\U2013", 
-                        prettyLevels[2:nlevels])
+    lab_levels <- parse(text = paste(prettyLevels[1:(nlevels - 1)], "-", prettyLevels[2:nlevels]))
     if (levels[nlevels] == Inf & !isTRUE(tile)) {
-        # lab_levels[nlevels - 1] <- paste(">", prettyLevels[nlevels - 1])
-        lab_levels[nlevels - 1] <- paste("\U2265", prettyLevels[nlevels - 1])
+        lab_levels[nlevels - 1] <- parse(text = paste("\"\">=", prettyLevels[nlevels - 1]))
     } else if (levels[nlevels] == Inf & isTRUE(tile)) {
-        lab_levels[nlevels - 1] <- paste("\U2265", prettyLevels[nlevels - 1])
+        lab_levels[nlevels - 1] <- parse(text = paste("\"\">=", prettyLevels[nlevels - 1]))
     }
     if (levels[1] == -Inf) {
-        lab_levels[1] <- paste("<", prettyLevels[2])
+        lab_levels[1] <- parse(text = paste("\"\" <", prettyLevels[2]))
     }
     
     # Colour palette 
