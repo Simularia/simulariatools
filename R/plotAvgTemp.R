@@ -21,6 +21,7 @@
 #' 
 #' @import grid
 #' @importFrom reshape2 melt
+#' @importFrom scales breaks_width label_date label_math
 #' 
 #' @examples
 #' # Plot histogram with monthly averages together with maxima and minima 
@@ -68,11 +69,11 @@ plotAvgTemp <- function(mydata, temp = "temp",
                  show.legend = FALSE) + 
         geom_line(aes(x = date, y = temp.min, color = "Minima"),  size = 1) + 
         geom_line(aes(date, temp.max, color = "Massima"),  size = 1) + 
-        scale_y_continuous(labels = scales::math_format(.x * degree), 
+        scale_y_continuous(labels = scales::label_math(.x * degree), 
                            breaks = seq(-20, 40, 5)) + 
         labs(title = title, x = "", y = ylabel) +
-        scale_x_date(breaks = scales::date_breaks(width = avg.time),
-                     labels = scales::date_format("%b")) +
+        scale_x_date(breaks = scales::breaks_width(width = avg.time),
+                     labels = scales::label_date("%b")) +
         scale_color_manual(values = c("Media" = "steelblue", 
                                       "Minima" = "darkgreen", 
                                       "Massima" = "darkorange2"), 
