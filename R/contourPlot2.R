@@ -1,28 +1,31 @@
-#' New contour plot of pollutant concentration
+#' New contour plot of pollutant concentration field
 #'
-#' \code{contourPlot2} plots a contour map of a given quantity on regular grid.
+#' \code{contourPlot2} plots a contour map of a given quantity, such as the 
+#' ground concentration of an airborne pollutant or odour, defined on a
+#' regular grid.
 #'
-#' @param data A dataframe containing data to be plotted organised in long
-#' format, with three columns for x, y and value to be plotted.
-#' @param x (string) Name of the column with Easting data.
-#' @param y (string) Name of the column with Northing data.
-#' @param z (string) Name of the column with the values to be plotted.
-#' @param domain An array with min X, max X, min Y, max Y, number of ticks on X
-#'   axis, number of ticks on Y axis (optional).
-#' @param background String containing the path to a png file to be plotted as
-#'   a base map (optional).
-#' @param underlayer Array of strings containing layers to be plotted between
-#'   base map and contour plot (optional).
-#' @param overlayer Array of strings containing layers to be plotted on top of
-#'   the contour plot (optional).
-#' @param legend (string) Legend title (optional).
-#' @param levels Array of levels for contour plot. If not set, automatic levels
-#'   are computed. If the -Inf and Inf are used as the lowest and highest bound
-#'   of the array, the lowest and highest bands are unbounded and the legend
-#'   shows `<` and `>=` symbols.
-#' @param transparency float (between 0 and 1, default=0.75). Transparency level
-#'   of the contour plot.
-#' @param colors Colour palette for contour plot, as an array of colours.
+#' @param data dataframe in long format, with three columns for Easting, 
+#' Northing and values to be plotted.
+#' @param x name of the column with Easting data (default "x").
+#' @param y name of the column with Northing data (default "y").
+#' @param z name of the column with the values to be plotted (default
+#' "z").
+#' @param domain optional list with six numeric values defining the 
+#' boundaries of the domain to be plotted: minimum X, maximum X, minimum Y,
+#' maximum Y, number of ticks on X axis, number of ticks on Y axis.
+#' @param background optional path to a png file to be plotted as the base map.
+#' @param underlayer optional list of layers to be plotted between base map
+#' and contour plot.
+#' @param overlayer optional list of layers to be plotted on top of the contour
+#' plot.
+#' @param legend optional title of the legend.
+#' @param levels numeric vector of levels for contour plot. If not set,
+#' automatic pretty levels are computed. If `-Inf` and `Inf` are used as the lowest
+#' and highest limits of the array, the lowest and highest bands are unbounded
+#' and the legend shows `<` and `>=` symbols.
+#' @param transparency transparency level of the contour plot between 0.0 
+#' (fully transparent) and 1.0 (fully opaque). Default = 0.75).
+#' @param colors colour palette for contour plot, as an array of colours.
 #' @param bare boolean (default FALSE). If TRUE only the bare plot is shown:
 #' axis, legend, titles and any other graphical element of the plot are removed.
 #' @param size thickness of the contour line.
@@ -36,17 +39,23 @@
 #' such as pollutants computed by a dispersion model, with \code{ggplot2}
 #' version >= 3.3.0. 
 #' 
-#' Data are required to be on a regular grid, typically in UTM coordinates.
-#' The input dataframe has to be in long format, i.e. one line per value to be
-#' plotted. The names of the columns corresponding to `x`, `y` and `z` can be
-#' specified in the input parameters.
+#' Data are required to be on a regular grid, typically (but not necessarily)
+#' in UTM coordinates. The input dataframe has to be in long format, i.e. one
+#' line per value to be plotted. The names of the columns corresponding to `x`,
+#' `y` and `z` can be specified in the input parameters.
 #' 
-#' If `tile = TRUE` a tile plot is shown without any graphical interpolation
-#' required for contour plots. This is helpful when you want to visualise the
-#' raw data.
+#' If `tile = TRUE` data are shown as they are, without any graphical 
+#' interpolation required for contour plots. This is helpful when you want to
+#' visualise the raw data.
 #' Since version 2.4.0, when `tile = TRUE` the intervals include the lowest
-#' bound and exclude the highest bound: [min, max). Note: In previous version
+#' bound and exclude the highest bound: `[min, max)`. Note: In previous version
 #' it was the opposite.
+#' 
+#' `underlayer` and `overlayer` layers are `ggplot2` objects to be shown at
+#' different levels of the vertical stack of the plot. These are useful to
+#' show topographical information related to the plot, such as sources 
+#' or receptors locations.
+#' 
 #' 
 #' @return A \code{ggplot2} object.
 #'
