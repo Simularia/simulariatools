@@ -153,7 +153,7 @@ contourPlot2 <- function(data,
 
     # Labels for legend
     nlevels <- length(levels)
-    if (levels[1] >= 0) {
+    if (levels[1] >= 0 & levels[nlevels] != Inf ) {
         levels <- append(levels, Inf)
         nlevels <- length(levels)
     }
