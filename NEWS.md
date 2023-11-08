@@ -1,3 +1,5 @@
+# simulariatools (development version)
+
 # simulariatools 2.5.1
 
 * Removed Unicode symbols (on CRAN request).
