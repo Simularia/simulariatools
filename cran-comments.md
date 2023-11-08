@@ -1,9 +1,6 @@
-## Resubmission
+## Submission
 
-This is a resubmission. In this version I have:
-
-* Fixed CRAN canonical URL for package in README.md
-
+This is a patch release mainly to fix the issue with Unicode symbols in plots, as requested by CRAN.
 
 ## R CMD check results
 
@@ -12,4 +9,8 @@ This is a resubmission. In this version I have:
 
 ## revdepcheck results
 
-Currently, there are no reverse dependencies.
+We checked 0 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+
