@@ -25,10 +25,8 @@ knitr::opts_chunk$set(
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
 <!-- badges: end -->
 
-`simulariatools` is a free collection collection of functions and tools useful to pre and post
-process data for air quality modelling and assessment.
-The package is developed and maintained by the people at [Simularia](https://www.simularia.it)
-and it is extensively used for their daily job.
+`simulariatools` is a free collection collection of functions and tools useful to pre and post process data for air quality modelling and assessment.
+The package is developed and maintained by the people at [Simularia](https://www.simularia.it) and it is extensively used for their daily job.
 
 If you use this package in your work, please consider citing it.
 Refer to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.

@@ -93,6 +93,8 @@ contourPlot2(mydata,
              legend = "NOx [ug/m3]") + 
   labs(x = NULL, y = NULL) +
   theme_minimal()
+#> Warning: Removed 1225 rows containing non-finite values
+#> (`stat_contour_filled()`).
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="80%" height="80%" />
@@ -112,6 +114,7 @@ contourPlot2(mydata,
              legend = "NOx [ug/m3]") + 
   labs(x = NULL, y = NULL) +
   theme_minimal()
+#> Warning: Removed 280 rows containing missing values (`geom_raster()`).
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="80%" height="80%" />
