@@ -8,21 +8,28 @@ plotAvgTemp(
   mydata,
   temp = "temp",
   avg.time = "1 month",
-  ylabel = "Temperatura [C]",
-  title = ""
+  ylabel = NULL,
+  title = "",
+  locale = NULL
 )
 }
 \arguments{
-\item{mydata}{A data frame containing fields date and temp}
+\item{mydata}{dataframe with data to plot. date and time column must be
+named as "date".}
 
-\item{temp}{Name of the column representing temperature}
+\item{temp}{Name of the column representing temperature (default = "temp")}
 
 \item{avg.time}{This defines the time period to average to
 (see openair::timeAverage). Default is "1 month".}
 
 \item{ylabel}{The label to be plot along y axis}
 
-\item{title}{Option plot title}
+\item{title}{Optional plot title}
+
+\item{locale}{Locale to use for day and month names. Default is current
+locale. Supported locales are listed in stringi::stri_locale_list().
+All other labels are in English by default or in Italian if its locale is
+specified.}
 }
 \value{
 A plot with average, min and max temperature in a given
@@ -36,12 +43,19 @@ line plots with maximum and minimum temperature.
 \code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 }
 \examples{
-# Plot histogram with monthly averages together with maxima and minima 
+# Plot histogram with monthly averages together with maxima and minima
 # curves
-data(stMeteo)
+data("stMeteo")
 plotAvgTemp(stMeteo)
 plotAvgTemp(stMeteo, temp = "temperature", 
             avg.time = "1 month", ylabel = "Temperatura [C]")
+
+# Override default locale
+plotAvgTemp(stMeteo, avg.time = "1 month", locale = "it_IT")
+
+# Add title
+plotAvgTemp(stMeteo, title = "Monthly temperature")
+
 }
 \seealso{
 \code{\link[=plotStabilityClass]{plotStabilityClass()}}, \code{\link[=plotAvgRad]{plotAvgRad()}}

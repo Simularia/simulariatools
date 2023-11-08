@@ -4,7 +4,7 @@
 \alias{plotStabilityClass}
 \title{Plot stability class}
 \usage{
-plotStabilityClass(mydata, sc = "sc", type = "season")
+plotStabilityClass(mydata, sc = "sc", type = "season", locale = NULL)
 }
 \arguments{
 \item{mydata}{A data frame containing \code{date} and \code{stability class}
@@ -14,6 +14,11 @@ fields.}
 
 \item{type}{type determines how the data are split and then plotted.
 Accepted values are "season" (default) and "hour".}
+
+\item{locale}{Locale to use for day and month names. Default is current
+locale. Supported locales are listed in stringi::stri_locale_list().
+All other labels are in English by default or in Italian if its locale is
+specified.}
 }
 \value{
 A \code{ggplot2} plot.
@@ -25,13 +30,16 @@ Plot histogram of stability class on season or hour base.
 Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 }
 \examples{
-data(stMeteo)
+data("stMeteo")
 
 # Season plot of stability class pgt
 plotStabilityClass(stMeteo, sc = "pgt", type = "season")
 
 # Hourly plot of stability class pgt
 plotStabilityClass(stMeteo, sc = "pgt", type = "hour")
+
+# Override default locale
+plotStabilityClass(stMeteo, sc = "pgt", type = "season", locale = "it_IT")
 
 }
 \seealso{

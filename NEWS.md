@@ -1,5 +1,9 @@
 # simulariatools (development version)
 
+* Month names in `plotAvgTemp()` and `plotStabilityClass()` respect locale. 
+Also added an optional `locale` argument to override the system locale.
+The other labels are in English for every locale but Italian.
+
 # simulariatools 2.5.1
 
 * Removed Unicode symbols (on CRAN request).

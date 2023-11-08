@@ -3,13 +3,18 @@
 #' \code{plotAvgTemp} builds a bar plot of time average temperature and two
 #' line plots with maximum and minimum temperature.
 #'  
-#' @param mydata A data frame containing fields date and temp
-#' @param temp   Name of the column representing temperature
+#' @param mydata dataframe with data to plot. date and time column must be
+#' named as "date".
+#' @param temp Name of the column representing temperature (default = "temp")
 #' @param avg.time This defines the time period to average to 
 #' (see openair::timeAverage). Default is "1 month".
 #' @param ylabel The label to be plot along y axis
-#' @param title Option plot title
-#' 
+#' @param title Optional plot title
+#' @param locale Locale to use for day and month names. Default is current
+#' locale. Supported locales are listed in stringi::stri_locale_list().
+#' All other labels are in English by default or in Italian if its locale is
+#' specified.
+#'  
 #' @return A plot with average, min and max temperature in a given 
 #' range of time.
 #' 
@@ -24,20 +29,40 @@
 #' @importFrom scales breaks_width label_date label_math
 #' 
 #' @examples
-#' # Plot histogram with monthly averages together with maxima and minima 
+#' # Plot histogram with monthly averages together with maxima and minima
 #' # curves
-#' data(stMeteo)
+#' data("stMeteo")
 #' plotAvgTemp(stMeteo)
 #' plotAvgTemp(stMeteo, temp = "temperature", 
 #'             avg.time = "1 month", ylabel = "Temperatura [C]")
+#'
+#' # Override default locale
+#' plotAvgTemp(stMeteo, avg.time = "1 month", locale = "it_IT")
+#'
+#' # Add title
+#' plotAvgTemp(stMeteo, title = "Monthly temperature")
+#'
 plotAvgTemp <- function(mydata, temp = "temp",
                         avg.time = "1 month",
-                        ylabel = "Temperatura [C]",
-                        title = "") {
+                        ylabel = NULL,
+                        title = "",
+                        locale = NULL) {
 
     # Fix No visible binding for global variable
     temp.min <- temp.max <- NULL
     degree <- variable <- value <- .x <- NULL
+    
+    # Get locale if not explicitely set
+    if (is.null(locale)) {
+        locale <- Sys.getlocale(category = "LC_TIME")
+    }
+   
+    # Set ylabel according to locale
+    if (is.null(ylabel) & grepl("it", locale)) {
+        ylabel <- "Temperatura [C]"
+    } else if (is.null(ylabel)) {
+        ylabel <- "Temperature [C]"
+    }
     
     TZ <- attr(mydata$date, "tzone")
     if (is.null(TZ))
@@ -63,22 +88,37 @@ plotAvgTemp <- function(mydata, temp = "temp",
     colnames(mydata_mean) <- c("date", "temp", "temp.min", "temp.max")
     mydata_mean$date <- as.Date(mydata_mean$date, tz = TZ)
     
+    if (grepl("it", locale)) {
+        media <- "Media"
+        mediaShort <- "media"
+        minima <- "Minima"
+        minimaShort <- "min"
+        massima <- "Massima"
+        massimaShort <- "max"
+    } else {
+        media <- "Average"
+        mediaShort <- "avg"
+        minima <- "Minimum"
+        minimaShort <- "min"
+        massima <- "Maximum"
+        massimaShort <- "max"
+    }
+    
     v <- ggplot(mydata_mean, aes(date, temp)) + 
         geom_bar(aes(color = "Media",  fill = "Media"),
                  stat = "identity",
                  show.legend = FALSE) + 
-        geom_line(aes(x = date, y = temp.min, color = "Minima"),  size = 1) + 
-        geom_line(aes(date, temp.max, color = "Massima"),  size = 1) + 
+        geom_line(aes(x = date, y = temp.min, color = minima),  size = 1) + 
+        geom_line(aes(date, temp.max, color = massima),  size = 1) + 
         scale_y_continuous(labels = scales::label_math(.x * degree), 
                            breaks = seq(-20, 40, 5)) + 
         labs(title = title, x = "", y = ylabel) +
         scale_x_date(breaks = scales::breaks_width(width = avg.time),
-                     labels = scales::label_date("%b")) +
-        scale_color_manual(values = c("Media" = "steelblue", 
-                                      "Minima" = "darkgreen", 
-                                      "Massima" = "darkorange2"), 
+                     labels = scales::label_date("%b", locale = locale)) +
+        scale_color_manual(labels = c(massima, media, minima),
+                           values = c("darkorange2", "steelblue", "darkgreen"),
                            guide = guide_legend(title = NULL)) +
-        scale_fill_manual(values = c("Media" = "steelblue"), guide = NULL)  + 
+        scale_fill_manual(label = media, values = c("steelblue"), guide = NULL)  + 
         theme_bw(base_family = "sans") +
         theme(legend.position = c(0.01, 0.99), 
               legend.justification = c(0, 1),
@@ -94,7 +134,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
     data_table <- ggplot(mydata,  aes(date, factor(variable),
                                       label = format(value, nsmall = 1))) +
         geom_text(size = 3.5) +
-        scale_y_discrete(labels = c("min", "media", "max")) +
+        scale_y_discrete(labels = c(minimaShort, mediaShort, massimaShort)) +
         theme_bw() + 
         labs(title = NULL, x = NULL, y = NULL) +
         theme(
