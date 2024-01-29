@@ -22,7 +22,7 @@ named as "date".}
 \item{avg.time}{This defines the time period to average to
 (see openair::timeAverage). Default is "1 month".}
 
-\item{ylabel}{The label to be plot along y axis}
+\item{ylabel}{The label along y axis}
 
 \item{title}{Optional plot title}
 
@@ -47,7 +47,7 @@ line plots with maximum and minimum temperature.
 # curves
 data("stMeteo")
 plotAvgTemp(stMeteo)
-plotAvgTemp(stMeteo, temp = "temperature", 
+plotAvgTemp(stMeteo, temp = "temperature",
             avg.time = "1 month", ylabel = "Temperatura [C]")
 
 # Override default locale
