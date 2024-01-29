@@ -8,7 +8,7 @@
 #' @param temp Name of the column representing temperature (default = "temp")
 #' @param avg.time This defines the time period to average to 
 #' (see openair::timeAverage). Default is "1 month".
-#' @param ylabel The label to be plot along y axis
+#' @param ylabel The label along y axis
 #' @param title Optional plot title
 #' @param locale Locale to use for day and month names. Default is current
 #' locale. Supported locales are listed in stringi::stri_locale_list().
@@ -58,9 +58,9 @@ plotAvgTemp <- function(mydata, temp = "temp",
     }
    
     # Set ylabel according to locale
-    if (is.null(ylabel) & grepl("it", locale)) {
+    if (grepl("it", locale)) {
         ylabel <- "Temperatura [C]"
-    } else if (is.null(ylabel)) {
+    } else {
         ylabel <- "Temperature [C]"
     }
     
