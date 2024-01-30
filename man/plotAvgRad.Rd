@@ -4,7 +4,14 @@
 \alias{plotAvgRad}
 \title{Plot hourly average radiation}
 \usage{
-plotAvgRad(mydata, date = "date", rad = "radg")
+plotAvgRad(
+  mydata,
+  date = "date",
+  rad = "radg",
+  ylabel = NULL,
+  title = "",
+  locale = NULL
+)
 }
 \arguments{
 \item{mydata}{A data frame containing fields with solar radiation time
@@ -13,6 +20,13 @@ series.}
 \item{date}{Name of the column representing date and time.}
 
 \item{rad}{Name of the column representing radiation.}
+
+\item{ylabel}{The label along the y axis.}
+
+\item{title}{Optional plot title}
+
+\item{local}{Locale to use for legend. Default is English, the only other
+one currently supported is italian.}
 }
 \value{
 A \code{ggplot2} plot.

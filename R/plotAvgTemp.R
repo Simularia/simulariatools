@@ -105,7 +105,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
     }
 
     bar_plot <- ggplot(mydata_mean, aes(date, temp)) +
-        geom_bar(aes(color = "Media",  fill = "Media"),
+        geom_bar(aes(color = media,  fill = media),
                  stat = "identity",
                  show.legend = FALSE) +
         geom_line(aes(x = date, y = temp.min, color = minima),  size = 1) +
@@ -115,7 +115,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
         labs(title = title, x = "", y = ylabel) +
         scale_x_date(breaks = scales::breaks_width(width = avg.time),
                      labels = scales::label_date("%b", locale = locale)) +
-        scale_color_manual(labels = c(massima, media, minima),
+        scale_color_manual(breaks = c(massima, media, minima),
                            values = c("darkorange2", "steelblue", "darkgreen"),
                            guide = guide_legend(title = NULL)) +
         scale_fill_manual(label = media, values = c("steelblue"), guide = NULL)  +
