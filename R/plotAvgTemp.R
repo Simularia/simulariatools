@@ -122,7 +122,9 @@ plotAvgTemp <- function(mydata, temp = "temp",
         theme_bw(base_family = "sans") +
         theme(legend.position = c(0.01, 0.99),
               legend.justification = c(0, 1),
-              legend.box.margin = margin(t = 0, unit = "mm"))
+              legend.box.margin = margin(t = 0, unit = "mm"),
+              panel.grid.major.x = element_blank()
+             )
 
     # Prepare table of data to be plot in the lower part of the figure
     # See http://learnr.wordpress.com/2009/04/29/

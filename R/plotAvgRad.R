@@ -69,7 +69,7 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
         geom_line(data = max_dec, aes(x = date, y = rad, color = minima), size = 1) +
         geom_line(data = max_jun, aes(x = date, y = rad, color = massima), size = 1) +
         scale_y_continuous(breaks = seq(0, 1000, 100)) +
-        scale_x_continuous(breaks = 0:23) +
+        scale_x_continuous(breaks = 0:23, limits = c(0, 23)) +
         scale_color_manual(values = c("steelblue", "darkgreen", "darkorange2"),
                            breaks = c(media, minima, massima),
                            guide = guide_legend(title = NULL)) +
@@ -80,7 +80,9 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
         theme_bw(base_family = "sans") +
         theme(legend.position = c(0.01, 0.99),
               legend.justification = c(0, 1),
-              legend.box.margin = margin(t = 0, unit = "cm"))
+              legend.box.margin = margin(t = 0, unit = "cm"),
+              panel.grid.major.x = element_blank()
+        )
 
     return(v)
 }
