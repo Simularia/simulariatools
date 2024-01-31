@@ -90,11 +90,13 @@ plotStabilityClass <- function(mydata, sc="sc", type="season", locale = NULL) {
             geom_bar(position = "fill")
     }
     v <- v + 
-        scale_y_continuous(labels = scales::label_percent(), breaks = seq(0,1,0.1)) +
+        scale_y_continuous(labels = scales::label_percent(),
+                           breaks = seq(0, 1, 0.1), expand = c(0, 0)) +
         scale_fill_brewer(palette = "Spectral", direction = -1) + 
         labs(x = "", y = ylabel) +
         theme_bw(base_family = "sans") +
-        theme(legend.position = "bottom") +
+        theme(legend.position = "bottom",
+              panel.grid.major.x = element_blank()) +
         guides(fill = guide_legend(
             label.position = "bottom", 
             label.hjust = 0.5, 
