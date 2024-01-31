@@ -6,8 +6,8 @@
 #' @param mydata dataframe with data to plot. date and time column must be
 #' named as "date".
 #' @param temp Name of the column representing temperature (default = "temp")
-#' @param avg.time This defines the time period to average to
-#' (see openair::timeAverage). Default is "1 month".
+#' @param avg.time Defines the time period to average to.
+#' Currently the only supported period is "1 month" (default).
 #' @param ylabel The label along y axis
 #' @param title Optional plot title
 #' @param locale Locale to use for day and month names. Default is current

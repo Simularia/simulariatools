@@ -19,8 +19,8 @@ named as "date".}
 
 \item{temp}{Name of the column representing temperature (default = "temp")}
 
-\item{avg.time}{This defines the time period to average to
-(see openair::timeAverage). Default is "1 month".}
+\item{avg.time}{Defines the time period to average to.
+Currently the only supported period is "1 month" (default).}
 
 \item{ylabel}{The label along y axis}
 
