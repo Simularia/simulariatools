@@ -1,16 +1,16 @@
 #' New contour plot of pollutant concentration field
 #'
-#' \code{contourPlot2} plots a contour map of a given quantity, such as the 
+#' \code{contourPlot2} plots a contour map of a given quantity, such as the
 #' ground concentration of an airborne pollutant or odour, defined on a
 #' regular grid.
 #'
-#' @param data dataframe in long format, with three columns for Easting, 
+#' @param data dataframe in long format, with three columns for Easting,
 #' Northing and values to be plotted.
 #' @param x name of the column with Easting data (default "x").
 #' @param y name of the column with Northing data (default "y").
 #' @param z name of the column with the values to be plotted (default
 #' "z").
-#' @param domain optional list with six numeric values defining the 
+#' @param domain optional list with six numeric values defining the
 #' boundaries of the domain to be plotted: minimum X, maximum X, minimum Y,
 #' maximum Y, number of ticks on X axis, number of ticks on Y axis.
 #' @param background optional path to a png file to be plotted as the base map.
@@ -23,7 +23,7 @@
 #' automatic pretty levels are computed. If `-Inf` and `Inf` are used as the lowest
 #' and highest limits of the array, the lowest and highest bands are unbounded
 #' and the legend shows `<` and `>=` symbols.
-#' @param transparency transparency level of the contour plot between 0.0 
+#' @param transparency transparency level of the contour plot between 0.0
 #' (fully transparent) and 1.0 (fully opaque). Default = 0.75).
 #' @param colors colour palette for contour plot, as an array of colours.
 #' @param bare boolean (default FALSE). If TRUE only the bare plot is shown:
@@ -32,42 +32,42 @@
 #' @param fill boolean (default TRUE). If TRUE the contour plot is filled with
 #' colour.
 #' @param tile boolean (default FALSE). If TRUE rectangular tiles are plotted.
-#' 
+#'
 #' @details
-#' 
+#'
 #' This is a convenience function to plot contour levels of a scalar quantity
 #' such as pollutants computed by a dispersion model, with \code{ggplot2}
-#' version >= 3.3.0. 
-#' 
+#' version >= 3.3.0.
+#'
 #' Data are required to be on a regular grid, typically (but not necessarily)
 #' in UTM coordinates. The input dataframe has to be in long format, i.e. one
 #' line per value to be plotted. The names of the columns corresponding to `x`,
 #' `y` and `z` can be specified in the input parameters.
-#' 
-#' If `tile = TRUE` data are shown as they are, without any graphical 
+#'
+#' If `tile = TRUE` data are shown as they are, without any graphical
 #' interpolation required for contour plots. This is helpful when you want to
 #' visualise the raw data.
 #' Since version 2.4.0, when `tile = TRUE` the intervals include the lowest
 #' bound and exclude the highest bound: `[min, max)`. Note: In previous version
 #' it was the opposite.
-#' 
+#'
 #' `underlayer` and `overlayer` layers are `ggplot2` objects to be shown at
 #' different levels of the vertical stack of the plot. These are useful to
-#' show topographical information related to the plot, such as sources 
+#' show topographical information related to the plot, such as sources
 #' or receptors locations.
-#' 
-#' 
+#'
+#'
 #' @return A \code{ggplot2} object.
 #'
 #' @importFrom grDevices colorRampPalette
-#' @importFrom ggplot2 ggplot annotation_custom geom_contour_filled 
+#' @importFrom ggplot2 ggplot annotation_custom geom_contour_filled
 #'                     scale_fill_manual scale_x_continuous scale_y_continuous
 #'                     scale_color_manual coord_fixed theme_bw theme
 #' @importFrom grid rasterGrob
-#' 
+#'
 #' @export
 #'
-#' @examples 
+#' @examples
 #' # Load example data in long format
 #' data(volcano)
 #' volcano3d <- reshape2::melt(volcano)
@@ -75,18 +75,18 @@
 #' # Contour plot with default options
 #' v <- contourPlot2(volcano3d)
 #' v
-#' 
+#'
 #' # Set levels, and properly format the legend title:
-#' contourPlot2(volcano3d, 
+#' contourPlot2(volcano3d,
 #'              levels = c(-Inf, seq(100, 200, 20), Inf),
 #'              legend = expression(PM[10]~"["~mu*g~m^-3~"]"))
-#' 
+#'
 #' # Sometimes, instead of a contour plot it is better to plot the original
 #' # raster data, without any interpolation:
-#' contourPlot2(volcano3d, 
-#'              levels = c(-Inf, seq(100, 200, 20), Inf), 
+#' contourPlot2(volcano3d,
+#'              levels = c(-Inf, seq(100, 200, 20), Inf),
 #'              tile = TRUE)
-#' 
+#'
 #' # Since contourPlot2 returns a `ggplot2` object, you can add instructions as:
 #' library(ggplot2)
 #' v + ggtitle("Example volcano data") +
@@ -97,10 +97,10 @@ contourPlot2 <- function(data,
                          y = "y",
                          z = "z",
                          domain = NULL,
-                         background = NULL, 
+                         background = NULL,
                          underlayer = NULL,
                          overlayer = NULL,
-                         legend = NULL, 
+                         legend = NULL,
                          levels = NULL,
                          size = 0.,
                          fill = TRUE,
@@ -115,7 +115,7 @@ contourPlot2 <- function(data,
         bare <- FALSE
         size <- 0.
     }
-    
+
     # Check input data
     data <- data[, c(x, y, z)]
     vars <- c(x, y, z)
@@ -125,7 +125,7 @@ contourPlot2 <- function(data,
         }
     }
     colnames(data) <- c("x", "y", "z")
-    
+
     # Define plot domain
     if (missing(domain)) {
         xmin <- min(data$x)     # x coordinates minimum
@@ -158,11 +158,11 @@ contourPlot2 <- function(data,
             nlevels <- length(colors)
         }
         levels <- pretty(range(data$z, na.rm = TRUE), n = nlevels, min.n = 4)
-    } 
+    }
 
     # Labels for legend
     nlevels <- length(levels)
-    if (levels[1] >= 0 & levels[nlevels] != Inf ) {
+    if (levels[1] >= 0 & levels[nlevels] != Inf) {
         levels <- append(levels, Inf)
         nlevels <- length(levels)
     }
@@ -176,10 +176,10 @@ contourPlot2 <- function(data,
     if (levels[1] == -Inf) {
         lab_levels[1] <- parse(text = paste("\"\" <", prettyLevels[2]))
     }
-    
-    # Colour palette 
+
+    # Colour palette
     spectral <- c("#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", "#FFFFBF",
-                           "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142")
+                  "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142")
     if (is.null(colors)) {
         myPalette <- grDevices::colorRampPalette(spectral)
         # Omit first colour for aesthetic reasons
@@ -191,7 +191,7 @@ contourPlot2 <- function(data,
         myColors <- myPalette(length(levels) - 1)
         myColorsLines <- cbind(myColors, "black")
     }
-    
+
     # Background image
     img <- matrix(data = NA, nrow = 10, ncol = 10)
     gimg <- grid::rasterGrob(img, interpolate = FALSE)
@@ -203,17 +203,17 @@ contourPlot2 <- function(data,
             warning("Missing magick package. Please install it to be able to read background basemap.")
         }
     }
-    
+
     # Underlayer
     if (missing(underlayer)) {
         underlayer <- geom_blank()
     }
-    
+
     # Overlayer
     if (missing(overlayer)) {
         overlayer <- geom_blank()
     }
-    
+
     # If fill is FALSE and size is 0 we set a default value for size
     if (isFALSE(fill) & size == 0) {
         size <- 0.5
@@ -222,7 +222,7 @@ contourPlot2 <- function(data,
         size <- 0.
         # data$z <- factor(data$z, levels = levels)
     }
-    
+
     # Base layer
     v <- ggplot(data) +
         annotation_custom(gimg, -Inf, Inf, -Inf, Inf)  +
@@ -231,7 +231,7 @@ contourPlot2 <- function(data,
     # Tile plot
     if (isTRUE(tile)) {
         v <- v +
-            geom_raster(aes(x = x, y = y, 
+            geom_raster(aes(x = x, y = y,
                             fill = cut(z, breaks = levels, right = FALSE)),
                         alpha = transparency) +
             scale_fill_manual(lgndname,
@@ -240,7 +240,7 @@ contourPlot2 <- function(data,
                               labels = lab_levels,
                               values = myColors)
     }
-    
+
     # Contour plot
     if (isTRUE(fill)) {
         v <- v +
@@ -255,7 +255,7 @@ contourPlot2 <- function(data,
                               labels = lab_levels,
                               values = myColors)
     }
-    
+
     # Contour lines
     if (size != 0) {
         lineLevels <- levels
@@ -263,9 +263,9 @@ contourPlot2 <- function(data,
             lineLevels <- levels[1:length(levels) - 1]
         }
         v <- v +
-            geom_contour(aes(x = x, 
-                             y = y, 
-                             z = z, 
+            geom_contour(aes(x = x,
+                             y = y,
+                             z = z,
                              colour = factor(after_stat(level))),
                          breaks = lineLevels,
                          linewidth = size,
@@ -297,7 +297,7 @@ contourPlot2 <- function(data,
         theme(panel.grid.major = element_blank(),
               panel.grid.minor = element_blank())
 
-    # If requested, wipe all but main plot 
+    # If requested, wipe all but main plot
     if (isTRUE(bare)) {
         v <- v + theme(axis.line = element_blank(),
                        axis.text.x = element_blank(),

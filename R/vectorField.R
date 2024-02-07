@@ -1,17 +1,20 @@
 #' Vector field plot
 #'
-#' Simple function to plot a **velocities** vector field.
+#' Simple function to plot a vector field given two components.
 #'
 #' This function plots a vector field given a data.frame with coordinates (x, y)
 #' and corresponding velocity components (u, v). Vectors are coloured by
 #' magnitude (speed).
-#' The coordinates are assumed to be on a regular rectangular domain in
+#' The coordinates are assumed to be on a regular rectangular grid in the
 #' UTM reference system.
 #'
 #' This function is heavily inspired by snippets of code in
 #' *R Graphics Cookbook* by Winston Chang (https://r-graphics.org/index.html).
 #'
-#' @return A \code{ggplot2} plot.
+#' @return A \code{ggplot2} object if `preview = TRUE`. A \code{ggplot2}
+#` directive otherwise. In the latter case, the output should be piped to
+#' a plot, as a \code{contourPlot2()} and the vector field will be overlapped.
+#'
 #'
 #' @importFrom ggplot2 ggplot geom_segment aes
 #'
@@ -22,7 +25,7 @@
 #' @param everyy keep one out of every *everyy* values, along *y* direction.
 #' @param size arrow size.
 #' @param preview (default = TRUE) create a plot. If FALSE it only creates
-#' the ggplot2 instruction which can be used together with other graphics.
+#' the ggplot2 directive to be added to another plot.
 #'
 #' @examples
 #' \dontrun{
@@ -46,7 +49,7 @@
 #'
 #' met <- merge(metU, metV, by = c("x", "y"))
 #'
-#' vectorField(met, everyx = 2, everyy = 2, scalex = 10, scaley = 10) +
+#' vectorField(met, everyx = 2, everyy = 2, scale = 10) +
 #'     coord_fixed(ratio = 1, xlim = c(0, 1000), ylim = c(0, 1000)) +
 #'     scale_color_viridis_c()
 #'
@@ -54,7 +57,7 @@
 #' met$ws <- sqrt(met$u^2 + met$v^2)
 #' contourPlot2(met, z = "ws") +
 #'      vectorField(met, everyx = 2, everyy = 2, scale = 10, preview = FALSE) +
-#'      scale_colour_gradien(low = "black", high = "black", guide = NULL)
+#'      scale_colour_gradient(low = "black", high = "black", guide = NULL)
 #'
 #' }
 #'
