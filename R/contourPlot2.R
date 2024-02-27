@@ -259,8 +259,13 @@ contourPlot2 <- function(data,
     # Contour lines
     if (size != 0) {
         lineLevels <- levels
-        if (levels[length(levels)] == "Inf") {
-            lineLevels <- levels[1:length(levels) - 1]
+
+        if (lineLevels[length(lineLevels)] == "Inf") {
+            lineLevels <- lineLevels[1:length(lineLevels) - 1]
+        }
+
+        if (levels[1] == "-Inf") {
+            lineLevels <- lineLevels[2:length(lineLevels)]
         }
         v <- v +
             geom_contour(aes(x = x,
