@@ -1,8 +1,19 @@
 # simulariatools (development version)
 
-* Month names in `plotAvgTemp()` and `plotStabilityClass()` respect locale. 
-Also added an optional `locale` argument to override the system locale.
-The other labels are in English for every locale but Italian.
+* Labels in `plotAvgTemp()`, `plotStabilityClass()` and `plotAvgRad` respect
+locale. Also added an optional argument to override the system locale.
+Currently supported locale are Italian and English. Others are converted to
+English.
+* `plotAvgRad` now has options to change `ylabel` and `title`. 
+* Content outside plot domain in `contourPlot2` is masked. Previously, values
+outside plot domain were set to NA's, which potentially caused artifacts at 
+the borders.
+* Fix: when  plotting lines only with `contourPlot2` remove -Inf from the levels,
+if present.
+* In `contourPlot2`, fix for `ggplot2` breaking change  where guide_legend()
+only draws a key glyph for a layer when the value is in the layer’s data.
+* Update documentation.
+
 
 # simulariatools 2.5.1
 

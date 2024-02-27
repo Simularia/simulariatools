@@ -110,7 +110,7 @@ v
 # Set levels, and properly format the legend title:
 contourPlot2(volcano3d,
              levels = c(-Inf, seq(100, 200, 20), Inf),
-             legend = expression(PM[10]~"["~mu*g~m^-3~"]"))
+             legend = expression("PM"[10]~"["*mu*"g m"^-3*"]"))
 
 # Sometimes, instead of a contour plot it is better to plot the original
 # raster data, without any interpolation:
