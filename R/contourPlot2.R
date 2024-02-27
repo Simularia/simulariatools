@@ -233,6 +233,7 @@ contourPlot2 <- function(data,
         v <- v +
             geom_raster(aes(x = x, y = y,
                             fill = cut(z, breaks = levels, right = FALSE)),
+                        show.legend = TRUE,
                         alpha = transparency) +
             scale_fill_manual(lgndname,
                               drop = FALSE,
@@ -248,8 +249,10 @@ contourPlot2 <- function(data,
                                     fill = after_stat(level)),
                                 breaks = levels,
                                 linewidth = 0,
+                                show.legend = c("fill" = fill, "colour" = FALSE),
                                 alpha = transparency) +
             scale_fill_manual(lgndname,
+                              aesthetics = c("fill"),
                               drop = FALSE,
                               guide = guide_legend(reverse = TRUE),
                               labels = lab_levels,
@@ -264,9 +267,10 @@ contourPlot2 <- function(data,
             lineLevels <- lineLevels[1:length(lineLevels) - 1]
         }
 
-        if (levels[1] == "-Inf") {
+        if (lineLevels[1] == "-Inf") {
             lineLevels <- lineLevels[2:length(lineLevels)]
         }
+
         v <- v +
             geom_contour(aes(x = x,
                              y = y,
@@ -276,9 +280,10 @@ contourPlot2 <- function(data,
                          linewidth = size,
                          linejoin = "round",
                          lineend = "round",
-                         alpha = 1.,
-                         show.legend = isFALSE(fill)) +
+                         alpha = 1.0,
+                         show.legend = c("colour" = !fill)) +
             scale_color_manual(lgndname,
+                               aesthetics = c("colour"),
                                drop = FALSE,
                                limits = factor(lineLevels),
                                guide = guide_legend(reverse = TRUE),
