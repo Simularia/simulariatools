@@ -12,6 +12,8 @@ the borders.
 if present.
 * In `contourPlot2`, fix for `ggplot2` breaking change  where guide_legend()
 only draws a key glyph for a layer when the value is in the layer’s data.
+* In `plotAvgTemp`, fixed bug related to the name of the column with temperature.
+* Other bugfixes.
 * Update documentation.
 
 

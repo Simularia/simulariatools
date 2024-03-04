@@ -20,6 +20,8 @@ contourPlot2(
   tile = FALSE,
   transparency = 0.75,
   colors = NULL,
+  mask = NULL,
+  clipMask = "outside",
   bare = FALSE
 )
 }
@@ -64,6 +66,11 @@ colour.}
 (fully transparent) and 1.0 (fully opaque). Default = 0.75).}
 
 \item{colors}{colour palette for contour plot, as an array of colours.}
+
+\item{mask}{path to mask \emph{shp} file. It must be a closed polygon.}
+
+\item{clipMask}{mask the plot inside or outside the polygon. It can be either
+\emph{outside} (default) or \emph{inside}.}
 
 \item{bare}{boolean (default FALSE). If TRUE only the bare plot is shown:
 axis, legend, titles and any other graphical element of the plot are removed.}

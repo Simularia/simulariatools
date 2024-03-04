@@ -32,6 +32,9 @@
 #' @param fill boolean (default TRUE). If TRUE the contour plot is filled with
 #' colour.
 #' @param tile boolean (default FALSE). If TRUE rectangular tiles are plotted.
+#' @param mask path to mask _shp_ file. It must be a closed polygon.
+#' @param clipMask mask the plot inside or outside the polygon. It can be either
+#' _outside_ (default) or _inside_.
 #'
 #' @details
 #'
@@ -107,6 +110,8 @@ contourPlot2 <- function(data,
                          tile = FALSE,
                          transparency = 0.75,
                          colors = NULL,
+                         mask = NULL,
+                         clipMask = "outside",
                          bare = FALSE) {
 
     # Consistency check
@@ -162,15 +167,15 @@ contourPlot2 <- function(data,
 
     # Labels for legend
     nlevels <- length(levels)
-    if (levels[1] >= 0 & levels[nlevels] != Inf) {
+    if (levels[1] >= 0 && levels[nlevels] != Inf) {
         levels <- append(levels, Inf)
         nlevels <- length(levels)
     }
     prettyLevels <- prettyNum(levels)
     lab_levels <- parse(text = paste(prettyLevels[1:(nlevels - 1)], "-", prettyLevels[2:nlevels]))
-    if (levels[nlevels] == Inf & !isTRUE(tile)) {
+    if (levels[nlevels] == Inf && !isTRUE(tile)) {
         lab_levels[nlevels - 1] <- parse(text = paste("\"\">=", prettyLevels[nlevels - 1]))
-    } else if (levels[nlevels] == Inf & isTRUE(tile)) {
+    } else if (levels[nlevels] == Inf && isTRUE(tile)) {
         lab_levels[nlevels - 1] <- parse(text = paste("\"\">=", prettyLevels[nlevels - 1]))
     }
     if (levels[1] == -Inf) {
@@ -215,7 +220,7 @@ contourPlot2 <- function(data,
     }
 
     # If fill is FALSE and size is 0 we set a default value for size
-    if (isFALSE(fill) & size == 0) {
+    if (isFALSE(fill) && size == 0) {
         size <- 0.5
     }
     if (isTRUE(tile)) {

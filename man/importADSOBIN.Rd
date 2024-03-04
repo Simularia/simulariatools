@@ -57,7 +57,7 @@ Import data from ADSO/BIN binary file. It requires an active Python
 installation with the \code{arinfopy} library.
 }
 \details{
-The \code{importADSIOBIN()} function was developed to import data from an
+The \code{importADSIOBIN()} function imports data from an
 ADSO/BIN binary file. It relies on the `arinfopy' (version >= 2.2.0) python
 library. For more information on the library see the \href{https://github.com/Simularia/arinfopy}{GitHub repository}.
 
