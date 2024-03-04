@@ -52,6 +52,9 @@ plotAvgTemp <- function(mydata, temp = "temp",
     temp.min <- temp.max <- NULL
     degree <- variable <- value <- .x <- NULL
 
+    # Fix name of temperature column
+    names(mydata) <- sub(temp, "temp", names(mydata))
+
     # Get locale if not explicitely set
     if (is.null(locale)) {
         locale <- Sys.getlocale(category = "LC_TIME")
@@ -123,8 +126,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
         theme(legend.position = c(0.01, 0.99),
               legend.justification = c(0, 1),
               legend.box.margin = margin(t = 0, unit = "mm"),
-              panel.grid.major.x = element_blank()
-             )
+              panel.grid.major.x = element_blank())
 
     # Prepare table of data to be plot in the lower part of the figure
     # See http://learnr.wordpress.com/2009/04/29/
