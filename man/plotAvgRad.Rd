@@ -25,7 +25,7 @@ series.}
 
 \item{title}{Optional plot title}
 
-\item{local}{Locale to use for legend. Default is English, the only other
+\item{locale}{Locale to use for legend. Default is English, the only other
 one currently supported is italian.}
 }
 \value{

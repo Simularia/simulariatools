@@ -9,7 +9,7 @@
 #' @param rad   Name of the column representing radiation.
 #' @param ylabel The label along the y axis.
 #' @param title Optional plot title
-#' @param local Locale to use for legend. Default is English, the only other
+#' @param locale Locale to use for legend. Default is English, the only other
 #' one currently supported is italian.
 #'
 #' @return A \code{ggplot2} plot.
@@ -53,6 +53,11 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
     means$date <- as.numeric(means$date)
     max_jun$date <- as.numeric(max_jun$date)
     max_dec$date <- as.numeric(max_dec$date)
+
+    # Get locale if not explicitely set
+    if (is.null(locale)) {
+        locale <- Sys.getlocale(category = "LC_TIME")
+    }
 
     if (grepl("it", locale)) {
         media <- "Media"
