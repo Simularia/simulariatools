@@ -21,7 +21,7 @@ contourPlot2(
   transparency = 0.75,
   colors = NULL,
   mask = NULL,
-  clipMask = "outside",
+  inverse = FALSE,
   bare = FALSE
 )
 }
@@ -67,10 +67,10 @@ colour.}
 
 \item{colors}{colour palette for contour plot, as an array of colours.}
 
-\item{mask}{path to mask \emph{shp} file. It must be a closed polygon.}
+\item{mask}{path to \emph{shp} file used as a mask. It must be a closed polygon.}
 
-\item{clipMask}{mask the plot inside or outside the polygon. It can be either
-\emph{outside} (default) or \emph{inside}.}
+\item{inverse}{logical. If \code{TRUE} areas on mask are masked. Default is to
+mask areas outside the polygon defined in the \emph{shp} file.}
 
 \item{bare}{boolean (default FALSE). If TRUE only the bare plot is shown:
 axis, legend, titles and any other graphical element of the plot are removed.}
@@ -104,6 +104,12 @@ it was the opposite.
 different levels of the vertical stack of the plot. These are useful to
 show topographical information related to the plot, such as sources
 or receptors locations.
+
+When a \emph{shp} file is given to the \code{mask} argument the plot is drawn only
+inside the polygon. If \code{inverse} is set to \code{TRUE}, the plot is drawn
+outside  the polygon. This feature is based on the same name function of
+the \code{terra} package. The CRS of the \emph{shp} file is applied to the data
+in the data.frame. Please, keep in mind this feature is still experimental.
 }
 \examples{
 # Load example data in long format

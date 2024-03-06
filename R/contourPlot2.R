@@ -32,9 +32,9 @@
 #' @param fill boolean (default TRUE). If TRUE the contour plot is filled with
 #' colour.
 #' @param tile boolean (default FALSE). If TRUE rectangular tiles are plotted.
-#' @param mask path to mask _shp_ file. It must be a closed polygon.
-#' @param clipMask mask the plot inside or outside the polygon. It can be either
-#' _outside_ (default) or _inside_.
+#' @param mask path to _shp_ file used as a mask. It must be a closed polygon.
+#' @param inverse logical. If `TRUE` areas on mask are masked. Default is to
+#' mask areas outside the polygon defined in the _shp_ file.
 #'
 #' @details
 #'
@@ -59,6 +59,11 @@
 #' show topographical information related to the plot, such as sources
 #' or receptors locations.
 #'
+#' When a _shp_ file is given to the `mask` argument the plot is drawn only 
+#' inside the polygon. If `inverse` is set to `TRUE`, the plot is drawn 
+#' outside  the polygon. This feature is based on the same name function of
+#' the `terra` package. The CRS of the _shp_ file is applied to the data
+#' in the data.frame. Please, keep in mind this feature is still experimental.
 #'
 #' @return A \code{ggplot2} object.
 #'
@@ -67,6 +72,8 @@
 #'                     scale_fill_manual scale_x_continuous scale_y_continuous
 #'                     scale_color_manual coord_fixed theme_bw theme
 #' @importFrom grid rasterGrob
+#' @importFrom terra crs mask rast
+#' @importFrom sf st_read
 #'
 #' @export
 #'
@@ -111,7 +118,7 @@ contourPlot2 <- function(data,
                          transparency = 0.75,
                          colors = NULL,
                          mask = NULL,
-                         clipMask = "outside",
+                         inverse = FALSE,
                          bare = FALSE) {
 
     # Consistency check
@@ -197,6 +204,18 @@ contourPlot2 <- function(data,
         myColorsLines <- cbind(myColors, "black")
     }
 
+    # Mask
+    if (!missing(mask)) {
+        if (!requireNamespace("sf", quietly = TRUE)) {
+            warning("Please install the `sf` package to use `mask`.")
+        } else {
+            maskPolygon <- sf::st_read(mask, quiet = TRUE)
+            rdata <- terra::rast(data, type = "xyz", crs = terra::crs(maskPolygon))
+            rdata <- terra::mask(x = rdata, mask = maskPolygon, inverse = inverse)
+            data <- terra::as.data.frame(rdata, xy = TRUE)
+        }
+    }
+
     # Background image
     img <- matrix(data = NA, nrow = 10, ncol = 10)
     gimg <- grid::rasterGrob(img, interpolate = FALSE)
@@ -225,7 +244,6 @@ contourPlot2 <- function(data,
     }
     if (isTRUE(tile)) {
         size <- 0.
-        # data$z <- factor(data$z, levels = levels)
     }
 
     # Base layer
