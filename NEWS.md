@@ -1,5 +1,7 @@
 # simulariatools (development version)
 
+* `ggplot2` has a new *mask* argument to plot only inside (or outside) a
+polygon specified in a *shp* file.
 * Labels in `plotAvgTemp()`, `plotStabilityClass()` and `plotAvgRad` respect
 locale. Also added an optional argument to override the system locale.
 Currently supported locale are Italian and English. Others are converted to
