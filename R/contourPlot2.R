@@ -73,7 +73,6 @@
 #'                     scale_color_manual coord_fixed theme_bw theme
 #' @importFrom grid rasterGrob
 #' @importFrom terra crs mask rast
-#' @importFrom sf st_read
 #'
 #' @export
 #'
@@ -207,7 +206,7 @@ contourPlot2 <- function(data,
     # Mask
     if (!missing(mask)) {
         if (!requireNamespace("sf", quietly = TRUE)) {
-            warning("Please install the `sf` package to use `mask`.")
+            stop("Please install the `sf` package to use `mask`.", call. = FALSE)
         } else {
             maskPolygon <- sf::st_read(mask, quiet = TRUE)
             rdata <- terra::rast(data, type = "xyz", crs = terra::crs(maskPolygon))

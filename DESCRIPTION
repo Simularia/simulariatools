@@ -30,7 +30,8 @@ Suggests:
     contoureR,
     testthat (>= 3.0.0),
     raster,
-    openair
+    openair,
+    sf
 License: GPL (>= 2)
 URL: https://www.simularia.it/simulariatools/, https://github.com/Simularia/simulariatools
 BugReports: https://github.com/Simularia/simulariatools/issues
