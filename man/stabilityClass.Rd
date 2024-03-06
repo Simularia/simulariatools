@@ -40,7 +40,7 @@ stMeteo$cst <- stabilityClass(rad = stMeteo$rad,
                               tcc = stMeteo$tcc,
                               ws = stMeteo$ws,
                               option = "custom")
-                              
+
 }
 \seealso{
 \code{\link[=plotStabilityClass]{plotStabilityClass()}}

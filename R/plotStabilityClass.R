@@ -101,13 +101,12 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
         theme_bw(base_family = "sans") +
         theme(legend.position = "bottom",
               panel.grid.major.x = element_blank()) +
-        guides(fill = guide_legend(
-            label.position = "bottom",
-            label.hjust = 0.5,
-            title = legendTitle,
-            direction = "horizontal",
-            ncol = 6,
-            reverse = TRUE))
+        guides(fill = guide_legend(label.position = "bottom",
+                                   label.hjust = 0.5,
+                                   title = legendTitle,
+                                   direction = "horizontal",
+                                   ncol = 6,
+                                   reverse = TRUE))
 
     return(v)
 }
