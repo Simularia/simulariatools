@@ -52,6 +52,9 @@ plotAvgTemp <- function(mydata, temp = "temp",
     temp.min <- temp.max <- NULL
     degree <- variable <- value <- .x <- NULL
 
+    # avg.time has only one value allowed
+    stopifnot(avg.time == "1 month")
+
     # Fix name of temperature column
     names(mydata) <- sub(temp, "temp", names(mydata))
 
