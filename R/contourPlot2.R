@@ -72,7 +72,7 @@
 #'                     scale_fill_manual scale_x_continuous scale_y_continuous
 #'                     scale_color_manual coord_fixed theme_bw theme
 #' @importFrom grid rasterGrob
-#' @importFrom terra crs mask rast
+#' @importFrom terra crs mask rast ext resample
 #'
 #' @export
 #'
@@ -210,6 +210,14 @@ contourPlot2 <- function(data,
         } else {
             maskPolygon <- sf::st_read(mask, quiet = TRUE)
             rdata <- terra::rast(data, type = "xyz", crs = terra::crs(maskPolygon))
+
+            # Resample
+            rdataExt <- terra::ext(rdata)
+            resampleRes <- res(rdata) / 10
+            resampleTarget <- terra::rast(extent = rdataExt, res = resampleRes)
+            rdata <- terra::resample(rdata, resampleTarget)
+
+            # mask
             rdata <- terra::mask(x = rdata, mask = maskPolygon, inverse = inverse)
             data <- terra::as.data.frame(rdata, xy = TRUE)
         }
