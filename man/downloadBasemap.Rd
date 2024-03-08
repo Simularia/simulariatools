@@ -45,32 +45,32 @@ No value is returned.
 \description{
 This function tries to download the aerial orthophoto of the requested
 domain from the
-\href{http://www.pcn.minambiente.it/mattm/en/services/}{Italian National Geoportal}.
+\href{https://gn.mase.gov.it/portale/home}{Italian National Geoportal}.
 The output is given in \emph{png} format at the path given in the \code{file}
 parameter.
 }
 \examples{
 \dontrun{
-# Download a basemap of a domain with SW coordinates (410000, 5000500) 
+# Download a basemap of a domain with SW coordinates (410000, 5000500)
 # in the UTM32 CRS and extension 5000m in both directions.
 
-downloadBasemap(file = "./basemap.png", 
+downloadBasemap(file = "./basemap.png",
                 xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000)
 
-# Download a basemap of a domain with SW coordinates (410000, 5000500) 
+# Download a basemap of a domain with SW coordinates (410000, 5000500)
 # in the UTM32 CRS and extension 5000m in both directions.
 # The file has to be 2048 x 2048 pixels.
 
-downloadBasemap(file = "./basemap.png", 
-                xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000, 
+downloadBasemap(file = "./basemap.png",
+                xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000,
                 width = 2048, height = 2048)
-                
+
 # Download a basemap of a domain with SW coordinates (410000, 5000500)
 # in the UTM32 CRS and extension 5000m in both directions.
 # The file has to be 10cm x 10cm with a resolution of 150 dpi.
 
-downloadBasemap(file = "./basemap.png", 
-                xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000, 
+downloadBasemap(file = "./basemap.png",
+                xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000,
                 width = 10, height = 10, units = "cm", res = 150)
 }
 }

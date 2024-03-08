@@ -6,13 +6,13 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  fig.retina = 2,
-  dpi = 300,
-  out.width = "80%",
-  out.height = "80%"
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "man/figures/README-",
+    fig.retina = 2,
+    dpi = 300,
+    out.width = "80%",
+    out.height = "80%"
 )
 ```
 
@@ -65,7 +65,7 @@ First, import air quality data from *NetCDF* or *ADSO/BIN* files with the approp
 convenience function:
 ```{r echo=TRUE}
 library(simulariatools)
-mydata <- importRaster(file = "./test/conc_avg.nc",
+mydata <- importRaster(file = "./development/conc_avg.nc",
                        k = 1000,
                        destaggering = TRUE,
                        variable = "nox",
@@ -81,12 +81,12 @@ contourPlot2(mydata)
 The plot is customisable by using *contourPlot2()* arguments and by piping *ggplot2* instructions:
 ```{r echo=TRUE}
 library(ggplot2)
-contourPlot2(mydata, 
+contourPlot2(mydata,
              domain = c(502000, 519000, 4943125, 4955125, 5, 5),
              levels = c(-Inf, 0.5, 1, 1.5, 2, Inf),
-             legend = "NOx [ug/m3]") + 
-  labs(x = NULL, y = NULL) +
-  theme_minimal()
+             legend = "NOx [ug/m3]") +
+    labs(x = NULL, y = NULL) +
+    theme_minimal()
 ```
 
 Use `ggsave()` to save the last plot to file:
@@ -97,11 +97,11 @@ ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 Use `tile` optional argument to produce a plot without interpolation:
 ```{r echo=TRUE}
 library(ggplot2)
-contourPlot2(mydata, 
+contourPlot2(mydata,
              tile = TRUE,
-             legend = "NOx [ug/m3]") + 
-  labs(x = NULL, y = NULL) +
-  theme_minimal()
+             legend = "NOx [ug/m3]") +
+    labs(x = NULL, y = NULL) +
+    theme_minimal()
 ```
 
 

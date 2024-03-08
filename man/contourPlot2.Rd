@@ -106,9 +106,11 @@ show topographical information related to the plot, such as sources
 or receptors locations.
 
 When a \emph{shp} file is given to the \code{mask} argument the plot is drawn only
-inside the polygon. If \code{inverse} is set to \code{TRUE}, the plot is drawn
-outside  the polygon. This feature is based on the same name function of
-the \code{terra} package. The CRS of the \emph{shp} file is applied to the data
+inside the polygon. In order to avoid boundary artifacts due to reduced
+resolution, original data are resampled to higher resolution (currently
+set to 10x the original one.) If\code{inverse} is set to \code{TRUE}, the plot is drawn
+outside  the polygon. The \emph{mask} feature is based on the same name function
+of the \code{terra} package. The CRS of the \emph{shp} file is applied to the data
 in the data.frame. Please, keep in mind this feature is still experimental.
 }
 \examples{

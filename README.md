@@ -60,7 +60,7 @@ the appropriate convenience function:
 
 ``` r
 library(simulariatools)
-mydata <- importRaster(file = "./test/conc_avg.nc",
+mydata <- importRaster(file = "./development/conc_avg.nc",
                        k = 1000,
                        destaggering = TRUE,
                        variable = "nox",
@@ -87,14 +87,12 @@ piping *ggplot2* instructions:
 
 ``` r
 library(ggplot2)
-contourPlot2(mydata, 
+contourPlot2(mydata,
              domain = c(502000, 519000, 4943125, 4955125, 5, 5),
              levels = c(-Inf, 0.5, 1, 1.5, 2, Inf),
-             legend = "NOx [ug/m3]") + 
-  labs(x = NULL, y = NULL) +
-  theme_minimal()
-#> Warning: Removed 1225 rows containing non-finite values
-#> (`stat_contour_filled()`).
+             legend = "NOx [ug/m3]") +
+    labs(x = NULL, y = NULL) +
+    theme_minimal()
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="80%" height="80%" />
@@ -109,12 +107,11 @@ Use `tile` optional argument to produce a plot without interpolation:
 
 ``` r
 library(ggplot2)
-contourPlot2(mydata, 
+contourPlot2(mydata,
              tile = TRUE,
-             legend = "NOx [ug/m3]") + 
-  labs(x = NULL, y = NULL) +
-  theme_minimal()
-#> Warning: Removed 280 rows containing missing values (`geom_raster()`).
+             legend = "NOx [ug/m3]") +
+    labs(x = NULL, y = NULL) +
+    theme_minimal()
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="80%" height="80%" />

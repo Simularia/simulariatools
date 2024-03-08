@@ -1,22 +1,24 @@
 # simulariatools (development version)
 
-* `ggplot2` has a new *mask* argument to plot only inside (or outside) a
-polygon specified in a *shp* file.
-* Labels in `plotAvgTemp()`, `plotStabilityClass()` and `plotAvgRad` respect
+* `contourPlot2()` has new `mask` and `inverse` arguments to plot data
+only inside (or outside) a polygon specified in a `shp` file. When this option
+is activated, data to be plotted are resampled at higher resolution to avoid
+staggers at the border of the polygon.
+* Content outside plot domain in `contourPlot2()` is masked. Previously, values
+outside plot domain were set to NA's, which potentially caused artifacts at 
+the borders.
+* Some fixes in `contourPlot2()`: with `ggplot2` v3.5.0 there is a breaking
+change where `guide_legend()` only draws a key glyph for a layer when the value
+is in the layer’s data. Furthermore, when plotting lines only we remove -Inf
+from the levels, if present.
+* Labels in `plotAvgTemp()`, `plotStabilityClass()` and `plotAvgRad()` respect
 locale. Also added an optional argument to override the system locale.
 Currently supported locale are Italian and English. Others are converted to
 English.
-* `plotAvgRad` now has options to change `ylabel` and `title`. 
-* Content outside plot domain in `contourPlot2` is masked. Previously, values
-outside plot domain were set to NA's, which potentially caused artifacts at 
-the borders.
-* Fix: when  plotting lines only with `contourPlot2` remove -Inf from the levels,
-if present.
-* In `contourPlot2`, fix for `ggplot2` breaking change  where guide_legend()
-only draws a key glyph for a layer when the value is in the layer’s data.
-* In `plotAvgTemp`, fixed bug related to the name of the column with temperature.
-* Other bugfixes.
-* Update documentation.
+* `plotAvgRad()` now has options to change `ylabel` and `title`. 
+* In `plotAvgTemp()`, fixed bug related to the name of the column with
+temperature data.
+* Other minor bugs have fixed and documentation has been updated.
 
 
 # simulariatools 2.5.1
