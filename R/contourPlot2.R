@@ -215,7 +215,7 @@ contourPlot2 <- function(data,
 
             # Resample
             rdataExt <- terra::ext(rdata)
-            resampleRes <- res(rdata) / 10
+            resampleRes <- terra::res(rdata) / 10
             resampleTarget <- terra::rast(extent = rdataExt, res = resampleRes)
             rdata <- terra::resample(rdata, resampleTarget)
 
