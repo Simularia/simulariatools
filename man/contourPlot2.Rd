@@ -21,7 +21,7 @@ contourPlot2(
   transparency = 0.75,
   colors = NULL,
   mask = NULL,
-  inverse = FALSE,
+  inverse_mask = FALSE,
   bare = FALSE
 )
 }
@@ -69,7 +69,7 @@ colour.}
 
 \item{mask}{path to \emph{shp} file used as a mask. It must be a closed polygon.}
 
-\item{inverse}{logical. If \code{TRUE} areas on mask are masked. Default is to
+\item{inverse_mask}{logical. If \code{TRUE} areas on mask are masked. Default is to
 mask areas outside the polygon defined in the \emph{shp} file.}
 
 \item{bare}{boolean (default FALSE). If TRUE only the bare plot is shown:
@@ -108,7 +108,7 @@ or receptors locations.
 When a \emph{shp} file is given to the \code{mask} argument the plot is drawn only
 inside the polygon. In order to avoid boundary artifacts due to reduced
 resolution, original data are resampled to higher resolution (currently
-set to 10x the original one.) If\code{inverse} is set to \code{TRUE}, the plot is drawn
+set to 10x the original one.) If\code{inverse_mask} is set to \code{TRUE}, the plot is drawn
 outside  the polygon. The \emph{mask} feature is based on the same name function
 of the \code{terra} package. The CRS of the \emph{shp} file is applied to the data
 in the data.frame. Please, keep in mind this feature is still experimental.

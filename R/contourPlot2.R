@@ -33,7 +33,7 @@
 #' colour.
 #' @param tile boolean (default FALSE). If TRUE rectangular tiles are plotted.
 #' @param mask path to _shp_ file used as a mask. It must be a closed polygon.
-#' @param inverse logical. If `TRUE` areas on mask are masked. Default is to
+#' @param inverse_mask logical. If `TRUE` areas on mask are masked. Default is to
 #' mask areas outside the polygon defined in the _shp_ file.
 #'
 #' @details
@@ -62,7 +62,7 @@
 #' When a _shp_ file is given to the `mask` argument the plot is drawn only
 #' inside the polygon. In order to avoid boundary artifacts due to reduced
 #' resolution, original data are resampled to higher resolution (currently
-#' set to 10x the original one.) If`inverse` is set to `TRUE`, the plot is drawn
+#' set to 10x the original one.) If`inverse_mask` is set to `TRUE`, the plot is drawn
 #' outside  the polygon. The *mask* feature is based on the same name function
 #' of the `terra` package. The CRS of the _shp_ file is applied to the data
 #' in the data.frame. Please, keep in mind this feature is still experimental.
@@ -119,7 +119,7 @@ contourPlot2 <- function(data,
                          transparency = 0.75,
                          colors = NULL,
                          mask = NULL,
-                         inverse = FALSE,
+                         inverse_mask = FALSE,
                          bare = FALSE) {
 
     # Consistency check
@@ -216,11 +216,11 @@ contourPlot2 <- function(data,
             # Resample
             rdataExt <- terra::ext(rdata)
             resampleRes <- terra::res(rdata) / 10
-            resampleTarget <- terra::rast(extent = rdataExt, res = resampleRes)
+            resampleTarget <- terra::rast(extent = rdataExt, resolution = resampleRes)
             rdata <- terra::resample(rdata, resampleTarget)
 
             # mask
-            rdata <- terra::mask(x = rdata, mask = maskPolygon, inverse = inverse)
+            rdata <- terra::mask(x = rdata, mask = maskPolygon, inverse = inverse_mask)
             data <- terra::as.data.frame(rdata, xy = TRUE)
         }
     }
