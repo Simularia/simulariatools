@@ -1,6 +1,6 @@
 # simulariatools (development version)
 
-* `contourPlot2()` has new `mask` and `inverse` arguments to plot data
+* `contourPlot2()` has new `mask` and `inverse_mask` arguments to plot data
 only inside (or outside) a polygon specified in a `shp` file. When this option
 is activated, data to be plotted are resampled at higher resolution to avoid
 staggers at the border of the polygon.
@@ -18,7 +18,7 @@ English.
 * `plotAvgRad()` now has options to change `ylabel` and `title`. 
 * In `plotAvgTemp()`, fixed bug related to the name of the column with
 temperature data.
-* Other minor bugs have fixed and documentation has been updated.
+* Other minor bugs have been fixed and documentation has been updated.
 
 
 # simulariatools 2.5.1
