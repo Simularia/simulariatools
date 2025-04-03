@@ -53,10 +53,9 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
     if (max(mydata[, sc]) > 6 || min(mydata[, sc]) < 0)
         stop("Stability class is out of range [0,6].", call. = FALSE)
 
-    pasquill <- c("A", "B", "C", "D", "E", "F")
+    pasquill <- factor(x = c("A", "B", "C", "D", "E", "F"))
     mydata$clname <- pasquill[mydata[, sc]]
-    mydata$clname <- factor(mydata$clname, levels = sort(unique(mydata$clname),
-                                                         decreasing = TRUE))
+    mydata$clname <- factor(mydata$clname, levels = sort(pasquill, decreasing = TRUE))
 
     if (grepl("it", locale)) {
         winterLabel <- "Inverno (DGF)"
@@ -88,15 +87,22 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
         mydata$ascissa <- factor(as.numeric(format(mydata$date, format = "%H")))
     }
 
+    # Color values for the 6 classes
+    myColors <- RColorBrewer::brewer.pal(6, "Spectral")
+
     # Plot
     v <- ggplot(mydata, aes(x = ascissa, fill = clname)) +
-        geom_bar(position = "fill")
+        geom_bar(position = "fill", show.legend = TRUE)
 
     # Axis, legend, ...
     v <- v +
         scale_y_continuous(labels = scales::label_percent(),
                            breaks = seq(0, 1, 0.1), expand = c(0, 0)) +
-        scale_fill_brewer(palette = "Spectral", direction = -1) +
+        scale_fill_manual(drop = FALSE,
+                          values = myColors,
+                          breaks = pasquill,
+                          limits = pasquill
+                          ) +
         labs(x = xlabel, y = ylabel) +
         theme_bw(base_family = "sans") +
         theme(legend.position = "bottom",
@@ -106,7 +112,7 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
                                    title = legendTitle,
                                    direction = "horizontal",
                                    ncol = 6,
-                                   reverse = TRUE))
+                                   reverse = FALSE))
 
     return(v)
 }
