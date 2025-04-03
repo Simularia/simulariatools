@@ -83,16 +83,16 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
         mydata$season[mydata$season == 2] <- springLabel
         mydata$season[mydata$season == 3] <- summerLabel
         mydata$season[mydata$season == 4] <- autumnLabel
-        mydata$season <- factor(mydata$season, levels = unique(mydata$season))
-
-        v <- ggplot(mydata, aes(x = season, fill = clname)) +
-            geom_bar(position = "fill")
-
+        mydata$ascissa <- factor(mydata$season, levels = unique(mydata$season))
     } else {
-        mydata$hour <- factor(as.numeric(format(mydata$date, format = "%H")))
-        v <- ggplot(mydata, aes(x = hour, fill = clname)) +
-            geom_bar(position = "fill")
+        mydata$ascissa <- factor(as.numeric(format(mydata$date, format = "%H")))
     }
+
+    # Plot
+    v <- ggplot(mydata, aes(x = ascissa, fill = clname)) +
+        geom_bar(position = "fill")
+
+    # Axis, legend, ...
     v <- v +
         scale_y_continuous(labels = scales::label_percent(),
                            breaks = seq(0, 1, 0.1), expand = c(0, 0)) +
