@@ -12,10 +12,10 @@
 #' @param rad The net radiation in W/m^2
 #' @param tcc The total cloud cover in a range from 1  to 8
 #' @param ws wind speed in m/s
-#' @param option This is to determine which specific categories to use
-#' to determine the stability
-#'  class. It can be \code{impact} to comply with ARIA Impact(tm),
-#'  \code{pasquill} or \code{custom}.
+#' @param option The method used to detrmine the stability class. It can be
+#' \code{iaea} (default) to comply with ARIA Impact(tm), \code{pasquill} or \code{custom}.
+#' Previous option \code{impact} is the same as \code{iaea} and it is now
+#' deprecated.
 #'
 #' @return \code{stabilityClass} returns a numeric vector with Pasquill
 #' stability classes coded as: A = 1, B = 2, ... , F = 6.
@@ -32,18 +32,23 @@
 #'                               ws = stMeteo$ws,
 #'                               option = "custom")
 #'
-stabilityClass <- function(rad, tcc, ws, option = "impact") {
+stabilityClass <- function(rad, tcc, ws, option = "iaea") {
 
     # check if the input vectors have the same length
     if (length(rad) != length(tcc) || length(tcc) != length(ws) || length(rad) != length(ws))
         stop("The length of the three vectors is different.", call. = FALSE)
 
-    # check for stability option
-    if (option != "impact" && option != "pasquill" && option != "custom")
+    # check for stability method
+    if (!option %in% c("iaea", "impact", "pasquill", "custom"))
         stop("Invalid stability option.", call. = FALSE)
 
     if (option == "impact") {
-        # Impact radiation vector (night, night, night, day)
+        warning("option = \"impact\" is now deprecated.
+                 Please use the equivalent option = \"iaea\"")
+        option <- "iaea"
+    }
+
+    if (option == "iaea") {
         limrad <- 6
         radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, 9999)
 
@@ -69,20 +74,20 @@ stabilityClass <- function(rad, tcc, ws, option = "impact") {
         radlim <- c(limrad, limrad, 290.75, 581.5, 9999)
 
         # Pasquill velcocity vector
-        vel <- c(2, 3, 5, 6, 999)
+        vel <- c(2, 3, 4, 6, 999)
 
         # Pasquill cloud cover vector
         nuvo <- c(4, 999)
 
         # Pasquill stability classes
         tabStab <- array(NA, dim = c(5, 5))
-        tabStab[1, ] <- c(6, 5, 2, 1, 1)
+        tabStab[1, ] <- c(6, 6, 2, 1, 1)
         tabStab[2, ] <- c(6, 5, 3, 2, 1)
         tabStab[3, ] <- c(5, 4, 3, 3, 2)
         tabStab[4, ] <- c(4, 4, 4, 4, 3)
         tabStab[5, ] <- c(4, 4, 4, 4, 3)
     } else {
-
+        # custom
         limrad <- 1
         radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, 9999)
 

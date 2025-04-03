@@ -4,7 +4,7 @@
 \alias{stabilityClass}
 \title{Stability class.}
 \usage{
-stabilityClass(rad, tcc, ws, option = "impact")
+stabilityClass(rad, tcc, ws, option = "iaea")
 }
 \arguments{
 \item{rad}{The net radiation in W/m^2}
@@ -13,10 +13,10 @@ stabilityClass(rad, tcc, ws, option = "impact")
 
 \item{ws}{wind speed in m/s}
 
-\item{option}{This is to determine which specific categories to use
-to determine the stability
-class. It can be \code{impact} to comply with ARIA Impact(tm),
-\code{pasquill} or \code{custom}.}
+\item{option}{The method used to detrmine the stability class. It can be
+\code{iaea} (default) to comply with ARIA Impact(tm), \code{pasquill} or \code{custom}.
+Previous option \code{impact} is the same as \code{iaea} and it is now
+deprecated.}
 }
 \value{
 \code{stabilityClass} returns a numeric vector with Pasquill
