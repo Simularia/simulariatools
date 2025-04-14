@@ -41,7 +41,7 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
     }
 
     # Fix No visible binding for global variable
-    season <- clname <- hour <- NULL
+    season <- clname <- hour <- ascissa <- NULL
 
     if (type != "season" && type != "hour")
         stop("Unspecified plot type.", call. = FALSE)
