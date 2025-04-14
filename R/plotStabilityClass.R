@@ -88,7 +88,7 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
     }
 
     # Color values for the 6 classes
-    myColors <- RColorBrewer::brewer.pal(6, "Spectral")
+    myColors <- c("#D53E4F", "#FC8D59", "#FEE08B", "#E6F598", "#99D594", "#3288BD")
 
     # Plot
     v <- ggplot(mydata, aes(x = ascissa, fill = clname)) +
