@@ -5,6 +5,8 @@
 .RBuildignore
 .Rprofile
 
+.lintr
+
 *.swp
 
 .DS_Store
