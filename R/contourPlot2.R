@@ -296,7 +296,7 @@ contourPlot2 <- function(data,
         lineLevels <- levels
 
         if (lineLevels[length(lineLevels)] == "Inf") {
-            lineLevels <- lineLevels[1:length(lineLevels) - 1]
+            lineLevels <- lineLevels[seq_along(lineLevels) - 1]
         }
 
         if (lineLevels[1] == "-Inf") {

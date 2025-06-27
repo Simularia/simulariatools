@@ -7,24 +7,21 @@
 plotStabilityClass(mydata, sc = "sc", type = "season", locale = NULL)
 }
 \arguments{
-\item{mydata}{A data frame containing \code{date} and \code{stability class}
-fields.}
+\item{mydata}{The input data frame, which should contain \code{date} and \code{stability class} fields.}
 
-\item{sc}{The name of the stability class field.}
+\item{sc}{Name of the column in the data frame that represents the stability class.}
 
-\item{type}{type determines how the data are split and then plotted.
-Accepted values are "season" (default) and "hour".}
+\item{type}{Specify how the data are to be split and plotted. Accepted values are "season" (default) and "hour".}
 
-\item{locale}{Locale to use for day and month names. Default is current
-locale. Supported locales are listed in stringi::stri_locale_list().
-All other labels are in English by default or in Italian if its locale is
-specified.}
+\item{locale}{Choose the locale for day and month names. The current locale is used by default, but you can also
+specify a different one from the supported locales listed in stringi::stri_locale_list().
+All labels will be in English by default or in Italian if its locale is specified.}
 }
 \value{
 A \code{ggplot2} plot.
 }
 \description{
-Plot histogram of stability class on season or hour base.
+Histogram plot of stability classes by season or hour.
 }
 \details{
 Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
