@@ -16,3 +16,5 @@ todo_and_fixme.txt
 docs/
 pkgdown/ 
 revdep/
+
+.editorconfig
