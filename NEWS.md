@@ -1,4 +1,4 @@
-# simulariatools (development version)
+# simulariatools 2.5.1.9000 (development version)
 
 * `contourPlot2()` has new `mask` and `inverse_mask` arguments to plot data
 only inside (or outside) a polygon specified in a `shp` file. When this option
@@ -18,6 +18,11 @@ English.
 * `plotAvgRad()` now has options to change `ylabel` and `title`. 
 * In `plotAvgTemp()`, fixed bug related to the name of the column with
 temperature data.
+* In `stabilityClass()` the tables defining the stability class as functions of
+radiation, wind speed and cloud cover have been slightly updated.
+* In `stabilityClass()` the `impact` method has been deprecated and renamed to equivalent `iaea`.
+- In `plotStabilityClass()` a bug where a missing class was not shown in the
+legend has been fixed.
 * Other minor bugs have been fixed and documentation has been updated.
 
 
