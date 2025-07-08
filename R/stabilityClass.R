@@ -43,8 +43,7 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
         stop("Invalid stability option.", call. = FALSE)
 
     if (option == "impact") {
-        warning("option = \"impact\" is now deprecated.
-                 Please use the equivalent option = \"iaea\"")
+        warning("option = 'impact' is now deprecated. Please use the equivalent option 'iaea'")
         option <- "iaea"
     }
 
@@ -52,10 +51,10 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
         limrad <- 6
         radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, 9999)
 
-        # Impact velocity table
+        # IAEA velocity table
         vel <- c(1, 2, 4, 6, 7,  999)
 
-        # Impact cloud code table
+        # IAEA cloud cover vector
         nuvo <- c(4, 8, 999)
 
         # Impact stability classes
@@ -74,14 +73,14 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
         radlim <- c(limrad, limrad, 290.75, 581.5, 9999)
 
         # Pasquill velcocity vector
-        vel <- c(2, 3, 4, 6, 999)
+        vel <- c(2, 3, 5, 6, 999)
 
         # Pasquill cloud cover vector
-        nuvo <- c(4, 999)
+        nuvo <- c(5, 999)
 
         # Pasquill stability classes
         tabStab <- array(NA, dim = c(5, 5))
-        tabStab[1, ] <- c(6, 6, 2, 1, 1)
+        tabStab[1, ] <- c(6, 5, 2, 1, 1)
         tabStab[2, ] <- c(6, 5, 3, 2, 1)
         tabStab[3, ] <- c(5, 4, 3, 3, 2)
         tabStab[4, ] <- c(4, 4, 4, 4, 3)
@@ -108,15 +107,16 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
 
     catStab <- -9
 
-    lvec <- length(rad)
-
-    for (i in 1:lvec) {
+    for (i in seq_along(rad)) {
+        # Wind speed
         iv <- 1
         while (ws[i] >= vel[iv]) iv <- iv + 1
 
+        # Daytime, incoming solar radiation
         ir <- 1
         while (rad[i] >= radlim[ir]) ir <- ir + 1
 
+        # Nightime, cloud cover
         if (ir == 1) {
             while (tcc[i] >= nuvo[ir]) ir <- ir + 1
         }
