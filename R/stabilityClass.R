@@ -73,17 +73,17 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
         radlim <- c(limrad, limrad, 290.75, 581.5, 9999)
 
         # Pasquill velcocity vector
-        vel <- c(2, 3, 5, 6, 999)
+        vel <- c(2, 3, 4, 6, 999)
 
         # Pasquill cloud cover vector
-        nuvo <- c(5, 999)
+        nuvo <- c(4, 999)
 
         # Pasquill stability classes
         tabStab <- array(NA, dim = c(5, 5))
         tabStab[1, ] <- c(6, 5, 2, 1, 1)
-        tabStab[2, ] <- c(6, 5, 3, 2, 1)
+        tabStab[2, ] <- c(6, 5, 3, 2, 2)
         tabStab[3, ] <- c(5, 4, 3, 3, 2)
-        tabStab[4, ] <- c(4, 4, 4, 4, 3)
+        tabStab[4, ] <- c(4, 4, 4, 3, 3)
         tabStab[5, ] <- c(4, 4, 4, 4, 3)
     } else {
         # custom
