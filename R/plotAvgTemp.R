@@ -92,7 +92,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
     mydata_mean <- subset(mydata_mean,
                           select = c("date", "temp.x", "temp.y", "temp"))
     colnames(mydata_mean) <- c("date", "temp", "temp.min", "temp.max")
-    mydata_mean$date <- as.Date(mydata_mean$date, tz = TZ)
+    mydata_mean[["date"]] <- as.Date(mydata_mean[["date"]], tz = TZ)
 
     if (grepl("it", locale)) {
         media <- "Media"
@@ -111,25 +111,29 @@ plotAvgTemp <- function(mydata, temp = "temp",
     }
 
     bar_plot <- ggplot(mydata_mean, aes(date, temp)) +
-        geom_bar(aes(color = media,  fill = media),
-                 stat = "identity",
-                 show.legend = FALSE) +
-        geom_line(aes(x = date, y = temp.min, color = minima),  size = 1) +
-        geom_line(aes(date, temp.max, color = massima),  size = 1) +
-        scale_y_continuous(labels = scales::label_math(.x * degree),
-                           breaks = seq(-20, 40, 5)) +
+        geom_bar(aes(colour = media,  fill = media), stat = "identity") +
+        geom_line(aes(x = date, y = temp.min, colour = minima),  size = 1, key_glyph = "timeseries") +
+        geom_line(aes(x = date, y = temp.max, colour = massima),  size = 1, key_glyph = "timeseries") +
         labs(title = title, x = "", y = ylabel) +
         scale_x_date(breaks = scales::breaks_width(width = avg.time),
                      labels = scales::label_date("%b", locale = locale)) +
-        scale_color_manual(breaks = c(massima, media, minima),
-                           values = c("darkorange2", "steelblue", "darkgreen"),
-                           guide = guide_legend(title = NULL)) +
-        scale_fill_manual(label = media, values = c("steelblue"), guide = NULL)  +
+        scale_y_continuous(labels = scales::label_math(.x * degree),
+                           breaks = seq(-20, 40, 5)) +
+        scale_color_manual(name = NULL,
+                           limits = c(media, massima, minima),
+                           breaks = c(media, massima, minima),
+                           values = c("steelblue", "darkorange2", "darkgreen")) +
+        scale_fill_manual(name = NULL,
+                           limits = c(media, massima, minima),
+                           breaks = c(media, massima, minima),
+                           values = c("steelblue", "darkorange2", "darkgreen")) +
         theme_bw(base_family = "sans") +
         theme(legend.position = c(0.01, 0.99),
+              legend.key.spacing.y = unit(2, "pt"),
               legend.justification = c(0, 1),
               legend.box.margin = margin(t = 0, unit = "mm"),
-              panel.grid.major.x = element_blank())
+              panel.grid.major.x = element_blank()) +
+        NULL
 
     # Prepare table of data to be plot in the lower part of the figure
     # See http://learnr.wordpress.com/2009/04/29/

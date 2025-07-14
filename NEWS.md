@@ -16,6 +16,7 @@ locale. Also added an optional argument to override the system locale.
 Currently supported locale are Italian and English. Others are converted to
 English.
 * `plotAvgRad()` now has options to change `ylabel` and `title`. 
+* In `plotAvgTemp()`, fixed missing colour in the legend for average temperature.
 * In `plotAvgTemp()`, fixed bug related to the name of the column with
 temperature data.
 * In `stabilityClass()` the tables defining the stability class as functions of
