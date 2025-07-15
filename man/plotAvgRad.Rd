@@ -18,11 +18,12 @@ plotAvgRad(
 series.}
 
 \item{date}{Name of the column representing date and time (data must be
-of classes \code{POSIXlt} or \code{POSIXct}).}
+of classes \code{POSIXlt} or \code{POSIXct}). If timezone is unspecified, it is set
+to GMT.}
 
 \item{rad}{Name of the column representing radiation.}
 
-\item{ylabel}{The label along the y axis. If NULL a default label is plotted.}
+\item{ylabel}{The label along the y axis. If missing a default label is plotted.}
 
 \item{title}{Optional plot title}
 

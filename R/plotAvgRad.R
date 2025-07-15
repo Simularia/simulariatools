@@ -6,7 +6,8 @@
 #' @param mydata A data frame containing fields with solar radiation time
 #' series.
 #' @param date  Name of the column representing date and time (data must be
-#' of classes `POSIXlt` or `POSIXct`).
+#' of classes `POSIXlt` or `POSIXct`). If timezone is unspecified, it is set
+#' to GMT.
 #' @param rad   Name of the column representing radiation.
 #' @param ylabel The label along the y axis. If missing a default label is plotted.
 #' @param title Optional plot title
@@ -33,6 +34,12 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
     # Rename columns
     names(mydata)[names(mydata) == date] <- 'date'
     names(mydata)[names(mydata) == rad] <- 'rad'
+
+    # If undefined set timezone to GMT
+    TZ <- attr(mydata$date, "tzone")
+    if (is.null(TZ) || !TZ %in% OlsonNames()) {
+        attr(mydata$date, "tzone") <- "GMT"
+    }
 
     # Select datetime and radiation
     mydata <- subset(mydata, select = c(date, rad))
