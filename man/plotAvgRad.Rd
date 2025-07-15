@@ -17,11 +17,12 @@ plotAvgRad(
 \item{mydata}{A data frame containing fields with solar radiation time
 series.}
 
-\item{date}{Name of the column representing date and time.}
+\item{date}{Name of the column representing date and time (data must be
+of classes \code{POSIXlt} or \code{POSIXct}).}
 
 \item{rad}{Name of the column representing radiation.}
 
-\item{ylabel}{The label along the y axis.}
+\item{ylabel}{The label along the y axis. If NULL a default label is plotted.}
 
 \item{title}{Optional plot title}
 

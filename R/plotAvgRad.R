@@ -5,9 +5,10 @@
 #'
 #' @param mydata A data frame containing fields with solar radiation time
 #' series.
-#' @param date  Name of the column representing date and time.
+#' @param date  Name of the column representing date and time (data must be
+#' of classes `POSIXlt` or `POSIXct`).
 #' @param rad   Name of the column representing radiation.
-#' @param ylabel The label along the y axis.
+#' @param ylabel The label along the y axis. If missing a default label is plotted.
 #' @param title Optional plot title
 #' @param locale Locale to use for legend. Default is English, the only other
 #' one currently supported is italian.
@@ -92,8 +93,7 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
                           limits = c(media, massima, minima),
                           breaks = c(media, massima, minima),
                           guide = guide_legend(title = NULL)) +
-        labs(x = NULL,
-            y = ylabel) +
+        labs(x = NULL, y = ylabel) +
         theme_bw(base_family = "sans") +
         theme(legend.position = c(0.01, 0.99),
               legend.key.spacing.y = unit(2, "pt"),
