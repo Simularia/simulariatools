@@ -27,9 +27,6 @@
 plotAvgRad <- function(mydata, date = "date", rad = "radg",
                        ylabel = NULL, title = "", locale = NULL) {
 
-    if (!requireNamespace("openair", quietly = TRUE)) {
-        stop("Please install openair from CRAN.", call. = FALSE)
-    }
     mydata <- as.data.frame(mydata)
 
     # Rename columns
@@ -38,8 +35,9 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
 
     # Select datetime and radiation
     mydata <- subset(mydata, select = c(date, rad))
-    mydata_dec <- openair::selectByDate(mydata, month = 12)
-    mydata_jun <- openair::selectByDate(mydata, month = 6)
+    mydata["month"] <- lubridate::month(mydata[["date"]])
+    mydata_jun <- mydata[mydata$month == 6, ]
+    mydata_dec <- mydata[mydata$month == 12, ]
 
     means <- stats::aggregate(mydata["rad"],
                               by = format(mydata["date"], "%H"),
@@ -69,6 +67,15 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
         massima <- "June maximum"
     }
 
+    # Check if ylabel has been passed as an argument
+    if (missing(ylabel)) {
+        if (grepl("it", locale)) {
+            ylabel <- expression(paste("Radiazione Globale [W/", m^{2},"]"))
+        } else {
+            ylabel <- expression(paste("Global Radiaton [W/", m^{2},"]"))
+        }
+    }
+
     v <- ggplot(data = means, aes(x = date, y = rad)) +
         geom_bar(aes(color = media, fill = media), stat = "identity") +
         geom_line(data = max_dec, aes(x = date, y = rad, color = minima), size = 1) +
@@ -86,7 +93,6 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
                           breaks = c(media, massima, minima),
                           guide = guide_legend(title = NULL)) +
         labs(x = NULL,
-            # y = expression(paste("Radiazione Globale [W/", m^{2},"]"))) +
             y = ylabel) +
         theme_bw(base_family = "sans") +
         theme(legend.position = c(0.01, 0.99),
