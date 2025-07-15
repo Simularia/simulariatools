@@ -70,24 +70,31 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
     }
 
     v <- ggplot(data = means, aes(x = date, y = rad)) +
-        geom_bar(aes(color = media, fill = media), stat = "identity", show.legend = FALSE) +
+        geom_bar(aes(color = media, fill = media), stat = "identity") +
         geom_line(data = max_dec, aes(x = date, y = rad, color = minima), size = 1) +
         geom_line(data = max_jun, aes(x = date, y = rad, color = massima), size = 1) +
         scale_y_continuous(breaks = seq(0, 1000, 100)) +
         scale_x_continuous(breaks = 0:23, limits = c(0, 23)) +
-        scale_color_manual(values = c("steelblue", "darkgreen", "darkorange2"),
-                           breaks = c(media, minima, massima),
+        scale_color_manual(name  = NULL,
+                           values = c("steelblue", "darkorange2", "darkgreen"),
+                           limits = c(media, massima, minima),
+                           breaks = c(media, massima, minima),
                            guide = guide_legend(title = NULL)) +
-        scale_fill_manual(label = media, values = c("steelblue"), guide = NULL)  +
+        scale_fill_manual(name = NULL,
+                          values = c("steelblue", "darkorange2", "darkgreen"),
+                          limits = c(media, massima, minima),
+                          breaks = c(media, massima, minima),
+                          guide = guide_legend(title = NULL)) +
         labs(x = NULL,
-             # y = expression(paste("Radiazione Globale [W/", m^{2},"]"))) +
-             y = ylabel) +
+            # y = expression(paste("Radiazione Globale [W/", m^{2},"]"))) +
+            y = ylabel) +
         theme_bw(base_family = "sans") +
         theme(legend.position = c(0.01, 0.99),
+              legend.key.spacing.y = unit(2, "pt"),
               legend.justification = c(0, 1),
               legend.box.margin = margin(t = 0, unit = "cm"),
-              panel.grid.major.x = element_blank()
-        )
+              panel.grid.major.x = element_blank()) +
+        NULL
 
     return(v)
 }
