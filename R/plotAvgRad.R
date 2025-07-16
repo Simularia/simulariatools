@@ -86,8 +86,8 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
 
     v <- ggplot(data = means, aes(x = date, y = rad)) +
         geom_bar(aes(color = media, fill = media), stat = "identity") +
-        geom_line(data = max_dec, aes(x = date, y = rad, color = minima), size = 1) +
-        geom_line(data = max_jun, aes(x = date, y = rad, color = massima), size = 1) +
+        geom_line(data = max_dec, aes(x = date, y = rad, color = minima), linewidth = 1) +
+        geom_line(data = max_jun, aes(x = date, y = rad, color = massima), linewidth = 1) +
         scale_y_continuous(breaks = seq(0, 1000, 100)) +
         scale_x_continuous(breaks = 0:23, limits = c(0, 23)) +
         scale_color_manual(name  = NULL,

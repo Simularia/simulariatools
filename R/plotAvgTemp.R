@@ -70,29 +70,24 @@ plotAvgTemp <- function(mydata, temp = "temp",
         ylabel <- "Temperature [C]"
     }
 
+    # If undefined set timezone to GMT
     TZ <- attr(mydata$date, "tzone")
-    if (is.null(TZ))
-        TZ <- "GMT"
-
-    if (!requireNamespace("openair", quietly = TRUE)) {
-        stop("Please install openair from CRAN.", call. = FALSE)
+    if (is.null(TZ) || !TZ %in% OlsonNames()) {
+        attr(mydata$date, "tzone") <- "GMT"
     }
-    mydata_mean <- openair::timeAverage(mydata,
-                                        statistic = "mean",
-                                        avg.time = avg.time)
-    mydata_max <- openair::timeAverage(mydata,
-                                       statistic = "max",
-                                       avg.time = avg.time)
-    mydata_min <- openair::timeAverage(mydata,
-                                       statistic = "min",
-                                       avg.time = avg.time)
 
-    mydata_mean <- merge(mydata_mean, mydata_min, by = "date", all = TRUE)
-    mydata_mean <- merge(mydata_mean, mydata_max, by = "date", all = TRUE)
+    mydata[["Month"]] <- strftime(mydata[["date"]], format = "%m")
+    mydata_mean <- stats::aggregate(temp ~ Month, data = mydata, FUN = "mean", na.rm = TRUE)
+    mydata_min <- stats::aggregate(temp ~ Month, data = mydata, FUN = "min", na.rm = TRUE)
+    mydata_max <- stats::aggregate(temp ~ Month, data = mydata, FUN = "max", na.rm = TRUE)
+
+    mydata_mean <- merge(mydata_mean, mydata_min, by = "Month", all = TRUE)
+    mydata_mean <- merge(mydata_mean, mydata_max, by = "Month", all = TRUE)
     mydata_mean <- subset(mydata_mean,
-                          select = c("date", "temp.x", "temp.y", "temp"))
+                          select = c("Month", "temp.x", "temp.y", "temp"))
     colnames(mydata_mean) <- c("date", "temp", "temp.min", "temp.max")
-    mydata_mean[["date"]] <- as.Date(mydata_mean[["date"]], tz = TZ)
+    # mydata_mean[["date"]] <- as.numeric(mydata_mean[["date"]])
+    mydata_mean[["date"]] <- months.POSIXt(mydata_mean[["date"]])
 
     if (grepl("it", locale)) {
         media <- "Media"
@@ -112,8 +107,8 @@ plotAvgTemp <- function(mydata, temp = "temp",
 
     bar_plot <- ggplot(mydata_mean, aes(date, temp)) +
         geom_bar(aes(colour = media,  fill = media), stat = "identity") +
-        geom_line(aes(x = date, y = temp.min, colour = minima),  size = 1, key_glyph = "timeseries") +
-        geom_line(aes(x = date, y = temp.max, colour = massima),  size = 1, key_glyph = "timeseries") +
+        geom_line(aes(x = date, y = temp.min, colour = minima),  linewidth = 1, key_glyph = "timeseries") +
+        geom_line(aes(x = date, y = temp.max, colour = massima),  linewidth = 1, key_glyph = "timeseries") +
         labs(title = title, x = "", y = ylabel) +
         scale_x_date(breaks = scales::breaks_width(width = avg.time),
                      labels = scales::label_date("%b", locale = locale)) +
