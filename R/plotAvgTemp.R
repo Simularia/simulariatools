@@ -86,8 +86,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
     mydata_mean <- subset(mydata_mean,
                           select = c("Month", "temp.x", "temp.y", "temp"))
     colnames(mydata_mean) <- c("date", "temp", "temp.min", "temp.max")
-    # mydata_mean[["date"]] <- as.numeric(mydata_mean[["date"]])
-    mydata_mean[["date"]] <- months.POSIXt(mydata_mean[["date"]])
+    mydata_mean[["date"]] <- ISOdate(2021, mydata_mean$date, 1)
 
     if (grepl("it", locale)) {
         media <- "Media"
