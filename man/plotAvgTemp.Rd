@@ -22,7 +22,7 @@ named as "date".}
 \item{avg.time}{Defines the time period to average to.
 Currently the only supported period is "1 month" (default).}
 
-\item{ylabel}{The label along y axis}
+\item{ylabel}{The label along the y axis. If missing a default label is plotted.}
 
 \item{title}{Optional plot title}
 

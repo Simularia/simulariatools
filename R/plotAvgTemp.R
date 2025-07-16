@@ -8,7 +8,7 @@
 #' @param temp Name of the column representing temperature (default = "temp")
 #' @param avg.time Defines the time period to average to.
 #' Currently the only supported period is "1 month" (default).
-#' @param ylabel The label along y axis
+#' @param ylabel The label along the y axis. If missing a default label is plotted.
 #' @param title Optional plot title
 #' @param locale Locale to use for day and month names. Default is current
 #' locale. Supported locales are listed in stringi::stri_locale_list().
@@ -63,11 +63,13 @@ plotAvgTemp <- function(mydata, temp = "temp",
         locale <- Sys.getlocale(category = "LC_TIME")
     }
 
-    # Set ylabel according to locale
-    if (grepl("it", locale)) {
-        ylabel <- "Temperatura [C]"
-    } else {
-        ylabel <- "Temperature [C]"
+    # Check if ylabel has been passed as an argument
+    if (missing(ylabel)) {
+        if (grepl("it", locale)) {
+            ylabel <- "Temperatura [C]"
+        } else {
+            ylabel <- "Temperature [C]"
+        }
     }
 
     # If undefined set timezone to GMT
