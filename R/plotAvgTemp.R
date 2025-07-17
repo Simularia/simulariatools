@@ -92,18 +92,18 @@ plotAvgTemp <- function(mydata, temp = "temp",
 
     if (grepl("it", locale)) {
         media <- "Media"
-        mediaShort <- "media"
+        mediaShort <- "Media"
         minima <- "Minima"
-        minimaShort <- "min"
+        minimaShort <- "Min"
         massima <- "Massima"
-        massimaShort <- "max"
+        massimaShort <- "Max"
     } else {
         media <- "Average"
-        mediaShort <- "avg"
+        mediaShort <- "Avg"
         minima <- "Minimum"
-        minimaShort <- "min"
+        minimaShort <- "Min"
         massima <- "Maximum"
-        massimaShort <- "max"
+        massimaShort <- "Max"
     }
 
     bar_plot <- ggplot(mydata_mean, aes(date, temp)) +
