@@ -80,6 +80,7 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
         mydata$season[mydata$season == 3] <- summerLabel
         mydata$season[mydata$season == 4] <- autumnLabel
         mydata$ascissa <- factor(mydata$season, levels = unique(mydata$season))
+        xlabel <- NULL
     } else {
         mydata$ascissa <- factor(as.numeric(format(mydata$date, format = "%H")))
     }
