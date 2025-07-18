@@ -9,7 +9,7 @@ outside plot domain were set to NA's, which potentially caused artifacts at
 the borders.
 * Some fixes in `contourPlot2()`: with `ggplot2` v3.5.0 there is a breaking
 change where `guide_legend()` only draws a key glyph for a layer when the value
-is in the layer’s data. Furthermore, when plotting lines only we remove -Inf
+is in the layer’s data. Furthermore, when plotting lines only, we remove -Inf
 from the levels, if present.
 * Labels in `plotAvgTemp()`, `plotStabilityClass()` and `plotAvgRad()` respect
 locale. Also added an optional argument to override the system locale.
@@ -24,6 +24,7 @@ radiation, wind speed and cloud cover have been slightly updated.
 * In `stabilityClass()` the `impact` method has been deprecated and renamed to equivalent `iaea`.
 - In `plotStabilityClass()` a bug where a missing class was not shown in the
 legend has been fixed.
+- Remove some `Openair` dependencies.
 * Other minor bugs have been fixed and documentation has been updated.
 
 
