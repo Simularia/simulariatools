@@ -22,7 +22,8 @@ named as "date".}
 \item{avg.time}{Defines the time period to average to.
 Currently the only supported period is "1 month" (default).}
 
-\item{ylabel}{The label along the y axis. If missing a default label is plotted.}
+\item{ylabel}{The label along the y axis.
+If missing a default label is plotted.}
 
 \item{title}{Optional plot title}
 
@@ -38,9 +39,6 @@ range of time.
 \description{
 \code{plotAvgTemp} builds a bar plot of time average temperature and two
 line plots with maximum and minimum temperature.
-}
-\note{
-\code{plotAvgTemp} uses \code{openair::timeAvearge} to compute average.
 }
 \examples{
 # Plot histogram with monthly averages together with maxima and minima
