@@ -13,3 +13,5 @@
 ^pkgdown$
 ^revdep$
 ^CRAN-SUBMISSION$
+.editorconfig
+.lintr
