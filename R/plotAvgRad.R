@@ -78,9 +78,9 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
     # Check if ylabel has been passed as an argument
     if (missing(ylabel)) {
         if (grepl("it", locale)) {
-            ylabel <- expression(paste("Radiazione Globale [W/", m^{2},"]"))
+            ylabel <- expression(paste("Radiazione Globale [W/", m^2, "]"))
         } else {
-            ylabel <- expression(paste("Global Radiaton [W/", m^{2},"]"))
+            ylabel <- expression(paste("Global Radiaton [W/", m^2, "]"))
         }
     }
 
