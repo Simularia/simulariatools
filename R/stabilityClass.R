@@ -7,18 +7,33 @@
 #' on net radiation, total cloud cover tcc and wind speed.
 #' Net radiation and wind are used by day; tcc and wind are used by night.
 #'
-#' Three different alogorithms are implemented; see source code for details.
+#' Three different alogorithms are implemented, selected by the `option`
+#' argument.
+#'
+#' \code{iaea} option implements the *radiation-wind method recommended by the
+#' International Atomic Energy Agency (IAEA) and it is based on the net
+#' radiation during the day and cloud cover by night.
+#'
+#' \code{pasquill} option is based on the original Pasquill formulation and
+#' lacks the "very weak" solar insolation present in the modified \code{iaea}
+#' version.
+#' 
+#' Eventually, the \code{custom} options is similar to \code{iaea},
+#' with slightly different set of parameters for net radiation, wind speed
+#' and cloud cover.
+#'
+#' Previously used option \code{impact} is the same as \code{iaea} and it is now
+#' deprecated.
 #'
 #' @param rad The net radiation in W/m^2
 #' @param tcc The total cloud cover in a range from 1  to 8
 #' @param ws wind speed in m/s
-#' @param option The method used to detrmine the stability class. It can be
-#' \code{iaea} (default) to comply with ARIA Impact(tm), \code{pasquill} or \code{custom}.
-#' Previous option \code{impact} is the same as \code{iaea} and it is now
-#' deprecated.
+#' @param option The method used to determine the stability class. It can be
+#' \code{iaea} (default), \code{pasquill} or \code{custom}.
 #'
 #' @return \code{stabilityClass} returns a numeric vector with Pasquill
-#' stability classes coded as: A = 1, B = 2, ... , F = 6.
+#' stability classes coded as: A = 1, B = 2, ... , F = 6 ranging from
+#' "very unstable" to "very stable".
 #'
 #' @seealso [plotStabilityClass()]
 #'
@@ -52,6 +67,8 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
 
     if (option == "iaea") {
         limrad <- 6
+        # Original radiation limits as 12.5, 25 and 40 langleys/h
+        # Here converted to Watt/m^2
         radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, Inf)
 
         # IAEA velocity table

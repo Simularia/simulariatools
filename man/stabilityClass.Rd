@@ -13,14 +13,13 @@ stabilityClass(rad, tcc, ws, option = "iaea")
 
 \item{ws}{wind speed in m/s}
 
-\item{option}{The method used to detrmine the stability class. It can be
-\code{iaea} (default) to comply with ARIA Impact(tm), \code{pasquill} or \code{custom}.
-Previous option \code{impact} is the same as \code{iaea} and it is now
-deprecated.}
+\item{option}{The method used to determine the stability class. It can be
+\code{iaea} (default), \code{pasquill} or \code{custom}.}
 }
 \value{
 \code{stabilityClass} returns a numeric vector with Pasquill
-stability classes coded as: A = 1, B = 2, ... , F = 6.
+stability classes coded as: A = 1, B = 2, ... , F = 6 ranging from
+"very unstable" to "very stable".
 }
 \description{
 Computes stability class given net radiation, total cloud cover and wind
@@ -31,7 +30,23 @@ speed.
 on net radiation, total cloud cover tcc and wind speed.
 Net radiation and wind are used by day; tcc and wind are used by night.
 
-Three different alogorithms are implemented; see source code for details.
+Three different alogorithms are implemented, selected by the \code{option}
+argument.
+
+\code{iaea} option implements the *radiation-wind method recommended by the
+International Atomic Energy Agency (IAEA) and it is based on the net
+radiation during the day and cloud cover by night.
+
+\code{pasquill} option is based on the original Pasquill formulation and
+lacks the "very weak" solar insolation present in the modified \code{iaea}
+version.
+
+Eventually, the \code{custom} options is similar to \code{iaea},
+with slightly different set of parameters for net radiation, wind speed
+and cloud cover.
+
+Previously used option \code{impact} is the same as \code{iaea} and it is now
+deprecated.
 }
 \examples{
 
