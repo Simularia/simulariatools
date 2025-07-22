@@ -35,12 +35,15 @@
 stabilityClass <- function(rad, tcc, ws, option = "iaea") {
 
     # check if the input vectors have the same length
-    if (length(rad) != length(tcc) || length(tcc) != length(ws) || length(rad) != length(ws))
+    if (length(rad) != length(tcc) || length(tcc) != length(ws) ||
+            length(rad) != length(ws)) {
         stop("The length of the three vectors is different.", call. = FALSE)
+    }
 
     # check for stability method
-    if (!option %in% c("iaea", "impact", "pasquill", "custom"))
+    if (!option %in% c("iaea", "impact", "pasquill", "custom")) {
         stop("Invalid stability option.", call. = FALSE)
+    }
 
     if (option == "impact") {
         warning("option = 'impact' is now deprecated. Please use the equivalent option 'iaea'")
@@ -49,13 +52,13 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
 
     if (option == "iaea") {
         limrad <- 6
-        radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, 9999)
+        radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, Inf)
 
         # IAEA velocity table
-        vel <- c(1, 2, 4, 6, 7,  999)
+        vel <- c(1, 2, 4, 6, 7, Inf)
 
         # IAEA cloud cover vector
-        nuvo <- c(4, 8, 999)
+        nuvo <- c(4, 8, Inf)
 
         # Impact stability classes
         tabStab <- array(NA, dim = c(6, 7))
@@ -70,13 +73,13 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
 
         # Pasquill raditaion vector (night, night, night, day)
         limrad <- 1
-        radlim <- c(limrad, limrad, 290.75, 581.5, 9999)
+        radlim <- c(limrad, limrad, 290.75, 581.5, Inf)
 
         # Pasquill velcocity vector
-        vel <- c(2, 3, 4, 6, 999)
+        vel <- c(2, 3, 4, 6, Inf)
 
         # Pasquill cloud cover vector
-        nuvo <- c(4, 999)
+        nuvo <- c(4, Inf)
 
         # Pasquill stability classes
         tabStab <- array(NA, dim = c(5, 5))
@@ -88,13 +91,13 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
     } else {
         # custom
         limrad <- 1
-        radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, 9999)
+        radlim <- c(limrad, limrad, limrad, 145.4, 290.75, 581.5, Inf)
 
         # Velocity vector
-        vel <- c(2, 3, 4, 6, 999)
+        vel <- c(2, 3, 4, 6, Inf)
 
         # Cloud cover vector
-        nuvo <- c(2, 5, 999)
+        nuvo <- c(2, 5, Inf)
 
         # Stability classes
         tabStab <- array(NA, dim = c(5, 7))
@@ -105,7 +108,7 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
         tabStab[5, ] <- c(4, 4, 4, 4, 4, 4, 3)
     }
 
-    catStab <- -9
+    catStab <- NA
 
     for (i in seq_along(rad)) {
         # Wind speed
