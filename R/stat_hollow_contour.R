@@ -1,8 +1,8 @@
 #' Contour plot with hollow management
 #' 
 #' @import ggplot2
-#' @param mapping Set of aesthetic mappings created by [aes()] or
-#'   [aes_()]. If specified and `inherit.aes = TRUE` (the
+#' @param mapping Set of aesthetic mappings created by [ggplot2::aes()] or
+#'   [ggplot2::aes_()]. If specified and `inherit.aes = TRUE` (the
 #'   default), it is combined with the default mapping at the top level of the
 #'   plot. You must supply `mapping` if there is no plot mapping.
 #' @param data The data to be displayed in this layer.
@@ -19,8 +19,8 @@
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
-#'   the default plot specification, e.g. [borders()].
-#' @param ... Other arguments passed on to [layer()].
+#'   the default plot specification, e.g. borders().
+#' @param ... Other arguments passed on to layer().
 #' @keywords internal
 stat_hollow_contour <- function(mapping = NULL, data = NULL, 
                                 geom = "hollow_polygon", position = "identity",
