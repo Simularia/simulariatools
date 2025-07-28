@@ -51,9 +51,9 @@ plot.}
 \item{legend}{optional title of the legend.}
 
 \item{levels}{numeric vector of levels for contour plot. If not set,
-automatic pretty levels are computed. If \code{-Inf} and \code{Inf} are used as the lowest
-and highest limits of the array, the lowest and highest bands are unbounded
-and the legend shows \code{<} and \code{>=} symbols.}
+automatic pretty levels are computed. If \code{-Inf} and \code{Inf} are used
+as the lowest and highest limits of the array, the lowest and highest bands
+are unbounded and the legend shows \code{<} and \code{>=} symbols.}
 
 \item{size}{thickness of the contour line.}
 
@@ -69,8 +69,8 @@ colour.}
 
 \item{mask}{path to \emph{shp} file used as a mask. It must be a closed polygon.}
 
-\item{inverse_mask}{logical. If \code{TRUE} areas on mask are masked. Default is to
-mask areas outside the polygon defined in the \emph{shp} file.}
+\item{inverse_mask}{logical. If \code{TRUE} areas on mask are masked. Default is
+to mask areas outside the polygon defined in the \emph{shp} file.}
 
 \item{bare}{boolean (default FALSE). If TRUE only the bare plot is shown:
 axis, legend, titles and any other graphical element of the plot are removed.}
@@ -108,10 +108,11 @@ or receptors locations.
 When a \emph{shp} file is given to the \code{mask} argument the plot is drawn only
 inside the polygon. In order to avoid boundary artifacts due to reduced
 resolution, original data are resampled to higher resolution (currently
-set to 10x the original one.) If\code{inverse_mask} is set to \code{TRUE}, the plot is drawn
-outside  the polygon. The \emph{mask} feature is based on the same name function
-of the \code{terra} package. The CRS of the \emph{shp} file is applied to the data
-in the data.frame. Please, keep in mind this feature is still experimental.
+set to 10x the original one.) If\code{inverse_mask} is set to \code{TRUE}, the plot
+is drawn outside  the polygon. The \emph{mask} feature is based on the function
+with the same name of the \code{terra} package. The CRS of the \emph{shp} file is
+applied to the data in the data.frame. Please, keep in mind this feature
+is still experimental.
 }
 \examples{
 # Load example data in long format

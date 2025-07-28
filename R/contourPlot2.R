@@ -20,9 +20,9 @@
 #' plot.
 #' @param legend optional title of the legend.
 #' @param levels numeric vector of levels for contour plot. If not set,
-#' automatic pretty levels are computed. If `-Inf` and `Inf` are used as the lowest
-#' and highest limits of the array, the lowest and highest bands are unbounded
-#' and the legend shows `<` and `>=` symbols.
+#' automatic pretty levels are computed. If `-Inf` and `Inf` are used
+#' as the lowest and highest limits of the array, the lowest and highest bands
+#' are unbounded and the legend shows `<` and `>=` symbols.
 #' @param transparency transparency level of the contour plot between 0.0
 #' (fully transparent) and 1.0 (fully opaque). Default = 0.75).
 #' @param colors colour palette for contour plot, as an array of colours.
@@ -33,8 +33,8 @@
 #' colour.
 #' @param tile boolean (default FALSE). If TRUE rectangular tiles are plotted.
 #' @param mask path to _shp_ file used as a mask. It must be a closed polygon.
-#' @param inverse_mask logical. If `TRUE` areas on mask are masked. Default is to
-#' mask areas outside the polygon defined in the _shp_ file.
+#' @param inverse_mask logical. If `TRUE` areas on mask are masked. Default is
+#' to mask areas outside the polygon defined in the _shp_ file.
 #'
 #' @details
 #'
@@ -62,10 +62,11 @@
 #' When a _shp_ file is given to the `mask` argument the plot is drawn only
 #' inside the polygon. In order to avoid boundary artifacts due to reduced
 #' resolution, original data are resampled to higher resolution (currently
-#' set to 10x the original one.) If`inverse_mask` is set to `TRUE`, the plot is drawn
-#' outside  the polygon. The *mask* feature is based on the same name function
-#' of the `terra` package. The CRS of the _shp_ file is applied to the data
-#' in the data.frame. Please, keep in mind this feature is still experimental.
+#' set to 10x the original one.) If`inverse_mask` is set to `TRUE`, the plot
+#' is drawn outside  the polygon. The *mask* feature is based on the function
+#' with the same name of the `terra` package. The CRS of the _shp_ file is
+#' applied to the data in the data.frame. Please, keep in mind this feature
+#' is still experimental.
 #'
 #' @return A \code{ggplot2} object.
 #'
@@ -179,48 +180,72 @@ contourPlot2 <- function(data,
         levels <- append(levels, Inf)
         nlevels <- length(levels)
     }
-    prettyLevels <- prettyNum(levels)
-    lab_levels <- parse(text = paste(prettyLevels[1:(nlevels - 1)], "-", prettyLevels[2:nlevels]))
+    pretty_levels <- prettyNum(levels)
+    lab_levels <- parse(
+        text = paste(
+            pretty_levels[1:(nlevels - 1)], "-", pretty_levels[2:nlevels]
+        )
+    )
     if (levels[nlevels] == Inf && !isTRUE(tile)) {
-        lab_levels[nlevels - 1] <- parse(text = paste("\"\">=", prettyLevels[nlevels - 1]))
+        lab_levels[nlevels - 1] <- parse(
+            text = paste("\"\">=", pretty_levels[nlevels - 1])
+        )
     } else if (levels[nlevels] == Inf && isTRUE(tile)) {
-        lab_levels[nlevels - 1] <- parse(text = paste("\"\">=", prettyLevels[nlevels - 1]))
+        lab_levels[nlevels - 1] <- parse(
+            text = paste("\"\">=", pretty_levels[nlevels - 1])
+        )
     }
     if (levels[1] == -Inf) {
-        lab_levels[1] <- parse(text = paste("\"\" <", prettyLevels[2]))
+        lab_levels[1] <- parse(text = paste("\"\" <", pretty_levels[2]))
     }
 
     # Colour palette
-    spectral <- c("#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", "#FFFFBF",
-                  "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142")
+    spectral <- c(
+        "#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", "#FFFFBF",
+        "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142"
+    )
     if (is.null(colors)) {
-        myPalette <- grDevices::colorRampPalette(spectral)
+        my_palette <- grDevices::colorRampPalette(spectral)
         # Omit first colour for aesthetic reasons
-        myColors <- myPalette(nlevels)
-        myColors <- myColors[2:length(myColors)]
-        myColorsLines <- cbind(myColors, "black")
+        my_colors <- my_palette(nlevels)
+        my_colors <- my_colors[2:length(my_colors)]
+        my_colors_lines <- cbind(my_colors, "black")
     } else {
-        myPalette <- grDevices::colorRampPalette(colors, alpha = TRUE)
-        myColors <- myPalette(length(levels) - 1)
-        myColorsLines <- cbind(myColors, "black")
+        my_palette <- grDevices::colorRampPalette(colors, alpha = TRUE)
+        my_colors <- my_palette(length(levels) - 1)
+        my_colors_lines <- cbind(my_colors, "black")
     }
 
     # Mask
     if (!missing(mask)) {
         if (!requireNamespace("sf", quietly = TRUE)) {
-            stop("Please install the `sf` package to use `mask`.", call. = FALSE)
+            stop(
+                "Please install the `sf` package to use `mask`.",
+                call. = FALSE
+            )
         } else {
-            maskPolygon <- sf::st_read(mask, quiet = TRUE)
-            rdata <- terra::rast(data, type = "xyz", crs = terra::crs(maskPolygon))
+            mask_polygon <- sf::st_read(mask, quiet = TRUE)
+            rdata <- terra::rast(
+                data,
+                type = "xyz",
+                crs = terra::crs(mask_polygon)
+            )
 
             # Resample
-            rdataExt <- terra::ext(rdata)
-            resampleRes <- terra::res(rdata) / 10
-            resampleTarget <- terra::rast(extent = rdataExt, resolution = resampleRes)
-            rdata <- terra::resample(rdata, resampleTarget)
+            rdata_ext <- terra::ext(rdata)
+            resample_res <- terra::res(rdata) / 10
+            resample_target <- terra::rast(
+                extent = rdata_ext,
+                resolution = resample_res
+            )
+            rdata <- terra::resample(rdata, resample_target)
 
             # mask
-            rdata <- terra::mask(x = rdata, mask = maskPolygon, inverse = inverse_mask)
+            rdata <- terra::mask(
+                x = rdata,
+                mask = mask_polygon,
+                inverse = inverse_mask
+            )
             data <- terra::as.data.frame(rdata, xy = TRUE)
         }
     }
@@ -271,36 +296,42 @@ contourPlot2 <- function(data,
                               drop = FALSE,
                               guide = guide_legend(reverse = TRUE),
                               labels = lab_levels,
-                              values = myColors)
+                              values = my_colors)
     }
 
     # Contour plot
     if (isTRUE(fill)) {
         v <- v +
-            geom_contour_filled(aes(x = x, y = y, z = z,
-                                    fill = after_stat(level)),
-                                breaks = levels,
-                                linewidth = 0,
-                                show.legend = c("fill" = fill, "colour" = FALSE),
-                                alpha = transparency) +
-            scale_fill_manual(lgndname,
-                              aesthetics = c("fill"),
-                              drop = FALSE,
-                              guide = guide_legend(reverse = TRUE),
-                              labels = lab_levels,
-                              values = myColors)
+            geom_contour_filled(
+                aes(
+                    x = x, y = y, z = z,
+                    fill = after_stat(level)
+                ),
+                breaks = levels,
+                linewidth = 0,
+                show.legend = c("fill" = fill, "colour" = FALSE),
+                alpha = transparency
+            ) +
+            scale_fill_manual(
+                lgndname,
+                aesthetics = c("fill"),
+                drop = FALSE,
+                guide = guide_legend(reverse = TRUE),
+                labels = lab_levels,
+                values = my_colors
+            )
     }
 
     # Contour lines
     if (size != 0) {
-        lineLevels <- levels
+        line_levels <- levels
 
-        if (lineLevels[length(lineLevels)] == "Inf") {
-            lineLevels <- lineLevels[seq_along(lineLevels) - 1]
+        if (line_levels[length(line_levels)] == "Inf") {
+            line_levels <- line_levels[seq_along(line_levels) - 1]
         }
 
-        if (lineLevels[1] == "-Inf") {
-            lineLevels <- lineLevels[2:length(lineLevels)]
+        if (line_levels[1] == "-Inf") {
+            line_levels <- line_levels[2:length(line_levels)]
         }
 
         v <- v +
@@ -308,7 +339,7 @@ contourPlot2 <- function(data,
                              y = y,
                              z = z,
                              colour = factor(after_stat(level))),
-                         breaks = lineLevels,
+                         breaks = line_levels,
                          linewidth = size,
                          linejoin = "round",
                          lineend = "round",
@@ -317,9 +348,9 @@ contourPlot2 <- function(data,
             scale_color_manual(lgndname,
                                aesthetics = c("colour"),
                                drop = FALSE,
-                               limits = factor(lineLevels),
+                               limits = factor(line_levels),
                                guide = guide_legend(reverse = TRUE),
-                               values = myColorsLines)
+                               values = my_colors_lines)
     }
 
     # Main scales and theme
