@@ -3,4 +3,5 @@ devtools.desc.author = "Giuseppe Carlino <g.carlino@simularia.it> [aut, cre]"
 
 options(languageserver.formatting_style = function(options) {
     styler::tidyverse_style(indent_by = 4L)
+    styler::tidyverse_style(scope = "indention", indent_by = options$tabSize)
 })
