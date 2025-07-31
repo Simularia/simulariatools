@@ -1,10 +1,7 @@
 #' Download basemap from Italian National Geoportal
 #'
-#' This function tries to download the aerial orthophoto of the requested
-#' domain from the
+#' Download the aerial orthophoto of the requested domain from the
 #' [Italian National Geoportal](https://gn.mase.gov.it/portale/home).
-#' The output is given in *png* format at the path given in the `file`
-#' parameter.
 #'
 #' @param file Path to output file.
 #' @param xSW South West Easting UTM coordinate of the basemap (in metres).
@@ -18,7 +15,9 @@
 #'             It can be `px` (pixels, the default), `in` (inches), `cm` or `mm`
 #' @param res The resolution in dpi.
 #'
-#' @return No value is returned.
+#' @return
+#' The output is a *tiff* encoded with `GeoTIFF` metadata at the path
+#' provided. No value is returned.
 #'
 #' @export
 #' @importFrom utils download.file
@@ -28,24 +27,30 @@
 #' # Download a basemap of a domain with SW coordinates (410000, 5000500)
 #' # in the UTM32 CRS and extension 5000m in both directions.
 #'
-#' downloadBasemap(file = "./basemap.png",
-#'                 xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000)
+#' downloadBasemap(
+#'     file = "./basemap.tif",
+#'     xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000
+#' )
 #'
 #' # Download a basemap of a domain with SW coordinates (410000, 5000500)
 #' # in the UTM32 CRS and extension 5000m in both directions.
 #' # The file has to be 2048 x 2048 pixels.
 #'
-#' downloadBasemap(file = "./basemap.png",
-#'                 xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000,
-#'                 width = 2048, height = 2048)
+#' downloadBasemap(
+#'     file = "./basemap.tif",
+#'     xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000,
+#'     width = 2048, height = 2048
+#' )
 #'
 #' # Download a basemap of a domain with SW coordinates (410000, 5000500)
 #' # in the UTM32 CRS and extension 5000m in both directions.
 #' # The file has to be 10cm x 10cm with a resolution of 150 dpi.
 #'
-#' downloadBasemap(file = "./basemap.png",
-#'                 xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000,
-#'                 width = 10, height = 10, units = "cm", res = 150)
+#' downloadBasemap(
+#'     file = "./basemap.tif",
+#'     xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000,
+#'     width = 10, height = 10, units = "cm", res = 150
+#' )
 #' }
 downloadBasemap <- function(file = file,
                             xSW = 410000, ySW = 5000500,
@@ -98,13 +103,17 @@ downloadBasemap <- function(file = file,
     }
 
     # FORMAT
-    format <- "png"
+    format <- "tiff"
 
-    url2 <- paste("VERSION=1.3.0&REQUEST=GetMap&LAYERS=OI.ORTOIMMAGINI.2012&STYLES=default&CRS=",
-                  crsStr, "&BBOX=", xSW, ",", ySW, ",", xSW + xExt, ",",
-                  ySW + yExt, "&WIDTH=", width, "&HEIGHT=",
-                  height, "&FORMAT=image/",
-                  format, sep = "")
+    url2 <- paste(
+        "VERSION=1.3.0&REQUEST=GetMap&LAYERS=OI.ORTOIMMAGINI.2012&STYLES=default&CRS=",
+        crsStr, "&BBOX=",
+        xSW, ",", ySW, ",", xSW + xExt, ",",
+        ySW + yExt, "&WIDTH=", width, "&HEIGHT=",
+        height, "&FORMAT=image/",
+        format,
+        sep = ""
+    )
     url <- paste(url1, url2, sep = "")
 
     # DL png file with specific CRS, BBOX, WIDTH, HEIGHT and FORMAT

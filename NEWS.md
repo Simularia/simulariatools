@@ -1,5 +1,8 @@
 # simulariatools 2.5.1.9000 (development version)
 
+
+* BREAKING CHANGE: `downloadBasemap()` returns a `tiff` file with `GeoTIFF`
+metadata, instead of `png`.
 * `contourPlot2()` has new `mask` and `inverse_mask` arguments to plot data
 only inside (or outside) a polygon specified in a `shp` file. When this option
 is activated, data to be plotted are resampled at higher resolution to avoid
