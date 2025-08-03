@@ -6,10 +6,10 @@
 \usage{
 downloadBasemap(
   file = file,
-  xSW = 410000,
-  ySW = 5000500,
-  xExt = 5000,
-  yExt = 5000,
+  xSW = NA,
+  ySW = NA,
+  xExt = NA,
+  yExt = NA,
   crs = 32,
   width = 1024,
   height = 1024,
@@ -28,16 +28,16 @@ downloadBasemap(
 
 \item{yExt}{Northing extension in metres.}
 
-\item{crs}{UTM Coordinate Reference System: either 32 or 33.}
+\item{crs}{Coordinate Reference System as UTM zone: either 32 (default) or 33.}
 
-\item{width}{The basemap width.}
+\item{width}{The basemap width (default = 1024).}
 
-\item{height}{The basemap height.}
+\item{height}{The basemap height (default = 1024).}
 
 \item{units}{The unit of measure of width and height.
 It can be \code{px} (pixels, the default), \verb{in} (inches), \code{cm} or \code{mm}}
 
-\item{res}{The resolution in dpi.}
+\item{res}{The resolution in dpi (default = 72).}
 }
 \value{
 The output is a \emph{tiff} encoded with \code{GeoTIFF} metadata at the path
@@ -46,6 +46,11 @@ provided. No value is returned.
 \description{
 Download the aerial orthophoto of the requested domain from the
 \href{https://gn.mase.gov.it/portale/home}{Italian National Geoportal}.
+}
+\details{
+The domain is specified by the South-West point coordinates, and its
+extension in the \code{x} and \code{y} directions.
+The Coordinate Reference System (CRS) is in UTM 32 or 33.
 }
 \examples{
 \dontrun{

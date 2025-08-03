@@ -8,12 +8,17 @@
 #' @param ySW South West Northing UTM coordinate of the basemap (in metres).
 #' @param xExt Easting extension in metres.
 #' @param yExt Northing extension in metres.
-#' @param crs UTM Coordinate Reference System: either 32 or 33.
-#' @param width The basemap width.
-#' @param height The basemap height.
+#' @param crs Coordinate Reference System as UTM zone: either 32 (default) or 33.
+#' @param width The basemap width (default = 1024).
+#' @param height The basemap height (default = 1024).
 #' @param units The unit of measure of width and height.
-#'             It can be `px` (pixels, the default), `in` (inches), `cm` or `mm`
-#' @param res The resolution in dpi.
+#'        It can be `px` (pixels, the default), `in` (inches), `cm` or `mm`
+#' @param res The resolution in dpi (default = 72).
+#'
+#' @details
+#' The domain is specified by the South-West point coordinates, and its
+#' extension in the `x` and `y` directions.
+#' The Coordinate Reference System (CRS) is in UTM 32 or 33.
 #'
 #' @return
 #' The output is a *tiff* encoded with `GeoTIFF` metadata at the path
@@ -49,12 +54,14 @@
 #' downloadBasemap(
 #'     file = "./basemap.tif",
 #'     xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000,
-#'     width = 10, height = 10, units = "cm", res = 150
+#'     width = 10, height = 10, units = "cm", res = 144
 #' )
 #' }
 downloadBasemap <- function(file = file,
-                            xSW = 410000, ySW = 5000500,
-                            xExt = 5000, yExt = 5000,
+                            xSW = NA,
+                            ySW = NA,
+                            xExt = NA,
+                            yExt = NA,
                             crs = 32,
                             width = 1024,
                             height = 1024,
@@ -64,6 +71,16 @@ downloadBasemap <- function(file = file,
     # Check if output file has been defined
     if (missing(file)) {
         stop("Please define the output file.", call. = FALSE)
+    }
+
+    # Check if SW point coords are missing
+    if (!is.numeric(xSW) || !is.numeric(ySW)) {
+        stop("The coordinates of the S-W point of the domain are not properly defined.")
+    }
+
+    # Check if doamin extension is missing
+    if (!is.numeric(xExt) || !is.numeric(yExt)) {
+        stop("The domain extension is not properly defined.")
     }
 
     # Trying to access PCN
