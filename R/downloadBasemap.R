@@ -90,24 +90,24 @@ downloadBasemap <- function(file = file,
     # Indirizzo base per WMS ortofoto 2012 da PCN
     url1 <- "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/raster/ortofoto_colore_12.map&"
 
-    # File size
+    # Manage units transformation
+    this_res <- 1
     if (units == "in") {
-        width <- width * res
-        height <- height * res
+        this_res <- res
     } else if (units == "cm") {
-        width <- width / 2.54 * res
-        height <- height / 2.54 * res
+        this_res <- res / 2.54
     } else if (units == "mm") {
-        width <- (width / 10) / 2.54 * res
-        height <- (height / 10) / 2.54 * res
+        this_res <- res / 25.4
     } else if (units == "px") {
-        width <- width
-        height <- height
+        this_res <- 1.0
+
     } else {
         stop("units not recognized.", call. = FALSE)
     }
-    width <- round(width, digits = 0)
-    height <- round(height, digits = 0)
+
+    # Convert dimensions to pixels
+    width <- round(width * this_res, digits = 0)
+    height <- round(height * this_res, digits = 0)
 
     # CRS
     if (crs == 32) {
