@@ -21,6 +21,7 @@
 #' @export
 #'
 #' @importFrom stats aggregate
+#' @importFrom ggplot2 ggplot geom_bar geom_line labs margin element_blank
 #'
 #' @examples
 #' data(stMeteo)

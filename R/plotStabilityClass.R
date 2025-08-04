@@ -18,6 +18,9 @@
 #' @importFrom scales label_percent
 #'
 #' @export
+#'
+#' @importFrom ggplot2 ggplot geom_bar labs element_blank guides
+#'
 #' @examples
 #' data("stMeteo")
 #'

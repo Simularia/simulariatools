@@ -26,6 +26,9 @@
 #' @import grid
 #' @importFrom reshape2 melt
 #' @importFrom scales breaks_width label_date label_math
+#' @importFrom ggplot2 ggplot geom_bar geom_line labs scale_x_date
+#'                     expansion margin element_blank geom_text
+#'                     scale_y_discrete
 #'
 #' @examples
 #' # Plot histogram with monthly averages together with maxima and minima
