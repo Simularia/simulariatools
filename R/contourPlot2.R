@@ -247,6 +247,7 @@ contourPlot2 <- function(data,
                 inverse = inverse_mask
             )
             data <- terra::as.data.frame(rdata, xy = TRUE)
+            colnames(data) <- c("x", "y", "z")
         }
     }
 
