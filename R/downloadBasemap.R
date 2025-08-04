@@ -20,6 +20,9 @@
 #' extension in the `x` and `y` directions.
 #' The Coordinate Reference System (CRS) is in UTM 32 or 33.
 #'
+#' Note that, even if the downloading is successful the file might be empty
+#' due to some weird behaviour of the remote server from the PCN.
+#'
 #' @return
 #' The output is a *tiff* encoded with `GeoTIFF` metadata at the path
 #' provided. No value is returned.
@@ -135,7 +138,10 @@ downloadBasemap <- function(file = file,
     url <- paste(url1, url2, sep = "")
 
     # DL png file with specific CRS, BBOX, WIDTH, HEIGHT and FORMAT
-    download.file(url, destfile = file, quiet = TRUE)
-
-    message(paste("Please check for output file at:", file))
+    success <- download.file(url, destfile = file, quiet = TRUE)
+    if (success == 0) {
+        message(paste("Please check for output file at:", file))
+    } else {
+        stop("Error downloading the required basemap")
+    }
 }

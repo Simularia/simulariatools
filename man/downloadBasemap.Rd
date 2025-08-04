@@ -51,6 +51,9 @@ Download the aerial orthophoto of the requested domain from the
 The domain is specified by the South-West point coordinates, and its
 extension in the \code{x} and \code{y} directions.
 The Coordinate Reference System (CRS) is in UTM 32 or 33.
+
+Note that, even if the downloading is successful the file might be empty
+due to some weird behaviour of the remote server from the PCN.
 }
 \examples{
 \dontrun{
