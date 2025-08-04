@@ -1,6 +1,7 @@
 # simulariatools 2.5.1.9000 (development version)
 
 
+* BREAKING CHANGE: remove deprecated function `contourPlot()` and `createBaseNap()`.
 * BREAKING CHANGE: `downloadBasemap()` returns a `tiff` file with `GeoTIFF`
 metadata, instead of `png`.
 * `contourPlot2()` has new `mask` and `inverse_mask` arguments to plot data

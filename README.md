@@ -35,8 +35,6 @@ modelling and assessment:
 - `removeOutliers()` removes time series outliers based on interquartile
   range.
 - `rollingMax()` computes rolling max of a time series.
-- `contourPlot()` (deprecated)
-- `createBaseMap()` (deprecated)
 
 The package is developed and maintained by the people at
 [Simularia](https://www.simularia.it) and it is extensively used for
