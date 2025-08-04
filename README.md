@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# simulariatools <a href="https://www.simularia.it/simulariatools/"><img src="man/figures/logo.png" align="right" height="80" /></a>
+# simulariatools <a href="https://www.simularia.it/simulariatools/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -13,37 +13,44 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/simulariatools?color=br
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.165117.svg)](https://doi.org/10.5281/zenodo.596741)
 <!-- badges: end -->
 
-`simulariatools` is a free collection collection of functions and tools
-useful to pre and post process data for air quality modelling and
-assessment. The package is developed and maintained by the people at
+## Overview
+
+**simulariatools** is an open source package with a collection of
+functions and tools useful to pre and post process data for air quality
+modelling and assessment:
+
+- `contourPlot2()` plots a production-ready contour map of a pollutant
+  concentration field.
+- `plotAvgRad()` plots hourly average of solar radiation.
+- `plotAvgTemp()` plots average atmospheric temperature.
+- `plotStabilityClass()` plots histograms of atmospheric stability
+  class.
+- `vectorField()` plots a simple vector field given two components.
+- `importRaster()` imports a genereic raster file.
+- `importADSOBIN()` imports an ADSO/BIN raster file.
+- `importSurferGrd()` imports a grid file.
+- `stabilityClass()` computes atmospheric stability class.
+- `downloadBasemap()`downloads GeoTIFF basemap from italian
+  [PCN](https://gn.mase.gov.it/portale/home).
+- `removeOutliers()` removes time series outliers based on interquartile
+  range.
+- `rollingMax()` computes rolling max of a time series.
+- `contourPlot()` (deprecated)
+- `createBaseMap()` (deprecated)
+
+The package is developed and maintained by the people at
 [Simularia](https://www.simularia.it) and it is extensively used for
 their daily job.
 
 If you use this package in your work, please consider citing it. Refer
 to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Brief examples](#brief_examples)
-- [List of Functions](#list_of_functions)
-- [Contact](#contact)
-- [Contributors](#contributors)
-- [License](https://github.com/Simularia/simulariatools/blob/master/LICENSE.md)
-- [Changelog](https://github.com/Simularia/simulariatools/blob/master/NEWS.md)
-
 ## Installation
 
-Install the released version of `simulariatools` from CRAN:
+To install the latest release of **simulariatools** from CRAN:
 
 ``` r
 install.packages("simulariatools")
-```
-
-Or install the development version from GitHub with:
-
-``` r
-pak::pkg_install("Simularia/simulariatools")
 ```
 
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files,
@@ -51,7 +58,17 @@ a working installation of *Python 3* is required. For more information
 about *R* and *Python* interoperability, please refer to
 [`reticulate`](https://rstudio.github.io/reticulate/) documentation.
 
-## Brief examples
+### Develpment version
+
+To get bug fixes or to use a feature from the development version,
+install the development version from GitHub:
+
+``` r
+# install.packages("pak")
+pak::pkg_install("Simularia/simulariatools")
+```
+
+## Examples
 
 ### Contour plot
 
@@ -60,11 +77,13 @@ the appropriate convenience function:
 
 ``` r
 library(simulariatools)
-mydata <- importRaster(file = "./development/conc_avg.nc",
-                       k = 1000,
-                       destaggering = TRUE,
-                       variable = "nox",
-                       verbose = TRUE)
+nox_concentration <- importRaster(
+    file = "./development/conc_avg.nc",
+    k = 1000,
+    destaggering = TRUE,
+    variable = "nox",
+    verbose = TRUE
+)
 #> 
 #> Raster statistics -----------------------------------------------
 #>        X (min, max, dx)  :  496000.000   519250.000      250.000
@@ -73,78 +92,76 @@ mydata <- importRaster(file = "./development/conc_avg.nc",
 #> -----------------------------------------------------------------
 ```
 
-A quick contour plot with default configuration can be easily obtained
+Concentration data are imported as `data.frame` with `x`, `y` and `z`
+columns for coordinates and grid values.
+
+``` r
+str(nox_concentration)
+#> 'data.frame':    4557 obs. of  3 variables:
+#>  $ x: num  496125 496375 496625 496875 497125 ...
+#>  $ y: num  4955125 4955125 4955125 4955125 4955125 ...
+#>  $ z: num  0 0 0 0 0 0 0 0 0 0 ...
+```
+
+A quick contour plot, with default configuration, can be easily obtained
 by running *contourPlot2()* without any argument:
 
 ``` r
-contourPlot2(mydata)
-```
-
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="80%" height="80%" />
-
-The plot is customisable by using *contourPlot2()* arguments and by
-piping *ggplot2* instructions:
-
-``` r
-library(ggplot2)
-contourPlot2(mydata,
-             domain = c(502000, 519000, 4943125, 4955125, 5, 5),
-             levels = c(-Inf, 0.5, 1, 1.5, 2, Inf),
-             legend = "NOx [ug/m3]") +
-    labs(x = NULL, y = NULL) +
-    theme_minimal()
+contourPlot2(nox_concentration)
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="80%" height="80%" />
 
-Use `ggsave()` to save the last plot to file:
+The plot is customisable by using `contourPlot2()` arguments and by
+piping **ggplot2** instructions with `+` operator.
+
+In the following example, the original domain is cropped, the colour
+levels are explicitely assigned and a legend name is provided through
+function arguments. Furthermore, `labs()` and `theme_minimal()`
+functions from **ggplot2** are used to remove axis labels and to
+customise the overall theme:
+
+``` r
+library(ggplot2)
+contourPlot2(
+    nox_concentration,
+    domain = c(502000, 519000, 4943125, 4955125, 5, 5),
+    levels = c(-Inf, 0.5, 1, 1.5, 2, Inf),
+    legend = "NOx [ug/m3]"
+) +
+    labs(x = NULL, y = NULL) +
+    theme_minimal()
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="80%" height="80%" />
+
+In order to save to file the last plot, you can directly use the
+**ggplot2** function `ggsave()`:
 
 ``` r
 ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
 
-Use `tile` optional argument to produce a plot without interpolation:
+Optional arguments can be used to create special versions of the plot.
+For example, use `tile = TRUE` to produce a plot without spatial
+interpolation:
 
 ``` r
-library(ggplot2)
-contourPlot2(mydata,
-             tile = TRUE,
-             legend = "NOx [ug/m3]") +
-    labs(x = NULL, y = NULL) +
-    theme_minimal()
+contourPlot2(
+    nox_concentration,
+    tile = TRUE,
+    legend = "NOx [ug/m3]"
+)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="80%" height="80%" />
-
-## List of functions
-
-Available functions are listed below:
-
-- `contpourPlot2()`
-- `downloadBasemap()`
-- `importRaster()`
-- `importADSOBIN()`
-- `importSurferGrd()`
-- `plotAvgRad()`
-- `plotAvgTemp()`
-- `plotStabilityClass()`
-- `removeOutliers()`
-- `rollingMax()`
-- `stabilityClass()`
-- `vectorField()`
-- `contourPlot()` (deprecated)
-- `createBaseMap()` (deprecated)
-
-Deprecated functions will be removed in the near future.
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="80%" height="80%" />
 
 ## Contact
 
 Contact person:
 
-    Giuseppe Carlino
-    Simularia s.r.l.
-    g.carlino@simularia.it
+> [Giuseppe Carlino](https://github.com/gcarlino) (Simularia srl)
 
 ## Contributors
 
-Matteo Paolo Costa
+[Matteo Paolo Costa](https://github.com/teocos)
