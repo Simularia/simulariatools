@@ -18,7 +18,7 @@ downloadBasemap(
 )
 }
 \arguments{
-\item{file}{Path to output file.}
+\item{file}{Path to output file. If file exists, it will be overwritten.}
 
 \item{xSW}{South West Easting UTM coordinate of the basemap (in metres).}
 
@@ -79,7 +79,7 @@ downloadBasemap(
 downloadBasemap(
     file = "./basemap.tif",
     xSW = 410000, ySW = 5000500, xExt = 5000, yExt = 5000,
-    width = 10, height = 10, units = "cm", res = 150
+    width = 10, height = 10, units = "cm", res = 144
 )
 }
 }

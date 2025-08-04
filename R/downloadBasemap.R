@@ -3,7 +3,7 @@
 #' Download the aerial orthophoto of the requested domain from the
 #' [Italian National Geoportal](https://gn.mase.gov.it/portale/home).
 #'
-#' @param file Path to output file.
+#' @param file Path to output file. If file exists, it will be overwritten.
 #' @param xSW South West Easting UTM coordinate of the basemap (in metres).
 #' @param ySW South West Northing UTM coordinate of the basemap (in metres).
 #' @param xExt Easting extension in metres.
@@ -72,6 +72,7 @@ downloadBasemap <- function(file = file,
     if (missing(file)) {
         stop("Please define the output file.", call. = FALSE)
     }
+    file <- normalizePath(file)
 
     # Check if SW point coords are missing
     if (!is.numeric(xSW) || !is.numeric(ySW)) {
