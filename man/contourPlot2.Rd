@@ -2,7 +2,7 @@
 % Please edit documentation in R/contourPlot2.R
 \name{contourPlot2}
 \alias{contourPlot2}
-\title{New contour plot of pollutant concentration field}
+\title{Contour plot of pollutant concentration field}
 \usage{
 contourPlot2(
   data,
@@ -33,8 +33,7 @@ Northing and values to be plotted.}
 
 \item{y}{name of the column with Northing data (default "y").}
 
-\item{z}{name of the column with the values to be plotted (default
-"z").}
+\item{z}{name of the column with the values to be plotted (default "z").}
 
 \item{domain}{optional list with six numeric values defining the
 boundaries of the domain to be plotted: minimum X, maximum X, minimum Y,

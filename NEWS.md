@@ -1,17 +1,17 @@
 # simulariatools 2.5.1.9000 (development version)
 
 
-* BREAKING CHANGE: remove deprecated function `contourPlot()` and `createBaseNap()`.
+* BREAKING CHANGE: remove deprecated functions `contourPlot()` and `createBaseNap()`.
 * BREAKING CHANGE: `downloadBasemap()` returns a `tiff` file with `GeoTIFF`
 metadata, instead of `png`.
 * `contourPlot2()` has new `mask` and `inverse_mask` arguments to plot data
 only inside (or outside) a polygon specified in a `shp` file. When this option
-is activated, data to be plotted are resampled at higher resolution to avoid
+is activated, data to be plotted are re-sampled at higher resolution to avoid
 staggers at the border of the polygon.
 * Content outside plot domain in `contourPlot2()` is masked. Previously, values
 outside plot domain were set to NA's, which potentially caused artifacts at 
 the borders.
-* Some fixes in `contourPlot2()`: with `ggplot2` v3.5.0 there is a breaking
+* Some fixes in `contourPlot2()`: with *ggplot2* v3.5.0 there is a breaking
 change where `guide_legend()` only draws a key glyph for a layer when the value
 is in the layer’s data. Furthermore, when plotting lines only, we remove -Inf
 from the levels, if present.
@@ -24,11 +24,11 @@ English.
 * In `plotAvgTemp()`, fixed missing colour for average temperature in the legend.
 * In `plotAvgTemp()`, fixed bug related to the name of the column with temperature data.
 * In `stabilityClass()` the tables defining the stability class as functions of
-radiation, wind speed and cloud cover have been slightly updated.
-* In `stabilityClass()` the `impact` method has been deprecated and renamed to equivalent `iaea`.
+radiation, wind speed and cloud cover have been slightly updated. Furthermore,
+the `impact` method has been deprecated and renamed to `iaea`.
 - In `plotStabilityClass()` a bug where a missing class was not shown in the
 legend has been fixed.
-- Remove some `Openair` dependencies.
+- Remove almost all the dependencies from *Openair*.
 * Other minor bugs have been fixed and documentation has been updated.
 
 
@@ -39,6 +39,7 @@ legend has been fixed.
 * Updated deprecated functions from `scales` package.
 * Bugfix: avoid `Inf` duplication in `contourPlot2` legend.
 * Documentation: spell check and improvements.
+
 
 # simulariatools 2.5.0
 

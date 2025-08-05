@@ -1,4 +1,4 @@
-#' New contour plot of pollutant concentration field
+#' Contour plot of pollutant concentration field
 #'
 #' \code{contourPlot2} plots a contour map of a given quantity, such as the
 #' ground concentration of an airborne pollutant or odour, defined on a
@@ -8,8 +8,7 @@
 #' Northing and values to be plotted.
 #' @param x name of the column with Easting data (default "x").
 #' @param y name of the column with Northing data (default "y").
-#' @param z name of the column with the values to be plotted (default
-#' "z").
+#' @param z name of the column with the values to be plotted (default "z").
 #' @param domain optional list with six numeric values defining the
 #' boundaries of the domain to be plotted: minimum X, maximum X, minimum Y,
 #' maximum Y, number of ticks on X axis, number of ticks on Y axis.

@@ -27,9 +27,7 @@ Imports:
     terra
 Suggests:
     magick,
-    contoureR,
     testthat (>= 3.0.0),
-    raster,
     openair,
     sf
 License: GPL (>= 2)
