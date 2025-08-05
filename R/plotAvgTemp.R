@@ -44,12 +44,14 @@
 #' # Add title
 #' plotAvgTemp(stMeteo, title = "Monthly temperature")
 #'
-plotAvgTemp <- function(mydata, temp = "temp",
-                        avg.time = "1 month",
-                        ylabel = NULL,
-                        title = "",
-                        locale = NULL) {
-
+plotAvgTemp <- function(
+    mydata,
+    temp = "temp",
+    avg.time = "1 month",
+    ylabel = NULL,
+    title = "",
+    locale = NULL
+) {
     # Fix No visible binding for global variable
     # temp.min <- temp.max <- NULL
     degree <- variable <- value <- .x <- NULL
@@ -103,8 +105,7 @@ plotAvgTemp <- function(mydata, temp = "temp",
 
     mydata_mean <- merge(mydata_mean, mydata_min, by = "Month", all = TRUE)
     mydata_mean <- merge(mydata_mean, mydata_max, by = "Month", all = TRUE)
-    mydata_mean <- subset(mydata_mean,
-                          select = c("Month", "temp.x", "temp.y", "temp"))
+    mydata_mean <- subset(mydata_mean, select = c("Month", "temp.x", "temp.y", "temp"))
     colnames(mydata_mean) <- c("date", "temp", "temp.min", "temp.max")
     mydata_mean[["date"]] <- ISOdate(2021, mydata_mean$date, 1)
 
@@ -126,24 +127,31 @@ plotAvgTemp <- function(mydata, temp = "temp",
     }
 
     # Arrange data in long format
-    mydata <- reshape2::melt(mydata_mean,
-                             measure.vars = c("temp.min", "temp", "temp.max"))
+    mydata <- reshape2::melt(mydata_mean, measure.vars = c("temp.min", "temp", "temp.max"))
     mydata$value <- round(mydata$value, digits = 1)
     date_min <- min(mydata$date)
     date_max <- max(mydata$date)
 
     # bar plot
-    bar_plot <- ggplot(mydata[mydata$variable == "temp", ], aes(date, value)) +
-        geom_bar(aes(colour = media,  fill = media), stat = "identity") +
+    bar_plot <- ggplot(
+        mydata[mydata$variable == "temp", ],
+        aes(date, value)
+    ) +
+        geom_bar(
+            aes(colour = media, fill = media),
+            stat = "identity"
+        ) +
         geom_line(
             data = mydata[mydata$variable == "temp.min", ],
             aes(x = date, y = value, colour = minima),
-            linewidth = 1, key_glyph = "timeseries"
+            linewidth = 1,
+            key_glyph = "timeseries"
         ) +
         geom_line(
             data = mydata[mydata$variable == "temp.max", ],
             aes(x = date, y = value, colour = massima),
-            linewidth = 1, key_glyph = "timeseries"
+            linewidth = 1,
+            key_glyph = "timeseries"
         ) +
         labs(title = title, x = NULL, y = ylabel) +
         scale_x_date(
@@ -151,31 +159,36 @@ plotAvgTemp <- function(mydata, temp = "temp",
             expand = expansion(add = 6),
             labels = scales::label_date("%b", locale = locale)
         ) +
-        scale_y_continuous(labels = scales::label_math(.x * degree),
-                           breaks = seq(-20, 40, 5)) +
+        scale_y_continuous(
+            labels = scales::label_math(.x * degree),
+            breaks = seq(-20, 40, 5)
+        ) +
         scale_color_manual(
             name = NULL,
             limits = c(media, massima, minima),
             breaks = c(media, massima, minima),
             values = c("steelblue", "darkorange2", "darkgreen")
         ) +
-        scale_fill_manual(name = NULL,
-                          limits = c(media, massima, minima),
-                          breaks = c(media, massima, minima),
-                          values = c("steelblue", "darkorange2", "darkgreen")) +
+        scale_fill_manual(
+            name = NULL,
+            limits = c(media, massima, minima),
+            breaks = c(media, massima, minima),
+            values = c("steelblue", "darkorange2", "darkgreen")
+        ) +
         theme_bw(base_family = "sans") +
-        theme(legend.position = c(0.01, 0.99),
-              legend.key.spacing.y = unit(2, "pt"),
-              legend.justification = c(0, 1),
-              legend.box.margin = margin(t = 0, unit = "mm"),
-              panel.grid.major.x = element_blank()) +
-        NULL
+        theme(
+            legend.position = c(0.01, 0.99),
+            legend.key.spacing.y = unit(2, "pt"),
+            legend.justification = c(0, 1),
+            legend.box.margin = margin(t = 0, unit = "mm"),
+            panel.grid.major.x = element_blank()
+        )
 
     # data table
-    data_table <- ggplot(mydata,
-                         aes(date,
-                             factor(variable),
-                             label = format(value, nsmall = 1))) +
+    data_table <- ggplot(
+        mydata,
+        aes(date, factor(variable), label = format(value, nsmall = 1))
+    ) +
         geom_text(size = 3.5) +
         scale_x_date(
             breaks = scales::breaks_width(width = avg.time),
@@ -208,7 +221,8 @@ plotAvgTemp <- function(mydata, temp = "temp",
     # Function to plot two grobs in 1 column and 2 rows
     gg_vertical_draw <- function(a, b) {
         # Define grid layout: 2 rows. The lowest one is 1/8 high the other
-        mylayout <- grid::grid.layout(nrow = 2,
+        mylayout <- grid::grid.layout(
+            nrow = 2,
             ncol = 1,
             heights = unit(c(1, 0.125), c("null", "null"))
         )
