@@ -85,7 +85,7 @@ plotAvgTemp <- function(
     # If undefined set timezone to GMT
     time_zone <- attr(mydata$date, "tzone")
     if (is.null(time_zone) || !time_zone %in% OlsonNames()) {
-        attr(mydata$date, "tzone") <- "GMT"
+        attr(mydata$date, "tzone") <- "UTC"
     }
 
     # Compute statistics
