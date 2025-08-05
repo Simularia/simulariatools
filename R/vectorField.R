@@ -29,46 +29,62 @@
 #'
 #' @examples
 #' \dontrun{
-#' metU <- importADSOBIN('/path/to/meteofile',
-#'                       variable = 'U',
-#'                       slice=2,
-#'                       k = 1000,
-#'                       verbose = TRUE)
+#' metU <- importADSOBIN(
+#'     "/path/to/meteofile",
+#'     variable = 'U',
+#'     slice = 2,
+#'     k = 1000,
+#'     verbose = TRUE
+#' )
 #' metU <- as.data.frame(metU)
 #' metU <- metU %>%
-#'         mutate(u = z, z = NULL)
+#'     mutate(u = z, z = NULL)
 #'
-#' metV <- importADSOBIN('/path/to/meteofile',
-#'                       variable = 'V',
-#'                       slice=2,
-#'                       k = 1000,
-#'                       verbose = TRUE)
+#' metV <- importADSOBIN(
+#'     "/path/to/meteofile",
+#'     variable = 'V',
+#'     slice = 2,
+#'     k = 1000,
+#'     verbose = TRUE
+#'  )
 #' metV <- as.data.frame(metV)
-#' metV <- metV %>%
-#'         mutate(v = z, z = NULL)
+#' metV <- metV |>
+#'     mutate(v = z, z = NULL)
 #'
 #' met <- merge(metU, metV, by = c("x", "y"))
 #'
-#' vectorField(met, everyx = 2, everyy = 2, scale = 10) +
+#' vectorField(
+#'     met,
+#'     everyx = 2,
+#'     everyy = 2,
+#'     scale = 10
+#' ) +
 #'     coord_fixed(ratio = 1, xlim = c(0, 1000), ylim = c(0, 1000)) +
 #'     scale_color_viridis_c()
 #'
 #' # Overlap the vector field to a contour plot and set vector colours to black
 #' met$ws <- sqrt(met$u^2 + met$v^2)
 #' contourPlot2(met, z = "ws") +
-#'      vectorField(met, everyx = 2, everyy = 2, scale = 10, preview = FALSE) +
-#'      scale_colour_gradient(low = "black", high = "black", guide = NULL)
-#'
+#'     vectorField(
+#'         met,
+#'         everyx = 2,
+#'         everyy = 2,
+#'         scale = 10,
+#'         preview = FALSE
+#'     ) +
+#'     scale_colour_gradient(low = "black", high = "black", guide = NULL)
 #' }
 #'
 #' @export
 #'
-vectorField <- function(data,
-                        scale = 1.,
-                        everyx = 1,
-                        everyy = 1,
-                        size = 0.25,
-                        preview = TRUE) {
+vectorField <- function(
+    data,
+    scale = 1.,
+    everyx = 1,
+    everyy = 1,
+    size = 0.25,
+    preview = TRUE
+) {
 
     # Fix No visible binding for global variable
     x <- y <- u <- v <- magnitude <- NULL
@@ -95,12 +111,16 @@ vectorField <- function(data,
     scale <- scale * 100
 
     # Plot
-    pl <- geom_segment(data = datasub, aes(x = x, y = y,
-                                           xend = x + scale * u,
-                                           yend = y + scale * v,
-                                           colour = magnitude),
-                       arrow = arrow(length = unit(arrLength, "npc")),
-                       size = size)
+    pl <- geom_segment(
+        data = datasub,
+        aes(x = x, y = y,
+            xend = x + scale * u,
+            yend = y + scale * v,
+            colour = magnitude
+        ),
+        arrow = arrow(length = unit(arrLength, "npc")),
+        size = size
+    )
 
     if (preview) {
         pl <- ggplot() + pl

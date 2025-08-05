@@ -90,15 +90,19 @@
 #' v
 #'
 #' # Set levels, and properly format the legend title:
-#' contourPlot2(volcano3d,
-#'              levels = c(-Inf, seq(100, 200, 20), Inf),
-#'              legend = expression("PM"[10]~"["*mu*"g m"^-3*"]"))
+#' contourPlot2(
+#'     volcano3d,
+#'     levels = c(-Inf, seq(100, 200, 20), Inf),
+#'     legend = expression("PM"[10] ~ "[" * mu * "g m"^-3 * "]")
+#' )
 #'
 #' # Sometimes, instead of a contour plot it is better to plot the original
 #' # raster data, without any interpolation:
-#' contourPlot2(volcano3d,
-#'              levels = c(-Inf, seq(100, 200, 20), Inf),
-#'              tile = TRUE)
+#' contourPlot2(
+#'     volcano3d,
+#'     levels = c(-Inf, seq(100, 200, 20), Inf),
+#'     tile = TRUE
+#' )
 #'
 #' # Since contourPlot2 returns a `ggplot2` object, you can add instructions as:
 #' library(ggplot2)
@@ -143,19 +147,19 @@ contourPlot2 <- function(data,
 
     # Define plot domain
     if (missing(domain)) {
-        xmin <- min(data$x)     # x coordinates minimum
-        xmax <- max(data$x)     # x coordinates max
-        ymin <- min(data$y)     # y coordinates min
-        ymax <- max(data$y)     # y coordinates max
-        nx <- 5                 # number of ticks along x axis
-        ny <- 5                 # number of ticks along y axis
+        xmin <- min(data$x) # x coordinates minimum
+        xmax <- max(data$x) # x coordinates max
+        ymin <- min(data$y) # y coordinates min
+        ymax <- max(data$y) # y coordinates max
+        nx <- 5 # number of ticks along x axis
+        ny <- 5 # number of ticks along y axis
     } else {
-        xmin <- domain[1]       # x coordinates minimum
-        xmax <- domain[2]       # x coordinates max
-        ymin <- domain[3]       # y coordinates min
-        ymax <- domain[4]       # y coordinates max
-        nx <- domain[5]         # number of ticks along x axis
-        ny <- domain[6]         # number of ticks along y axis
+        xmin <- domain[1] # x coordinates minimum
+        xmax <- domain[2] # x coordinates max
+        ymin <- domain[3] # y coordinates min
+        ymax <- domain[4] # y coordinates max
+        nx <- domain[5] # number of ticks along x axis
+        ny <- domain[6] # number of ticks along y axis
     }
 
     # prettify legend title
@@ -284,21 +288,26 @@ contourPlot2 <- function(data,
 
     # Base layer
     v <- ggplot(data) +
-        annotation_custom(gimg, -Inf, Inf, -Inf, Inf)  +
+        annotation_custom(gimg, -Inf, Inf, -Inf, Inf) +
         underlayer
 
     # Tile plot
     if (isTRUE(tile)) {
         v <- v +
-            geom_raster(aes(x = x, y = y,
-                            fill = cut(z, breaks = levels, right = FALSE)),
-                        show.legend = TRUE,
-                        alpha = transparency) +
-            scale_fill_manual(lgndname,
-                              drop = FALSE,
-                              guide = guide_legend(reverse = TRUE),
-                              labels = lab_levels,
-                              values = my_colors)
+            geom_raster(
+                aes(x = x, y = y,
+                    fill = cut(z, breaks = levels, right = FALSE)
+                ),
+                show.legend = TRUE,
+                alpha = transparency
+            ) +
+            scale_fill_manual(
+                lgndname,
+                drop = FALSE,
+                guide = guide_legend(reverse = TRUE),
+                labels = lab_levels,
+                values = my_colors
+            )
     }
 
     # Contour plot
@@ -337,55 +346,68 @@ contourPlot2 <- function(data,
         }
 
         v <- v +
-            geom_contour(aes(x = x,
-                             y = y,
-                             z = z,
-                             colour = factor(after_stat(level))),
-                         breaks = line_levels,
-                         linewidth = size,
-                         linejoin = "round",
-                         lineend = "round",
-                         alpha = 1.0,
-                         show.legend = c("colour" = !fill)) +
-            scale_color_manual(lgndname,
-                               aesthetics = c("colour"),
-                               drop = FALSE,
-                               limits = factor(line_levels),
-                               guide = guide_legend(reverse = TRUE),
-                               values = my_colors_lines)
+            geom_contour(
+                aes(x = x, y = y, z = z, colour = factor(after_stat(level))),
+                breaks = line_levels,
+                linewidth = size,
+                linejoin = "round",
+                lineend = "round",
+                alpha = 1.0,
+                show.legend = c("colour" = !fill)
+            ) +
+            scale_color_manual(
+                lgndname,
+                aesthetics = c("colour"),
+                drop = FALSE,
+                limits = factor(line_levels),
+                guide = guide_legend(reverse = TRUE),
+                values = my_colors_lines
+            )
     }
 
     # Main scales and theme
     v <- v +
-        scale_x_continuous(breaks = seq(xmin, xmax, length.out = nx),
-                           labels = myCoordsLabels) +
-        scale_y_continuous(breaks = seq(ymin, ymax, length.out = ny),
-                           labels = myCoordsLabels) +
+        scale_x_continuous(
+            breaks = seq(xmin, xmax, length.out = nx),
+            labels = myCoordsLabels
+        ) +
+        scale_y_continuous(
+            breaks = seq(ymin, ymax, length.out = ny),
+            labels = myCoordsLabels
+        ) +
         labs(x = "x [m]", y = "y [m]") +
         overlayer +
-        coord_fixed(ratio = 1,
-                    expand = FALSE,
-                    xlim = c(xmin, xmax),
-                    ylim = c(ymin, ymax)) +
-        theme_bw(base_size = 10,
-                 base_family = "sans") +
-        theme(panel.grid.major = element_blank(),
-              panel.grid.minor = element_blank())
+        coord_fixed(
+            ratio = 1,
+            expand = FALSE,
+            xlim = c(xmin, xmax),
+            ylim = c(ymin, ymax)
+        ) +
+        theme_bw(
+            base_size = 10,
+            base_family = "sans"
+        ) +
+        theme(
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank()
+        )
 
     # If requested, wipe all but main plot
     if (isTRUE(bare)) {
-        v <- v + theme(axis.line = element_blank(),
-                       axis.text.x = element_blank(),
-                       axis.text.y = element_blank(),
-                       axis.ticks = element_blank(),
-                       axis.title.x = element_blank(),
-                       axis.title.y = element_blank(),
-                       legend.position = "none",
-                       panel.background = element_blank(),
-                       panel.border = element_blank(),
-                       panel.grid.major = element_blank(),
-                       panel.grid.minor = element_blank(),
-                       plot.background = element_blank())
+        v <- v + theme(
+            axis.line = element_blank(),
+            axis.text.x = element_blank(),
+            axis.text.y = element_blank(),
+            axis.ticks = element_blank(),
+            axis.title.x = element_blank(),
+            axis.title.y = element_blank(),
+            legend.position = "none",
+            panel.background = element_blank(),
+            panel.border = element_blank(),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            plot.background = element_blank()
+        )
     }
 
     return(v)

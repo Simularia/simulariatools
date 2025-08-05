@@ -17,7 +17,7 @@
 #' \code{pasquill} option is based on the original Pasquill formulation and
 #' lacks the "very weak" solar insolation present in the modified \code{iaea}
 #' version.
-#' 
+#'
 #' Eventually, the \code{custom} options is similar to \code{iaea},
 #' with slightly different set of parameters for net radiation, wind speed
 #' and cloud cover.
@@ -42,16 +42,17 @@
 #' @examples
 #'
 #' # Compute stability class with custom algorithm
-#' stMeteo$cst <- stabilityClass(rad = stMeteo$rad,
-#'                               tcc = stMeteo$tcc,
-#'                               ws = stMeteo$ws,
-#'                               option = "custom")
+#' stMeteo$cst <- stabilityClass(
+#'     rad = stMeteo$rad,
+#'     tcc = stMeteo$tcc,
+#'     ws = stMeteo$ws,
+#'     option = "custom"
+#' )
 #'
 stabilityClass <- function(rad, tcc, ws, option = "iaea") {
 
     # check if the input vectors have the same length
-    if (length(rad) != length(tcc) || length(tcc) != length(ws) ||
-            length(rad) != length(ws)) {
+    if (length(rad) != length(tcc) || length(tcc) != length(ws) || length(rad) != length(ws)) {
         stop("The length of the three vectors is different.", call. = FALSE)
     }
 

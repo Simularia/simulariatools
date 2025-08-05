@@ -26,14 +26,16 @@ and vice versa. Destaggering is applied by default.
 }
 \examples{
 \dontrun{
-# Import Surfer Grd file and convert coordinates from km to m, 
+# Import Surfer Grd file and convert coordinates from km to m,
 # with destaggering
 mydata <- importSurferGrd("/path_to_file/filename.grd", k = 1000)
 
-# Import Surfer Grd file and do not convert coordinates, without
-#  destaggering
-mydata <- importSurferGrd("path_to_file/filename.grd", k = 1,
-                          destaggering = FALSE)
+# Import Surfer Grd file and do not convert coordinates, without destaggering
+mydata <- importSurferGrd(
+    "path_to_file/filename.grd",
+    k = 1,
+    destaggering = FALSE
+)
 }
 }
 \seealso{

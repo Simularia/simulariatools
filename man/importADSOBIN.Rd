@@ -65,26 +65,31 @@ For more information on the active \code{python} installation, check the
 documentation of \pkg{reticulate}.
 }
 \examples{
-
 \dontrun{
 # Read ground level (slice = 1) value of variable M001S001.
-pm10 <- importADSOBIN(file = "average_2018.bin",
-                      variable = "M001S001",
-                      slice = 1)
+pm10 <- importADSOBIN(
+    file = "average_2018.bin",
+    variable = "M001S001",
+    slice = 1
+)
 
 # Read deadline 12 of the second vertical level of temperature:
-temperature <- importADSOBIN(file = "swift_surfpro_01-10_01_2018",
-                             variable = "TEMPK",
-                             slice = 2,
-                             deadline = 12)
+temperature <- importADSOBIN(
+    file = "swift_surfpro_01-10_01_2018",
+    variable = "TEMPK",
+    slice = 2,
+    deadline = 12
+)
 
 # Read varibale M001S001 at ground level, at given date and time,
 # and print basic information:
-nox <- importADSOBIN(file = "conc_01-10_07_2018",
-                     variable = "M001S001",
-                     slice = 1,
-                     deadline = "2018/07/02 12:00",
-                     verbose = TRUE)
+nox <- importADSOBIN(
+    file = "conc_01-10_07_2018",
+    variable = "M001S001",
+    slice = 1,
+    deadline = "2018/07/02 12:00",
+    verbose = TRUE
+)
 }
 
 }

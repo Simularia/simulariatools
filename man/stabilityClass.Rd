@@ -51,10 +51,12 @@ deprecated.
 \examples{
 
 # Compute stability class with custom algorithm
-stMeteo$cst <- stabilityClass(rad = stMeteo$rad,
-                              tcc = stMeteo$tcc,
-                              ws = stMeteo$ws,
-                              option = "custom")
+stMeteo$cst <- stabilityClass(
+    rad = stMeteo$rad,
+    tcc = stMeteo$tcc,
+    ws = stMeteo$ws,
+    option = "custom"
+)
 
 }
 \seealso{

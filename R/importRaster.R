@@ -40,16 +40,20 @@
 #' \dontrun{
 #' # Import binary (netcdf) file and convert coordinates from km to m,
 #' # without destaggering:
-#' mydata <- importRaster(file = "/path_to_file/filename.nc",
-#'                        k = 1000,
-#'                        destaggering = FALSE)
+#' mydata <- importRaster(
+#'     file = "/path_to_file/filename.nc",
+#'     k = 1000,
+#'     destaggering = FALSE
+#' )
 #'
 #' # Import binary (netcdf) file and convert coordinates from km to m,
 #' # with shift of 100 m in both directions:
-#' mydata <- importRaster(file = "/path_to_file/filename.nc",
-#'                        k = 1000,
-#'                        dx = 100,
-#'                        dy = 100)
+#' mydata <- importRaster(
+#'     file = "/path_to_file/filename.nc",
+#'     k = 1000,
+#'     dx = 100,
+#'     dy = 100
+#' )
 #' }
 importRaster <- function(file = file.choose(),
                          k = 1,
@@ -78,9 +82,11 @@ importRaster <- function(file = file.choose(),
 
     # Apply destaggering
     if (destaggering == TRUE) {
-        t <- terra::shift(t,
-                          dx = terra::res(t)[1] / 2.,
-                          dy = terra::res(t)[2] / 2.)
+        t <- terra::shift(
+            t,
+            dx = terra::res(t)[1] / 2.,
+            dy = terra::res(t)[2] / 2.
+        )
     }
 
     # Shift coordinates
@@ -97,8 +103,7 @@ importRaster <- function(file = file.choose(),
         cat(sprintf("\n%8s (min, max, dy)  :", "Y"))
         cat(sprintf(fmt = "%12.3f", yvalues))
 
-        zvalues <- c(terra::global(t, min), terra::global(t, max),
-                     terra::global(t, mean))
+        zvalues <- c(terra::global(t, min), terra::global(t, max), terra::global(t, mean))
         cat(sprintf("\n%8s (min, max, mean):", variable))
         cat(sprintf(fmt = "%12.2e", zvalues))
 

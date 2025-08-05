@@ -33,12 +33,12 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
     mydata <- as.data.frame(mydata)
 
     # Rename columns
-    names(mydata)[names(mydata) == date] <- 'date'
-    names(mydata)[names(mydata) == rad] <- 'rad'
+    names(mydata)[names(mydata) == date] <- "date"
+    names(mydata)[names(mydata) == rad] <- "rad"
 
     # If undefined set timezone to GMT
-    TZ <- attr(mydata$date, "tzone")
-    if (is.null(TZ) || !TZ %in% OlsonNames()) {
+    this_timezone <- attr(mydata$date, "tzone")
+    if (is.null(this_timezone) || !this_timezone %in% OlsonNames()) {
         attr(mydata$date, "tzone") <- "GMT"
     }
 
@@ -48,15 +48,21 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
     mydata_jun <- mydata[mydata$month == 6, ]
     mydata_dec <- mydata[mydata$month == 12, ]
 
-    means <- stats::aggregate(mydata["rad"],
-                              by = format(mydata["date"], "%H"),
-                              FUN = mean, na.rm = TRUE)
-    max_jun <- stats::aggregate(mydata_jun["rad"],
-                                format(mydata_jun["date"], "%H"),
-                                FUN = max, na.rm = TRUE)
-    max_dec <- stats::aggregate(mydata_dec["rad"],
-                                format(mydata_dec["date"], "%H"),
-                                FUN = max, na.rm = TRUE)
+    means <- stats::aggregate(
+        mydata["rad"],
+        by = format(mydata["date"], "%H"),
+        FUN = mean, na.rm = TRUE
+    )
+    max_jun <- stats::aggregate(
+        mydata_jun["rad"],
+        format(mydata_jun["date"], "%H"),
+        FUN = max, na.rm = TRUE
+    )
+    max_dec <- stats::aggregate(
+        mydata_dec["rad"],
+        format(mydata_dec["date"], "%H"),
+        FUN = max, na.rm = TRUE
+    )
     means$date <- as.numeric(means$date)
     max_jun$date <- as.numeric(max_jun$date)
     max_dec$date <- as.numeric(max_dec$date)
@@ -86,31 +92,45 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
     }
 
     v <- ggplot(data = means, aes(x = date, y = rad)) +
-        geom_bar(aes(color = media, fill = media), stat = "identity") +
-        geom_line(data = max_dec, aes(x = date, y = rad, color = minima),
-            linewidth = 1, key_glyph = "timeseries") +
-        geom_line(data = max_jun, aes(x = date, y = rad, color = massima),
-            linewidth = 1, key_glyph = "timeseries") +
+        geom_bar(
+            aes(color = media, fill = media),
+            stat = "identity"
+        ) +
+        geom_line(
+            data = max_dec,
+            aes(x = date, y = rad, color = minima),
+            linewidth = 1, key_glyph = "timeseries"
+        ) +
+        geom_line(
+            data = max_jun,
+            aes(x = date, y = rad, color = massima),
+            linewidth = 1,
+            key_glyph = "timeseries"
+        ) +
         scale_y_continuous(breaks = seq(0, 1000, 100)) +
         scale_x_continuous(breaks = 0:23, limits = c(0, 23)) +
-        scale_color_manual(name  = NULL,
-                           values = c("steelblue", "darkorange2", "darkgreen"),
-                           limits = c(media, massima, minima),
-                           breaks = c(media, massima, minima),
-                           guide = guide_legend(title = NULL)) +
-        scale_fill_manual(name = NULL,
-                          values = c("steelblue", "darkorange2", "darkgreen"),
-                          limits = c(media, massima, minima),
-                          breaks = c(media, massima, minima),
-                          guide = guide_legend(title = NULL)) +
+        scale_color_manual(
+            name = NULL,
+            values = c("steelblue", "darkorange2", "darkgreen"),
+            limits = c(media, massima, minima),
+            breaks = c(media, massima, minima),
+            guide = guide_legend(title = NULL)) +
+        scale_fill_manual(
+            name = NULL,
+            values = c("steelblue", "darkorange2", "darkgreen"),
+            limits = c(media, massima, minima),
+            breaks = c(media, massima, minima),
+            guide = guide_legend(title = NULL)
+        ) +
         labs(x = NULL, y = ylabel) +
         theme_bw(base_family = "sans") +
-        theme(legend.position = c(0.01, 0.99),
-              legend.key.spacing.y = unit(2, "pt"),
-              legend.justification = c(0, 1),
-              legend.box.margin = margin(t = 0, unit = "cm"),
-              panel.grid.major.x = element_blank()) +
-        NULL
+        theme(
+            legend.position = c(0.01, 0.99),
+            legend.key.spacing.y = unit(2, "pt"),
+            legend.justification = c(0, 1),
+            legend.box.margin = margin(t = 0, unit = "cm"),
+            panel.grid.major.x = element_blank()
+        )
 
     return(v)
 }

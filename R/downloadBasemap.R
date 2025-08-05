@@ -60,16 +60,18 @@
 #'     width = 10, height = 10, units = "cm", res = 144
 #' )
 #' }
-downloadBasemap <- function(file = file,
-                            xSW = NA,
-                            ySW = NA,
-                            xExt = NA,
-                            yExt = NA,
-                            crs = 32,
-                            width = 1024,
-                            height = 1024,
-                            units = "px",
-                            res = 72) {
+downloadBasemap <- function(
+    file = file,
+    xSW = NA,
+    ySW = NA,
+    xExt = NA,
+    yExt = NA,
+    crs = 32,
+    width = 1024,
+    height = 1024,
+    units = "px",
+    res = 72
+) {
 
     # Check if output file has been defined
     if (missing(file)) {

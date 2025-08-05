@@ -96,7 +96,7 @@ plotAvgTemp <- function(
     }
 
     # Compute statistics grouping by month
-    if (avg.time  == "1 month") {
+    if (avg.time == "1 month") {
         mydata[["Month"]] <- strftime(mydata[["date"]], format = "%m")
         mydata_mean <- stats::aggregate(
             temp ~ Month,
@@ -118,7 +118,7 @@ plotAvgTemp <- function(
     } else {
         stop("Only avg.time = \"1 month\" is currently supported")
     }
-    
+
     # Set column names and create a row index column
     colnames(mydata_mean) <- c("rid", "temp", "temp.min", "temp.max")
     # FIXME:make it more generic

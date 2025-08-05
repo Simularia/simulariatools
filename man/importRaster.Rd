@@ -57,16 +57,20 @@ managed by it.
 \dontrun{
 # Import binary (netcdf) file and convert coordinates from km to m,
 # without destaggering:
-mydata <- importRaster(file = "/path_to_file/filename.nc",
-                       k = 1000,
-                       destaggering = FALSE)
+mydata <- importRaster(
+    file = "/path_to_file/filename.nc",
+    k = 1000,
+    destaggering = FALSE
+)
 
 # Import binary (netcdf) file and convert coordinates from km to m,
 # with shift of 100 m in both directions:
-mydata <- importRaster(file = "/path_to_file/filename.nc",
-                       k = 1000,
-                       dx = 100,
-                       dy = 100)
+mydata <- importRaster(
+    file = "/path_to_file/filename.nc",
+    k = 1000,
+    dx = 100,
+    dy = 100
+)
 }
 }
 \seealso{
