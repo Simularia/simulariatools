@@ -16,49 +16,50 @@ importRaster(
 )
 }
 \arguments{
-\item{file}{The raster file to be imported.}
+\item{file}{character. Path to the raster file.}
 
-\item{k}{A numerical factor to be applied to x and y coordinates (default =
-1).}
+\item{k}{numeric. Factor applied to x and y coordinates (default = 1).
+For example, it can be used to convert the grid coordinates from km
+to m (k = 1000).}
 
-\item{kz}{A numerical factor to be applied to z values (default = 1).}
+\item{kz}{numeric. Factor applied to the variable values (default = 1).}
 
-\item{dx}{Shifts x coordinates by dx (default = 0).}
+\item{dx}{numeric. Constant to shift x coordinates (default = 0).}
 
-\item{dy}{float. Shift y coordinates by dy (default = 0).}
+\item{dy}{numeric. Constant to shift y coordinates (default = 0).}
 
 \item{destaggering}{Use \code{TRUE} to apply destaggering to X and Y coordinates
-(default = FALSE).}
+(default = FALSE). See the \code{Details} section.}
 
-\item{variable}{The name of the variable to be imported.}
+\item{variable}{character. The name of the variable to be imported.}
 
-\item{verbose}{If \code{TRUE}, prints out basic statistics (default = FALSE).}
+\item{verbose}{logical. If \code{TRUE}, prints out basic statistics (default = FALSE).}
 }
 \value{
-It returns a dataframe with x, y and z columns.
+A data.frame with x, y and z columns for the grid cells coordiantes
+and the variable value.
 }
 \description{
-The function import the first layer of a generic raster file. Data are
-imported as an array of x, y, z columns.
+A function to import the first layer of a generic raster file.
 }
 \details{
-Supported files include those managed by the \pkg{raster} package (as
-netcdf),
+This function is based on the \pkg{terra} package and it can import any format
+managed by it as NetCDF.
 
-Destaggering is useful for importing data from the SPRAY model and it is not
-applied by default.
+Destaggering applies a shift equal to half grid size in both horizontal
+directions. It is useful for importing data from the SPRAY air quality dispoersion
+model and it is not applied by default.
 
-An optional summary output can be printed by setting the \code{verbose} parameter.
-
-This function is based on the \code{terra} package and it can import any format
-managed by it.
+An optional summary output can be printed out by setting the \code{verbose} parameter
+to \code{TRUE}.
 }
 \examples{
 \dontrun{
 # Import binary (netcdf) file and convert coordinates from km to m,
-# without destaggering:
+# without destaggering. Variable name is "NOx".
 mydata <- importRaster(
     file = "/path_to_file/filename.nc",
+    variable = "NOx",
     k = 1000,
     destaggering = FALSE
 )
@@ -67,6 +68,7 @@ mydata <- importRaster(
 # with shift of 100 m in both directions:
 mydata <- importRaster(
     file = "/path_to_file/filename.nc",
+    variable = "pm10",
     k = 1000,
     dx = 100,
     dy = 100

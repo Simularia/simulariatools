@@ -29,7 +29,8 @@ the `impact` method has been deprecated and renamed to `iaea`.
 - In `plotStabilityClass()` a bug where a missing class was not shown in the
 legend has been fixed.
 - Remove almost all the dependencies from *Openair*.
-* Other minor bugs have been fixed and documentation has been updated.
+* Other minor bugs have been fixed and documentation has been updated and
+hopefully improved.
 
 
 # simulariatools 2.5.1
