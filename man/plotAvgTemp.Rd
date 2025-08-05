@@ -15,7 +15,7 @@ plotAvgTemp(
 }
 \arguments{
 \item{mydata}{dataframe with data to plot. date and time column must be
-named as "date".}
+named as "date" and it must be a \if{html}{\out{<POSIXT>}} object.}
 
 \item{temp}{Name of the column representing temperature (default = "temp")}
 
@@ -41,18 +41,15 @@ range of time.
 line plots with maximum and minimum temperature.
 }
 \examples{
-# Plot histogram with monthly averages together with maxima and minima
-# curves
-data("stMeteo")
+# Plot average monthly temperature and curves with monthly maximum and minimum
+data(stMeteo)
+str(stMeteo)
 plotAvgTemp(stMeteo)
-plotAvgTemp(stMeteo, temp = "temperature",
-            avg.time = "1 month", ylabel = "Temperatura [C]")
+# Add a custom title
+plotAvgTemp(stMeteo, title = "Monthly temperature")
 
 # Override default locale
 plotAvgTemp(stMeteo, avg.time = "1 month", locale = "it_IT")
-
-# Add title
-plotAvgTemp(stMeteo, title = "Monthly temperature")
 
 }
 \seealso{

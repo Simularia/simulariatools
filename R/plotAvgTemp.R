@@ -4,7 +4,7 @@
 #' line plots with maximum and minimum temperature.
 #'
 #' @param mydata dataframe with data to plot. date and time column must be
-#' named as "date".
+#' named as "date" and it must be a <POSIXT> object.
 #' @param temp Name of the column representing temperature (default = "temp")
 #' @param avg.time Defines the time period to average to.
 #' Currently the only supported period is "1 month" (default).
@@ -26,23 +26,21 @@
 #' @import grid
 #' @importFrom reshape2 melt
 #' @importFrom scales breaks_width label_date label_math
-#' @importFrom ggplot2 ggplot geom_bar geom_line labs scale_x_date
+#' @importFrom ggplot2 ggplot geom_col geom_line labs scale_x_continuous
 #'                     expansion margin element_blank geom_text
 #'                     scale_y_discrete
 #'
 #' @examples
-#' # Plot histogram with monthly averages together with maxima and minima
-#' # curves
-#' data("stMeteo")
+#' # Plot average monthly temperature and curves with monthly maximum and minimum
+#' data(stMeteo)
+#' str(stMeteo)
 #' plotAvgTemp(stMeteo)
-#' plotAvgTemp(stMeteo, temp = "temperature",
-#'             avg.time = "1 month", ylabel = "Temperatura [C]")
+
+#' # Add a custom title
+#' plotAvgTemp(stMeteo, title = "Monthly temperature")
 #'
 #' # Override default locale
 #' plotAvgTemp(stMeteo, avg.time = "1 month", locale = "it_IT")
-#'
-#' # Add title
-#' plotAvgTemp(stMeteo, title = "Monthly temperature")
 #'
 plotAvgTemp <- function(
     mydata,
@@ -53,14 +51,23 @@ plotAvgTemp <- function(
     locale = NULL
 ) {
     # Fix No visible binding for global variable
-    # temp.min <- temp.max <- NULL
-    degree <- variable <- value <- .x <- NULL
+    degree <- rid <- variable <- value <- .x <- NULL
 
-    # avg.time has only one value allowed
-    stopifnot(avg.time == "1 month")
+    # Check if date column exist and is a datetime object
+    if (!"date" %in% names(mydata) || !"POSIXt" %in% class(mydata$date)) {
+        stop("A `date` column of class <POSIXt> is required.")
+    }
+
+    # # avg.time has only one value allowed
+    # stopifnot(avg.time == "1 month")
 
     # Fix name of temperature column
     names(mydata) <- sub(temp, "temp", names(mydata))
+
+    # Special case for italian locale
+    if (!is.null(locale) && locale == "it") {
+        locale <- "it_IT"
+    }
 
     # Get locale if not explicitely set
     if (is.null(locale)) {
@@ -88,28 +95,40 @@ plotAvgTemp <- function(
         attr(mydata$date, "tzone") <- "UTC"
     }
 
-    # Compute statistics
-    mydata[["Month"]] <- strftime(mydata[["date"]], format = "%m")
-    mydata_mean <- stats::aggregate(
-        temp ~ Month,
-        data = mydata, FUN = "mean", na.rm = TRUE
-    )
-    mydata_min <- stats::aggregate(
-        temp ~ Month,
-        data = mydata, FUN = "min", na.rm = TRUE
-    )
-    mydata_max <- stats::aggregate(
-        temp ~ Month,
-        data = mydata, FUN = "max", na.rm = TRUE
-    )
+    # Compute statistics grouping by month
+    if (avg.time  == "1 month") {
+        mydata[["Month"]] <- strftime(mydata[["date"]], format = "%m")
+        mydata_mean <- stats::aggregate(
+            temp ~ Month,
+            data = mydata, FUN = "mean", na.rm = TRUE
+        )
+        mydata_min <- stats::aggregate(
+            temp ~ Month,
+            data = mydata, FUN = "min", na.rm = TRUE
+        )
+        mydata_max <- stats::aggregate(
+            temp ~ Month,
+            data = mydata, FUN = "max", na.rm = TRUE
+        )
 
-    mydata_mean <- merge(mydata_mean, mydata_min, by = "Month", all = TRUE)
-    mydata_mean <- merge(mydata_mean, mydata_max, by = "Month", all = TRUE)
-    mydata_mean <- subset(mydata_mean, select = c("Month", "temp.x", "temp.y", "temp"))
-    colnames(mydata_mean) <- c("date", "temp", "temp.min", "temp.max")
-    mydata_mean[["date"]] <- ISOdate(2021, mydata_mean$date, 1)
+        # Merge data
+        mydata_mean <- merge(mydata_mean, mydata_min, by = "Month", all = TRUE)
+        mydata_mean <- merge(mydata_mean, mydata_max, by = "Month", all = TRUE)
+        mydata_mean <- subset(mydata_mean, select = c("Month", "temp.x", "temp.y", "temp"))
+    } else {
+        stop("Only avg.time = \"1 month\" is currently supported")
+    }
+    
+    # Set column names and create a row index column
+    colnames(mydata_mean) <- c("rid", "temp", "temp.min", "temp.max")
+    # FIXME:make it more generic
+    mydata_mean[["rid"]] <- as.numeric(mydata_mean[["rid"]])
 
-    # Default locale is "en"
+    # Arrange data in long format
+    mydata <- reshape2::melt(mydata_mean, measure.vars = c("temp.min", "temp", "temp.max"))
+    mydata$value <- round(mydata$value, digits = 1)
+
+    # Manage labels: default locale is "en"
     media <- "Average"
     media_short <- "Avg"
     minima <- "Minimum"
@@ -126,38 +145,54 @@ plotAvgTemp <- function(
         massima_short <- "Max"
     }
 
-    # Arrange data in long format
-    mydata <- reshape2::melt(mydata_mean, measure.vars = c("temp.min", "temp", "temp.max"))
-    mydata$value <- round(mydata$value, digits = 1)
-    date_min <- min(mydata$date)
-    date_max <- max(mydata$date)
+    if (avg.time == "1 month") {
+        # Build x axis labels in the required locale.
+        # Store original locale.
+        original_locale <- Sys.getlocale(category = "LC_TIME")
+        # Switch to required locale
+        if (!grepl("en", locale)) {
+            Sys.setlocale(category = "LC_TIME", locale = locale)
+        }
+        # Build labels in the required locale
+        x_labels <- format(
+            seq.Date(
+                from = as.Date("2021/1/1"),
+                to = as.Date("2021/12/1"),
+                by = "1 month"
+            ),
+            format = "%b"
+        )
+        # Go back to original locale, anyway
+        Sys.setlocale(category = "LC_TIME", locale = original_locale)
+    } else {
+        stop("Only avg.time = \"1 month\" is currently supported")
+    }
 
-    # bar plot
+    # bar plot for average + lines for min and max
     bar_plot <- ggplot(
         mydata[mydata$variable == "temp", ],
-        aes(date, value)
+        aes(rid, value)
     ) +
-        geom_bar(
+        geom_col(
             aes(colour = media, fill = media),
-            stat = "identity"
         ) +
         geom_line(
             data = mydata[mydata$variable == "temp.min", ],
-            aes(x = date, y = value, colour = minima),
+            aes(x = rid, y = value, colour = minima),
             linewidth = 1,
             key_glyph = "timeseries"
         ) +
         geom_line(
             data = mydata[mydata$variable == "temp.max", ],
-            aes(x = date, y = value, colour = massima),
+            aes(x = rid, y = value, colour = massima),
             linewidth = 1,
             key_glyph = "timeseries"
         ) +
         labs(title = title, x = NULL, y = ylabel) +
-        scale_x_date(
-            breaks = scales::breaks_width(width = avg.time),
-            expand = expansion(add = 6),
-            labels = scales::label_date("%b", locale = locale)
+        scale_x_continuous(
+            labels = x_labels,
+            breaks = seq(from = 1, to = length(x_labels), by = 1),
+            expand = expansion(mult = 0.02),
         ) +
         scale_y_continuous(
             labels = scales::label_math(.x * degree),
@@ -187,13 +222,13 @@ plotAvgTemp <- function(
     # data table
     data_table <- ggplot(
         mydata,
-        aes(date, factor(variable), label = format(value, nsmall = 1))
+        aes(rid, factor(variable), label = format(value, nsmall = 1))
     ) +
         geom_text(size = 3.5) +
-        scale_x_date(
-            breaks = scales::breaks_width(width = avg.time),
-            limits = as.Date(date_min, date_max),
-            labels = scales::label_date("%b", locale = locale)
+        scale_x_continuous(
+            labels = x_labels,
+            breaks = seq(from = 1, to = length(x_labels), by = 1),
+            expand = expansion(add = c(0.47, 0.5), mult = 0.02),
         ) +
         scale_y_discrete(labels = c(minima_short, media_short, massima_short)) +
         theme_bw() +
