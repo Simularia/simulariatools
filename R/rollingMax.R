@@ -18,8 +18,11 @@
 #'
 rollingMax <- function(mydata, length = 24) {
 
-    if (length <= 2)
-        stop("The window length must be greater than 2.", call. = FALSE)
+    # Check if window size is a positive integer >= 2
+    if (!is.numeric(length) || !isTRUE(all.equal(length, round(length))) ||
+        length <= 2) {
+        stop("The window size must be a positive integer greater than 2.")
+    }
 
     lvec <- length(mydata)
     out <- rep(NA, lvec)
