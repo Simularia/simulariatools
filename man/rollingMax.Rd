@@ -2,28 +2,40 @@
 % Please edit documentation in R/rollingMax.R
 \name{rollingMax}
 \alias{rollingMax}
-\title{Compute rolling max}
+\title{Compute Rolling Max}
 \usage{
 rollingMax(mydata, length = 24)
 }
 \arguments{
-\item{mydata}{A vector of data}
+\item{mydata}{A numeric vector of data values}
 
-\item{length}{The length of data subset where the maximum values has
-to be picked. The value must be greater or equal than 3.}
+\item{length}{An integer specifying the window size (number of observations)
+to consider. Must be at least 3 (default = 24).}
 }
 \value{
-A numeric vector of the same length as \code{mydata}.
+A numeric vector containing rolling maximum values, with same
+dimensions as \code{mydata}.
 }
 \description{
-The rolling maximum value along a series of data is computed.
+The function computes the rolling maximum value along a time series.
 }
 \details{
-It computes the maximum value centred along a subset of data.
+It calculates the maximum over consecutive elements centered within a
+specified window.
+
+For each index i, it considers a window of \code{length} points centered around i.
+When \code{length} is odd, the center falls exactly on i and the window extends
+equally to both sides.
+When \code{length} is even, the window extends one less point to the left than to
+the right and the rolling max is not exactly centered.
+
+Values near the start of the series use windows with fewer than \code{length}
+data points if there are not enough preceding elements to form a full window.
+Similarly for values at the end.
 }
 \examples{
-# Compute rolling max along 24 hours on hourly time series
-data(airquality)
-solar.R.24 <- rollingMax(mydata = airquality$Solar.R, length = 24)
+# Compute rolling max over a 24-hour period on hourly time series data
+data(stMeteo)
+ws_24h <- rollingMax(mydata = stMeteo$ws, length = 24)
 
 }
