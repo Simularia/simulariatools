@@ -32,7 +32,6 @@
 #' @export
 #'
 importSurferGrd <- function(fname, k = 1000, destaggering = FALSE) {
-
     t <- file(fname, "r")
 
     t1 <- readLines(t, 1) # DSAA code
@@ -64,8 +63,9 @@ importSurferGrd <- function(fname, k = 1000, destaggering = FALSE) {
     map <- scan(t, nmax = nx * ny, quiet = TRUE)
     close(t)
 
-    if (length(as.vector(map)) != nx * ny)
+    if (length(as.vector(map)) != nx * ny) {
         stop("Dimension of grid data does not match that of header", call. = FALSE)
+    }
 
     grd <- matrix(map, nx, ny)
 
@@ -79,4 +79,3 @@ importSurferGrd <- function(fname, k = 1000, destaggering = FALSE) {
 
     return(grd3d)
 }
-

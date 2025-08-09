@@ -100,21 +100,30 @@ plotAvgTemp <- function(
         mydata[["Month"]] <- strftime(mydata[["date"]], format = "%m")
         mydata_mean <- stats::aggregate(
             temp ~ Month,
-            data = mydata, FUN = "mean", na.rm = TRUE
+            data = mydata,
+            FUN = "mean",
+            na.rm = TRUE
         )
         mydata_min <- stats::aggregate(
             temp ~ Month,
-            data = mydata, FUN = "min", na.rm = TRUE
+            data = mydata,
+            FUN = "min",
+            na.rm = TRUE
         )
         mydata_max <- stats::aggregate(
             temp ~ Month,
-            data = mydata, FUN = "max", na.rm = TRUE
+            data = mydata,
+            FUN = "max",
+            na.rm = TRUE
         )
 
         # Merge data
         mydata_mean <- merge(mydata_mean, mydata_min, by = "Month", all = TRUE)
         mydata_mean <- merge(mydata_mean, mydata_max, by = "Month", all = TRUE)
-        mydata_mean <- subset(mydata_mean, select = c("Month", "temp.x", "temp.y", "temp"))
+        mydata_mean <- subset(
+            mydata_mean,
+            select = c("Month", "temp.x", "temp.y", "temp")
+        )
     } else {
         stop("Only avg.time = \"1 month\" is currently supported")
     }
@@ -125,7 +134,10 @@ plotAvgTemp <- function(
     mydata_mean[["rid"]] <- as.numeric(mydata_mean[["rid"]])
 
     # Arrange data in long format
-    mydata <- reshape2::melt(mydata_mean, measure.vars = c("temp.min", "temp", "temp.max"))
+    mydata <- reshape2::melt(
+        mydata_mean,
+        measure.vars = c("temp.min", "temp", "temp.max")
+    )
     mydata$value <- round(mydata$value, digits = 1)
 
     # Manage labels: default locale is "en"

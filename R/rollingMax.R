@@ -29,7 +29,6 @@
 #' ws_24h <- rollingMax(mydata = stMeteo$ws, length = 24)
 #'
 rollingMax <- function(mydata, length = 24) {
-
     # Check if window size is a positive integer >= 2
     if (!is.numeric(length) || as.integer(length) != length || length <= 2) {
         stop("The window size must be a positive integer greater than 2.")

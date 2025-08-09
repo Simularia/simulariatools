@@ -70,18 +70,19 @@
 #'
 #' @export
 #'
-importADSOBIN <- function(file = file.choose(),
-                          variable = NULL,
-                          slice = 1,
-                          deadline = 1,
-                          k = 1,
-                          kz = 1,
-                          dx = 0,
-                          dy = 0,
-                          destaggering = FALSE,
-                          raster.object = FALSE,
-                          verbose = FALSE) {
-
+importADSOBIN <- function(
+    file = file.choose(),
+    variable = NULL,
+    slice = 1,
+    deadline = 1,
+    k = 1,
+    kz = 1,
+    dx = 0,
+    dy = 0,
+    destaggering = FALSE,
+    raster.object = FALSE,
+    verbose = FALSE
+) {
     # Load arinfopy lib with reticulate
     ap <- reticulate::import("arinfopy")
     # Load file
@@ -98,14 +99,18 @@ importADSOBIN <- function(file = file.choose(),
 
     # Check existence of the requested variable
     if (is.null(variable) || (!(variable %in% nomvar2d) && !(variable %in% nomvar3d))) {
-
-        stop(paste0(
-            "\nVariable name not existing or unspecified.\n",
-            "Please select a variable in the following list:\n",
-            "2D: ", list(unname(nomvar2d)), "\n",
-            "3D: ", list(unname(nomvar3d))
-        ),
-        call. = FALSE)
+        stop(
+            paste0(
+                "\nVariable name not existing or unspecified.\n",
+                "Please select a variable in the following list:\n",
+                "2D: ",
+                list(unname(nomvar2d)),
+                "\n",
+                "3D: ",
+                list(unname(nomvar3d))
+            ),
+            call. = FALSE
+        )
     }
 
     # Manage deadlines

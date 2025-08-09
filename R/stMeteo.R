@@ -1,6 +1,6 @@
 #' Meteorological dataset with hourly values
 #'
-#' A dataset containing 8760 hourly values of some meteorological variables 
+#' A dataset containing 8760 hourly values of some meteorological variables
 #' corresponding to a full solar year.
 #'
 #' @format A data frame with 8760 rows and 7 variables:
@@ -15,3 +15,4 @@
 #' }
 #' @source Self derived dataset.
 "stMeteo"
+

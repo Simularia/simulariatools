@@ -27,9 +27,14 @@
 #' data(stMeteo)
 #' plotAvgRad(stMeteo, date = "date", rad = "radg")
 #'
-plotAvgRad <- function(mydata, date = "date", rad = "radg",
-                       ylabel = NULL, title = "", locale = NULL) {
-
+plotAvgRad <- function(
+    mydata,
+    date = "date",
+    rad = "radg",
+    ylabel = NULL,
+    title = "",
+    locale = NULL
+) {
     mydata <- as.data.frame(mydata)
 
     # Rename columns
@@ -51,17 +56,20 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
     means <- stats::aggregate(
         mydata["rad"],
         by = format(mydata["date"], "%H"),
-        FUN = mean, na.rm = TRUE
+        FUN = mean,
+        na.rm = TRUE
     )
     max_jun <- stats::aggregate(
         mydata_jun["rad"],
         format(mydata_jun["date"], "%H"),
-        FUN = max, na.rm = TRUE
+        FUN = max,
+        na.rm = TRUE
     )
     max_dec <- stats::aggregate(
         mydata_dec["rad"],
         format(mydata_dec["date"], "%H"),
-        FUN = max, na.rm = TRUE
+        FUN = max,
+        na.rm = TRUE
     )
     means$date <- as.numeric(means$date)
     max_jun$date <- as.numeric(max_jun$date)
@@ -99,7 +107,8 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
         geom_line(
             data = max_dec,
             aes(x = date, y = rad, color = minima),
-            linewidth = 1, key_glyph = "timeseries"
+            linewidth = 1,
+            key_glyph = "timeseries"
         ) +
         geom_line(
             data = max_jun,
@@ -114,7 +123,8 @@ plotAvgRad <- function(mydata, date = "date", rad = "radg",
             values = c("steelblue", "darkorange2", "darkgreen"),
             limits = c(media, massima, minima),
             breaks = c(media, massima, minima),
-            guide = guide_legend(title = NULL)) +
+            guide = guide_legend(title = NULL)
+        ) +
         scale_fill_manual(
             name = NULL,
             values = c("steelblue", "darkorange2", "darkgreen"),

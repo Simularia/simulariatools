@@ -116,25 +116,26 @@
 #' v + ggtitle("Example volcano data") +
 #'     labs(x = NULL, y = NULL)
 #'
-contourPlot2 <- function(data,
-                         x = "x",
-                         y = "y",
-                         z = "z",
-                         domain = NULL,
-                         background = NULL,
-                         underlayer = NULL,
-                         overlayer = NULL,
-                         legend = NULL,
-                         levels = NULL,
-                         size = 0.,
-                         fill = TRUE,
-                         tile = FALSE,
-                         transparency = 0.75,
-                         colors = NULL,
-                         mask = NULL,
-                         inverse_mask = FALSE,
-                         bare = FALSE) {
-
+contourPlot2 <- function(
+    data,
+    x = "x",
+    y = "y",
+    z = "z",
+    domain = NULL,
+    background = NULL,
+    underlayer = NULL,
+    overlayer = NULL,
+    legend = NULL,
+    levels = NULL,
+    size = 0.,
+    fill = TRUE,
+    tile = FALSE,
+    transparency = 0.75,
+    colors = NULL,
+    mask = NULL,
+    inverse_mask = FALSE,
+    bare = FALSE
+) {
     # Consistency check
     if (isTRUE(tile)) {
         fill <- FALSE
@@ -195,7 +196,9 @@ contourPlot2 <- function(data,
     pretty_levels <- prettyNum(levels)
     lab_levels <- parse(
         text = paste(
-            pretty_levels[1:(nlevels - 1)], "-", pretty_levels[2:nlevels]
+            pretty_levels[1:(nlevels - 1)],
+            "-",
+            pretty_levels[2:nlevels]
         )
     )
     if (levels[nlevels] == Inf && !isTRUE(tile)) {
@@ -213,8 +216,17 @@ contourPlot2 <- function(data,
 
     # Colour palette
     spectral <- c(
-        "#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", "#FFFFBF",
-        "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142"
+        "#5E4FA2",
+        "#3288BD",
+        "#66C2A5",
+        "#ABDDA4",
+        "#E6F598",
+        "#FFFFBF",
+        "#FEE08B",
+        "#FDAE61",
+        "#F46D43",
+        "#D53E4F",
+        "#9E0142"
     )
     if (is.null(colors)) {
         my_palette <- grDevices::colorRampPalette(spectral)
@@ -271,7 +283,9 @@ contourPlot2 <- function(data,
             img <- magick::image_read(background)
             gimg <- grid::rasterGrob(img)
         } else {
-            warning("Missing magick package. Please install it to be able to read background basemap.")
+            warning(
+                "Missing magick package. Please install it to be able to read background basemap."
+            )
         }
     }
 
@@ -302,9 +316,7 @@ contourPlot2 <- function(data,
     if (isTRUE(tile)) {
         v <- v +
             geom_raster(
-                aes(x = x, y = y,
-                    fill = cut(z, breaks = levels, right = FALSE)
-                ),
+                aes(x = x, y = y, fill = cut(z, breaks = levels, right = FALSE)),
                 show.legend = TRUE,
                 alpha = transparency
             ) +
@@ -322,7 +334,9 @@ contourPlot2 <- function(data,
         v <- v +
             geom_contour_filled(
                 aes(
-                    x = x, y = y, z = z,
+                    x = x,
+                    y = y,
+                    z = z,
                     fill = after_stat(level)
                 ),
                 breaks = levels,
@@ -401,20 +415,21 @@ contourPlot2 <- function(data,
 
     # If requested, wipe all but main plot
     if (isTRUE(bare)) {
-        v <- v + theme(
-            axis.line = element_blank(),
-            axis.text.x = element_blank(),
-            axis.text.y = element_blank(),
-            axis.ticks = element_blank(),
-            axis.title.x = element_blank(),
-            axis.title.y = element_blank(),
-            legend.position = "none",
-            panel.background = element_blank(),
-            panel.border = element_blank(),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(),
-            plot.background = element_blank()
-        )
+        v <- v +
+            theme(
+                axis.line = element_blank(),
+                axis.text.x = element_blank(),
+                axis.text.y = element_blank(),
+                axis.ticks = element_blank(),
+                axis.title.x = element_blank(),
+                axis.title.y = element_blank(),
+                legend.position = "none",
+                panel.background = element_blank(),
+                panel.border = element_blank(),
+                panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank(),
+                plot.background = element_blank()
+            )
     }
 
     return(v)

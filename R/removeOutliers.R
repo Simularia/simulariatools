@@ -23,7 +23,6 @@
 #' removeOutliers(mydata)
 #'
 removeOutliers <- function(x, k = 1.5) {
-
     # Compute quantiles
     qnt <- stats::quantile(x, probs = c(1 / 4, 3 / 4), na.rm = TRUE)
 

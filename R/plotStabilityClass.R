@@ -34,7 +34,6 @@
 #' plotStabilityClass(stMeteo, sc = "pgt", type = "season", locale = "it_IT")
 #'
 plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL) {
-
     # Get locale if not explicitely set
     if (is.null(locale)) {
         locale <- Sys.getlocale(category = "LC_TIME")
@@ -43,15 +42,18 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
     # Fix No visible binding for global variable
     season <- clname <- hour <- ascissa <- NULL
 
-    if (type != "season" && type != "hour")
+    if (type != "season" && type != "hour") {
         stop("Unspecified plot type.", call. = FALSE)
+    }
 
-    if (!(sc %in% colnames(mydata)))
+    if (!(sc %in% colnames(mydata))) {
         stop("Undefined stability class field name.", call. = FALSE)
+    }
 
     # Check if stability class is in range 1 to 6
-    if (max(mydata[, sc]) > 6 || min(mydata[, sc]) < 0)
+    if (max(mydata[, sc]) > 6 || min(mydata[, sc]) < 0) {
         stop("Stability class is out of range [0,6].", call. = FALSE)
+    }
 
     pasquill <- factor(x = c("A", "B", "C", "D", "E", "F"))
     mydata$clname <- pasquill[mydata[, sc]]
@@ -97,23 +99,30 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
 
     # Axis, legend, ...
     v <- v +
-        scale_y_continuous(labels = scales::label_percent(),
-                           breaks = seq(0, 1, 0.1), expand = c(0, 0)) +
-        scale_fill_manual(drop = FALSE,
-                          values = myColors,
-                          breaks = pasquill,
-                          limits = pasquill
-                          ) +
+        scale_y_continuous(
+            labels = scales::label_percent(),
+            breaks = seq(0, 1, 0.1),
+            expand = c(0, 0)
+        ) +
+        scale_fill_manual(
+            drop = FALSE,
+            values = myColors,
+            breaks = pasquill,
+            limits = pasquill
+        ) +
         labs(x = xlabel, y = ylabel) +
         theme_bw(base_family = "sans") +
-        theme(legend.position = "bottom",
-              panel.grid.major.x = element_blank()) +
-        guides(fill = guide_legend(label.position = "bottom",
-                                   label.hjust = 0.5,
-                                   title = legendTitle,
-                                   direction = "horizontal",
-                                   ncol = 6,
-                                   reverse = FALSE))
+        theme(legend.position = "bottom", panel.grid.major.x = element_blank()) +
+        guides(
+            fill = guide_legend(
+                label.position = "bottom",
+                label.hjust = 0.5,
+                title = legendTitle,
+                direction = "horizontal",
+                ncol = 6,
+                reverse = FALSE
+            )
+        )
 
     return(v)
 }
@@ -122,14 +131,20 @@ plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL
 season <- function(x) {
     res <- lapply(lubridate::month(x), function(x) {
         # Winter
-        if (x %in% c(1, 2, 12)) s <- 1
-        # Spring
-        else if (x %in% c(3, 4, 5)) s <- 2
-        # Summer
-        else if (x %in% c(6, 7, 8)) s <- 3
-        # Autumn
-        else if (x %in% c(9, 10, 11)) s <- 4
-        else s <- NULL
+        if (x %in% c(1, 2, 12)) {
+            s <- 1
+        } else if (x %in% c(3, 4, 5)) {
+            # Spring
+            s <- 2
+        } else if (x %in% c(6, 7, 8)) {
+            # Summer
+            s <- 3
+        } else if (x %in% c(9, 10, 11)) {
+            # Autumn
+            s <- 4
+        } else {
+            s <- NULL
+        }
         s
     })
     res <- unlist(res)

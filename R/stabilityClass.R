@@ -50,9 +50,12 @@
 #' )
 #'
 stabilityClass <- function(rad, tcc, ws, option = "iaea") {
-
     # check if the input vectors have the same length
-    if (length(rad) != length(tcc) || length(tcc) != length(ws) || length(rad) != length(ws)) {
+    if (
+        length(rad) != length(tcc) ||
+            length(tcc) != length(ws) ||
+            length(rad) != length(ws)
+    ) {
         stop("The length of the three vectors is different.", call. = FALSE)
     }
 
@@ -62,7 +65,9 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
     }
 
     if (option == "impact") {
-        warning("option = 'impact' is now deprecated. Please use the equivalent option 'iaea'")
+        warning(
+            "option = 'impact' is now deprecated. Please use the equivalent option 'iaea'"
+        )
         option <- "iaea"
     }
 
@@ -86,9 +91,7 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
         tabStab[4, ] <- c(5, 4, 4, 4, 3, 3, 2)
         tabStab[5, ] <- c(4, 4, 4, 4, 4, 3, 3)
         tabStab[6, ] <- c(4, 4, 4, 4, 4, 4, 3)
-
     } else if (option == "pasquill") {
-
         # Pasquill raditaion vector (night, night, night, day)
         limrad <- 1
         radlim <- c(limrad, limrad, 290.75, 581.5, Inf)
@@ -131,15 +134,21 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
     for (i in seq_along(rad)) {
         # Wind speed
         iv <- 1
-        while (ws[i] >= vel[iv]) iv <- iv + 1
+        while (ws[i] >= vel[iv]) {
+            iv <- iv + 1
+        }
 
         # Daytime, incoming solar radiation
         ir <- 1
-        while (rad[i] >= radlim[ir]) ir <- ir + 1
+        while (rad[i] >= radlim[ir]) {
+            ir <- ir + 1
+        }
 
         # Nightime, cloud cover
         if (ir == 1) {
-            while (tcc[i] >= nuvo[ir]) ir <- ir + 1
+            while (tcc[i] >= nuvo[ir]) {
+                ir <- ir + 1
+            }
         }
 
         catStab[i] <- tabStab[iv, ir]

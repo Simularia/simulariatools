@@ -72,7 +72,6 @@ downloadBasemap <- function(
     units = "px",
     res = 72
 ) {
-
     # Check if output file has been defined
     if (missing(file)) {
         stop("Please define the output file.", call. = FALSE)
@@ -105,7 +104,6 @@ downloadBasemap <- function(
         this_res <- res / 25.4
     } else if (units == "px") {
         this_res <- 1.0
-
     } else {
         stop("units not recognized.", call. = FALSE)
     }
@@ -130,10 +128,20 @@ downloadBasemap <- function(
 
     url2 <- paste(
         "VERSION=1.3.0&REQUEST=GetMap&LAYERS=OI.ORTOIMMAGINI.2012&STYLES=default&CRS=",
-        crsStr, "&BBOX=",
-        xSW, ",", ySW, ",", xSW + xExt, ",",
-        ySW + yExt, "&WIDTH=", width, "&HEIGHT=",
-        height, "&FORMAT=image/",
+        crsStr,
+        "&BBOX=",
+        xSW,
+        ",",
+        ySW,
+        ",",
+        xSW + xExt,
+        ",",
+        ySW + yExt,
+        "&WIDTH=",
+        width,
+        "&HEIGHT=",
+        height,
+        "&FORMAT=image/",
         format,
         sep = ""
     )

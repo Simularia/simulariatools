@@ -66,7 +66,6 @@ importRaster <- function(
     variable = NULL,
     verbose = FALSE
 ) {
-
     if (missing(variable)) {
         t <- terra::rast(file)
         variables <- as.character(names(t))
@@ -101,9 +100,27 @@ importRaster <- function(
         yvalues <- c(terra::ymin(t), terra::ymax(t), terra::res(t)[2])
         zvalues <- c(terra::global(t, min), terra::global(t, max), terra::global(t, mean))
         message("Raster statistics -----------------------------------------------")
-        message(sprintf("%8s (min, max, dx)  : %12.3f %12.3f %12.3f", "X", xvalues[1], xvalues[2], xvalues[3]))
-        message(sprintf("%8s (min, max, dy)  : %12.3f %12.3f %12.3f", "Y", yvalues[1], yvalues[2], yvalues[3]))
-        message(sprintf("%8s (min, max, mean): %12.2e %12.2e %12.2e", variable, zvalues[1], zvalues[2], zvalues[3]))
+        message(sprintf(
+            "%8s (min, max, dx)  : %12.3f %12.3f %12.3f",
+            "X",
+            xvalues[1],
+            xvalues[2],
+            xvalues[3]
+        ))
+        message(sprintf(
+            "%8s (min, max, dy)  : %12.3f %12.3f %12.3f",
+            "Y",
+            yvalues[1],
+            yvalues[2],
+            yvalues[3]
+        ))
+        message(sprintf(
+            "%8s (min, max, mean): %12.2e %12.2e %12.2e",
+            variable,
+            zvalues[1],
+            zvalues[2],
+            zvalues[3]
+        ))
         message("-----------------------------------------------------------------")
     }
 

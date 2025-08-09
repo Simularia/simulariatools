@@ -85,7 +85,6 @@ vectorField <- function(
     size = 0.25,
     preview = TRUE
 ) {
-
     # Fix No visible binding for global variable
     x <- y <- u <- v <- magnitude <- NULL
 
@@ -113,11 +112,7 @@ vectorField <- function(
     # Plot
     pl <- geom_segment(
         data = datasub,
-        aes(x = x, y = y,
-            xend = x + scale * u,
-            yend = y + scale * v,
-            colour = magnitude
-        ),
+        aes(x = x, y = y, xend = x + scale * u, yend = y + scale * v, colour = magnitude),
         arrow = arrow(length = unit(arrLength, "npc")),
         size = size
     )
@@ -126,5 +121,4 @@ vectorField <- function(
         pl <- ggplot() + pl
     }
     return(pl)
-
 }
