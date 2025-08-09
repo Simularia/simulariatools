@@ -6,6 +6,7 @@
 ^_pkgdown\.yml$
 ^revdep$
 .lintr
+air.toml
 
 ^\.github$
 .editorconfig
