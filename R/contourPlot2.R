@@ -214,11 +214,11 @@ contourPlot2 <- function(data,
         # Omit first colour for aesthetic reasons
         my_colors <- my_palette(nlevels)
         my_colors <- my_colors[2:length(my_colors)]
-        my_colors_lines <- cbind(my_colors, "black")
+        my_colors_lines <- my_colors
     } else {
         my_palette <- grDevices::colorRampPalette(colors, alpha = TRUE)
         my_colors <- my_palette(length(levels) - 1)
-        my_colors_lines <- cbind(my_colors, "black")
+        my_colors_lines <- my_colors
     }
 
     # Mask
