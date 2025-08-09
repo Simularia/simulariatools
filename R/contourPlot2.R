@@ -1,23 +1,31 @@
-#' Contour plot of pollutant concentration field
+#' Contour Plot of pollutant concentration field
 #'
-#' \code{contourPlot2} plots a contour map of a given quantity, such as the
-#' ground concentration of an airborne pollutant or odour, defined on a
+#' @description
+#'
+#' The function \code{contourPlot2} generates a contour plot of a given quantity,
+#' such as the ground concentration of an airborne pollutant or odour, defined on a
 #' regular grid.
 #'
-#' @param data dataframe in long format, with three columns for Easting,
+#' @param data A dataframe in long format with three columns for Easting,
 #' Northing and values to be plotted.
-#' @param x name of the column with Easting data (default "x").
-#' @param y name of the column with Northing data (default "y").
-#' @param z name of the column with the values to be plotted (default "z").
-#' @param domain optional list with six numeric values defining the
-#' boundaries of the domain to be plotted: minimum X, maximum X, minimum Y,
-#' maximum Y, number of ticks on X axis, number of ticks on Y axis.
-#' @param background optional path to a png file to be plotted as the base map.
+#' @param x charactrer. Name of the column containing Easting (longitude)
+#' coordinates (default "x").
+#' @param y character. Name of the column containing Northing (latitude)
+#' coordinates (default "y").
+#' @param z character. Name of the column containing concentration values
+#' (default "z").
+#' @param domain optional list of six numeric values defining the
+#' boundaries of the domain to be plotted (minimum X, maximum X, minimum Y,
+#' maximum Y) and the number of ticks on X & Y axis.
+#' Example: c(340000, 346000, 4989500, 4995500, 5, 5).
+#' If missing, all the full domain of the input data is considered, with 5 ticks.
+#' @param background filename. Optional path to a raster file to be plotted as
+#' the basemap.
 #' @param underlayer optional list of layers to be plotted between base map
-#' and contour plot.
+#' and contour plot. See Details
 #' @param overlayer optional list of layers to be plotted on top of the contour
-#' plot.
-#' @param legend optional title of the legend.
+#' plot. See Details.
+#' @param legend character. Optional title of the legend.
 #' @param levels numeric vector of levels for contour plot. If not set,
 #' automatic pretty levels are computed. If `-Inf` and `Inf` are used
 #' as the lowest and highest limits of the array, the lowest and highest bands
@@ -27,11 +35,10 @@
 #' @param colors colour palette for contour plot, as an array of colours.
 #' @param bare boolean (default FALSE). If TRUE only the bare plot is shown:
 #' axis, legend, titles and any other graphical element of the plot are removed.
-#' @param size thickness of the contour line.
-#' @param fill boolean (default TRUE). If TRUE the contour plot is filled with
-#' colour.
-#' @param tile boolean (default FALSE). If TRUE rectangular tiles are plotted.
-#' @param mask path to _shp_ file used as a mask. It must be a closed polygon.
+#' @param size numeric. Width of the contour line.
+#' @param fill logical. If TRUE the contour plot is filled with colour (default = TRUE).
+#' @param tile logical. If TRUE rectangular tiles are plotted (default = FALSE).
+#' @param mask character. Path to _shp_ file used as a mask. It must be a closed polygon.
 #' @param inverse_mask logical. If `TRUE` areas on mask are masked. Default is
 #' to mask areas outside the polygon defined in the _shp_ file.
 #'

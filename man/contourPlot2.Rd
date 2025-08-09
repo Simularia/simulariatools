@@ -2,7 +2,7 @@
 % Please edit documentation in R/contourPlot2.R
 \name{contourPlot2}
 \alias{contourPlot2}
-\title{Contour plot of pollutant concentration field}
+\title{Contour Plot of pollutant concentration field}
 \usage{
 contourPlot2(
   data,
@@ -26,47 +26,52 @@ contourPlot2(
 )
 }
 \arguments{
-\item{data}{dataframe in long format, with three columns for Easting,
+\item{data}{A dataframe in long format with three columns for Easting,
 Northing and values to be plotted.}
 
-\item{x}{name of the column with Easting data (default "x").}
+\item{x}{charactrer. Name of the column containing Easting (longitude)
+coordinates (default "x").}
 
-\item{y}{name of the column with Northing data (default "y").}
+\item{y}{character. Name of the column containing Northing (latitude)
+coordinates (default "y").}
 
-\item{z}{name of the column with the values to be plotted (default "z").}
+\item{z}{character. Name of the column containing concentration values
+(default "z").}
 
-\item{domain}{optional list with six numeric values defining the
-boundaries of the domain to be plotted: minimum X, maximum X, minimum Y,
-maximum Y, number of ticks on X axis, number of ticks on Y axis.}
+\item{domain}{optional list of six numeric values defining the
+boundaries of the domain to be plotted (minimum X, maximum X, minimum Y,
+maximum Y) and the number of ticks on X & Y axis.
+Example: c(340000, 346000, 4989500, 4995500, 5, 5).
+If missing, all the full domain of the input data is considered, with 5 ticks.}
 
-\item{background}{optional path to a png file to be plotted as the base map.}
+\item{background}{filename. Optional path to a raster file to be plotted as
+the basemap.}
 
 \item{underlayer}{optional list of layers to be plotted between base map
-and contour plot.}
+and contour plot. See Details}
 
 \item{overlayer}{optional list of layers to be plotted on top of the contour
-plot.}
+plot. See Details.}
 
-\item{legend}{optional title of the legend.}
+\item{legend}{character. Optional title of the legend.}
 
 \item{levels}{numeric vector of levels for contour plot. If not set,
 automatic pretty levels are computed. If \code{-Inf} and \code{Inf} are used
 as the lowest and highest limits of the array, the lowest and highest bands
 are unbounded and the legend shows \code{<} and \code{>=} symbols.}
 
-\item{size}{thickness of the contour line.}
+\item{size}{numeric. Width of the contour line.}
 
-\item{fill}{boolean (default TRUE). If TRUE the contour plot is filled with
-colour.}
+\item{fill}{logical. If TRUE the contour plot is filled with colour (default = TRUE).}
 
-\item{tile}{boolean (default FALSE). If TRUE rectangular tiles are plotted.}
+\item{tile}{logical. If TRUE rectangular tiles are plotted (default = FALSE).}
 
 \item{transparency}{transparency level of the contour plot between 0.0
 (fully transparent) and 1.0 (fully opaque). Default = 0.75).}
 
 \item{colors}{colour palette for contour plot, as an array of colours.}
 
-\item{mask}{path to \emph{shp} file used as a mask. It must be a closed polygon.}
+\item{mask}{character. Path to \emph{shp} file used as a mask. It must be a closed polygon.}
 
 \item{inverse_mask}{logical. If \code{TRUE} areas on mask are masked. Default is
 to mask areas outside the polygon defined in the \emph{shp} file.}
@@ -78,8 +83,8 @@ axis, legend, titles and any other graphical element of the plot are removed.}
 A \code{ggplot2} object.
 }
 \description{
-\code{contourPlot2} plots a contour map of a given quantity, such as the
-ground concentration of an airborne pollutant or odour, defined on a
+The function \code{contourPlot2} generates a contour plot of a given quantity,
+such as the ground concentration of an airborne pollutant or odour, defined on a
 regular grid.
 }
 \details{
