@@ -36,6 +36,7 @@ BugReports: https://github.com/Simularia/simulariatools/issues
 LazyLoad: yes
 LazyData: yes
 Encoding: UTF-8
+Language: en
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3

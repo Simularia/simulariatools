@@ -19,9 +19,9 @@ importADSOBIN(
 )
 }
 \arguments{
-\item{file}{The ADSO/BIN file to be imported.}
+\item{file}{Character. The path to the ADSO/BIN file to be imported.}
 
-\item{variable}{A string with the name of the variable to be imported.}
+\item{variable}{Character. A string with the name of the variable to be imported.}
 
 \item{slice}{An integer corresponding to the  horizontal slice (vertical
 level) of 3D variables (default = 1). In the case of a 2D variable, it is
@@ -57,9 +57,10 @@ Import data from ADSO/BIN binary file. It requires an active Python
 installation with the \code{arinfopy} library.
 }
 \details{
-The \code{importADSIOBIN()} function imports data from an
-ADSO/BIN binary file. It relies on the `arinfopy' (version >= 2.2.0) python
-library. For more information on the library see the \href{https://github.com/Simularia/arinfopy}{GitHub repository}.
+The \code{importADSIOBIN()} function imports data from an ADSO/BIN binary file.
+It relies on the `arinfopy' (version >= 2.2.0) python library.
+For more information on the library see the
+\href{https://github.com/Simularia/arinfopy}{GitHub repository}.
 
 For more information on the active \code{python} installation, check the
 documentation of \pkg{reticulate}.

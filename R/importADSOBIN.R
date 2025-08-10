@@ -5,8 +5,8 @@
 #'
 #' @import reticulate
 #'
-#' @param file     The ADSO/BIN file to be imported.
-#' @param variable A string with the name of the variable to be imported.
+#' @param file Character. The path to the ADSO/BIN file to be imported.
+#' @param variable Character. A string with the name of the variable to be imported.
 #' @param slice An integer corresponding to the  horizontal slice (vertical
 #'   level) of 3D variables (default = 1). In the case of a 2D variable, it is
 #'   ignored.
@@ -23,13 +23,14 @@
 #'   dataframe with (X, Y, Z) columns (default = `FALSE`).
 #' @param verbose Use `TRUE` to print out basic statistics (default = `FALSE`).
 #'
-#' @details The `importADSIOBIN()` function imports data from an
-#'   ADSO/BIN binary file. It relies on the `arinfopy' (version >= 2.2.0) python
-#'   library. For more information on the library see the [GitHub
-#'   repository](https://github.com/Simularia/arinfopy).
+#' @details
+#' The `importADSIOBIN()` function imports data from an ADSO/BIN binary file.
+#' It relies on the `arinfopy' (version >= 2.2.0) python library.
+#' For more information on the library see the
+#' [GitHub repository](https://github.com/Simularia/arinfopy).
 #'
-#'   For more information on the active `python` installation, check the
-#'   documentation of \pkg{reticulate}.
+#' For more information on the active `python` installation, check the
+#' documentation of \pkg{reticulate}.
 #'
 #' @return In standard use, `importADSOBIN()` return a data frame with
 #' `(X, Y, Z)` columns. Column Z contains the values of the requested variable.

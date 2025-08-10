@@ -21,8 +21,8 @@ modelling and assessment:
 
 - `contourPlot2()` plots a production-ready contour map of a pollutant
   concentration field.
-- `plotAvgRad()` plots hourly average of solar radiation.
-- `plotAvgTemp()` plots average atmospheric temperature.
+- `plotAvgRad()` plots the hourly average of solar radiation.
+- `plotAvgTemp()` plots the average atmospheric temperature.
 - `plotStabilityClass()` plots histograms of atmospheric stability
   class.
 - `vectorField()` plots a simple vector field given two components.
@@ -30,15 +30,15 @@ modelling and assessment:
 - `importADSOBIN()` imports an ADSO/BIN raster file.
 - `importSurferGrd()` imports a grid file.
 - `stabilityClass()` computes atmospheric stability class.
-- `downloadBasemap()`downloads GeoTIFF basemap from italian
+- `downloadBasemap()`downloads GeoTIFF basemaps from the italian
   [PCN](https://gn.mase.gov.it/portale/home).
 - `removeOutliers()` removes time series outliers based on interquartile
   range.
 - `rollingMax()` computes rolling max of a time series.
 
-The package is developed and maintained by the people at
-[Simularia](https://www.simularia.it) and it is extensively used for
-their daily job.
+The package is developed and maintained at
+[Simularia](https://www.simularia.it) and it is widely used for their
+daily work.
 
 If you use this package in your work, please consider citing it. Refer
 to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
@@ -53,7 +53,7 @@ install.packages("simulariatools")
 
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files,
 a working installation of *Python 3* is required. For more information
-about *R* and *Python* interoperability, please refer to
+about *R* and *Python* interoperability, refer to the
 [`reticulate`](https://rstudio.github.io/reticulate/) documentation.
 
 ### Develpment version
@@ -68,7 +68,7 @@ pak::pkg_install("Simularia/simulariatools")
 
 ## Examples
 
-### Contour plot
+### Contour Plot
 
 First, import air quality data from *NetCDF* or *ADSO/BIN* files with
 the appropriate convenience function:
@@ -82,11 +82,10 @@ nox_concentration <- importRaster(
     variable = "nox",
     verbose = TRUE
 )
-#> 
 #> Raster statistics -----------------------------------------------
-#>        X (min, max, dx)  :  496000.000   519250.000      250.000
-#>        Y (min, max, dy)  : 4943000.000  4955250.000      250.000
-#>      nox (min, max, mean):    0.00e+00     2.71e+00     1.52e-01
+#>        X (min, max, dx)  :   496000.000   519250.000      250.000
+#>        Y (min, max, dy)  :  4943000.000  4955250.000      250.000
+#>      nox (min, max, mean):     0.00e+00     2.71e+00     1.52e-01
 #> -----------------------------------------------------------------
 ```
 
@@ -111,13 +110,13 @@ contourPlot2(nox_concentration)
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="80%" height="80%" />
 
 The plot is customisable by using `contourPlot2()` arguments and by
-piping **ggplot2** instructions with `+` operator.
+piping **ggplot2** instructions with the `+` operator.
 
-In the following example, the original domain is cropped, the colour
-levels are explicitely assigned and a legend name is provided through
-function arguments. Furthermore, `labs()` and `theme_minimal()`
-functions from **ggplot2** are used to remove axis labels and to
-customise the overall theme:
+In the following example, the original domain is cropped, colour levels
+are explicitely assigned and a legend name is provided through function
+arguments. Furthermore, `labs()` and `theme_minimal()` functions from
+**ggplot2** are used to remove axis labels and to change the overall
+theme:
 
 ``` r
 library(ggplot2)
@@ -133,7 +132,7 @@ contourPlot2(
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="80%" height="80%" />
 
-In order to save to file the last plot, you can directly use the
+In order to save the last plot to file, you can directly use the
 **ggplot2** function `ggsave()`:
 
 ``` r
@@ -141,8 +140,8 @@ ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
 
 Optional arguments can be used to create special versions of the plot.
-For example, use `tile = TRUE` to produce a plot without spatial
-interpolation:
+For example, use `tile = TRUE` to produce a non spatially interpolated
+plot:
 
 ``` r
 contourPlot2(

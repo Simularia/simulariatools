@@ -60,7 +60,7 @@
 #' bound and exclude the highest bound: `[min, max)`. Note: In previous version
 #' it was the opposite.
 #'
-#' `underlayer` and `overlayer` layers are `ggplot2` objects to be shown at
+#' `underlayer` and `overlayer` layers are \code{ggplot2} objects to be shown at
 #' different levels of the vertical stack of the plot. These are useful to
 #' show topographical information related to the plot, such as sources
 #' or receptors locations.
@@ -68,11 +68,11 @@
 #' When a _shp_ file is given to the `mask` argument the plot is drawn only
 #' inside the polygon. In order to avoid boundary artifacts due to reduced
 #' resolution, original data are resampled to higher resolution (currently
-#' set to 10x the original one.) If`inverse_mask` is set to `TRUE`, the plot
-#' is drawn outside  the polygon. The *mask* feature is based on the function
-#' with the same name of the `terra` package. The CRS of the _shp_ file is
-#' applied to the data in the data.frame. Please, keep in mind this feature
-#' is still experimental.
+#' set to 10 times the original one.) If`inverse_mask` is set to `TRUE`, the plot
+#' is drawn outside  the polygon. The *mask* feature is based on the
+#' [terra::mask()] function.
+#' The CRS of the _shp_ file is applied to the data in the data.frame.
+#' Please, keep in mind this feature is still experimental.
 #'
 #' @return A \code{ggplot2} object.
 #'
@@ -113,7 +113,8 @@
 #'
 #' # Since contourPlot2 returns a `ggplot2` object, you can add instructions as:
 #' library(ggplot2)
-#' v + ggtitle("Example volcano data") +
+#' v +
+#'     ggtitle("Example volcano data") +
 #'     labs(x = NULL, y = NULL)
 #'
 contourPlot2 <- function(

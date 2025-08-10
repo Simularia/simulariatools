@@ -31,19 +31,19 @@ knitr::opts_chunk$set(
 **simulariatools** is an open source package with a collection of functions and tools useful to pre and post process data for air quality modelling and assessment:
 
 - `contourPlot2()` plots a production-ready contour map of a pollutant concentration field.
-- `plotAvgRad()` plots hourly average of solar radiation.
-- `plotAvgTemp()` plots average atmospheric temperature.
+- `plotAvgRad()` plots the hourly average of solar radiation.
+- `plotAvgTemp()` plots the average atmospheric temperature.
 - `plotStabilityClass()` plots histograms of atmospheric stability class.
 - `vectorField()` plots a simple vector field given two components.
 - `importRaster()` imports a genereic raster file.
 - `importADSOBIN()` imports an ADSO/BIN raster file.
 - `importSurferGrd()` imports a grid file.
 - `stabilityClass()` computes atmospheric stability class.
-- `downloadBasemap()`downloads GeoTIFF basemap from italian [PCN](https://gn.mase.gov.it/portale/home).
+- `downloadBasemap()`downloads GeoTIFF basemaps from the italian [PCN](https://gn.mase.gov.it/portale/home).
 - `removeOutliers()` removes time series outliers based on interquartile range.
 - `rollingMax()` computes rolling max of a time series.
 
-The package is developed and maintained by the people at [Simularia](https://www.simularia.it) and it is extensively used for their daily job.
+The package is developed and maintained at [Simularia](https://www.simularia.it) and it is widely used for their daily work.
 
 If you use this package in your work, please consider citing it.
 Refer to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
@@ -57,7 +57,7 @@ install.packages("simulariatools")
 ```
 
 Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files, a working installation of *Python 3* is required.
-For more information about *R* and *Python* interoperability, please refer to [`reticulate`](https://rstudio.github.io/reticulate/) documentation.
+For more information about *R* and *Python* interoperability, refer to the [`reticulate`](https://rstudio.github.io/reticulate/) documentation.
 
 
 ### Develpment version
@@ -70,7 +70,7 @@ pak::pkg_install("Simularia/simulariatools")
 
 ## Examples
 
-### Contour plot
+### Contour Plot
 
 First, import air quality data from *NetCDF* or *ADSO/BIN* files with the appropriate convenience function:
 ```{r echo=TRUE}
@@ -92,10 +92,10 @@ A quick contour plot, with default configuration, can be easily obtained by runn
 contourPlot2(nox_concentration)
 ```
 
-The plot is customisable by using `contourPlot2()` arguments and by piping **ggplot2** instructions with `+` operator.
+The plot is customisable by using `contourPlot2()` arguments and by piping **ggplot2** instructions with the `+` operator.
 
-In the following example, the original domain is cropped, the colour levels are explicitely assigned and a legend name is provided through function arguments.
-Furthermore, `labs()` and `theme_minimal()` functions from **ggplot2** are used to remove axis labels and to customise the overall theme:
+In the following example, the original domain is cropped, colour levels are explicitely assigned and a legend name is provided through function arguments.
+Furthermore, `labs()` and `theme_minimal()` functions from **ggplot2** are used to remove axis labels and to change the overall theme:
 ```{r echo=TRUE}
 library(ggplot2)
 contourPlot2(
@@ -108,13 +108,13 @@ contourPlot2(
     theme_minimal()
 ```
 
-In order to save to file the last plot, you can directly use the **ggplot2** function `ggsave()`:
+In order to save the last plot to file, you can directly use the **ggplot2** function `ggsave()`:
 ```{r eval=FALSE}
 ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
 
 Optional arguments can be used to create special versions of the plot. 
-For example, use `tile = TRUE` to produce a plot without spatial interpolation:
+For example, use `tile = TRUE` to produce a non spatially interpolated plot:
 ```{r echo=TRUE}
 contourPlot2(
     nox_concentration,

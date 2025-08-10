@@ -1,35 +1,35 @@
 # simulariatools 2.5.1.9000 (development version)
 
 
-* BREAKING CHANGE: remove deprecated functions `contourPlot()` and `createBaseNap()`.
-* BREAKING CHANGE: `downloadBasemap()` returns a `tiff` file with `GeoTIFF`
+- BREAKING CHANGE: remove deprecated functions `contourPlot()` and `createBaseMap()`.
+- BREAKING CHANGE: `downloadBasemap()` returns a `tiff` file with `GeoTIFF`
 metadata, instead of `png`.
-* `contourPlot2()` has new `mask` and `inverse_mask` arguments to plot data
-only inside (or outside) a polygon specified in a `shp` file. When this option
-is activated, data to be plotted are re-sampled at higher resolution to avoid
-staggers at the border of the polygon.
-* Content outside plot domain in `contourPlot2()` is masked. Previously, values
-outside plot domain were set to NA's, which potentially caused artifacts at 
+- `contourPlot2()` introduces new arguments `mask` and `inverse_mask`. These
+allow plotting data only inside (or outside) a polygon specified by a `shp` file. When this option is activated, data to be plotted are re-sampled at higher resolution to avoid staggers at the border of the polygon.
+- Content outside plot domain in `contourPlot2()` is masked. Previously, values
+outside plot domain were set to NA's, which could potentially cause artifacts at 
 the borders.
-* Some fixes in `contourPlot2()`: with *ggplot2* v3.5.0 there is a breaking
-change where `guide_legend()` only draws a key glyph for a layer when the value
-is in the layer’s data. Furthermore, when plotting lines only, we remove -Inf
-from the levels, if present.
-* Labels in `plotAvgTemp()`, `plotStabilityClass()` and `plotAvgRad()` respect
-locale. Also added an optional argument to override the system locale.
-Currently supported locale are Italian and English. Others are converted to
-English.
-* `plotAvgRad()` now has options to change `ylabel` and `title`. 
-* In `plotAvgRad()`, fixed missing colour for average radiation in the legend.
-* In `plotAvgTemp()`, fixed missing colour for average temperature in the legend.
-* In `plotAvgTemp()`, fixed bug related to the name of the column with temperature data.
-* In `stabilityClass()` the tables defining the stability class as functions of
+- Some fixes have been implemented in `contourPlot2()`: with *ggplot2* v3.5.0
+there is a breaking change where `guide_legend()` only draws a key glyph for a
+layer when the value is in the layer’s data. Furthermore, when plotting only
+contour lines, we remove -Inf from the levels, if present.
+- Labels in `plotAvgTemp()`, `plotStabilityClass()` and `plotAvgRad()` now respect
+the locale setting. An optional argument has also been added to override the system
+locale. Currently supported locales are Italian and English; others will be
+converted to English.
+- `plotAvgRad()` now includes options to change the `ylabel` and `title`. 
+- In `plotAvgRad()`, a missing colour for average radiation in the legend has
+been fixed.
+- In `plotAvgTemp()`, a missing colour for average temperature in the legend has
+  been fixed.
+- In `plotAvgTemp()`, a bug related to the name of the column with temperature data has been fixed.
+- In `stabilityClass()`, the tables defining the stability class as functions of
 radiation, wind speed and cloud cover have been slightly updated. Furthermore,
 the `impact` method has been deprecated and renamed to `iaea`.
-- In `plotStabilityClass()` a bug where a missing class was not shown in the
+- In `plotStabilityClass()`, a bug where a missing class was not shown in the
 legend has been fixed.
-- Remove almost all the dependencies from *Openair*.
-* Other minor bugs have been fixed and documentation has been updated and
+- Almost all the dependencies from *Openair* have been removed.
+- Other minor bugs have been fixed and documentation has been updated and
 hopefully improved.
 
 

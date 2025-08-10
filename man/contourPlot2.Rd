@@ -112,11 +112,11 @@ or receptors locations.
 When a \emph{shp} file is given to the \code{mask} argument the plot is drawn only
 inside the polygon. In order to avoid boundary artifacts due to reduced
 resolution, original data are resampled to higher resolution (currently
-set to 10x the original one.) If\code{inverse_mask} is set to \code{TRUE}, the plot
-is drawn outside  the polygon. The \emph{mask} feature is based on the function
-with the same name of the \code{terra} package. The CRS of the \emph{shp} file is
-applied to the data in the data.frame. Please, keep in mind this feature
-is still experimental.
+set to 10 times the original one.) If\code{inverse_mask} is set to \code{TRUE}, the plot
+is drawn outside  the polygon. The \emph{mask} feature is based on the
+\code{\link[terra:mask]{terra::mask()}} function.
+The CRS of the \emph{shp} file is applied to the data in the data.frame.
+Please, keep in mind this feature is still experimental.
 }
 \examples{
 # Load example data in long format
@@ -144,7 +144,8 @@ contourPlot2(
 
 # Since contourPlot2 returns a `ggplot2` object, you can add instructions as:
 library(ggplot2)
-v + ggtitle("Example volcano data") +
+v +
+    ggtitle("Example volcano data") +
     labs(x = NULL, y = NULL)
 
 }
