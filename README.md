@@ -26,7 +26,7 @@ modelling and assessment:
 - `plotStabilityClass()` plots histograms of atmospheric stability
   class.
 - `vectorField()` plots a simple vector field given two components.
-- `importRaster()` imports a genereic raster file.
+- `importRaster()` imports a generic raster file.
 - `importADSOBIN()` imports an ADSO/BIN raster file.
 - `importSurferGrd()` imports a grid file.
 - `stabilityClass()` computes atmospheric stability class.
@@ -51,12 +51,12 @@ To install the latest release of **simulariatools** from CRAN:
 install.packages("simulariatools")
 ```
 
-Note: in order to use `importADSOBIN()` to import *ADSO/BIN* data files,
-a working installation of *Python 3* is required. For more information
-about *R* and *Python* interoperability, refer to the
-[`reticulate`](https://rstudio.github.io/reticulate/) documentation.
+> NOTE: To import *ADSO/BIN* data files via `importADSOBIN()`, a working
+> installation of *Python3* is required. For more information about *R*
+> and *Python* interoperability, refer to the documentation of
+> [`reticulate`](https://rstudio.github.io/reticulate/).
 
-### Develpment version
+### Development version
 
 To get bug fixes or to use a feature from the development version,
 install the development version from GitHub:
@@ -113,7 +113,7 @@ The plot is customisable by using `contourPlot2()` arguments and by
 piping **ggplot2** instructions with the `+` operator.
 
 In the following example, the original domain is cropped, colour levels
-are explicitely assigned and a legend name is provided through function
+are explicitly assigned and a legend name is provided through function
 arguments. Furthermore, `labs()` and `theme_minimal()` functions from
 **ggplot2** are used to remove axis labels and to change the overall
 theme:
