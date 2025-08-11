@@ -1,11 +1,14 @@
 ## Submission
 
-This is a patch release mainly to fix the issue with Unicode symbols in plots, as requested by CRAN.
+This is a major release. It removes deprecated functions and solves issues from
+current CRAN check, to be fixed before 2025-09-03.
 
 ## R CMD check results
 
-0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+── R CMD check results ─────────────────────────────── simulariatools 3.0.0 ────
+Duration: 1m 0.1s
 
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 ## revdepcheck results
 
