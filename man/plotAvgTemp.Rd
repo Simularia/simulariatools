@@ -6,6 +6,7 @@
 \usage{
 plotAvgTemp(
   mydata,
+  date = "date",
   temp = "temp",
   avg.time = "1 month",
   ylabel = NULL,
@@ -14,8 +15,11 @@ plotAvgTemp(
 )
 }
 \arguments{
-\item{mydata}{dataframe with data to plot. date and time column must be
-named as "date" and it must be a \if{html}{\out{<POSIXT>}} object.}
+\item{mydata}{A dataframe containing data to plot.}
+
+\item{date}{The name of the column representing date and time. Data must be of
+class \code{POSIXlt} or \code{POSIXct} (default = "date"). If timezone is unspecified,
+it is set to GMT.}
 
 \item{temp}{Name of the column representing temperature (default = "temp")}
 

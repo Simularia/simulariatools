@@ -3,8 +3,10 @@
 #' \code{plotAvgTemp} builds a bar plot of time average temperature and two
 #' line plots with maximum and minimum temperature.
 #'
-#' @param mydata dataframe with data to plot. date and time column must be
-#' named as "date" and it must be a <POSIXT> object.
+#' @param mydata A dataframe containing data to plot.
+#' @param date The name of the column representing date and time. Data must be of
+#' class `POSIXlt` or `POSIXct` (default = "date"). If timezone is unspecified,
+#' it is set to GMT.
 #' @param temp Name of the column representing temperature (default = "temp")
 #' @param avg.time Defines the time period to average to.
 #' Currently the only supported period is "1 month" (default).
@@ -44,6 +46,7 @@
 #'
 plotAvgTemp <- function(
     mydata,
+    date = "date",
     temp = "temp",
     avg.time = "1 month",
     ylabel = NULL,
@@ -53,16 +56,14 @@ plotAvgTemp <- function(
     # Fix No visible binding for global variable
     degree <- rid <- variable <- value <- .x <- NULL
 
+    # Fix name of datetime and temperature
+    names(mydata) <- sub(date, "date", names(mydata))
+    names(mydata) <- sub(temp, "temp", names(mydata))
+
     # Check if date column exist and is a datetime object
     if (!"date" %in% names(mydata) || !"POSIXt" %in% class(mydata$date)) {
         stop("A `date` column of class <POSIXt> is required.")
     }
-
-    # # avg.time has only one value allowed
-    # stopifnot(avg.time == "1 month")
-
-    # Fix name of temperature column
-    names(mydata) <- sub(temp, "temp", names(mydata))
 
     # Special case for italian locale
     if (!is.null(locale) && locale == "it") {

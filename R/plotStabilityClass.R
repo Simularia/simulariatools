@@ -4,50 +4,78 @@
 #'
 #' Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 #'
-#' @param mydata The input data frame, which should contain \code{date} and \code{stability class} fields.
-#' @param sc Name of the column in the data frame that represents the stability class.
-#' @param type Specify how the data are to be split and plotted. Accepted values are "season" (default) and "hour".
-#' @param locale Choose the locale for day and month names. The current locale is used by default, but you can also
-#' specify a different one from the supported locales listed in stringi::stri_locale_list().
-#' All labels will be in English by default or in Italian if its locale is specified.
+#' @param mydata A dataframe containing data to plot.
+#' @param date The name of the column representing date and time. Data must be of
+#' class `POSIXlt` or `POSIXct` (default = "date"). If the timezone is unspecified,
+#' it is set to GMT.
+#' @param sc The name of the column that represents the stability class (default
+#' = "sc").
+#' @param type Specify how the data are to be split and plotted. Accepted values
+#' are "season" (default) and "hour".
+#' @param locale Set the locale for day and month names. The system locale is
+#' used by default, but you can specify a different one from the supported ones
+#' listed in stringi::stri_locale_list().
+#' All other labels are in English by default or in Italian if its locale is
+#' specified.
 #'
 #' @return A \code{ggplot2} plot.
 #'
 #' @seealso [stabilityClass()], [plotAvgRad()], [plotAvgTemp()]
 #'
-#' @importFrom scales label_percent
-#'
 #' @export
 #'
+#' @importFrom scales label_percent
 #' @importFrom ggplot2 ggplot geom_bar labs element_blank guides
 #'
 #' @examples
 #' data("stMeteo")
 #'
 #' # Season plot of stability class pgt
-#' plotStabilityClass(stMeteo, sc = "pgt", type = "season")
+#' plotStabilityClass(stMeteo, date = "date", sc = "pgt", type = "season")
 #'
 #' # Hourly plot of stability class pgt
-#' plotStabilityClass(stMeteo, sc = "pgt", type = "hour")
+#' plotStabilityClass(stMeteo, date = "date", sc = "pgt", type = "hour")
 #'
 #' # Override default locale
-#' plotStabilityClass(stMeteo, sc = "pgt", type = "season", locale = "it_IT")
+#' plotStabilityClass(
+#'     stMeteo,
+#'     date = "date",
+#'     sc = "pgt",
+#'     type = "season",
+#'     locale = "it_IT"
+#' )
 #'
-plotStabilityClass <- function(mydata, sc = "sc", type = "season", locale = NULL) {
-    # Get locale if not explicitely set
+plotStabilityClass <- function(
+    mydata,
+    date = "date",
+    sc = "sc",
+    type = "season",
+    locale = NULL
+) {
+
+    # Fix name of datetime
+    names(mydata) <- sub(date, "date", names(mydata))
+
+    # Check if sc exists
+    if (!(sc %in% colnames(mydata))) {
+        stop("Undefined stability class field name.", call. = FALSE)
+    }
+
+    # Check if date column exist and is a datetime object
+    if (!"date" %in% names(mydata) || !"POSIXt" %in% class(mydata$date)) {
+        stop("A `date` column of class <POSIXt> is required.")
+    }
+
+    # Get locale if not explicitly set
     if (is.null(locale)) {
         locale <- Sys.getlocale(category = "LC_TIME")
     }
 
     # Fix No visible binding for global variable
-    season <- clname <- hour <- ascissa <- NULL
+    season <- clname <- ascissa <- NULL
 
     if (type != "season" && type != "hour") {
         stop("Unspecified plot type.", call. = FALSE)
-    }
-
-    if (!(sc %in% colnames(mydata))) {
-        stop("Undefined stability class field name.", call. = FALSE)
     }
 
     # Check if stability class is in range 1 to 6

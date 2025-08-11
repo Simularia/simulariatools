@@ -19,6 +19,8 @@
   English.
 - `plotAvgRad()` now includes options to change the y-axis label and the
   title.
+- `plotAvgTemp()` and `plotStabilityClass()` gain `date` argument to specify the
+  name of the column with *datetime* data.
 
 ## Minor improvements and fixes
 

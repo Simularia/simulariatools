@@ -4,18 +4,32 @@
 \alias{plotStabilityClass}
 \title{Plot stability class}
 \usage{
-plotStabilityClass(mydata, sc = "sc", type = "season", locale = NULL)
+plotStabilityClass(
+  mydata,
+  date = "date",
+  sc = "sc",
+  type = "season",
+  locale = NULL
+)
 }
 \arguments{
-\item{mydata}{The input data frame, which should contain \code{date} and \code{stability class} fields.}
+\item{mydata}{A dataframe containing data to plot.}
 
-\item{sc}{Name of the column in the data frame that represents the stability class.}
+\item{date}{The name of the column representing date and time. Data must be of
+class \code{POSIXlt} or \code{POSIXct} (default = "date"). If the timezone is unspecified,
+it is set to GMT.}
 
-\item{type}{Specify how the data are to be split and plotted. Accepted values are "season" (default) and "hour".}
+\item{sc}{The name of the column that represents the stability class (default
+= "sc").}
 
-\item{locale}{Choose the locale for day and month names. The current locale is used by default, but you can also
-specify a different one from the supported locales listed in stringi::stri_locale_list().
-All labels will be in English by default or in Italian if its locale is specified.}
+\item{type}{Specify how the data are to be split and plotted. Accepted values
+are "season" (default) and "hour".}
+
+\item{locale}{Set the locale for day and month names. The system locale is
+used by default, but you can specify a different one from the supported ones
+listed in stringi::stri_locale_list().
+All other labels are in English by default or in Italian if its locale is
+specified.}
 }
 \value{
 A \code{ggplot2} plot.
@@ -30,13 +44,19 @@ Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 data("stMeteo")
 
 # Season plot of stability class pgt
-plotStabilityClass(stMeteo, sc = "pgt", type = "season")
+plotStabilityClass(stMeteo, date = "date", sc = "pgt", type = "season")
 
 # Hourly plot of stability class pgt
-plotStabilityClass(stMeteo, sc = "pgt", type = "hour")
+plotStabilityClass(stMeteo, date = "date", sc = "pgt", type = "hour")
 
 # Override default locale
-plotStabilityClass(stMeteo, sc = "pgt", type = "season", locale = "it_IT")
+plotStabilityClass(
+    stMeteo,
+    date = "date",
+    sc = "pgt",
+    type = "season",
+    locale = "it_IT"
+)
 
 }
 \seealso{
