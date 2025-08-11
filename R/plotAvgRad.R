@@ -3,16 +3,15 @@
 #' Plot a histogram with hourly average of solar radiation, together with
 #' hourly maxima for June and December.
 #'
-#' @param mydata A data frame containing fields with solar radiation time
-#' series.
-#' @param date  Name of the column representing date and time (data must be
-#' of classes `POSIXlt` or `POSIXct`). If timezone is unspecified, it is set
-#' to GMT.
-#' @param rad   Name of the column representing radiation.
+#' @param mydata A data frame containing data to plot.
+#' @param date The name of the column representing date and time. Data must be of
+#' class `POSIXlt` or `POSIXct` (default = "date"). If timezone is unspecified,
+#' it is set to GMT.
+#' @param rad   Name of the column representing radiation (default = "radg").
 #' @param ylabel The label along the y axis. If missing a default label is plotted.
 #' @param title Optional plot title
 #' @param locale Locale to use for legend. Default is English, the only other
-#' one currently supported is italian.
+#' one currently supported is Italian.
 #'
 #' @return A \code{ggplot2} plot.
 #'
