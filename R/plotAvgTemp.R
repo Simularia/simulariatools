@@ -26,7 +26,7 @@
 #' @export
 #'
 #' @import grid
-#' @importFrom reshape2 melt
+#' @importFrom stats reshape
 #' @importFrom scales breaks_width label_date label_math
 #' @importFrom ggplot2 ggplot geom_col geom_line labs scale_x_continuous
 #'                     expansion margin element_blank geom_text
@@ -135,9 +135,13 @@ plotAvgTemp <- function(
     mydata_mean[["rid"]] <- as.numeric(mydata_mean[["rid"]])
 
     # Arrange data in long format
-    mydata <- reshape2::melt(
+    mydata <- stats::reshape(
         mydata_mean,
-        measure.vars = c("temp.min", "temp", "temp.max")
+        direction = "long",
+        varying = list(2:4),
+        times = c("temp", "temp.min", "temp.max"),
+        timevar = "variable",
+        v.names = "value"
     )
     mydata$value <- round(mydata$value, digits = 1)
 

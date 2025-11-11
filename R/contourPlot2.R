@@ -90,8 +90,10 @@
 #' @examples
 #' # Load example data in long format
 #' data(volcano)
-#' volcano3d <- reshape2::melt(volcano)
-#' names(volcano3d) <- c("x", "y", "z")
+#' volcano <- as.data.frame(volcano)
+#' volcano3d <- reshape(volcano, direction = "long",
+#'   varying = list(1:61),
+#'   idvar = "x", timevar = "y", v.names = "z")
 #' # Contour plot with default options
 #' v <- contourPlot2(volcano3d)
 #' v

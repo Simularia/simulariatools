@@ -1,5 +1,10 @@
 # simulariatools (development version)
 
+# simulariatools 3.0.0.9000
+
+- Removed dependency to `reshape2` package.
+
+
 # simulariatools 3.0.0
 
 ## Breaking changes

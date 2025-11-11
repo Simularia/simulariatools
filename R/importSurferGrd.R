@@ -67,15 +67,14 @@ importSurferGrd <- function(fname, k = 1000, destaggering = FALSE) {
         stop("Dimension of grid data does not match that of header", call. = FALSE)
     }
 
-    grd <- matrix(map, nx, ny)
-
-    grd3d <- reshape2::melt(grd)
     stepx <- (xmax - xmin) / (nx - 1)
     stepy <- (ymax - ymin) / (ny - 1)
 
-    grd3d[, 1] <- (grd3d[, 1] - 1) * stepx + xmin
-    grd3d[, 2] <- (grd3d[, 2] - 1) * stepy + ymin
-    names(grd3d) <- c("x", "y", "z")
-
+    # Long format
+    grd3d <- data.frame(
+        x = rep(seq(xmin, xmax, stepx), times = ny),
+        y = rep(seq(ymin, ymax, stepy), each = nx),
+        z = map
+    )
     return(grd3d)
 }
