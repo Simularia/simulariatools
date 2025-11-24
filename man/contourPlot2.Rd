@@ -10,6 +10,9 @@ contourPlot2(
   y = "y",
   z = "z",
   domain = NULL,
+  xlim = NULL,
+  ylim = NULL,
+  nticks = 5,
   background = NULL,
   basemap = NULL,
   underlayer = NULL,
@@ -39,11 +42,22 @@ coordinates (default "y").}
 \item{z}{character. Name of the column containing concentration values
 (default "z").}
 
-\item{domain}{optional list of six numeric values defining the
-boundaries of the domain to be plotted (minimum X, maximum X, minimum Y,
-maximum Y) and the number of ticks on X & Y axis.
+\item{domain}{optional list of six numeric values defining the boundaries of
+the domain to be plotted (minimum X, maximum X, minimum Y, maximum Y) and the
+number of ticks on X & Y axis.
 Example: c(340000, 346000, 4989500, 4995500, 5, 5).
-If missing, all the full domain of the input data is considered, with 5 ticks.}
+If missing, all the full domain of the input data is considered, with 5 ticks
+(deprecated, see \code{xlim}, \code{ylim}, \code{nticks}).}
+
+\item{xlim}{optional list of two numeric values defining the abscissa axis boundaries
+of the plot (minimum x, maximum x).}
+
+\item{ylim}{optional list of two numeric values defining the ordinata axis boundaries
+of the plot (minimum y, maximum y).}
+
+\item{nticks}{optional listo of one or two numeric integers defining the number
+of ticks on X & Y axes. If a single number is given, the same number of ticks
+is plotted on both axes (default = 5 ticks).}
 
 \item{background}{filename. Optional path to a raster file to be plotted as
 the basemap.}

@@ -14,11 +14,19 @@
 #' coordinates (default "y").
 #' @param z character. Name of the column containing concentration values
 #' (default "z").
-#' @param domain optional list of six numeric values defining the
-#' boundaries of the domain to be plotted (minimum X, maximum X, minimum Y,
-#' maximum Y) and the number of ticks on X & Y axis.
+#' @param domain optional list of six numeric values defining the boundaries of
+#' the domain to be plotted (minimum X, maximum X, minimum Y, maximum Y) and the
+#' number of ticks on X & Y axis.
 #' Example: c(340000, 346000, 4989500, 4995500, 5, 5).
-#' If missing, all the full domain of the input data is considered, with 5 ticks.
+#' If missing, all the full domain of the input data is considered, with 5 ticks
+#' (deprecated, see `xlim`, `ylim`, `nticks`).
+#' @param xlim optional list of two numeric values defining the abscissa axis boundaries
+#' of the plot (minimum x, maximum x).
+#' @param ylim optional list of two numeric values defining the ordinata axis boundaries
+#' of the plot (minimum y, maximum y).
+#' @param nticks optional listo of one or two numeric integers defining the number
+#' of ticks on X & Y axes. If a single number is given, the same number of ticks
+#' is plotted on both axes (default = 5 ticks).
 #' @param background filename. Optional path to a raster file to be plotted as
 #' the basemap (deprecated, see `basemap`)
 #' @param background filename. Optional path to a raster file to be plotted as
@@ -127,6 +135,9 @@ contourPlot2 <- function(
     y = "y",
     z = "z",
     domain = NULL,
+    xlim = NULL,
+    ylim = NULL,
+    nticks = 5,
     background = NULL,
     basemap = NULL,
     underlayer = NULL,
@@ -160,20 +171,38 @@ contourPlot2 <- function(
     colnames(data) <- c("x", "y", "z")
 
     # Define plot domain
-    if (missing(domain)) {
+    if (!missing(domain)) {
+        warning(paste(
+            "The \`domain\` argument is deprecated.",
+            "Please use the \'xlim\', \'ylim\' and \'nticks\' arguments instead."
+        ))
+        xlim <- domain[1:2]
+        ylim <- domain[3:4]
+        nticks <- domain[5:6]
+    }
+
+    if (missing(xlim)) {
         xmin <- min(data$x) # x coordinates minimum
         xmax <- max(data$x) # x coordinates max
-        ymin <- min(data$y) # y coordinates min
-        ymax <- max(data$y) # y coordinates max
-        nx <- 5 # number of ticks along x axis
-        ny <- 5 # number of ticks along y axis
     } else {
-        xmin <- domain[1] # x coordinates minimum
-        xmax <- domain[2] # x coordinates max
-        ymin <- domain[3] # y coordinates min
-        ymax <- domain[4] # y coordinates max
-        nx <- domain[5] # number of ticks along x axis
-        ny <- domain[6] # number of ticks along y axis
+        xmin <- xlim[1] # x coordinates minimum
+        xmax <- xlim[2] # x coordinates max
+    }
+
+    if (missing(ylim)) {
+        ymin <- min(data$y) # x coordinates minimum
+        ymax <- max(data$y) # x coordinates max
+    } else {
+        ymin <- ylim[1] # y coordinates min
+        ymax <- ylim[2] # y coordinates max
+    }
+
+    if (length(nticks) == 1) {
+        nx <- nticks # number of ticks along x axis
+        ny <- nticks # number of ticks along y axis
+    } else {
+        nx <- nticks[1] # number of ticks along x axis
+        ny <- nticks[2] # number of ticks along y axis
     }
 
     # prettify legend title
@@ -285,7 +314,7 @@ contourPlot2 <- function(
     if (!missing(background)) {
         warning(paste(
             "The \`background\` argument is deprecated.",
-            "Please use the \'basemap\' argument insted."
+            "Please use the \'basemap\' argument instead."
         ))
         basemap <- background
     }

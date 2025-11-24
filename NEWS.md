@@ -4,6 +4,7 @@
 
 - Removed dependency to `reshape2` package.
 - Deprecate `background` argument in favour of `basemap`.
+- Deprecate `domain` argument in favour of `xlim`, `ylim` and `nticks`.
 
 
 # simulariatools 3.0.0
