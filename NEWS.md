@@ -3,6 +3,7 @@
 # simulariatools 3.0.0.9000
 
 - Removed dependency to `reshape2` package.
+- Deprecate `background` argument in favour of `basemap`.
 
 
 # simulariatools 3.0.0

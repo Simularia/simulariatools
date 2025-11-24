@@ -20,6 +20,8 @@
 #' Example: c(340000, 346000, 4989500, 4995500, 5, 5).
 #' If missing, all the full domain of the input data is considered, with 5 ticks.
 #' @param background filename. Optional path to a raster file to be plotted as
+#' the basemap (deprecated, see `basemap`)
+#' @param background filename. Optional path to a raster file to be plotted as
 #' the basemap.
 #' @param underlayer optional list of layers to be plotted between base map
 #' and contour plot. See Details
@@ -126,6 +128,7 @@ contourPlot2 <- function(
     z = "z",
     domain = NULL,
     background = NULL,
+    basemap = NULL,
     underlayer = NULL,
     overlayer = NULL,
     legend = NULL,
@@ -279,11 +282,18 @@ contourPlot2 <- function(
     }
 
     # Background image
+    if (!missing(background)) {
+        warning(paste(
+            "The \`background\` argument is deprecated.",
+            "Please use the \'basemap\' argument insted."
+        ))
+        basemap <- background
+    }
     img <- matrix(data = NA, nrow = 10, ncol = 10)
     gimg <- grid::rasterGrob(img, interpolate = FALSE)
-    if (!missing(background)) {
+    if (!missing(basemap)) {
         if (requireNamespace("magick", quietly = TRUE)) {
-            img <- magick::image_read(background)
+            img <- magick::image_read(basemap)
             gimg <- grid::rasterGrob(img)
         } else {
             warning(

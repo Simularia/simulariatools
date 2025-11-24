@@ -11,6 +11,7 @@ contourPlot2(
   z = "z",
   domain = NULL,
   background = NULL,
+  basemap = NULL,
   underlayer = NULL,
   overlayer = NULL,
   legend = NULL,
