@@ -2,9 +2,12 @@
 
 # simulariatools 3.0.0.9000
 
-- Removed dependency to `reshape2` package.
+- New feature: utilize the coordinates extent of a geo-referenced TIFF `basemap` file. If
+  plot limits are not provided, use the basemap extent to set them. If `xlim` or `ylim`
+  are provided, the basemap is automatically cropped.
 - Deprecate `background` argument in favour of `basemap`.
 - Deprecate `domain` argument in favour of `xlim`, `ylim` and `nticks`.
+- Removed dependency to `reshape2` package.
 
 
 # simulariatools 3.0.0

@@ -29,8 +29,8 @@
 #' is plotted on both axes (default = 5 ticks).
 #' @param background filename. Optional path to a raster file to be plotted as
 #' the basemap (deprecated, see `basemap`)
-#' @param background filename. Optional path to a raster file to be plotted as
-#' the basemap.
+#' @param basemap filename. Optional path to a raster file to be plotted as
+#' the basemap (see Details)
 #' @param underlayer optional list of layers to be plotted between base map
 #' and contour plot. See Details
 #' @param overlayer optional list of layers to be plotted on top of the contour
@@ -70,30 +70,34 @@
 #' bound and exclude the highest bound: `[min, max)`. Note: In previous version
 #' it was the opposite.
 #'
+#' The `basemap` can be a geo-referenced TIFF file. In that case, the plot limits
+#' are automatically extracted from the picture extent. The limits can be explicitly
+#' overridden by `xlim` and `ylim` arguments.
+#'
 #' `underlayer` and `overlayer` layers are \code{ggplot2} objects to be shown at
 #' different levels of the vertical stack of the plot. These are useful to
 #' show topographical information related to the plot, such as sources
 #' or receptors locations.
 #'
-#' When a _shp_ file is given to the `mask` argument the plot is drawn only
+#' When a _shp_ file is given to the `mask` argument, the plot is drawn only
 #' inside the polygon. In order to avoid boundary artifacts due to reduced
 #' resolution, original data are resampled to higher resolution (currently
-#' set to 10 times the original one.) If`inverse_mask` is set to `TRUE`, the plot
-#' is drawn outside  the polygon. The *mask* feature is based on the
+#' set to 10 times the original one). If`inverse_mask` is set to `TRUE`, the plot
+#' is drawn outside the polygon. The *mask* feature is based on the
 #' [terra::mask()] function.
 #' The CRS of the _shp_ file is applied to the data in the data.frame.
-#' Please, keep in mind this feature is still experimental.
+#' Please keep in mind this feature is still experimental.
 #'
 #' @return A \code{ggplot2} object.
 #'
 #' @importFrom grDevices colorRampPalette
-#' @importFrom ggplot2 ggplot annotation_custom geom_contour_filled
+#' @importFrom ggplot2 ggplot annotation_raster geom_contour_filled
 #'                     scale_fill_manual scale_x_continuous scale_y_continuous
 #'                     scale_color_manual coord_fixed theme_bw theme
 #'                     geom_blank guide_legend geom_raster after_stat
 #'                     geom_contour labs element_blank
 #' @importFrom grid rasterGrob
-#' @importFrom terra crs mask rast ext resample
+#' @importFrom terra crs mask rast as.raster ext resample xmin xmax ymin ymax
 #'
 #' @export
 #'
@@ -170,7 +174,38 @@ contourPlot2 <- function(
     }
     colnames(data) <- c("x", "y", "z")
 
-    # Define plot domain
+    # Default limits for basemap
+    xmin_im <- -Inf
+    xmax_im <- Inf
+    ymin_im <- -Inf
+    ymax_im <- Inf
+
+    # Default limits for plot
+    xmin <- min(data$x)
+    xmax <- max(data$x)
+    ymin <- min(data$y)
+    ymax <- max(data$y)
+
+    # If we have a basemap, try to get boundaries from it
+    # Otherwise get them from data
+    if (!missing(basemap)) {
+        imgr <- tryCatch(
+            terra::rast(basemap),
+            warning = function(w) w
+        )
+        if (inherits(imgr, "SpatRaster")) {
+            xmin <- terra::xmin(imgr)
+            xmax <- terra::xmax(imgr)
+            ymin <- terra::ymin(imgr)
+            ymax <- terra::ymax(imgr)
+            xmin_im <- xmin
+            xmax_im <- xmax
+            ymin_im <- ymin
+            ymax_im <- ymax
+        }
+    }
+
+    # If required, override plot limits
     if (!missing(domain)) {
         warning(paste(
             "The \`domain\` argument is deprecated.",
@@ -181,20 +216,16 @@ contourPlot2 <- function(
         nticks <- domain[5:6]
     }
 
-    if (missing(xlim)) {
-        xmin <- min(data$x) # x coordinates minimum
-        xmax <- max(data$x) # x coordinates max
-    } else {
+    if (!missing(xlim)) {
         xmin <- xlim[1] # x coordinates minimum
         xmax <- xlim[2] # x coordinates max
+        if (xmax <= xmin) stop("Check xlim argument: max(x) <= min(x)")
     }
 
-    if (missing(ylim)) {
-        ymin <- min(data$y) # x coordinates minimum
-        ymax <- max(data$y) # x coordinates max
-    } else {
+    if (!missing(ylim)) {
         ymin <- ylim[1] # y coordinates min
         ymax <- ylim[2] # y coordinates max
+        if (ymax <= ymin) stop("Check ylim argument: max(y) <= min(y)")
     }
 
     if (length(nticks) == 1) {
@@ -318,15 +349,14 @@ contourPlot2 <- function(
         ))
         basemap <- background
     }
-    img <- matrix(data = NA, nrow = 10, ncol = 10)
-    gimg <- grid::rasterGrob(img, interpolate = FALSE)
+
     if (!missing(basemap)) {
         if (requireNamespace("magick", quietly = TRUE)) {
             img <- magick::image_read(basemap)
-            gimg <- grid::rasterGrob(img)
+            gimg <- terra::as.raster(img)
         } else {
             warning(
-                "Missing magick package. Please install it to be able to read background basemap."
+                "Missing magick package. Please install it to read the basemap file."
             )
         }
     }
@@ -350,9 +380,13 @@ contourPlot2 <- function(
     }
 
     # Base layer
-    v <- ggplot(data) +
-        annotation_custom(gimg, -Inf, Inf, -Inf, Inf) +
-        underlayer
+    v <- ggplot(data)
+    if (!missing(basemap)) {
+        v <- v + annotation_raster(gimg, xmin_im, xmax_im, ymin_im, ymax_im)
+    }
+
+    # Add underlayer
+    v <- v + underlayer
 
     # Tile plot
     if (isTRUE(tile)) {

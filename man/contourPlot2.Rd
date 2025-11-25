@@ -60,7 +60,10 @@ of ticks on X & Y axes. If a single number is given, the same number of ticks
 is plotted on both axes (default = 5 ticks).}
 
 \item{background}{filename. Optional path to a raster file to be plotted as
-the basemap.}
+the basemap (deprecated, see \code{basemap})}
+
+\item{basemap}{filename. Optional path to a raster file to be plotted as
+the basemap (see Details)}
 
 \item{underlayer}{optional list of layers to be plotted between base map
 and contour plot. See Details}
@@ -119,19 +122,23 @@ Since version 2.4.0, when \code{tile = TRUE} the intervals include the lowest
 bound and exclude the highest bound: \verb{[min, max)}. Note: In previous version
 it was the opposite.
 
+The \code{basemap} can be a geo-referenced TIFF file. In that case, the plot limits
+are automatically extracted from the picture extent. The limits can be explicitly
+overridden by \code{xlim} and \code{ylim} arguments.
+
 \code{underlayer} and \code{overlayer} layers are \code{ggplot2} objects to be shown at
 different levels of the vertical stack of the plot. These are useful to
 show topographical information related to the plot, such as sources
 or receptors locations.
 
-When a \emph{shp} file is given to the \code{mask} argument the plot is drawn only
+When a \emph{shp} file is given to the \code{mask} argument, the plot is drawn only
 inside the polygon. In order to avoid boundary artifacts due to reduced
 resolution, original data are resampled to higher resolution (currently
-set to 10 times the original one.) If\code{inverse_mask} is set to \code{TRUE}, the plot
-is drawn outside  the polygon. The \emph{mask} feature is based on the
+set to 10 times the original one). If\code{inverse_mask} is set to \code{TRUE}, the plot
+is drawn outside the polygon. The \emph{mask} feature is based on the
 \code{\link[terra:mask]{terra::mask()}} function.
 The CRS of the \emph{shp} file is applied to the data in the data.frame.
-Please, keep in mind this feature is still experimental.
+Please keep in mind this feature is still experimental.
 }
 \examples{
 # Load example data in long format
