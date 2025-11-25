@@ -64,7 +64,13 @@ test_that("plotStabilityClass is a ggplot2 object", {
         sc = runif(8760, min = 1, max = 6)
     )
     mydata$sc <- as.integer(mydata$sc)
+    library(dplyr)
+    mydata_tibble <- dplyr::as_tibble(mydata)
     expect_s3_class(plotStabilityClass(mydata), "ggplot")
     expect_s3_class(plotStabilityClass(mydata, type = "hour"), "ggplot")
     expect_s3_class(plotStabilityClass(mydata, type = "season"), "ggplot")
+    expect_s3_class(plotStabilityClass(mydata_tibble), "ggplot")
+    expect_s3_class(plotStabilityClass(mydata_tibble, type = "hour"), "ggplot")
+    expect_s3_class(plotStabilityClass(mydata_tibble, type = "season"), "ggplot")
+
 })
