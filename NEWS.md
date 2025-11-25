@@ -8,6 +8,7 @@
 - Deprecate `background` argument in favour of `basemap`.
 - Deprecate `domain` argument in favour of `xlim`, `ylim` and `nticks`.
 - Removed dependency to `reshape2` package.
+- Fixed a bug in `plotStabilityClass()` when input data is a *tibble*.
 
 
 # simulariatools 3.0.0

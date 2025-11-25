@@ -84,7 +84,7 @@ plotStabilityClass <- function(
     }
 
     pasquill <- factor(x = c("A", "B", "C", "D", "E", "F"))
-    mydata$clname <- pasquill[mydata[, sc]]
+    mydata$clname <- pasquill[mydata[[sc]]]
     mydata$clname <- factor(mydata$clname, levels = sort(pasquill, decreasing = TRUE))
 
     if (grepl("it", locale)) {
