@@ -26,7 +26,8 @@ contourPlot2(
   colors = NULL,
   mask = NULL,
   inverse_mask = FALSE,
-  bare = FALSE
+  bare = FALSE,
+  theme_void = FALSE
 )
 }
 \arguments{
@@ -94,7 +95,9 @@ are unbounded and the legend shows \code{<} and \code{>=} symbols.}
 \item{inverse_mask}{logical. If \code{TRUE} areas on mask are masked. Default is
 to mask areas outside the polygon defined in the \emph{shp} file.}
 
-\item{bare}{boolean (default FALSE). If TRUE only the bare plot is shown:
+\item{bare}{boolean (default FALSE). Deprecated in favour of theme_void.}
+
+\item{theme_void}{boolean (default FALSE). If TRUE only the bare plot is shown:
 axis, legend, titles and any other graphical element of the plot are removed.}
 }
 \value{

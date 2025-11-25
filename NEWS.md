@@ -7,6 +7,7 @@
   are provided, the basemap is automatically cropped.
 - Deprecate `background` argument in favour of `basemap`.
 - Deprecate `domain` argument in favour of `xlim`, `ylim` and `nticks`.
+- Deprecate `bare` argument in favour of `theme_void`.
 - Removed dependency to `reshape2` package.
 - Fixed a bug in `plotStabilityClass()` when input data is a *tibble*.
 

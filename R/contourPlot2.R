@@ -43,7 +43,8 @@
 #' @param transparency transparency level of the contour plot between 0.0
 #' (fully transparent) and 1.0 (fully opaque). Default = 0.75).
 #' @param colors colour palette for contour plot, as an array of colours.
-#' @param bare boolean (default FALSE). If TRUE only the bare plot is shown:
+#' @param bare boolean (default FALSE). Deprecated in favour of theme_void.
+#' @param theme_void boolean (default FALSE). If TRUE only the bare plot is shown:
 #' axis, legend, titles and any other graphical element of the plot are removed.
 #' @param size numeric. Width of the contour line.
 #' @param fill logical. If TRUE the contour plot is filled with colour (default = TRUE).
@@ -155,12 +156,13 @@ contourPlot2 <- function(
     colors = NULL,
     mask = NULL,
     inverse_mask = FALSE,
-    bare = FALSE
+    bare = FALSE,
+    theme_void = FALSE
 ) {
     # Consistency check
     if (isTRUE(tile)) {
         fill <- FALSE
-        bare <- FALSE
+        theme_void <- FALSE
         size <- 0.
     }
 
@@ -173,6 +175,15 @@ contourPlot2 <- function(
         }
     }
     colnames(data) <- c("x", "y", "z")
+
+    # Deprecate bare argument
+    if (isTRUE(bare)) {
+        theme_void <- bare
+        warning(paste(
+            "The \`bare\` argument is deprecated.",
+            "Please use argument \`theme_void\` instead."
+        ))
+    }
 
     # Default limits for basemap
     xmin_im <- -Inf
@@ -490,7 +501,7 @@ contourPlot2 <- function(
         )
 
     # If requested, wipe all but main plot
-    if (isTRUE(bare)) {
+    if (isTRUE(theme_void)) {
         v <- v +
             theme(
                 axis.line = element_blank(),
