@@ -281,10 +281,10 @@ plotAvgTemp <- function(
         grid::grid.newpage()
         grid::pushViewport(grid::viewport(layout = mylayout))
         grid::pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
-        grid.draw(a)
+        grid::grid.draw(a)
         grid::upViewport()
         grid::pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 2))
-        grid.draw(b)
+        grid::grid.draw(b)
     }
     gg_vertical_draw(g1, g2)
 }
