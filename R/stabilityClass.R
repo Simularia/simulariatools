@@ -7,7 +7,7 @@
 #' on net radiation, total cloud cover tcc and wind speed.
 #' Net radiation and wind are used by day; tcc and wind are used by night.
 #'
-#' Three different alogorithms are implemented, selected by the `option`
+#' Three different algorithms are implemented, selected by the `option`
 #' argument.
 #'
 #' \code{iaea} option implements the *radiation-wind method recommended by the
@@ -92,11 +92,11 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
         tabStab[5, ] <- c(4, 4, 4, 4, 4, 3, 3)
         tabStab[6, ] <- c(4, 4, 4, 4, 4, 4, 3)
     } else if (option == "pasquill") {
-        # Pasquill raditaion vector (night, night, night, day)
+        # Pasquill radiaion vector (night, night, night, day)
         limrad <- 1
         radlim <- c(limrad, limrad, 290.75, 581.5, Inf)
 
-        # Pasquill velcocity vector
+        # Pasquill velocity vector
         vel <- c(2, 3, 4, 6, Inf)
 
         # Pasquill cloud cover vector

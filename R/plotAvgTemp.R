@@ -84,7 +84,7 @@ plotAvgTemp <- function(
         }
     }
     # If the user explicitely set ylabel = NULL set it to an empty string.
-    # This is for adding an extra space on the right and imporve alignment
+    # This is for adding an extra space on the right and improve alignment
     # with the table below.
     if (is.null(ylabel)) {
         ylabel <- ""
