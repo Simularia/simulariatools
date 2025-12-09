@@ -94,7 +94,7 @@ plotAvgRad <- function(
         if (grepl("it", locale)) {
             ylabel <- expression(paste("Radiazione Globale [W/", m^2, "]"))
         } else {
-            ylabel <- expression(paste("Global Radiaton [W/", m^2, "]"))
+            ylabel <- expression(paste("Global Radiation [W/", m^2, "]"))
         }
     }
 
