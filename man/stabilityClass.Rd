@@ -30,7 +30,7 @@ speed.
 on net radiation, total cloud cover tcc and wind speed.
 Net radiation and wind are used by day; tcc and wind are used by night.
 
-Three different alogorithms are implemented, selected by the \code{option}
+Three different algorithms are implemented, selected by the \code{option}
 argument.
 
 \code{iaea} option implements the *radiation-wind method recommended by the
@@ -60,5 +60,6 @@ stMeteo$cst <- stabilityClass(
 
 }
 \seealso{
-\code{\link[=plotStabilityClass]{plotStabilityClass()}}
+\code{\link[=turnerStabilityClass]{turnerStabilityClass()}} which computes stability class with Turner method.
+\code{\link[=plotStabilityClass]{plotStabilityClass()}} to produce graphical outputs with stability class.
 }

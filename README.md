@@ -30,6 +30,8 @@ modelling and assessment:
 - `importADSOBIN()` imports an ADSO/BIN raster file.
 - `importSurferGrd()` imports a grid file.
 - `stabilityClass()` computes atmospheric stability class.
+- `turnerStabilityClass()` compute atmospheric PGT stability class with
+  Turner method.
 - `downloadBasemap()`downloads GeoTIFF basemaps from the italian
   [PCN](https://gn.mase.gov.it/portale/home).
 - `removeOutliers()` removes time series outliers based on interquartile
@@ -128,6 +130,9 @@ contourPlot2(
 ) +
     labs(x = NULL, y = NULL) +
     theme_minimal()
+#> Warning in contourPlot2(nox_concentration, domain = c(502000, 519000, 4943125,
+#> : The `domain` argument is deprecated. Please use the 'xlim', 'ylim' and
+#> 'nticks' arguments instead.
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="80%" height="80%" />
