@@ -156,7 +156,7 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
         catStab[i] <- tabStab[iv, ir]
     }
 
-    return(catStab)
+    catStab
 }
 
 
@@ -359,7 +359,7 @@ turnerStabilityClass <- function(
         turner[i] <- turner_table[index, wsk_index]
     }
 
-    return(turner)
+    turner
 }
 
 
@@ -393,7 +393,7 @@ solar_elevation <- function(
         sin(deltas) -
         cos(latitude_rad) * cos(deltas) * cos(2 * pi * tutc / 24 + longitude_rad)
 
-    return(sin_elevation)
+    sin_elevation
 }
 
 
@@ -423,5 +423,5 @@ solar_declination <- function(any_day) {
     solar_declination <- earth_tilt_angle *
         cos(2 * pi * (any_julian_day - summer_solstice) / num_days)
 
-    return(solar_declination)
+    solar_declination
 }
