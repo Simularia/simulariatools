@@ -61,7 +61,7 @@
 #' )
 #' }
 downloadBasemap <- function(
-    file = file,
+    file = NULL,
     xSW = NA,
     ySW = NA,
     xExt = NA,
