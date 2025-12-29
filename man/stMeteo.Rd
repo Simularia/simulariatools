@@ -7,7 +7,7 @@
 \format{
 A data frame with 8760 rows and 7 variables:
 \describe{
-\item{date}{date time in yyyy-mm-hh HH:MM:SS}
+\item{date}{date time in yyyy-mm-dd HH:MM:SS}
 \item{ws}{wind speed in m/s}
 \item{wd}{wind direction in deg.}
 \item{temp}{air temperature in C}

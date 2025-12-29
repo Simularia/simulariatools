@@ -9,7 +9,7 @@ removeOutliers(x, k = 1.5)
 \arguments{
 \item{x}{vector of data.}
 
-\item{k}{factor to applied to the interquartile range (default = 1.5).}
+\item{k}{factor applied to the interquartile range (default = 1.5).}
 }
 \value{
 A numeric vector with the same length as input vector.

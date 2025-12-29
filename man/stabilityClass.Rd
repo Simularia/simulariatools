@@ -9,7 +9,7 @@ stabilityClass(rad, tcc, ws, option = "iaea")
 \arguments{
 \item{rad}{The net radiation in W/m^2}
 
-\item{tcc}{The total cloud cover in a range from 1  to 8}
+\item{tcc}{The total cloud cover in a range from 1 to 8}
 
 \item{ws}{wind speed in m/s}
 

@@ -83,7 +83,7 @@ downloadBasemap <- function(
         stop("The coordinates of the S-W point of the domain are not properly defined.")
     }
 
-    # Check if doamin extension is missing
+    # Check if domain extension is missing
     if (!is.numeric(xExt) || !is.numeric(yExt)) {
         stop("The domain extension is not properly defined.")
     }

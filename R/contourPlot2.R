@@ -8,7 +8,7 @@
 #'
 #' @param data A dataframe in long format with three columns for Easting,
 #' Northing and values to be plotted.
-#' @param x charactrer. Name of the column containing Easting (longitude)
+#' @param x character. Name of the column containing Easting (longitude)
 #' coordinates (default "x").
 #' @param y character. Name of the column containing Northing (latitude)
 #' coordinates (default "y").
@@ -18,13 +18,13 @@
 #' the domain to be plotted (minimum X, maximum X, minimum Y, maximum Y) and the
 #' number of ticks on X & Y axis.
 #' Example: c(340000, 346000, 4989500, 4995500, 5, 5).
-#' If missing, all the full domain of the input data is considered, with 5 ticks
+#' If missing, the full domain of the input data is considered, with 5 ticks
 #' (deprecated, see `xlim`, `ylim`, `nticks`).
 #' @param xlim optional list of two numeric values defining the abscissa axis boundaries
 #' of the plot (minimum x, maximum x).
-#' @param ylim optional list of two numeric values defining the ordinata axis boundaries
+#' @param ylim optional list of two numeric values defining the ordinate axis boundaries
 #' of the plot (minimum y, maximum y).
-#' @param nticks optional listo of one or two numeric integers defining the number
+#' @param nticks optional list of one or two numeric integers defining the number
 #' of ticks on X & Y axes. If a single number is given, the same number of ticks
 #' is plotted on both axes (default = 5 ticks).
 #' @param background filename. Optional path to a raster file to be plotted as
@@ -41,7 +41,7 @@
 #' as the lowest and highest limits of the array, the lowest and highest bands
 #' are unbounded and the legend shows `<` and `>=` symbols.
 #' @param transparency transparency level of the contour plot between 0.0
-#' (fully transparent) and 1.0 (fully opaque). Default = 0.75).
+#' (fully transparent) and 1.0 (fully opaque). Default = 0.75.
 #' @param colors colour palette for contour plot, as an array of colours.
 #' @param bare boolean (default FALSE). Deprecated in favour of theme_void.
 #' @param theme_void boolean (default FALSE). If TRUE only the bare plot is shown:
@@ -83,7 +83,7 @@
 #' When a _shp_ file is given to the `mask` argument, the plot is drawn only
 #' inside the polygon. In order to avoid boundary artifacts due to reduced
 #' resolution, original data are resampled to higher resolution (currently
-#' set to 10 times the original one). If`inverse_mask` is set to `TRUE`, the plot
+#' set to 10 times the original one). If `inverse_mask` is set to `TRUE`, the plot
 #' is drawn outside the polygon. The *mask* feature is based on the
 #' [terra::mask()] function.
 #' The CRS of the _shp_ file is applied to the data in the data.frame.

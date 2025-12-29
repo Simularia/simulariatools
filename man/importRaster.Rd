@@ -24,9 +24,7 @@ to m (k = 1000).}
 
 \item{kz}{numeric. Factor applied to the variable values (default = 1).}
 
-\item{dx}{numeric. Constant to shift x coordinates (default = 0).}
-
-\item{dy}{numeric. Constant to shift y coordinates (default = 0).}
+\item{dx, dy}{numeric. Constant to shift x and y coordinates (default = 0).}
 
 \item{destaggering}{Use \code{TRUE} to apply destaggering to X and Y coordinates
 (default = FALSE). See the \code{Details} section.}
@@ -36,7 +34,7 @@ to m (k = 1000).}
 \item{verbose}{logical. If \code{TRUE}, prints out basic statistics (default = FALSE).}
 }
 \value{
-A data.frame with x, y and z columns for the grid cells coordiantes
+A data.frame with x, y and z columns for the grid cells coordinates
 and the variable value.
 }
 \description{
@@ -47,7 +45,7 @@ This function is based on the \pkg{terra} package and it can import any format
 managed by it as NetCDF.
 
 Destaggering applies a shift equal to half grid size in both horizontal
-directions. It is useful for importing data from the SPRAY air quality dispoersion
+directions. It is useful for importing data from the SPRAY air quality dispersion
 model and it is not applied by default.
 
 An optional summary output can be printed out by setting the \code{verbose} parameter

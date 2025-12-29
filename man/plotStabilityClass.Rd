@@ -43,10 +43,10 @@ Numerical values of stability classes are mapped as: 1 = A, 2 = B, ..., 6 = F.
 \examples{
 data("stMeteo")
 
-# Season plot of stability class pgt
+# Season plot of PGT stability class
 plotStabilityClass(stMeteo, date = "date", sc = "pgt", type = "season")
 
-# Hourly plot of stability class pgt
+# Hourly plot of PGT stability class
 plotStabilityClass(stMeteo, date = "date", sc = "pgt", type = "hour")
 
 # Override default locale

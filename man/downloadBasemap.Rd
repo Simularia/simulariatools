@@ -5,7 +5,7 @@
 \title{Download basemap from Italian National Geoportal}
 \usage{
 downloadBasemap(
-  file = file,
+  file = NULL,
   xSW = NA,
   ySW = NA,
   xExt = NA,

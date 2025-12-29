@@ -30,16 +30,16 @@ modelling and assessment:
 - `importADSOBIN()` imports an ADSO/BIN raster file.
 - `importSurferGrd()` imports a grid file.
 - `stabilityClass()` computes atmospheric stability class.
-- `turnerStabilityClass()` compute atmospheric PGT stability class with
+- `turnerStabilityClass()` computes atmospheric PGT stability class with
   Turner method.
-- `downloadBasemap()`downloads GeoTIFF basemaps from the italian
+- `downloadBasemap()` downloads GeoTIFF basemaps from the Italian
   [PCN](https://gn.mase.gov.it/portale/home).
 - `removeOutliers()` removes time series outliers based on interquartile
   range.
 - `rollingMax()` computes rolling max of a time series.
 
 The package is developed and maintained at
-[Simularia](https://www.simularia.it) and it is widely used for their
+[Simularia](https://www.simularia.it) and it is widely used in their
 daily work.
 
 If you use this package in your work, please consider citing it. Refer
@@ -103,7 +103,7 @@ str(nox_concentration)
 ```
 
 A quick contour plot, with default configuration, can be easily obtained
-by running *contourPlot2()* without any argument:
+by running `contourPlot2()` without any argument:
 
 ``` r
 contourPlot2(nox_concentration)
@@ -145,7 +145,7 @@ ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
 
 Optional arguments can be used to create special versions of the plot.
-For example, use `tile = TRUE` to produce a non spatially interpolated
+For example, use `tile = TRUE` to produce a non-spatially interpolated
 plot:
 
 ``` r

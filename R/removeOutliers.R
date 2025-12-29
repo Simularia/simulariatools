@@ -3,7 +3,7 @@
 #' Remove data outliers based on the interquartile range.
 #'
 #' @param x vector of data.
-#' @param k factor to applied to the interquartile range (default = 1.5).
+#' @param k factor applied to the interquartile range (default = 1.5).
 #'
 #' @details
 #' The interquartile range IQR is computed from input dataset as IQR = Q3 - Q1,

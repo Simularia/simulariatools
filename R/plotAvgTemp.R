@@ -5,7 +5,7 @@
 #'
 #' @param mydata A dataframe containing data to plot.
 #' @param date The name of the column representing date and time. Data must be of
-#' class `POSIXlt` or `POSIXct` (default = "date"). If timezone is unspecified,
+#' class `POSIXlt` or `POSIXct` (default = "date"). If the timezone is unspecified,
 #' it is set to GMT.
 #' @param temp Name of the column representing temperature (default = "temp")
 #' @param avg.time Defines the time period to average to.
@@ -65,12 +65,12 @@ plotAvgTemp <- function(
         stop("A `date` column of class <POSIXt> is required.")
     }
 
-    # Special case for italian locale
+    # Special case for Italian locale
     if (!is.null(locale) && locale == "it") {
         locale <- "it_IT"
     }
 
-    # Get locale if not explicitely set
+    # Get locale if not explicitly set
     if (is.null(locale)) {
         locale <- Sys.getlocale(category = "LC_TIME")
     }
@@ -131,7 +131,7 @@ plotAvgTemp <- function(
 
     # Set column names and create a row index column
     colnames(mydata_mean) <- c("rid", "temp", "temp.min", "temp.max")
-    # FIXME:make it more generic
+    # FIXME: make it more generic
     mydata_mean[["rid"]] <- as.numeric(mydata_mean[["rid"]])
 
     # Arrange data in long format

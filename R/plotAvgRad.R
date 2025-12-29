@@ -5,7 +5,7 @@
 #'
 #' @param mydata A data frame containing data to plot.
 #' @param date The name of the column representing date and time. Data must be of
-#' class `POSIXlt` or `POSIXct` (default = "date"). If timezone is unspecified,
+#' class `POSIXlt` or `POSIXct` (default = "date"). If the timezone is unspecified,
 #' it is set to GMT.
 #' @param rad   Name of the column representing radiation (default = "radg").
 #' @param ylabel The label along the y axis. If missing a default label is plotted.
@@ -74,7 +74,7 @@ plotAvgRad <- function(
     max_jun$date <- as.numeric(max_jun$date)
     max_dec$date <- as.numeric(max_dec$date)
 
-    # Get locale if not explicitely set
+    # Get locale if not explicitly set
     if (is.null(locale)) {
         locale <- Sys.getlocale(category = "LC_TIME")
     }

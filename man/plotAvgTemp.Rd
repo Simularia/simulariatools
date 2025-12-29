@@ -18,7 +18,7 @@ plotAvgTemp(
 \item{mydata}{A dataframe containing data to plot.}
 
 \item{date}{The name of the column representing date and time. Data must be of
-class \code{POSIXlt} or \code{POSIXct} (default = "date"). If timezone is unspecified,
+class \code{POSIXlt} or \code{POSIXct} (default = "date"). If the timezone is unspecified,
 it is set to GMT.}
 
 \item{temp}{Name of the column representing temperature (default = "temp")}

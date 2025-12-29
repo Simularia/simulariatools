@@ -1,15 +1,16 @@
 # simulariatools (development version)
 
-# simulariatools 3.0.0.9000
-
-- New feature: utilize the coordinates extent of a geo-referenced TIFF `basemap` file. If
-  plot limits are not provided, use the basemap extent to set them. If `xlim` or `ylim`
-  are provided, the basemap is automatically cropped.
-- Deprecate `background` argument in favour of `basemap`.
-- Deprecate `domain` argument in favour of `xlim`, `ylim` and `nticks`.
-- Deprecate `bare` argument in favour of `theme_void`.
-- Removed dependency to `reshape2` package.
+- New feature: `contourPlot2()` utilizes the coordinates extent of a geo-referenced TIFF
+  `basemap` file. If plot limits are not provided, use the basemap extent to set them. If
+  `xlim` or `ylim` are provided, the basemap is automatically cropped.
+- Deprecated `background` argument in `contourPlot2()` in favour of `basemap`.
+- Deprecated `domain` argument in `contourPlot2()` in favour of `xlim`, `ylim` and `nticks`.
+- Deprecated `bare` argument in `contourPlot2()` in favour of `theme_void`.
+- New function: `turnerStabilityClass()` to compute PGT stability class with Turner
+  method.
+- Removed dependency on `reshape2` package.
 - Fixed a bug in `plotStabilityClass()` when input data is a *tibble*.
+- Fixed typos in the documentation.
 
 
 # simulariatools 3.0.0
@@ -33,13 +34,13 @@
   English.
 - `plotAvgRad()` now includes options to change the y-axis label and the
   title.
-- `plgtAvgTemp()` and `plotStabilityClass()` gain `date` argument to specify the
+- `plotAvgTemp()` and `plotStabilityClass()` gain a `date` argument to specify the
   name of the column with *datetime* data.
 
 ## Minor improvements and fixes
 
 - `contourPlot2()` now masks content outside the plot domain.
-  Previously, values outside plot domain were set to NA's, which could
+  Previously, values outside plot domain were set to NAs, which could
   potentially cause artefacts at the borders.
 - `contourPlot2()` has been updated to fix some breaking changes
   introduced by `ggplot2` since version 3.5.0 where `guide_legend()`
@@ -60,7 +61,7 @@
   renamed to `iaea`.
 - In `plotStabilityClass()`, a bug where a missing class was not shown
   in the legend has been fixed.
-- Almost all the dependencies from *Openair* have been removed.
+- Almost all *openair* dependencies have been removed.
 - Other minor bugs have been fixed and documentation has been updated
   and hopefully improved.
 
@@ -68,7 +69,7 @@
 # simulariatools 2.5.1
 
 - Removed Unicode symbols (on CRAN request).
-- Explicitly add x and y scales limits to `contourPlot2`.
+- Explicitly add x and y scale limits to `contourPlot2`.
 - Updated deprecated functions from `scales` package.
 - Bug fix: avoid `Inf` duplication in `contourPlot2` legend.
 - Documentation: spell check and improvements.
@@ -76,16 +77,16 @@
 
 # simulariatools 2.5.0
 
-- Dependency from other packages has been reviewed. `RColorBrewer`,
-  `dplyr` and `png` are not required any more.
+- Dependencies from other packages have been reviewed. `RColorBrewer`,
+  `dplyr` and `png` are not required anymore.
 - `raster` becomes suggested, since it is only required by the
   deprecated `contourPlot()` function. Geo processing is now performed
   by the required `terra` package.
-- `Openair` is now a suggested package.
+- `openair` is now a suggested package.
 - Bugs were fixed in the Pasquill stability class functions
   `stabilityClass()` and `plotStabilityClass()`. Furthermore, some
   working examples have been added.
-- In `contourPlot2()`, deprecation of `stat(level)` and `size` of
+- In `contourPlot2()`, deprecations of `stat(level)` and `size` in
   `ggplot2()` have been fixed.
 - Improved documentation and `README` file.
 
@@ -107,16 +108,16 @@
 
 # simulariatools 2.3.1
 
-- Trying to fix issues with fonts in `contourPlot2()`.
-- Updated readme file and fixed some minor issues in the documentation.
+- Attempted to fix issues with fonts in `contourPlot2()`.
+- Updated README file and fixed some minor issues in the documentation.
 
 
 # simulariatools 2.3.0
 
-- BREAKING CHANGE: in raster plots in `contourPlot2` (tile = TRUE)
+- BREAKING CHANGE: in raster plots of `contourPlot2` (tile = TRUE),
   intervals are closed on the left and open on the right. In previous
   versions it was the opposite. In this way an interval `0 - 1` does
-  include values equal to 0 and does not include values equals to 1.
+  include values equal to 0 and does not include values equal to 1.
 
 
 # simulariatools 2.2.3
@@ -124,13 +125,13 @@
 - `magick` package is now suggested (not required). If it is not
   installed, it will not be possible to read (and plot) background base
   maps in `contourPlot2`.
-- In `contourPlot2` do not add `Inf` as upper limit in levels in the
+- In `contourPlot2`, do not add `Inf` as upper limit in levels in the
   case of delta maps, when the first level is negative. Note that this
   will probably change the output of some scripts.
-- Vector field lengths are not normalised any more and changed default
+- Vector field lengths are not normalised any longer and changed default
   scale factor. This modification aims to facilitate comparison of
   vector fields from different source files.
-- Updated readme and added a brief example.
+- Updated README and added a brief example.
 
 
 # simulariatools 2.2.2
@@ -157,10 +158,10 @@
 # simulariatools 2.1.0
 
 ## Breaking changes
-  - `vectorField()` has now a unique parameter for scaling vector
-    length;
-  - Length of the arrow head in `vectorField()` has been removed in
-    exchange for a sensible default;
+
+- `vectorField()` has now a unique parameter for scaling vector length;
+- Length of the arrow head in `vectorField()` has been removed in exchange for a sensible
+  default;
 - Bug fixes.
 
 
@@ -170,7 +171,7 @@
 
 - New `contourPlot2()` function:
 - Based on *ggplot2* v3.3.0 and `geom_contour_filled` function;
-- Colour bands are not overlapped any more therefore the maps are more
+- Colour bands are not overlapped anymore, therefore the maps are more
   accurate;
 - Legend labels are more informative and smarter (you can also use +/-
   `Inf` for upper and lower bound);
@@ -229,17 +230,16 @@
 - New `importADSOBIN` function to read ADSO/BIN files.
 - `plotStabilityClass` uses seasons instead of quarters.
 - `plotAvgTemp` correctly manages time zones.
-- Option `verbose` of `importRaster()`set to `FALSE` by default (it was
+- Option `verbose` of `importRaster()` set to `FALSE` by default (it was
   `TRUE`).
 - Option `fname` of `importRaster` renamed to `file` and set to
-  `file.chooser` by default.
+  `file.choose()` by default.
 - Documentation improvement.
 
 
 # simulariatools 1.0.7
 
-- `plotStabilityClass`:
-  - Correct order in color bars from 'A' to 'F'.
+- `plotStabilityClass`: correct order in color bars from 'A' to 'F'.
     
     
 # simulariatools 1.0.6
@@ -283,8 +283,8 @@
 
 # simulariatools 0.6.5
 
-- Add verbose option in `importRaster`.
-- Add option `kz` in `importRaster` to multiply `z` values.
+- Added verbose option in `importRaster`.
+- Added option `kz` in `importRaster` to multiply `z` values.
 
 
 # simulariatools 0.6.4
@@ -305,41 +305,39 @@
 
 # simulariatools 0.6.1
 
-- Fixed library dependence for `plotAvgTemp`.
+- Fixed library dependency for `plotAvgTemp`.
 - Added `stMeteo` dataset for testing.
 
 
 # simulariatools 0.6
 
-- New `contourPlot()` function to plot contour levels diagrams of
+- New `contourPlot()` function to plot contour level diagrams of
   pollutant concentration.
 - Code cleaning.
 
 
 # simulariatools 0.5.3
 
-* Bug fixes.
+- Bug fixes.
 
 
 # simulariatools 0.5.2
 
-* Bug fixes.
+- Bug fixes.
 
 
 # simulariatools 0.5.1
 
-- in `importRaster()` added the possibility to shift X and/or Y
+- In `importRaster()`, added the possibility to shift X and/or Y
   coordinates by dX/dY.
 
 
 # simulariatools 0.5
 
-- Added `createBaseMap()` function to create base maps for contour
-  plots. It currently works only with png files.
-- Bug fix in destaggering of raster files. destaggering is now default
-  to FALSE.
-- Default fonts changed from Helvetica to Arial to avoid problems on
-  windows machines.
+- Added `createBaseMap()` function to create base maps for contour plots. It currently
+  works only with png files.
+- Bug fix in destaggering of raster files: destaggering is now set to FALSE by default.
+- Default fonts changed from Helvetica to Arial to avoid problems on Windows machines.
 
 
 # simulariatools 0.4.1
@@ -349,21 +347,19 @@
 
 # simulariatools 0.4
 
-- New `importRaster()` function to read all *gdal* supported raster
-  files.
+- New `importRaster()` function to read all `gdal` supported raster files.
 
 
 # simulariatools 0.3.1
 
-- Patched `importSurferGrd.R` to read GRD files generated by
-  CALPUFF/CALPOST.
+- Patched `importSurferGrd.R` to read GRD files generated by CALPUFF/CALPOST.
 
 
 # simulariatools 0.3
 
 - Added optional title parameter in `plotAvgTemp`.
 - In `plotAvgTemp`, plots table of plotted values below the graph.
-- Bug fixes in `plotAvgRad`
+- Bug fixes in `plotAvgRad`.
 
 
 # simulariatools 0.2.1

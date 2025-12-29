@@ -17,7 +17,7 @@ plotAvgRad(
 \item{mydata}{A data frame containing data to plot.}
 
 \item{date}{The name of the column representing date and time. Data must be of
-class \code{POSIXlt} or \code{POSIXct} (default = "date"). If timezone is unspecified,
+class \code{POSIXlt} or \code{POSIXct} (default = "date"). If the timezone is unspecified,
 it is set to GMT.}
 
 \item{rad}{Name of the column representing radiation (default = "radg").}

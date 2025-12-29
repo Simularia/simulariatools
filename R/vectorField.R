@@ -12,8 +12,8 @@
 #' *R Graphics Cookbook* by Winston Chang (https://r-graphics.org/index.html).
 #'
 #' @return A \code{ggplot2} object if `preview = TRUE`. A \code{ggplot2}
-#` directive otherwise. In the latter case, the output should be piped to
-#' a plot, as a \code{contourPlot2()} and the vector field will be overlapped.
+#' layer otherwise. In the latter case, the output should be piped to
+#' a plot, such as \code{contourPlot2()} and the vector field will be overlapped.
 #'
 #'
 #' @importFrom ggplot2 ggplot geom_segment aes

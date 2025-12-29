@@ -30,7 +30,8 @@ the ggplot2 directive to be added to another plot.}
 }
 \value{
 A \code{ggplot2} object if \code{preview = TRUE}. A \code{ggplot2}
-a plot, as a \code{contourPlot2()} and the vector field will be overlapped.
+layer otherwise. In the latter case, the output should be piped to
+a plot, such as \code{contourPlot2()} and the vector field will be overlapped.
 }
 \description{
 Simple function to plot a vector field given two components.

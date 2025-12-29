@@ -24,15 +24,15 @@
 #' @param verbose Use `TRUE` to print out basic statistics (default = `FALSE`).
 #'
 #' @details
-#' The `importADSIOBIN()` function imports data from an ADSO/BIN binary file.
-#' It relies on the `arinfopy' (version >= 2.2.0) python library.
+#' The `importADSOBIN()` function imports data from an ADSO/BIN binary file.
+#' It relies on the `arinfopy` (version >= 2.2.0) python library.
 #' For more information on the library see the
 #' [GitHub repository](https://github.com/Simularia/arinfopy).
 #'
 #' For more information on the active `python` installation, check the
 #' documentation of \pkg{reticulate}.
 #'
-#' @return In standard use, `importADSOBIN()` return a data frame with
+#' @return In standard use, `importADSOBIN()` returns a data frame with
 #' `(X, Y, Z)` columns. Column Z contains the values of the requested variable.
 #' If the `raster.object` option is set, it returns a RasterLayer object.
 #'
@@ -58,7 +58,7 @@
 #'     deadline = 12
 #' )
 #'
-#' # Read varibale M001S001 at ground level, at given date and time,
+#' # Read variable M001S001 at ground level, at given date and time,
 #' # and print basic information:
 #' nox <- importADSOBIN(
 #'     file = "conc_01-10_07_2018",

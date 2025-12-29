@@ -7,8 +7,7 @@
 #' For example, it can be used to convert the grid coordinates from km
 #' to m (k = 1000).
 #' @param kz numeric. Factor applied to the variable values (default = 1).
-#' @param dx numeric. Constant to shift x coordinates (default = 0).
-#' @param dy numeric. Constant to shift y coordinates (default = 0).
+#' @param dx,dy numeric. Constant to shift x and y coordinates (default = 0).
 #' @param destaggering Use `TRUE` to apply destaggering to X and Y coordinates
 #'   (default = FALSE). See the `Details` section.
 #' @param variable character. The name of the variable to be imported.
@@ -19,14 +18,13 @@
 #' managed by it as NetCDF.
 #'
 #' Destaggering applies a shift equal to half grid size in both horizontal
-#' directions. It is useful for importing data from the SPRAY air quality dispoersion
+#' directions. It is useful for importing data from the SPRAY air quality dispersion
 #' model and it is not applied by default.
 #'
 #' An optional summary output can be printed out by setting the `verbose` parameter
 #' to `TRUE`.
 #'
-#'
-#' @return A data.frame with x, y and z columns for the grid cells coordiantes
+#' @return A data.frame with x, y and z columns for the grid cells coordinates
 #' and the variable value.
 #'
 #' @seealso [importADSOBIN()], [importSurferGrd()]
