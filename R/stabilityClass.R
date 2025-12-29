@@ -26,7 +26,7 @@
 #' deprecated.
 #'
 #' @param rad The net radiation in W/m^2
-#' @param tcc The total cloud cover in a range from 1  to 8
+#' @param tcc The total cloud cover in a range from 1 to 8
 #' @param ws wind speed in m/s
 #' @param option The method used to determine the stability class. It can be
 #' \code{iaea} (default), \code{pasquill} or \code{custom}.
@@ -94,7 +94,7 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
         tabStab[5, ] <- c(4, 4, 4, 4, 4, 3, 3)
         tabStab[6, ] <- c(4, 4, 4, 4, 4, 4, 3)
     } else if (option == "pasquill") {
-        # Pasquill radiaion vector (night, night, night, day)
+        # Pasquill radiation vector (night, night, night, day)
         limrad <- 1
         radlim <- c(limrad, limrad, 290.75, 581.5, Inf)
 
@@ -146,7 +146,7 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
             ir <- ir + 1
         }
 
-        # Nightime, cloud cover
+        # Nighttime, cloud cover
         if (ir == 1) {
             while (tcc[i] >= nuvo[ir]) {
                 ir <- ir + 1
@@ -181,7 +181,7 @@ stabilityClass <- function(rad, tcc, ws, option = "iaea") {
 #' @param cloud_cover Total cloud cover in the range 1...8
 #' @param ceiling_height Ceiling height in metres
 #'
-#' @returns
+#' @return
 #' A numeric value (or vector) in the range 1 to 6, where 1 = A, 2 = B, ...,
 #' 6 = F.
 #'
@@ -410,7 +410,7 @@ solar_declination <- function(any_day) {
     # julian day for any day
     any_julian_day <- as.integer(format(any_day, "%j"))
 
-    # julian day for the summer solstice (northern emisphere)
+    # julian day for the summer solstice (northern hemisphere)
     summer_solstice <- 172
 
     num_days <- 365
