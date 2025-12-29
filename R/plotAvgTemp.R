@@ -249,7 +249,6 @@ plotAvgTemp <- function(
             expand = expansion(add = c(0.47, 0.5), mult = 0.02),
         ) +
         scale_y_discrete(labels = c(minima_short, media_short, massima_short)) +
-        theme_bw() +
         labs(title = NULL, x = NULL, y = "") +
         theme_bw(base_family = "sans") +
         theme(
