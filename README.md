@@ -91,8 +91,9 @@ nox_concentration <- importRaster(
 #> -----------------------------------------------------------------
 ```
 
-Concentration data are imported as `data.frame` with `x`, `y` and `z`
-columns for coordinates and grid values.
+Concentration data are imported as a `data.frame` with `x`, `y` columns
+corresponding to the coordinates of the cell centre and a `z` column for
+grid values.
 
 ``` r
 str(nox_concentration)
@@ -109,10 +110,10 @@ by running `contourPlot2()` without any argument:
 contourPlot2(nox_concentration)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="80%" height="80%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" alt="" width="80%" height="80%" />
 
 The plot is customisable by using `contourPlot2()` arguments and by
-piping **ggplot2** instructions with the `+` operator.
+piping **ggplot2** instructions together with the `+` operator.
 
 In the following example, the original domain is cropped, colour levels
 are explicitly assigned and a legend name is provided through function
@@ -124,18 +125,17 @@ theme:
 library(ggplot2)
 contourPlot2(
     nox_concentration,
-    domain = c(502000, 519000, 4943125, 4955125, 5, 5),
+    xlim = c(502000, 519000),
+    ylim = c(4943125, 4955125),
+    nticks = 5,
     levels = c(-Inf, 0.5, 1, 1.5, 2, Inf),
     legend = "NOx [ug/m3]"
 ) +
     labs(x = NULL, y = NULL) +
     theme_minimal()
-#> Warning in contourPlot2(nox_concentration, domain = c(502000, 519000, 4943125,
-#> : The `domain` argument is deprecated. Please use the 'xlim', 'ylim' and
-#> 'nticks' arguments instead.
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="80%" height="80%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" alt="" width="80%" height="80%" />
 
 In order to save the last plot to file, you can directly use the
 **ggplot2** function `ggsave()`:
@@ -156,7 +156,7 @@ contourPlot2(
 )
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="80%" height="80%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" alt="" width="80%" height="80%" />
 
 ## Contact
 
