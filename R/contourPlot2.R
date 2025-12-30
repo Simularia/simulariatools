@@ -2,7 +2,7 @@
 #'
 #' @description
 #'
-#' The function \code{contourPlot2} generates a contour plot of a given quantity,
+#' The function \code{contourPlot2} generates a contour plot of a scalar quantity,
 #' such as the ground concentration of an airborne pollutant or odour, defined on a
 #' regular grid.
 #'
@@ -15,9 +15,9 @@
 #' @param z character. Name of the column containing concentration values
 #' (default "z").
 #' @param domain optional list of six numeric values defining the boundaries of
-#' the domain to be plotted (minimum X, maximum X, minimum Y, maximum Y) and the
-#' number of ticks on X & Y axis.
-#' Example: c(340000, 346000, 4989500, 4995500, 5, 5).
+#' the domain to be plotted  and the number of ticks on X & Y axis
+#' (minimum X, maximum X, minimum Y, maximum Y, number of ticks on X axis,
+#' number of ticks on Y axis). Example: c(340000, 346000, 4989500, 4995500, 5, 5).
 #' If missing, the full domain of the input data is considered, with 5 ticks
 #' (deprecated, see `xlim`, `ylim`, `nticks`).
 #' @param xlim optional list of two numeric values defining the abscissa axis boundaries
@@ -30,9 +30,9 @@
 #' @param background filename. Optional path to a raster file to be plotted as
 #' the basemap (deprecated, see `basemap`)
 #' @param basemap filename. Optional path to a raster file to be plotted as
-#' the basemap (see Details)
-#' @param underlayer optional list of layers to be plotted between base map
-#' and contour plot. See Details
+#' the basemap (see Details).
+#' @param underlayer optional list of layers to be plotted between basemap
+#' and contour plot. See Details.
 #' @param overlayer optional list of layers to be plotted on top of the contour
 #' plot. See Details.
 #' @param legend character. Optional title of the legend.
@@ -43,14 +43,14 @@
 #' @param transparency transparency level of the contour plot between 0.0
 #' (fully transparent) and 1.0 (fully opaque). Default = 0.75.
 #' @param colors colour palette for contour plot, as an array of colours.
-#' @param bare boolean (default FALSE). Deprecated in favour of theme_void.
-#' @param theme_void boolean (default FALSE). If TRUE only the bare plot is shown:
+#' @param bare boolean (default FALSE). Deprecated in favour of `theme_void`.
+#' @param theme_void boolean (default FALSE). If TRUE, only the bare plot is shown:
 #' axis, legend, titles and any other graphical element of the plot are removed.
 #' @param size numeric. Width of the contour line.
-#' @param fill logical. If TRUE the contour plot is filled with colour (default = TRUE).
-#' @param tile logical. If TRUE rectangular tiles are plotted (default = FALSE).
-#' @param mask character. Path to _shp_ file used as a mask. It must be a closed polygon.
-#' @param inverse_mask logical. If `TRUE` areas on mask are masked. Default is
+#' @param fill logical. If TRUE, the contour plot is filled with colour (default = TRUE).
+#' @param tile logical. If TRUE, rectangular tiles are plotted (default = FALSE).
+#' @param mask character. Path to `shp` file used as a mask. It must be a closed polygon.
+#' @param inverse_mask logical. If TRUE, areas on mask are masked. Default is
 #' to mask areas outside the polygon defined in the _shp_ file.
 #'
 #' @details
@@ -60,20 +60,21 @@
 #' version >= 3.3.0.
 #'
 #' Data are required to be on a regular grid, typically (but not necessarily)
-#' in UTM coordinates. The input dataframe has to be in long format, i.e. one
-#' line per value to be plotted. The names of the columns corresponding to `x`,
-#' `y` and `z` can be specified in the input parameters.
+#' in UTM coordinates. Each value is associated to the cell centre.
+#' The input dataframe has to be in long format, i.e. one line per value to be plotted.
+#' The names of the columns corresponding to `x`, `y` and `z` can be specified in the
+#' input parameters.
+#'
+#' The `basemap` can be a geo-referenced TIFF file. In that case, the plot bounding box
+#' is automatically derived from the picture extent. The axis limits can be explicitly
+#' overridden by `xlim` and `ylim` arguments.
 #'
 #' If `tile = TRUE` data are shown as they are, without any graphical
 #' interpolation required for contour plots. This is helpful when you want to
 #' visualise the raw data.
 #' Since version 2.4.0, when `tile = TRUE` the intervals include the lowest
-#' bound and exclude the highest bound: `[min, max)`. Note: In previous version
+#' bound and exclude the highest bound: `[min, max)`. Note: In previous versions
 #' it was the opposite.
-#'
-#' The `basemap` can be a geo-referenced TIFF file. In that case, the plot limits
-#' are automatically extracted from the picture extent. The limits can be explicitly
-#' overridden by `xlim` and `ylim` arguments.
 #'
 #' `underlayer` and `overlayer` layers are \code{ggplot2} objects to be shown at
 #' different levels of the vertical stack of the plot. These are useful to
@@ -84,7 +85,7 @@
 #' inside the polygon. In order to avoid boundary artifacts due to reduced
 #' resolution, original data are resampled to higher resolution (currently
 #' set to 10 times the original one). If `inverse_mask` is set to `TRUE`, the plot
-#' is drawn outside the polygon. The *mask* feature is based on the
+#' is drawn outside the polygon. The `mask` feature is based on the
 #' [terra::mask()] function.
 #' The CRS of the _shp_ file is applied to the data in the data.frame.
 #' Please keep in mind this feature is still experimental.
@@ -205,10 +206,12 @@ contourPlot2 <- function(
             warning = function(w) w
         )
         if (inherits(imgr, "SpatRaster")) {
+            # Bounding box for plot
             xmin <- terra::xmin(imgr)
             xmax <- terra::xmax(imgr)
             ymin <- terra::ymin(imgr)
             ymax <- terra::ymax(imgr)
+            # Bounding box for basemap (same)
             xmin_im <- xmin
             xmax_im <- xmax
             ymin_im <- ymin
@@ -227,6 +230,7 @@ contourPlot2 <- function(
         nticks <- domain[5:6]
     }
 
+    # Explicit boundaries
     if (!missing(xlim)) {
         xmin <- xlim[1] # x coordinates minimum
         xmax <- xlim[2] # x coordinates max
@@ -352,7 +356,7 @@ contourPlot2 <- function(
         }
     }
 
-    # Background image
+    # Basemap
     if (!missing(background)) {
         warning(paste(
             "The \`background\` argument is deprecated.",
@@ -390,7 +394,7 @@ contourPlot2 <- function(
         size <- 0.
     }
 
-    # Base layer
+    # Basemap
     v <- ggplot(data)
     if (!missing(basemap)) {
         v <- v + annotation_raster(gimg, xmin_im, xmax_im, ymin_im, ymax_im)

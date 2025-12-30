@@ -44,9 +44,9 @@ coordinates (default "y").}
 (default "z").}
 
 \item{domain}{optional list of six numeric values defining the boundaries of
-the domain to be plotted (minimum X, maximum X, minimum Y, maximum Y) and the
-number of ticks on X & Y axis.
-Example: c(340000, 346000, 4989500, 4995500, 5, 5).
+the domain to be plotted  and the number of ticks on X & Y axis
+(minimum X, maximum X, minimum Y, maximum Y, number of ticks on X axis,
+number of ticks on Y axis). Example: c(340000, 346000, 4989500, 4995500, 5, 5).
 If missing, the full domain of the input data is considered, with 5 ticks
 (deprecated, see \code{xlim}, \code{ylim}, \code{nticks}).}
 
@@ -64,10 +64,10 @@ is plotted on both axes (default = 5 ticks).}
 the basemap (deprecated, see \code{basemap})}
 
 \item{basemap}{filename. Optional path to a raster file to be plotted as
-the basemap (see Details)}
+the basemap (see Details).}
 
-\item{underlayer}{optional list of layers to be plotted between base map
-and contour plot. See Details}
+\item{underlayer}{optional list of layers to be plotted between basemap
+and contour plot. See Details.}
 
 \item{overlayer}{optional list of layers to be plotted on top of the contour
 plot. See Details.}
@@ -81,30 +81,30 @@ are unbounded and the legend shows \code{<} and \code{>=} symbols.}
 
 \item{size}{numeric. Width of the contour line.}
 
-\item{fill}{logical. If TRUE the contour plot is filled with colour (default = TRUE).}
+\item{fill}{logical. If TRUE, the contour plot is filled with colour (default = TRUE).}
 
-\item{tile}{logical. If TRUE rectangular tiles are plotted (default = FALSE).}
+\item{tile}{logical. If TRUE, rectangular tiles are plotted (default = FALSE).}
 
 \item{transparency}{transparency level of the contour plot between 0.0
 (fully transparent) and 1.0 (fully opaque). Default = 0.75.}
 
 \item{colors}{colour palette for contour plot, as an array of colours.}
 
-\item{mask}{character. Path to \emph{shp} file used as a mask. It must be a closed polygon.}
+\item{mask}{character. Path to \code{shp} file used as a mask. It must be a closed polygon.}
 
-\item{inverse_mask}{logical. If \code{TRUE} areas on mask are masked. Default is
+\item{inverse_mask}{logical. If TRUE, areas on mask are masked. Default is
 to mask areas outside the polygon defined in the \emph{shp} file.}
 
-\item{bare}{boolean (default FALSE). Deprecated in favour of theme_void.}
+\item{bare}{boolean (default FALSE). Deprecated in favour of \code{theme_void}.}
 
-\item{theme_void}{boolean (default FALSE). If TRUE only the bare plot is shown:
+\item{theme_void}{boolean (default FALSE). If TRUE, only the bare plot is shown:
 axis, legend, titles and any other graphical element of the plot are removed.}
 }
 \value{
 A \code{ggplot2} object.
 }
 \description{
-The function \code{contourPlot2} generates a contour plot of a given quantity,
+The function \code{contourPlot2} generates a contour plot of a scalar quantity,
 such as the ground concentration of an airborne pollutant or odour, defined on a
 regular grid.
 }
@@ -114,20 +114,21 @@ such as pollutants computed by a dispersion model, with \code{ggplot2}
 version >= 3.3.0.
 
 Data are required to be on a regular grid, typically (but not necessarily)
-in UTM coordinates. The input dataframe has to be in long format, i.e. one
-line per value to be plotted. The names of the columns corresponding to \code{x},
-\code{y} and \code{z} can be specified in the input parameters.
+in UTM coordinates. Each value is associated to the cell centre.
+The input dataframe has to be in long format, i.e. one line per value to be plotted.
+The names of the columns corresponding to \code{x}, \code{y} and \code{z} can be specified in the
+input parameters.
+
+The \code{basemap} can be a geo-referenced TIFF file. In that case, the plot bounding box
+is automatically derived from the picture extent. The axis limits can be explicitly
+overridden by \code{xlim} and \code{ylim} arguments.
 
 If \code{tile = TRUE} data are shown as they are, without any graphical
 interpolation required for contour plots. This is helpful when you want to
 visualise the raw data.
 Since version 2.4.0, when \code{tile = TRUE} the intervals include the lowest
-bound and exclude the highest bound: \verb{[min, max)}. Note: In previous version
+bound and exclude the highest bound: \verb{[min, max)}. Note: In previous versions
 it was the opposite.
-
-The \code{basemap} can be a geo-referenced TIFF file. In that case, the plot limits
-are automatically extracted from the picture extent. The limits can be explicitly
-overridden by \code{xlim} and \code{ylim} arguments.
 
 \code{underlayer} and \code{overlayer} layers are \code{ggplot2} objects to be shown at
 different levels of the vertical stack of the plot. These are useful to
@@ -138,7 +139,7 @@ When a \emph{shp} file is given to the \code{mask} argument, the plot is drawn o
 inside the polygon. In order to avoid boundary artifacts due to reduced
 resolution, original data are resampled to higher resolution (currently
 set to 10 times the original one). If \code{inverse_mask} is set to \code{TRUE}, the plot
-is drawn outside the polygon. The \emph{mask} feature is based on the
+is drawn outside the polygon. The \code{mask} feature is based on the
 \code{\link[terra:mask]{terra::mask()}} function.
 The CRS of the \emph{shp} file is applied to the data in the data.frame.
 Please keep in mind this feature is still experimental.
