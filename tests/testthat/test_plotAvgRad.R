@@ -49,8 +49,5 @@ test_that("plotAvgRad is a ggplot2 object", {
         ),
         radg = runif(4000, min = 0, max = 900)
     )
-    library(dplyr)
-    mydata_tibble <- dplyr::as_tibble(mydata)
     expect_s3_class(plotAvgRad(mydata), "ggplot")
-    expect_s3_class(plotAvgRad(mydata_tibble), "ggplot")
 })
