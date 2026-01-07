@@ -118,7 +118,7 @@ plotAvgRad <- function(
             key_glyph = "timeseries"
         ) +
         scale_y_continuous(breaks = seq(0, 1000, 100)) +
-        scale_x_continuous(breaks = 0:23, limits = c(0, 23)) +
+        scale_x_continuous(breaks = 0:23) +
         scale_color_manual(
             name = NULL,
             values = c("steelblue", "darkorange2", "darkgreen"),
