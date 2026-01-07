@@ -1,12 +1,13 @@
 ## Submission
 
-This is a major release. It removes deprecated functions and solves issues from
-current CRAN check, to be fixed before 2025-09-03.
+This is a minor release. It introduces a new feature, fixes some bugs
+and improves documentation by fixing many typos.
+Also, some dependencies have been removed.
 
 ## R CMD check results
 
-── R CMD check results ─────────────────────────────── simulariatools 3.0.0 ────
-Duration: 1m 0.1s
+── R CMD check results ─────────────────────────────── simulariatools 3.1.0 ────
+Duration: 59.7s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
@@ -16,4 +17,3 @@ We checked 0 reverse dependencies, comparing R CMD check results across CRAN and
 
  * We saw 0 new problems
  * We failed to check 0 packages
-
