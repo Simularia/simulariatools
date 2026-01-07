@@ -1,16 +1,16 @@
-# simulariatools (development version)
+# simulariatools 3.1.0
 
 - New feature: `contourPlot2()` utilizes the coordinates extent of a geo-referenced TIFF
   `basemap` file. If plot limits are not provided, use the basemap extent to set them. If
   `xlim` or `ylim` are provided, the basemap is automatically cropped.
-- Deprecated `background` argument in `contourPlot2()` in favour of `basemap`.
-- Deprecated `domain` argument in `contourPlot2()` in favour of `xlim`, `ylim` and `nticks`.
-- Deprecated `bare` argument in `contourPlot2()` in favour of `theme_void`.
+- `contourPlot2()`: now deprecates `background` in favour of `basemap`.
+- `contourPlot2()` now deprecates `domain` in favour of `xlim`, `ylim` and `nticks`.
+- `contourPlot2()` now deprecates `bare` in favour of `theme_void`.
 - New function: `turnerStabilityClass()` to compute PGT stability class with Turner
   method.
 - Removed dependency on `reshape2` package.
-- Fixed a bug in `plotStabilityClass()` when input data is a *tibble*.
-- Fixed a bug in `plotAvgRad()` where the bars at hours 0 and 23 were not
+- In `plotStabilityClass()`, fixed a bug when input data is a *tibble*.
+- In `plotAvgRad()`, fixed a bug where the bars at hours 0 and 23 were not
   always shown.
 - Fixed typos in the documentation.
 
