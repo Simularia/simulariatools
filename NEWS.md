@@ -10,6 +10,8 @@
   method.
 - Removed dependency on `reshape2` package.
 - Fixed a bug in `plotStabilityClass()` when input data is a *tibble*.
+- Fixed a bug in `plotAvgRad()` where the bars at hours 0 and 23 were not
+  always shown.
 - Fixed typos in the documentation.
 
 

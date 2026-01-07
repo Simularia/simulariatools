@@ -28,6 +28,7 @@
 #' @importFrom ggplot2 ggplot geom_bar labs element_blank guides
 #'                     theme_bw theme scale_fill_manual scale_x_continuous
 #'                     scale_y_continuous
+#' @importFrom lubridate month
 #'
 #' @examples
 #' data("stMeteo")
