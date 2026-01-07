@@ -8,7 +8,7 @@ test_that("plotAvgRad throws and error if radg column is missing", {
     # Create a sample dataframe with missing date column
     mydata <- data.frame(
         date = seq.POSIXt(
-            from  = as.POSIXct("2021-01-01 00:00"),
+            from = as.POSIXct("2021-01-01 00:00"),
             by = "1 hour",
             length.out = 8761
         )
@@ -52,16 +52,14 @@ test_that("plotAvgRad throws and error if date column is character", {
     expect_error(plotAvgRad(mydata))
 })
 
-# FIXME:
-# test_that("plotAvgRad is a ggplot2 object", {
-#     mydata <- data.frame(
-#         date = seq.POSIXt(
-#             from  = as.POSIXct("2021-01-01 00:00"),
-#             by = "1 hour",
-#             length.out = 8761
-#         ),
-#         radg = runif(8761, min = 0, max = 900)
-#     )
-#     # plotAvgRad(mydata)
-#     expect_s3_class(plotAvgRad(mydata), "ggplot")
-# })
+test_that("plotAvgRad is a ggplot2 object", {
+    mydata <- data.frame(
+        date = seq.POSIXt(
+            from = as.POSIXct("2021-01-01 00:00"),
+            by = "1 hour",
+            length.out = 8761
+        ),
+        radg = runif(8761, min = 0, max = 900)
+    )
+    expect_s3_class(plotAvgRad(mydata), "ggplot")
+})
