@@ -1,9 +1,11 @@
+# simulariatools (development version)
+
 # simulariatools 3.1.0
 
 - New feature: `contourPlot2()` utilizes the coordinates extent of a geo-referenced TIFF
   `basemap` file. If plot limits are not provided, use the basemap extent to set them. If
   `xlim` or `ylim` are provided, the basemap is automatically cropped.
-- `contourPlot2()`: now deprecates `background` in favour of `basemap`.
+- `contourPlot2()` now deprecates `background` in favour of `basemap`.
 - `contourPlot2()` now deprecates `domain` in favour of `xlim`, `ylim` and `nticks`.
 - `contourPlot2()` now deprecates `bare` in favour of `theme_void`.
 - New function: `turnerStabilityClass()` to compute PGT stability class with Turner
