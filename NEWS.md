@@ -1,5 +1,8 @@
 # simulariatools (development version)
 
+- Updated documentation.
+
+
 # simulariatools 3.1.0
 
 - New feature: `contourPlot2()` utilizes the coordinates extent of a geo-referenced TIFF

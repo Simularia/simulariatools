@@ -54,16 +54,17 @@ If the \code{raster.object} option is set, it returns a RasterLayer object.
 }
 \description{
 Import data from ADSO/BIN binary file. It requires an active Python
-installation with the \code{arinfopy} library.
+installation with the \href{https://pypi.org/project/arinfopy/}{arinfopy} library.
 }
 \details{
 The \code{importADSOBIN()} function imports data from an ADSO/BIN binary file.
-It relies on the \code{arinfopy} (version >= 2.2.0) python library.
+It relies on the \href{https://pypi.org/project/arinfopy/}{arinfopy}
+(version >= 2.2.0) python library.
 For more information on the library see the
 \href{https://github.com/Simularia/arinfopy}{GitHub repository}.
 
 For more information on the active \code{python} installation, check the
-documentation of \pkg{reticulate}.
+documentation of \code{reticulate}.
 }
 \examples{
 \dontrun{

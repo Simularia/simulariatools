@@ -16,7 +16,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/simulariatools?color=br
 ## Overview
 
 **simulariatools** is an open source package with a collection of
-functions and tools useful to pre and post process data for air quality
+functions and tools useful to pre- and post-process data for air quality
 modelling and assessment:
 
 - `contourPlot2()` plots a production-ready contour map of a pollutant
@@ -91,9 +91,9 @@ nox_concentration <- importRaster(
 #> -----------------------------------------------------------------
 ```
 
-Concentration data are imported as a `data.frame` with `x`, `y` columns
-corresponding to the coordinates of the cell centre and a `z` column for
-grid values.
+Concentration data are imported as a `data.frame` with `x` and `y`
+columns corresponding to the coordinates of the cell centre and a `z`
+column for grid values.
 
 ``` r
 str(nox_concentration)
@@ -145,8 +145,8 @@ ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
 
 Optional arguments can be used to create special versions of the plot.
-For example, use `tile = TRUE` to produce a non-spatially interpolated
-plot:
+For example, use `tile = TRUE` to produce a plot without spatial
+interpolation:
 
 ``` r
 contourPlot2(

@@ -1,0 +1,125 @@
+---
+title: "Geo-referenced basemaps"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.retina = 2,
+  dpi = 300,
+  out.width = "80%",
+  out.height = "80%"
+)
+```
+
+```{r, setup, echo=FALSE}
+library(simulariatools)
+library(ggplot2)
+```
+
+In simulariatools 3.1.0, we enhanced the wrapper function `contourPlot2()` to
+interpret and utilize geographical information from a geo-referenced basemap
+file.
+
+The primary motivation for this new feature is to minimize errors that may
+arise from potential misalignment between the basemap and the data matrix to be
+plotted. In previous versions, it was possible for the contour plot to be
+overlaid on the wrong basemap. Now, by using a GeoTIFF basemap, we can safely
+assume that the contour plot will be accurately aligned with it without
+providing the plot bounding box via `xlim` and `ylim` arguments. Nonetheless,
+we must still be careful with the Coordinate Reference System (CRS) of the data.
+Since the `data.frame()` to be plotted is not CRS aware, we need to be sure that
+the coordinates `x` and `y` are in the same reference system as the GeoTIFF
+file.
+
+Here is a simple example of this new feature in action.
+Let’s consider a sample dataset of yearly average odour units of an imaginary source, produced by the dispersion model CALPUFF.
+To import the data into the project, we use `importSurferGrd()` from `simulariatools`
+even though there are other ways to accomplish this task.
+The computational domain of the numerical simulation has lower left coordinates
+(388000, 4969000) in the UTM32 CRS, an extent of 6000 m in both directions
+and a grid size of 200 m.
+
+```{r}
+calpuff_file <- "./ou_8760hr_testcase.grd"
+ou_testcase <- importSurferGrd(calpuff_file, k = 1000)
+head(ou_testcase)
+```
+There are many ways to obtain a geo-referenced basemap file.
+Here we download the image from the Italian [geoportal](https://gn.mase.gov.it/portale/home)
+by using the `downloadBasemap()` function of `simulariatools`.
+In its most recent version, the function automatically tries to download a geo-referenced
+TIFF file (GeoTIFF).
+
+```{r, eval = FALSE, echo = TRUE}
+downloadBasemap(
+    file = "./basemap.tiff",
+    xSW = 388000,
+    ySW = 4969000,
+    xExt = 6000,
+    yExt = 6000
+)
+```
+
+In order to analyze the file content, it is convenient to use the `rast()`
+function of the `terra` package:
+```{r}
+terra::rast("basemap.tiff")
+```
+As we can see, this basemap exactly overlaps with the dispersion simulation computational domain.
+
+Now we can quickly plot the odour levels using the bounding box defined by the GeoTIFF file:
+
+```{r}
+contourPlot2(
+    ou_testcase,
+    basemap = "basemap.tiff",
+    nticks = 7,
+    levels = c(1, 2, 3, 4, 5),
+    fill = FALSE
+)
+```
+
+In this case, the bounding box defined by the basemap file and the extent
+defined by the *ou_testcase* `data.frame` are the same. 
+There is no need to explicitly specify the plot bounding box, nor to assume
+that the basemap has the correct extent.
+
+We can use the new `xlim` and `ylim` arguments to crop the contour plot:
+
+```{r}
+contourPlot2(
+    ou_testcase,
+    basemap = "basemap.tiff",
+    xlim = c(389000, 393000),
+    ylim = c(4970000, 4974000),
+    levels = c(1, 2, 3, 4, 5),
+    fill = FALSE
+)
+```
+
+As we can easily check by looking at the odour level contour lines, the plot is
+still correctly aligned with the underlying image, without the need to pass through
+a new basemap file.
+
+To test the new function even further, we can use a basemap covering a larger
+geographical area.
+In this case, we use an already prepared GeoTIFF file created by QGIS with a
+map from OpenStreetMap, with an extent of 40 km × 40 km:
+```{r}
+terra::rast("basemap_large.tiff")
+```
+
+`contourPlot2()` reads the extent of the larger basemap and correctly plots
+the data in `ou_testcase` on the map:
+
+```{r}
+contourPlot2(
+    ou_testcase,
+    basemap = "basemap_large.tiff",
+    levels = c(1, 2, 3, 4, 5)
+) +
+    labs(x = NULL, y = NULL)
+```
+

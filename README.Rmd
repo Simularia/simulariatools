@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 ## Overview
 
 **simulariatools** is an open source package with a collection of functions and
-tools useful to pre and post process data for air quality modelling and
+tools useful to pre- and post-process data for air quality modelling and
 assessment:
 
 - `contourPlot2()` plots a production-ready contour map of a pollutant concentration field.
@@ -92,7 +92,7 @@ nox_concentration <- importRaster(
     verbose = TRUE
 )
 ```
-Concentration data are imported as a `data.frame` with `x`, `y` columns corresponding to
+Concentration data are imported as a `data.frame` with `x` and `y` columns corresponding to
 the coordinates of the cell centre and a `z` column for grid values.
 ```{r echo=TRUE}
 str(nox_concentration)
@@ -132,7 +132,7 @@ ggsave(filename = "~/path/to/myplot.png", width = 7, height = 6, dpi = 300)
 ```
 
 Optional arguments can be used to create special versions of the plot.
-For example, use `tile = TRUE` to produce a non-spatially interpolated plot:
+For example, use `tile = TRUE` to produce a plot without spatial interpolation:
 ```{r echo=TRUE}
 contourPlot2(
     nox_concentration,

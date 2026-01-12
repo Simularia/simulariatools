@@ -39,3 +39,4 @@ Language: en
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
+Config/Needs/website: rmarkdown
