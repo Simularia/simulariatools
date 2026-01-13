@@ -23,6 +23,6 @@ template:
 authors:
    Simularia:
      href: "https://www.simularia.it"
-     html: "<img src='https://www.simularia.it/common/images/logo_header_simulariatools.png' width=72>"
+     html: "<img src='https://www.simularia.it/common/images/logo_header.webp' width=72 style='margin-bottom: 7px;'>"
 development:
-    mode: release
+    modf: release
