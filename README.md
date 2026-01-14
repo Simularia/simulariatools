@@ -15,9 +15,18 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/simulariatools?color=br
 
 ## Overview
 
-**simulariatools** is an open source package with a collection of
-functions and tools useful to pre- and post-process data for air quality
-modelling and assessment:
+**simulariatools** is an open-source R package developed by
+[Simularia](https://www.simularia.it/), an environmental consulting firm
+specialized in atmospheric dispersion modelling.
+
+It provides a collection of functions to pre- and post-process
+meteorological and air quality data in the context of air quality and
+odour dispersion modelling.
+
+It is used daily in real-world applications, improving reproducibility,
+saving time and reducing errors.
+
+### Key functions
 
 - `contourPlot2()` plots a production-ready contour map of a pollutant
   concentration field.
@@ -28,7 +37,7 @@ modelling and assessment:
 - `vectorField()` plots a simple vector field given two components.
 - `importRaster()` imports a generic raster file.
 - `importADSOBIN()` imports an ADSO/BIN raster file.
-- `importSurferGrd()` imports a grid file.
+- `importSurferGrd()` imports a grid file (CALPUFF).
 - `stabilityClass()` computes atmospheric stability class.
 - `turnerStabilityClass()` computes atmospheric PGT stability class with
   Turner method.
@@ -37,13 +46,6 @@ modelling and assessment:
 - `removeOutliers()` removes time series outliers based on interquartile
   range.
 - `rollingMax()` computes rolling max of a time series.
-
-The package is developed and maintained at
-[Simularia](https://www.simularia.it) and it is widely used in their
-daily work.
-
-If you use this package in your work, please consider citing it. Refer
-to its [Zenodo DOI](https://doi.org/10.5281/zenodo.596741) to cite it.
 
 ## Installation
 
@@ -55,7 +57,7 @@ install.packages("simulariatools")
 
 > NOTE: To import *ADSO/BIN* data files via `importADSOBIN()`, a working
 > installation of *Python3* is required. For more information about *R*
-> and *Python* interoperability, refer to the documentation of
+> and *Python* interoperability, please refer to the documentation of
 > [`reticulate`](https://rstudio.github.io/reticulate/).
 
 ### Development version
@@ -70,10 +72,10 @@ pak::pkg_install("Simularia/simulariatools")
 
 ## Examples
 
-### Contour Plot
+### Contour Plot from NetCDF
 
-First, import air quality data from *NetCDF* or *ADSO/BIN* files with
-the appropriate convenience function:
+First, import air quality data from *NetCDF* file with the appropriate
+convenience function:
 
 ``` r
 library(simulariatools)
@@ -104,7 +106,7 @@ str(nox_concentration)
 ```
 
 A quick contour plot, with default configuration, can be easily obtained
-by running `contourPlot2()` without any argument:
+by running `contourPlot2()` without any optional argument:
 
 ``` r
 contourPlot2(nox_concentration)
@@ -158,11 +160,17 @@ contourPlot2(
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" alt="" width="80%" height="80%" />
 
+## Citation
+
+If you use `simulariatools` in your work, please consider citing it:
+
+> Giuseppe Carlino. (2026). Simularia/simulariatools: simulariatools
+> 3.1.0 (v3.1.0). Zenodo. <https://doi.org/10.5281/zenodo.18184316>.
+
 ## Contact
 
-Contact person:
-
-> [Giuseppe Carlino](https://github.com/gcarlino) (Simularia srl)
+Maintained by [Giuseppe Carlino](https://github.com/gcarlino) (Simularia
+srl).
 
 ## Contributors
 
