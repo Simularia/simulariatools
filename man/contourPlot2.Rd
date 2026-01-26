@@ -27,7 +27,8 @@ contourPlot2(
   mask = NULL,
   inverse_mask = FALSE,
   bare = FALSE,
-  theme_void = FALSE
+  theme_void = FALSE,
+  label_contours = FALSE
 )
 }
 \arguments{
@@ -99,6 +100,9 @@ to mask areas outside the polygon defined in the \emph{shp} file.}
 
 \item{theme_void}{boolean (default FALSE). If TRUE, only the bare plot is shown:
 axis, legend, titles and any other graphical element of the plot are removed.}
+
+\item{label_contours}{logical. If TRUE and fill is FALSE, level values are
+displayed along the contour lines. Default = FALSE.}
 }
 \value{
 A \code{ggplot2} object.

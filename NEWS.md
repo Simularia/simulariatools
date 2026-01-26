@@ -1,5 +1,8 @@
 # simulariatools (development version)
 
+- New feature: `contourPlot2()` has the options to plot labels on contour lines
+  with `contour_labels = TRUE` option. It is available only with `FILL = FALSE`
+  and it is disabled by default.
 - Updated documentation.
 
 

@@ -52,6 +52,8 @@
 #' @param mask character. Path to `shp` file used as a mask. It must be a closed polygon.
 #' @param inverse_mask logical. If TRUE, areas on mask are masked. Default is
 #' to mask areas outside the polygon defined in the _shp_ file.
+#' @param label_contours logical. If TRUE and fill is FALSE, level values are
+#' displayed along the contour lines. Default = FALSE.
 #'
 #' @details
 #'
@@ -158,7 +160,8 @@ contourPlot2 <- function(
     mask = NULL,
     inverse_mask = FALSE,
     bare = FALSE,
-    theme_void = FALSE
+    theme_void = FALSE,
+    label_contours = FALSE
 ) {
     # Consistency check
     if (isTRUE(tile)) {
@@ -475,6 +478,64 @@ contourPlot2 <- function(
                 guide = guide_legend(reverse = TRUE),
                 values = my_colors_lines
             )
+    }
+
+    # Contour labels
+    if (isFALSE(fill) && isTRUE(label_contours)) {
+        # Build matrix for contourLines
+        x_unique <- sort(unique(data$x))
+        y_unique <- sort(unique(data$y))
+        z_matrix <- matrix(NA, nrow = length(x_unique), ncol = length(y_unique))
+        for (i in seq_len(nrow(data))) {
+            xi <- match(data$x[i], x_unique)
+            yi <- match(data$y[i], y_unique)
+            z_matrix[xi, yi] <- data$z[i]
+        }
+
+        # Extract contour lines
+        cl <- contourLines(x_unique, y_unique, z_matrix, levels = line_levels)
+        label_data <- do.call(
+            rbind,
+            lapply(cl, function(c) {
+                n <- length(c$x)
+                mid <- ceiling(n / 2)
+                # Calcuate angle from adjacent points
+                i1 <- max(1, mid - 1)
+                i2 <- min(n, mid + 1)
+                dx <- c$x[i2] - c$x[i1]
+                dy <- c$y[i2] - c$y[i1]
+                angle <- atan2(dy, dx) * 180 / pi
+                # Normalize so that text is always readable
+                if (angle > 90) {
+                    angle <- angle - 180
+                }
+                if (angle < -90) {
+                    angle <- angle + 180
+                }
+                data.frame(
+                    x = c$x[mid],
+                    y = c$y[mid],
+                    label = c$level,
+                    angle = angle
+                )
+            })
+        )
+
+        v <- v +
+            geom_label(
+                data = label_data,
+                aes(x = x, y = y, label = label, angle = angle),
+                size = 3,
+                border.colour = NA,
+                fill = "#FFFFFFFF",
+                colour = "darkgrey"
+            )
+        # geom_text(
+        #     data = label_data,
+        #     aes(x = x, y = y, label = label, angle = angle),
+        #     size = 3,
+        #     colour = "darkgrey"
+        # )
     }
 
     # Main scales and theme
