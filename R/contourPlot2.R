@@ -167,15 +167,12 @@ contourPlot2 <- function(
         size <- 0.
     }
 
-    # Check input data
-    data <- data[, c(x, y, z)]
-    vars <- c(x, y, z)
-    for (i in seq_along(vars)) {
-        if (!is.numeric(data[[vars[i]]])) {
-            data[[vars[i]]] <- as.numeric(data[[vars[i]]])
-        }
-    }
-    colnames(data) <- c("x", "y", "z")
+    # Input data as numeric and rename columns
+    data <- data.frame(
+        x = as.numeric(data[[x]]),
+        y = as.numeric(data[[y]]),
+        z = as.numeric(data[[z]])
+    )
 
     # Deprecate bare argument
     if (isTRUE(bare)) {
