@@ -167,6 +167,14 @@ contourPlot2 <- function(
         size <- 0.
     }
 
+    # Check if columns exist
+    colNames <- colnames(data)
+    lapply(list(x, y, z), function(nm) {
+        if (isFALSE(nm %in% colNames)) {
+            stop(paste("Column", nm, "is missing"), call. = FALSE)
+        }
+    })
+
     # Input data as numeric and rename columns
     data <- data.frame(
         x = as.numeric(data[[x]]),
