@@ -203,6 +203,18 @@ contourPlot2 <- function(
     ymin <- min(data$y)
     ymax <- max(data$y)
 
+    # Deprecate background
+    if (!missing(background)) {
+        warning(paste(
+            "The \`background\` argument is deprecated.",
+            "Please use the \'basemap\' argument instead."
+        ))
+        # if we have both background and basemap, the latter has the precedence
+        if (missing(basemap)) {
+            basemap <- background
+        }
+    }
+
     # If we have a basemap, try to get boundaries from it
     # Otherwise get them from data
     if (!missing(basemap)) {
@@ -221,6 +233,16 @@ contourPlot2 <- function(
             xmax_im <- xmax
             ymin_im <- ymin
             ymax_im <- ymax
+        }
+
+        # [FIXME] avoid reading the image again, for performance reasons
+        if (requireNamespace("magick", quietly = TRUE)) {
+            img <- magick::image_read(basemap)
+            gimg <- terra::as.raster(img)
+        } else {
+            warning(
+                "Missing magick package. Please install it to read the basemap file."
+            )
         }
     }
 
@@ -358,26 +380,6 @@ contourPlot2 <- function(
             )
             data <- terra::as.data.frame(rdata, xy = TRUE)
             colnames(data) <- c("x", "y", "z")
-        }
-    }
-
-    # Basemap
-    if (!missing(background)) {
-        warning(paste(
-            "The \`background\` argument is deprecated.",
-            "Please use the \'basemap\' argument instead."
-        ))
-        basemap <- background
-    }
-
-    if (!missing(basemap)) {
-        if (requireNamespace("magick", quietly = TRUE)) {
-            img <- magick::image_read(basemap)
-            gimg <- terra::as.raster(img)
-        } else {
-            warning(
-                "Missing magick package. Please install it to read the basemap file."
-            )
         }
     }
 
