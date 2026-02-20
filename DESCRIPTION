@@ -19,7 +19,7 @@ Description: A set of tools developed at Simularia for Simularia, to help
 Depends: 
     R (>= 3.3)
 Imports: 
-    ggplot2 (>= 3.3),
+    ggplot2 (>= 4.0.0),
     lubridate,
     reticulate,
     scales,
