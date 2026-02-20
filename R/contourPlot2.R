@@ -163,6 +163,10 @@ contourPlot2 <- function(
     theme_void = FALSE,
     label_contours = FALSE
 ) {
+    # Fix check() no visible binding for global variable
+    angle <- NULL
+    label <- NULL
+
     # Consistency check
     if (isTRUE(tile)) {
         fill <- FALSE
