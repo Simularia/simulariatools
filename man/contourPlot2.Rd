@@ -22,13 +22,13 @@ contourPlot2(
   size = 0,
   fill = TRUE,
   tile = FALSE,
+  contour_labels = FALSE,
   transparency = 0.75,
   colors = NULL,
   mask = NULL,
   inverse_mask = FALSE,
   bare = FALSE,
-  theme_void = FALSE,
-  label_contours = FALSE
+  theme_void = FALSE
 )
 }
 \arguments{
@@ -86,6 +86,9 @@ are unbounded and the legend shows \code{<} and \code{>=} symbols.}
 
 \item{tile}{logical. If TRUE, rectangular tiles are plotted (default = FALSE).}
 
+\item{contour_labels}{logical. If TRUE and fill is FALSE, level values are
+displayed along the contour lines. Default = FALSE.}
+
 \item{transparency}{transparency level of the contour plot between 0.0
 (fully transparent) and 1.0 (fully opaque). Default = 0.75.}
 
@@ -100,9 +103,6 @@ to mask areas outside the polygon defined in the \emph{shp} file.}
 
 \item{theme_void}{boolean (default FALSE). If TRUE, only the bare plot is shown:
 axis, legend, titles and any other graphical element of the plot are removed.}
-
-\item{contour_labels}{logical. If TRUE and fill is FALSE, level values are
-displayed along the contour lines. Default = FALSE.}
 }
 \value{
 A \code{ggplot2} object.

@@ -48,12 +48,12 @@
 #' axis, legend, titles and any other graphical element of the plot are removed.
 #' @param size numeric. Width of the contour line.
 #' @param fill logical. If TRUE, the contour plot is filled with colour (default = TRUE).
+#' @param contour_labels logical. If TRUE and fill is FALSE, level values are
+#' displayed along the contour lines. Default = FALSE.
 #' @param tile logical. If TRUE, rectangular tiles are plotted (default = FALSE).
 #' @param mask character. Path to `shp` file used as a mask. It must be a closed polygon.
 #' @param inverse_mask logical. If TRUE, areas on mask are masked. Default is
 #' to mask areas outside the polygon defined in the _shp_ file.
-#' @param contour_labels logical. If TRUE and fill is FALSE, level values are
-#' displayed along the contour lines. Default = FALSE.
 #'
 #' @details
 #'
@@ -154,14 +154,14 @@ contourPlot2 <- function(
     levels = NULL,
     size = 0.,
     fill = TRUE,
+    contour_labels = FALSE,
     tile = FALSE,
     transparency = 0.75,
     colors = NULL,
     mask = NULL,
     inverse_mask = FALSE,
     bare = FALSE,
-    theme_void = FALSE,
-    contour_labels = FALSE
+    theme_void = FALSE
 ) {
     # Fix check() no visible binding for global variable
     angle <- NULL
@@ -503,11 +503,12 @@ contourPlot2 <- function(
             z_matrix[xi, yi] <- data$z[i]
         }
 
-        # Extract contour lines
+        # Extract contour lines and build df with point/label/angle
         cl <- contourLines(x_unique, y_unique, z_matrix, levels = line_levels)
         label_data <- do.call(
             rbind,
             lapply(cl, function(c) {
+                # Get middle point of each contour line
                 n <- length(c$x)
                 mid <- ceiling(n / 2)
                 # Calcuate angle from adjacent points
@@ -541,12 +542,6 @@ contourPlot2 <- function(
                 fill = "#FFFFFFFF",
                 colour = "darkgrey"
             )
-        # geom_text(
-        #     data = label_data,
-        #     aes(x = x, y = y, label = label, angle = angle),
-        #     size = 3,
-        #     colour = "darkgrey"
-        # )
     }
 
     # Main scales and theme
