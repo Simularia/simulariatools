@@ -52,7 +52,7 @@
 #' @param mask character. Path to `shp` file used as a mask. It must be a closed polygon.
 #' @param inverse_mask logical. If TRUE, areas on mask are masked. Default is
 #' to mask areas outside the polygon defined in the _shp_ file.
-#' @param label_contours logical. If TRUE and fill is FALSE, level values are
+#' @param contour_labels logical. If TRUE and fill is FALSE, level values are
 #' displayed along the contour lines. Default = FALSE.
 #'
 #' @details
@@ -161,7 +161,7 @@ contourPlot2 <- function(
     inverse_mask = FALSE,
     bare = FALSE,
     theme_void = FALSE,
-    label_contours = FALSE
+    contour_labels = FALSE
 ) {
     # Fix check() no visible binding for global variable
     angle <- NULL
@@ -492,7 +492,7 @@ contourPlot2 <- function(
     }
 
     # Contour labels
-    if (isFALSE(fill) && isTRUE(label_contours)) {
+    if (isFALSE(fill) && isTRUE(contour_labels)) {
         # Build matrix for contourLines
         x_unique <- sort(unique(data$x))
         y_unique <- sort(unique(data$y))
