@@ -24,6 +24,6 @@ test_that("contourPlot2 with label_contours is a ggplot2 object", {
         timevar = "y",
         v.names = "z"
     )
-    v <- contourPlot2(volcano3d, fill = FALSE, label_contours = TRUE)
+    v <- contourPlot2(volcano3d, fill = FALSE, contour_labels = TRUE)
     expect_s3_class(v, "ggplot")
 })
