@@ -29,9 +29,9 @@
 #' @importFrom stats reshape
 #' @importFrom scales breaks_width label_date label_math
 #' @importFrom ggplot2 ggplot geom_col geom_line labs scale_x_continuous
-#'                     expansion margin element_blank geom_text
-#'                     scale_y_discrete scale_color_manual scale_fill_manual
-#'                     theme unit
+#' @importFrom ggplot2 expansion margin element_blank geom_text
+#' @importFrom ggplot2 scale_y_discrete scale_color_manual scale_fill_manual
+#' @importFrom ggplot2 theme unit
 #'
 #' @examples
 #' # Plot average monthly temperature and curves with monthly maximum and minimum

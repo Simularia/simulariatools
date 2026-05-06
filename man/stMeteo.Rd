@@ -20,7 +20,7 @@ A data frame with 8760 rows and 7 variables:
 Self derived dataset.
 }
 \usage{
-stMeteo
+data(stMeteo)
 }
 \description{
 A dataset containing 8760 hourly values of some meteorological variables

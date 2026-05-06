@@ -21,8 +21,8 @@ contourPlot2(
   levels = NULL,
   size = 0,
   fill = TRUE,
-  tile = FALSE,
   contour_labels = FALSE,
+  tile = FALSE,
   transparency = 0.75,
   colors = NULL,
   mask = NULL,
@@ -84,10 +84,10 @@ are unbounded and the legend shows \code{<} and \code{>=} symbols.}
 
 \item{fill}{logical. If TRUE, the contour plot is filled with colour (default = TRUE).}
 
-\item{tile}{logical. If TRUE, rectangular tiles are plotted (default = FALSE).}
-
 \item{contour_labels}{logical. If TRUE and fill is FALSE, level values are
 displayed along the contour lines. Default = FALSE.}
+
+\item{tile}{logical. If TRUE, rectangular tiles are plotted (default = FALSE).}
 
 \item{transparency}{transparency level of the contour plot between 0.0
 (fully transparent) and 1.0 (fully opaque). Default = 0.75.}

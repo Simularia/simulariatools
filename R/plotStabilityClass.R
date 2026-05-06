@@ -26,8 +26,8 @@
 #'
 #' @importFrom scales label_percent
 #' @importFrom ggplot2 ggplot geom_bar labs element_blank guides
-#'                     theme_bw theme scale_fill_manual scale_x_continuous
-#'                     scale_y_continuous
+#' @importFrom ggplot2 theme_bw theme scale_fill_manual scale_x_continuous
+#' @importFrom ggplot2 scale_y_continuous
 #' @importFrom lubridate month
 #'
 #' @examples

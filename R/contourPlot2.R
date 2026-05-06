@@ -96,10 +96,10 @@
 #'
 #' @importFrom grDevices colorRampPalette contourLines
 #' @importFrom ggplot2 ggplot annotation_raster geom_contour_filled
-#'                     scale_fill_manual scale_x_continuous scale_y_continuous
-#'                     scale_color_manual coord_fixed theme_bw theme
-#'                     geom_blank guide_legend geom_raster after_stat
-#'                     geom_contour geom_label labs element_blank
+#' @importFrom ggplot2 scale_fill_manual scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 scale_color_manual coord_fixed theme_bw theme
+#' @importFrom ggplot2 geom_blank guide_legend geom_raster after_stat
+#' @importFrom ggplot2 geom_contour geom_label labs element_blank
 #' @importFrom grid rasterGrob
 #' @importFrom terra crs mask rast as.raster ext resample xmin xmax ymin ymax
 #'

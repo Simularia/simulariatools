@@ -21,8 +21,8 @@
 #'
 #' @importFrom stats aggregate
 #' @importFrom ggplot2 ggplot geom_bar geom_line labs margin element_blank
-#'                     guide_legend scale_color_manual scale_fill_manual
-#'                     theme unit scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 guide_legend scale_color_manual scale_fill_manual
+#' @importFrom ggplot2 theme unit scale_x_continuous scale_y_continuous
 #' @importFrom lubridate month
 #'
 #' @examples
