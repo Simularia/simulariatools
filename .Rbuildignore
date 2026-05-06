@@ -16,6 +16,7 @@ air.toml
 ^README\.Rmd$
 ^LICENSE\.md$
 
+^vignettes$
 
 ^todo_and_fixme\.txt
 
