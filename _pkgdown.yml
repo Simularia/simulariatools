@@ -25,4 +25,4 @@ authors:
      href: "https://www.simularia.it"
      html: "<img src='https://www.simularia.it/common/images/logo_header.webp' width=72 style='margin-bottom: 7px;'>"
 development:
-    modf: release
+    mode: release
