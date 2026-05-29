@@ -316,11 +316,7 @@ contourPlot2 <- function(
             pretty_levels[2:nlevels]
         )
     )
-    if (levels[nlevels] == Inf && !isTRUE(tile)) {
-        lab_levels[nlevels - 1] <- parse(
-            text = paste("\"\">=", pretty_levels[nlevels - 1])
-        )
-    } else if (levels[nlevels] == Inf && isTRUE(tile)) {
+    if (levels[nlevels] == Inf) {
         lab_levels[nlevels - 1] <- parse(
             text = paste("\"\">=", pretty_levels[nlevels - 1])
         )
