@@ -3,6 +3,8 @@
 - New feature: `contourPlot2()` has the options to plot labels on contour lines
   with `contour_labels = TRUE` option. It is available only with `FILL = FALSE`
   and it is disabled by default.
+- In `plotAvgTemp` fixed a labels mismatch in the y direction of the numeric
+table below the plot.
 - Updated documentation.
 
 

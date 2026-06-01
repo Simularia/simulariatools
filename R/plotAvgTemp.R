@@ -55,7 +55,7 @@ plotAvgTemp <- function(
     locale = NULL
 ) {
     # Fix No visible binding for global variable
-    degree <- rid <- variable <- value <- .x <- NULL
+    degree <- month <- variable <- value <- .x <- NULL
 
     # Fix name of datetime and temperature
     names(mydata) <- sub(date, "date", names(mydata))
@@ -99,41 +99,42 @@ plotAvgTemp <- function(
 
     # Compute statistics grouping by month
     if (avg.time == "1 month") {
-        mydata[["Month"]] <- strftime(mydata[["date"]], format = "%m")
+        mydata[["month"]] <- strftime(mydata[["date"]], format = "%m")
         mydata_mean <- stats::aggregate(
-            temp ~ Month,
+            temp ~ month,
             data = mydata,
             FUN = "mean",
             na.rm = TRUE
         )
         mydata_min <- stats::aggregate(
-            temp ~ Month,
+            temp ~ month,
             data = mydata,
             FUN = "min",
             na.rm = TRUE
         )
         mydata_max <- stats::aggregate(
-            temp ~ Month,
+            temp ~ month,
             data = mydata,
             FUN = "max",
             na.rm = TRUE
         )
 
         # Merge data
-        mydata_mean <- merge(mydata_mean, mydata_min, by = "Month", all = TRUE)
-        mydata_mean <- merge(mydata_mean, mydata_max, by = "Month", all = TRUE)
+        mydata_mean <- merge(mydata_mean, mydata_min, by = "month", suffixes = c("", ".min"), all = TRUE)
+        mydata_mean <- merge(mydata_mean, mydata_max, by = "month", suffixes = c("", ".max"), all = TRUE)
         mydata_mean <- subset(
             mydata_mean,
-            select = c("Month", "temp.x", "temp.y", "temp")
+            select = c("month", "temp", "temp.min", "temp.max")
         )
     } else {
         stop("Only avg.time = \"1 month\" is currently supported")
     }
 
     # Set column names and create a row index column
-    colnames(mydata_mean) <- c("rid", "temp", "temp.min", "temp.max")
+    # colnames(mydata_mean) <- c("rid", "temp", "temp.min", "temp.max")
     # FIXME: make it more generic
-    mydata_mean[["rid"]] <- as.numeric(mydata_mean[["rid"]])
+    # Treat month as a numeric index
+    mydata_mean[["month"]] <- as.numeric(mydata_mean[["month"]])
 
     # Arrange data in long format
     mydata <- stats::reshape(
@@ -189,20 +190,20 @@ plotAvgTemp <- function(
     # bar plot for average + lines for min and max
     bar_plot <- ggplot(
         mydata[mydata$variable == "temp", ],
-        aes(rid, value)
+        aes(month, value)
     ) +
         geom_col(
             aes(colour = media, fill = media),
         ) +
         geom_line(
             data = mydata[mydata$variable == "temp.min", ],
-            aes(x = rid, y = value, colour = minima),
+            aes(x = month, y = value, colour = minima),
             linewidth = 1,
             key_glyph = "timeseries"
         ) +
         geom_line(
             data = mydata[mydata$variable == "temp.max", ],
-            aes(x = rid, y = value, colour = massima),
+            aes(x = month, y = value, colour = massima),
             linewidth = 1,
             key_glyph = "timeseries"
         ) +
@@ -237,10 +238,9 @@ plotAvgTemp <- function(
             panel.grid.major.x = element_blank()
         )
 
-    # data table
     data_table <- ggplot(
         mydata,
-        aes(rid, factor(variable), label = format(value, nsmall = 1))
+        aes(month, variable, label = format(value, nsmall = 1))
     ) +
         geom_text(size = 3.5) +
         scale_x_continuous(
@@ -248,7 +248,10 @@ plotAvgTemp <- function(
             breaks = seq(from = 1, to = length(x_labels), by = 1),
             expand = expansion(add = c(0.47, 0.5), mult = 0.02),
         ) +
-        scale_y_discrete(labels = c(minima_short, media_short, massima_short)) +
+        scale_y_discrete(
+            limits = c("temp.min", "temp", "temp.max"),
+            labels = c(minima_short, media, massima_short)
+        ) +
         labs(title = NULL, x = NULL, y = "") +
         theme_bw(base_family = "sans") +
         theme(
