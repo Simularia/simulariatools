@@ -325,6 +325,24 @@ contourPlot2 <- function(
         lab_levels[1] <- parse(text = paste("\"\" <", pretty_levels[2]))
     }
 
+    # Internal band labels, reproducing exactly the ordered factor levels that
+    # `geom_contour_filled()` generates (ggplot2:::pretty_isoband_levels). They
+    # are used as the fill scale `limits` so the legend always lists every band
+    # and colours map to the correct band, regardless of the data range. The
+    # labelling must follow `format()` (not raw number printing): otherwise the
+    # strings would not match the factor levels and bands would render with the
+    # scale's `na.value` (grey). `dig_lab` starts at 3 and grows until the
+    # formatted breaks are distinct, mirroring ggplot2's behaviour.
+    dig_lab <- 3
+    while (anyDuplicated(format(unique(levels), digits = dig_lab, trim = TRUE))) {
+        dig_lab <- dig_lab + 1
+    }
+    band_limits <- sprintf(
+        "(%s, %s]",
+        format(levels[-nlevels], digits = dig_lab, trim = TRUE),
+        format(levels[-1], digits = dig_lab, trim = TRUE)
+    )
+
     # Colour palette
     spectral <- c(
         "#5E4FA2",
@@ -449,6 +467,7 @@ contourPlot2 <- function(
                 lgndname,
                 aesthetics = c("fill"),
                 drop = FALSE,
+                limits = band_limits,
                 guide = guide_legend(reverse = TRUE),
                 labels = lab_levels,
                 values = my_colors
