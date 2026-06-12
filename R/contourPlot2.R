@@ -15,7 +15,7 @@
 #' @param z character. Name of the column containing concentration values
 #' (default "z").
 #' @param domain optional list of six numeric values defining the boundaries of
-#' the domain to be plotted  and the number of ticks on X & Y axis
+#' the domain to be plotted and the number of ticks on X & Y axis
 #' (minimum X, maximum X, minimum Y, maximum Y, number of ticks on X axis,
 #' number of ticks on Y axis). Example: c(340000, 346000, 4989500, 4995500, 5, 5).
 #' If missing, the full domain of the input data is considered, with 5 ticks
@@ -28,7 +28,7 @@
 #' of ticks on X & Y axes. If a single number is given, the same number of ticks
 #' is plotted on both axes (default = 5 ticks).
 #' @param background filename. Optional path to a raster file to be plotted as
-#' the basemap (deprecated, see `basemap`)
+#' the basemap (deprecated, see `basemap`).
 #' @param basemap filename. Optional path to a raster file to be plotted as
 #' the basemap (see Details).
 #' @param underlayer optional list of layers to be plotted between basemap
@@ -40,20 +40,20 @@
 #' automatic pretty levels are computed. If `-Inf` and `Inf` are used
 #' as the lowest and highest limits of the array, the lowest and highest bands
 #' are unbounded and the legend shows `<` and `>=` symbols.
-#' @param transparency transparency level of the contour plot between 0.0
-#' (fully transparent) and 1.0 (fully opaque). Default = 0.75.
-#' @param colors colour palette for contour plot, as an array of colours.
-#' @param bare boolean (default FALSE). Deprecated in favour of `theme_void`.
-#' @param theme_void boolean (default FALSE). If TRUE, only the bare plot is shown:
-#' axis, legend, titles and any other graphical element of the plot are removed.
 #' @param size numeric. Width of the contour line.
 #' @param fill logical. If TRUE, the contour plot is filled with colour (default = TRUE).
 #' @param contour_labels logical. If TRUE and fill is FALSE, level values are
 #' displayed along the contour lines. Default = FALSE.
 #' @param tile logical. If TRUE, rectangular tiles are plotted (default = FALSE).
+#' @param transparency transparency level of the contour plot between 0.0
+#' (fully transparent) and 1.0 (fully opaque). Default = 0.75.
+#' @param colors colour palette for contour plot, as an array of colours.
 #' @param mask character. Path to `shp` file used as a mask. It must be a closed polygon.
 #' @param inverse_mask logical. If TRUE, areas on mask are masked. Default is
 #' to mask areas outside the polygon defined in the _shp_ file.
+#' @param bare boolean (default FALSE). Deprecated in favour of `theme_void`.
+#' @param theme_void boolean (default FALSE). If TRUE, only the bare plot is shown:
+#' axis, legend, titles and any other graphical element of the plot are removed.
 #'
 #' @details
 #'
@@ -62,7 +62,7 @@
 #' version >= 3.3.0.
 #'
 #' Data are required to be on a regular grid, typically (but not necessarily)
-#' in UTM coordinates. Each value is associated to the cell centre.
+#' in UTM coordinates. Each value is associated with the cell centre.
 #' The input dataframe has to be in long format, i.e. one line per value to be plotted.
 #' The names of the columns corresponding to `x`, `y` and `z` can be specified in the
 #' input parameters.

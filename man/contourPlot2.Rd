@@ -45,7 +45,7 @@ coordinates (default "y").}
 (default "z").}
 
 \item{domain}{optional list of six numeric values defining the boundaries of
-the domain to be plotted  and the number of ticks on X & Y axis
+the domain to be plotted and the number of ticks on X & Y axis
 (minimum X, maximum X, minimum Y, maximum Y, number of ticks on X axis,
 number of ticks on Y axis). Example: c(340000, 346000, 4989500, 4995500, 5, 5).
 If missing, the full domain of the input data is considered, with 5 ticks
@@ -62,7 +62,7 @@ of ticks on X & Y axes. If a single number is given, the same number of ticks
 is plotted on both axes (default = 5 ticks).}
 
 \item{background}{filename. Optional path to a raster file to be plotted as
-the basemap (deprecated, see \code{basemap})}
+the basemap (deprecated, see \code{basemap}).}
 
 \item{basemap}{filename. Optional path to a raster file to be plotted as
 the basemap (see Details).}
@@ -118,7 +118,7 @@ such as pollutants computed by a dispersion model, with \code{ggplot2}
 version >= 3.3.0.
 
 Data are required to be on a regular grid, typically (but not necessarily)
-in UTM coordinates. Each value is associated to the cell centre.
+in UTM coordinates. Each value is associated with the cell centre.
 The input dataframe has to be in long format, i.e. one line per value to be plotted.
 The names of the columns corresponding to \code{x}, \code{y} and \code{z} can be specified in the
 input parameters.
