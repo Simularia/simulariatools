@@ -4,7 +4,8 @@
   with `contour_labels = TRUE` option. It is available only with `FILL = FALSE`
   and it is disabled by default.
 - Bugfix: in `contourPlot2()` with `fill=TRUE` show the legend when data range
-  is outside level bound.
+  is outside level bound. Also set `x, y` scales limits which previously were
+  undetermined.
 - In `plotAvgTemp` fixed a labels mismatch in the y direction of the numeric
 table below the plot.
 - Updated documentation.

@@ -204,11 +204,8 @@ contourPlot2 <- function(
     ymin_im <- -Inf
     ymax_im <- Inf
 
-    # Default limits for plot
-    xmin <- min(data$x)
-    xmax <- max(data$x)
-    ymin <- min(data$y)
-    ymax <- max(data$y)
+    # Init basemap extent (NULL when no basemap)
+    basemap_extent <- NULL
 
     # Deprecate background
     if (!missing(background)) {
@@ -231,15 +228,17 @@ contourPlot2 <- function(
         )
         if (inherits(imgr, "SpatRaster")) {
             # Bounding box for plot
-            xmin <- terra::xmin(imgr)
-            xmax <- terra::xmax(imgr)
-            ymin <- terra::ymin(imgr)
-            ymax <- terra::ymax(imgr)
-            # Bounding box for basemap (same)
-            xmin_im <- xmin
-            xmax_im <- xmax
-            ymin_im <- ymin
-            ymax_im <- ymax
+            basemap_extent <- c(
+                terra::xmin(imgr),
+                terra::xmax(imgr),
+                terra::ymin(imgr),
+                terra::ymax(imgr)
+            )
+            # Bounding box for basemap image (same)
+            xmin_im <- basemap_extent[1]
+            xmax_im <- basemap_extent[2]
+            ymin_im <- basemap_extent[3]
+            ymax_im <- basemap_extent[4]
         }
 
         # [FIXME] avoid reading the image again, for performance reasons
@@ -264,26 +263,20 @@ contourPlot2 <- function(
         nticks <- domain[5:6]
     }
 
-    # Explicit boundaries
-    if (!missing(xlim)) {
-        xmin <- xlim[1] # x coordinates minimum
-        xmax <- xlim[2] # x coordinates max
-        if (xmax <= xmin) stop("Check xlim argument: max(x) <= min(x)")
-    }
-
-    if (!missing(ylim)) {
-        ymin <- ylim[1] # y coordinates min
-        ymax <- ylim[2] # y coordinates max
-        if (ymax <= ymin) stop("Check ylim argument: max(y) <= min(y)")
-    }
-
-    if (length(nticks) == 1) {
-        nx <- nticks # number of ticks along x axis
-        ny <- nticks # number of ticks along y axis
-    } else {
-        nx <- nticks[1] # number of ticks along x axis
-        ny <- nticks[2] # number of ticks along y axis
-    }
+    # Compute plot axis limits and tick counts
+    bounds <- computeAxisBounds(
+        data,
+        xlim = xlim,
+        ylim = ylim,
+        nticks = nticks,
+        basemap_extent = basemap_extent
+    )
+    xmin <- bounds$xmin
+    xmax <- bounds$xmax
+    ymin <- bounds$ymin
+    ymax <- bounds$ymax
+    nx <- bounds$nx
+    ny <- bounds$ny
 
     # prettify legend title
     if (requireNamespace("openair", quietly = TRUE)) {
@@ -427,6 +420,17 @@ contourPlot2 <- function(
     if (!missing(basemap)) {
         v <- v + annotation_raster(gimg, xmin_im, xmax_im, ymin_im, ymax_im)
     }
+
+    # Fix the x, y scales to the plot boundaries with an invisible layer.
+    # This guarantees the axis breaks (computed from xmin/xmax/ymin/ymax) are always
+    # within the scale range and never dropped. Without it, when the contour
+    # layer is empty (e.g. the data range is entirely outside `levels`) the
+    # scales stay undtermined and the axis ticks and labels disappear.
+    v <- v +
+        geom_blank(
+            data = data.frame(x = c(xmin, xmax), y = c(ymin, ymax)),
+            aes(x = x, y = y)
+        )
 
     # Add underlayer
     v <- v + underlayer
@@ -607,3 +611,56 @@ contourPlot2 <- function(
 
     return(v)
 }
+
+# Compute plot axis limits and tick counts for contourPlot2().
+# Precedence (low -> high):
+# - data range < basemap extent < xlim/ylim.
+# -`basemap_extent`, when supplied, is c(xmin, xmax, ymin, ymax) from the raster.
+#
+# Returns list(xmin, xmax, ymin, ymax, nx, ny).
+#
+computeAxisBounds <- function(
+    data,
+    xlim = NULL,
+    ylim = NULL,
+    nticks = 5,
+    basemap_extent = NULL
+) {
+    # Default limits from data range
+    xmin <- min(data$x)
+    xmax <- max(data$x)
+    ymin <- min(data$y)
+    ymax <- max(data$y)
+
+    # Basemap extent overrides data defaults
+    if (!is.null(basemap_extent)) {
+        xmin <- basemap_extent[1]
+        xmax <- basemap_extent[2]
+        ymin <- basemap_extent[3]
+        ymax <- basemap_extent[4]
+    }
+
+    # Explicit limits take precedence
+    if (!is.null(xlim)) {
+        xmin <- xlim[1]
+        xmax <- xlim[2]
+        if (xmax <= xmin) stop("Check xlim argument: max(x) <= min(x)")
+    }
+    if (!is.null(ylim)) {
+        ymin <- ylim[1]
+        ymax <- ylim[2]
+        if (ymax <= ymin) stop("Check ylim argument: max(y) <= min(y)")
+    }
+
+    # Tick counts (single value applies to both axes)
+    if (length(nticks) == 1) {
+        nx <- nticks
+        ny <- nticks
+    } else {
+        nx <- nticks[1]
+        ny <- nticks[2]
+    }
+
+    list(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, nx = nx, ny = ny)
+}
+
