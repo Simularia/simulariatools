@@ -242,6 +242,9 @@ contourPlot2 <- function(
         }
 
         # [FIXME] avoid reading the image again, for performance reasons
+        # Issue is that terra::rast() does not composite the color bands
+        # If you try composite the color bands without image_read() the
+        # performance can be work than reading again the image.
         if (requireNamespace("magick", quietly = TRUE)) {
             img <- magick::image_read(basemap)
             gimg <- terra::as.raster(img)
