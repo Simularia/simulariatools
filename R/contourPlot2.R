@@ -357,6 +357,8 @@ contourPlot2 <- function(
     if (is.null(colors)) {
         my_palette <- grDevices::colorRampPalette(spectral)
         # Omit first colour for aesthetic reasons
+        # but keep it in the original palette for consistency with the past
+        # in the lowest color level (blue).
         my_colors <- my_palette(nlevels)
         my_colors <- my_colors[2:length(my_colors)]
     } else {
