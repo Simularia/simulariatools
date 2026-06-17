@@ -225,7 +225,13 @@ contourPlot2 <- function(
     if (!is.null(basemap)) {
         imgr <- tryCatch(
             terra::rast(basemap),
-            warning = function(w) w
+            warning = function(w) w,
+            error = function(e) {
+                stop(
+                    conditionMessage(e),
+                    call. = FALSE
+                )
+            }
         )
         if (inherits(imgr, "SpatRaster")) {
             # Bounding box for plot
@@ -247,7 +253,18 @@ contourPlot2 <- function(
         # If you try composite the color bands without image_read() the
         # performance can be work than reading again the image.
         if (requireNamespace("magick", quietly = TRUE)) {
-            img <- magick::image_read(basemap)
+            img <- tryCatch(
+                magick::image_read(basemap),
+                error = function(e) {
+                    stop(
+                        "Cannot read the basemap file '",
+                        basemap,
+                        "': ",
+                        conditionMessage(e),
+                        call. = FALSE
+                    )
+                }
+            )
             gimg <- terra::as.raster(img)
         } else {
             stop(
@@ -667,4 +684,3 @@ computeAxisBounds <- function(
 
     list(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, nx = nx, ny = ny)
 }
-
