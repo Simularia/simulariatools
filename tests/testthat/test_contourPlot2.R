@@ -12,14 +12,49 @@ volcano3d <- function() {
     )
 }
 
+# TRUE if the built plot contains a geom_label (contour-label) layer.
+has_label_layer <- function(p) {
+    any(vapply(p$layers, function(l) inherits(l$geom, "GeomLabel"), logical(1)))
+}
+
+# TRUE if the built plot contains a geom_contour_filled layer.
+has_filled_layer <- function(p) {
+    any(vapply(
+        p$layers,
+        function(l) inherits(l$geom, "GeomContourFilled"),
+        logical(1)
+    ))
+}
+
+# TRUE if the built plot is ggplot object
 test_that("contourPlot2 is a ggplot2 object", {
     v <- contourPlot2(volcano3d())
     expect_s3_class(v, "ggplot")
 })
 
+# TRUE if the built plot with contour_labels is ggplot object
 test_that("contourPlot2 with label_contours is a ggplot2 object", {
     v <- contourPlot2(volcano3d(), fill = FALSE, contour_labels = TRUE)
     expect_s3_class(v, "ggplot")
+    expect_true(has_label_layer(v))
+})
+
+# Consistency check: tile = TRUE suppresses contour labels regardless of the
+# contour_labels argument. Otherwise the contour-label branch would run with
+# size forced to 0 and error on the undefined `line_levels`.
+test_that("contourPlot2 tile = TRUE suppresses contour labels", {
+    v <- contourPlot2(volcano3d(), tile = TRUE, contour_labels = TRUE)
+    expect_s3_class(v, "ggplot")
+    expect_false(has_label_layer(v))
+})
+
+# Consistency check: fill = TRUE draws a filled contour layer and ignores
+# contour_labels, which only apply to line contours (fill = FALSE).
+test_that("contourPlot2 fill = TRUE draws a filled layer and no contour labels", {
+    v <- contourPlot2(volcano3d(), fill = TRUE, contour_labels = TRUE)
+    expect_s3_class(v, "ggplot")
+    expect_true(has_filled_layer(v))
+    expect_false(has_label_layer(v))
 })
 
 # Extract the geom_contour_filled layer from a built contourPlot2 plot.
