@@ -57,6 +57,34 @@ test_that("contourPlot2 fill = TRUE draws a filled layer and no contour labels",
     expect_false(has_label_layer(v))
 })
 
+# Regression: optional arguments default to NULL and are guarded with
+# is.null(), not missing().
+test_that("contourPlot2 treats explicit NULL optional args as omitted", {
+    expect_no_warning(v <- contourPlot2(volcano3d(), basemap = NULL))
+    expect_s3_class(v, "ggplot")
+
+    expect_no_warning(v <- contourPlot2(volcano3d(), mask = NULL))
+    expect_s3_class(v, "ggplot")
+
+    expect_no_warning(v <- contourPlot2(volcano3d(), domain = NULL))
+    expect_s3_class(v, "ggplot")
+
+    expect_no_warning(v <- contourPlot2(volcano3d(), background = NULL))
+    expect_s3_class(v, "ggplot")
+
+    expect_no_warning(v <- contourPlot2(volcano3d(), underlayer = NULL, overlayer = NULL))
+    expect_s3_class(v, "ggplot")
+})
+
+# Deprecated arguments, when actually supplied, must still warn. This guards
+# against the is.null() conversion accidentally silencing the deprecation path.
+test_that("contourPlot2 still warns when deprecated domain is supplied", {
+    expect_warning(
+        contourPlot2(volcano3d(), domain = c(1, 61, 1, 61, 5, 5)),
+        "deprecated"
+    )
+})
+
 # Extract the geom_contour_filled layer from a built contourPlot2 plot.
 filled_layer <- function(p) {
     b <- ggplot2::ggplot_build(p)

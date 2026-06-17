@@ -209,20 +209,20 @@ contourPlot2 <- function(
     basemap_extent <- NULL
 
     # Deprecate background
-    if (!missing(background)) {
+    if (!is.null(background)) {
         warning(paste(
             "The \`background\` argument is deprecated.",
             "Please use the \'basemap\' argument instead."
         ))
         # if we have both background and basemap, the latter has the precedence
-        if (missing(basemap)) {
+        if (is.null(basemap)) {
             basemap <- background
         }
     }
 
     # If we have a basemap, try to get boundaries from it
     # Otherwise get them from data
-    if (!missing(basemap)) {
+    if (!is.null(basemap)) {
         imgr <- tryCatch(
             terra::rast(basemap),
             warning = function(w) w
@@ -257,7 +257,7 @@ contourPlot2 <- function(
     }
 
     # If required, override plot limits
-    if (!missing(domain)) {
+    if (!is.null(domain)) {
         warning(paste(
             "The \`domain\` argument is deprecated.",
             "Please use the \'xlim\', \'ylim\' and \'nticks\' arguments instead."
@@ -365,7 +365,7 @@ contourPlot2 <- function(
     }
 
     # Mask
-    if (!missing(mask)) {
+    if (!is.null(mask)) {
         if (!requireNamespace("sf", quietly = TRUE)) {
             stop(
                 "Please install the `sf` package to use `mask`.",
@@ -400,12 +400,12 @@ contourPlot2 <- function(
     }
 
     # Underlayer
-    if (missing(underlayer)) {
+    if (is.null(underlayer)) {
         underlayer <- geom_blank()
     }
 
     # Overlayer
-    if (missing(overlayer)) {
+    if (is.null(overlayer)) {
         overlayer <- geom_blank()
     }
 
@@ -419,7 +419,7 @@ contourPlot2 <- function(
 
     # Basemap
     v <- ggplot(data)
-    if (!missing(basemap)) {
+    if (!is.null(basemap)) {
         v <- v + annotation_raster(gimg, xmin_im, xmax_im, ymin_im, ymax_im)
     }
 
