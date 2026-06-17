@@ -359,11 +359,9 @@ contourPlot2 <- function(
         # Omit first colour for aesthetic reasons
         my_colors <- my_palette(nlevels)
         my_colors <- my_colors[2:length(my_colors)]
-        my_colors_lines <- my_colors
     } else {
         my_palette <- grDevices::colorRampPalette(colors, alpha = TRUE)
         my_colors <- my_palette(length(levels) - 1)
-        my_colors_lines <- my_colors
     }
 
     # Mask
@@ -510,7 +508,7 @@ contourPlot2 <- function(
                 drop = FALSE,
                 limits = factor(line_levels),
                 guide = guide_legend(reverse = TRUE),
-                values = my_colors_lines
+                values = my_colors
             )
     }
 
