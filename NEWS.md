@@ -3,11 +3,12 @@
 - New feature: `contourPlot2()` has the option to plot labels on contour lines
   with `contour_labels = TRUE`. It is available only with `fill = FALSE`
   and it is disabled by default.
-- Bugfix: in `contourPlot2()` with `fill = TRUE` show the legend when the data
+- Bug fix: in `contourPlot2()` with `fill = TRUE` show the legend when the data
   range is outside level bounds. Also set `x, y` scale limits which previously
   were undetermined.
 - In `plotAvgTemp()` fixed a label mismatch in the y direction of the numeric
   table below the plot.
+- Many minor bug fixes.
 - Updated documentation.
 
 
