@@ -530,15 +530,15 @@ contourPlot2 <- function(
         cl <- contourLines(x_unique, y_unique, z_matrix, levels = line_levels)
         label_data <- do.call(
             rbind,
-            lapply(cl, function(c) {
+            lapply(cl, function(cLine) {
                 # Get middle point of each contour line
-                n <- length(c$x)
+                n <- length(cLine$x)
                 mid <- ceiling(n / 2)
                 # Calcuate angle from adjacent points
                 i1 <- max(1, mid - 1)
                 i2 <- min(n, mid + 1)
-                dx <- c$x[i2] - c$x[i1]
-                dy <- c$y[i2] - c$y[i1]
+                dx <- cLine$x[i2] - cLine$x[i1]
+                dy <- cLine$y[i2] - cLine$y[i1]
                 angle <- atan2(dy, dx) * 180 / pi
                 # Normalize so that text is always readable
                 if (angle > 90) {
@@ -548,9 +548,9 @@ contourPlot2 <- function(
                     angle <- angle + 180
                 }
                 data.frame(
-                    x = c$x[mid],
-                    y = c$y[mid],
-                    label = c$level,
+                    x = cLine$x[mid],
+                    y = cLine$y[mid],
+                    label = cLine$level,
                     angle = angle
                 )
             })
