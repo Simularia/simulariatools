@@ -39,6 +39,13 @@ test_that("contourPlot2 with label_contours is a ggplot2 object", {
     expect_true(has_label_layer(v))
 })
 
+# Report missing x, y, z columns
+test_that("contourPlot2 errors and lists all missing columns", {
+    d <- volcano3d()
+    expect_error(contourPlot2(d[c("x", "y")]), "Missing column: z")
+    expect_error(contourPlot2(d["x"]), "Missing column: y, z")
+})
+
 # Consistency check: tile = TRUE suppresses contour labels regardless of the
 # contour_labels argument. Otherwise the contour-label branch would run with
 # size forced to 0 and error on the undefined `line_levels`.
