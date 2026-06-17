@@ -42,8 +42,8 @@
 #' are unbounded and the legend shows `<` and `>=` symbols.
 #' @param size numeric. Width of the contour line.
 #' @param fill logical. If TRUE, the contour plot is filled with colour (default = TRUE).
-#' @param contour_labels logical. If TRUE and fill is FALSE, level values are
-#' displayed along the contour lines. Default = FALSE.
+#' @param contour_labels logical. If TRUE and both fill and tile are FALSE,
+#' level values are displayed along the contour lines. Default = FALSE.
 #' @param tile logical. If TRUE, rectangular tiles are plotted (default = FALSE).
 #' @param transparency transparency level of the contour plot between 0.0
 #' (fully transparent) and 1.0 (fully opaque). Default = 0.75.
@@ -172,6 +172,7 @@ contourPlot2 <- function(
         fill <- FALSE
         theme_void <- FALSE
         size <- 0.
+        contour_labels <- FALSE
     }
 
     # Check if columns exist
@@ -485,12 +486,12 @@ contourPlot2 <- function(
     if (size != 0) {
         line_levels <- levels
 
-        if (line_levels[length(line_levels)] == "Inf") {
-            line_levels <- line_levels[seq_along(line_levels) - 1]
+        if (is.infinite(line_levels[length(line_levels)])) {
+            line_levels <- line_levels[-length(line_levels)]
         }
 
-        if (line_levels[1] == "-Inf") {
-            line_levels <- line_levels[2:length(line_levels)]
+        if (is.infinite(line_levels[1])) {
+            line_levels <- line_levels[-1]
         }
 
         v <- v +

@@ -84,8 +84,8 @@ are unbounded and the legend shows \code{<} and \code{>=} symbols.}
 
 \item{fill}{logical. If TRUE, the contour plot is filled with colour (default = TRUE).}
 
-\item{contour_labels}{logical. If TRUE and fill is FALSE, level values are
-displayed along the contour lines. Default = FALSE.}
+\item{contour_labels}{logical. If TRUE and both fill and tile are FALSE,
+level values are displayed along the contour lines. Default = FALSE.}
 
 \item{tile}{logical. If TRUE, rectangular tiles are plotted (default = FALSE).}
 
