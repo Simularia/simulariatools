@@ -348,7 +348,10 @@ contourPlot2 <- function(
     # scale's `na.value` (grey). `dig_lab` starts at 3 and grows until the
     # formatted breaks are distinct, mirroring ggplot2's behaviour.
     dig_lab <- 3
-    while (anyDuplicated(format(unique(levels), digits = dig_lab, trim = TRUE))) {
+    while (
+        dig_lab < 22 &&
+            anyDuplicated(format(unique(levels), digits = dig_lab, trim = TRUE))
+    ) {
         dig_lab <- dig_lab + 1
     }
     band_limits <- sprintf(
