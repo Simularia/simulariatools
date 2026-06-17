@@ -316,16 +316,39 @@ contourPlot2 <- function(
 
     # Labels for legend
     nlevels <- length(levels)
+    # Check that there are no missing values
+    if (!is.numeric(levels) || anyNA(levels)) {
+        stop(
+            "`levels` must be a numeric vector without missing values.",
+            call. = FALSE
+        )
+    }
+    # Check for ascending order in levels
+    if (is.unsorted(levels, strictly = TRUE)) {
+        stop(
+            "`levels` must be sorted in strictly increasing order.",
+            call. = FALSE
+        )
+    }
+    # In the case of a diverging scale (negative -> positive values)
+    # do not add a +Inf by default
     if (levels[1] >= 0 && levels[nlevels] != Inf) {
         levels <- append(levels, Inf)
         nlevels <- length(levels)
     }
+    if (nlevels < 2) {
+        stop(
+            "`levels` must contain at least two values to define one band.",
+            call. = FALSE
+        )
+    }
     pretty_levels <- prettyNum(levels)
+    lower <- seq_len(nlevels - 1)
     lab_levels <- parse(
         text = paste(
-            pretty_levels[1:(nlevels - 1)],
+            pretty_levels[lower],
             "-",
-            pretty_levels[2:nlevels]
+            pretty_levels[lower + 1]
         )
     )
     if (levels[nlevels] == Inf) {
@@ -334,7 +357,7 @@ contourPlot2 <- function(
         )
     }
     if (levels[1] == -Inf) {
-        lab_levels[1] <- parse(text = paste("\"\" <", pretty_levels[2]))
+        lab_levels[1] <- parse(text = paste("\"\"<", pretty_levels[2]))
     }
 
     # Internal band labels, reproducing exactly the ordered factor levels that

@@ -152,6 +152,41 @@ test_that("contourPlot2 fill limits match geom_contour_filled factor levels", {
     expect_true(all(levels(d$level) %in% fill_limits(v)))
 })
 
+# Check that there are at least 2 levels
+test_that("contourPlot2 rejects fewer than two levels", {
+    v3 <- volcano3d()
+    expect_error(
+        contourPlot2(v3, levels = -Inf),
+        "at least two values"
+    )
+    expect_error(
+        contourPlot2(v3, levels = 5),
+        NA
+    )
+})
+
+# Check that there are no missing values in the levels
+test_that("contourPlot2 rejects NA in levels", {
+    v3 <- volcano3d()
+    expect_error(
+        contourPlot2(v3, levels = c(NA, 100, 200)),
+        "without missing values"
+    )
+})
+
+# Check for unsorted levels
+test_that("contourPlot2 rejects unsorted levels", {
+    v3 <- volcano3d()
+    expect_error(
+        contourPlot2(v3, levels = c(100, 50, 200)),
+        "strictly increasing"
+    )
+    expect_error(
+        contourPlot2(v3, levels = c(100, 100, 200)),
+        "strictly increasing"
+    )
+})
+
 # Tests for the internal axis bounds computation
 test_that("computeAxisBounds defaults to the data range", {
     d <- data.frame(x = c(1, 5, 3), y = c(10, 40, 25))
