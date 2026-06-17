@@ -249,7 +249,7 @@ contourPlot2 <- function(
             img <- magick::image_read(basemap)
             gimg <- terra::as.raster(img)
         } else {
-            warning(
+            stop(
                 "Missing magick package. Please install it to read the basemap file."
             )
         }
