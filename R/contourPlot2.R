@@ -292,12 +292,12 @@ contourPlot2 <- function(
         nticks = nticks,
         basemap_extent = basemap_extent
     )
-    xmin <- bounds$xmin
-    xmax <- bounds$xmax
-    ymin <- bounds$ymin
-    ymax <- bounds$ymax
-    nx <- bounds$nx
-    ny <- bounds$ny
+    xmin <- bounds[["xmin"]]
+    xmax <- bounds[["xmax"]]
+    ymin <- bounds[["ymin"]]
+    ymax <- bounds[["ymax"]]
+    nx <- bounds[["nx"]]
+    ny <- bounds[["ny"]]
 
     # prettify legend title
     if (requireNamespace("openair", quietly = TRUE)) {
@@ -313,7 +313,7 @@ contourPlot2 <- function(
         } else {
             nlevels <- length(colors)
         }
-        levels <- pretty(range(data$z, na.rm = TRUE), n = nlevels, min.n = 4)
+        levels <- pretty(range(data[["z"]], na.rm = TRUE), n = nlevels, min.n = 4)
     }
 
     # Labels for legend
@@ -537,13 +537,13 @@ contourPlot2 <- function(
     # Contour labels
     if (isFALSE(fill) && isTRUE(contour_labels)) {
         # Build matrix for contourLines
-        x_unique <- sort(unique(data$x))
-        y_unique <- sort(unique(data$y))
+        x_unique <- sort(unique(data[["x"]]))
+        y_unique <- sort(unique(data[["y"]]))
         z_matrix <- matrix(NA, nrow = length(x_unique), ncol = length(y_unique))
         for (i in seq_len(nrow(data))) {
-            xi <- match(data$x[i], x_unique)
-            yi <- match(data$y[i], y_unique)
-            z_matrix[xi, yi] <- data$z[i]
+            xi <- match(data[["x"]][i], x_unique)
+            yi <- match(data[["y"]][i], y_unique)
+            z_matrix[xi, yi] <- data[["z"]][i]
         }
 
         # Extract contour lines and build df with point/label/angle
@@ -552,13 +552,13 @@ contourPlot2 <- function(
             rbind,
             lapply(cl, function(cLine) {
                 # Get middle point of each contour line
-                n <- length(cLine$x)
+                n <- length(cLine[["x"]])
                 mid <- ceiling(n / 2)
                 # Calcuate angle from adjacent points
                 i1 <- max(1, mid - 1)
                 i2 <- min(n, mid + 1)
-                dx <- cLine$x[i2] - cLine$x[i1]
-                dy <- cLine$y[i2] - cLine$y[i1]
+                dx <- cLine[["x"]][i2] - cLine[["x"]][i1]
+                dy <- cLine[["y"]][i2] - cLine[["y"]][i1]
                 angle <- atan2(dy, dx) * 180 / pi
                 # Normalize so that text is always readable
                 if (angle > 90) {
@@ -568,9 +568,9 @@ contourPlot2 <- function(
                     angle <- angle + 180
                 }
                 data.frame(
-                    x = cLine$x[mid],
-                    y = cLine$y[mid],
-                    label = cLine$level,
+                    x = cLine[["x"]][mid],
+                    y = cLine[["y"]][mid],
+                    label = cLine[["level"]],
                     angle = angle
                 )
             })
@@ -651,10 +651,10 @@ computeAxisBounds <- function(
     basemap_extent = NULL
 ) {
     # Default limits from data range
-    xmin <- min(data$x)
-    xmax <- max(data$x)
-    ymin <- min(data$y)
-    ymax <- max(data$y)
+    xmin <- min(data[["x"]])
+    xmax <- max(data[["x"]])
+    ymin <- min(data[["y"]])
+    ymax <- max(data[["y"]])
 
     # Basemap extent overrides data defaults
     if (!is.null(basemap_extent)) {
