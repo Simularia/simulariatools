@@ -78,10 +78,10 @@ importRaster <- function(
     level = NULL,
     verbose = FALSE
 ) {
-    if (missing(variable)) {
+    if (is.null(variable)) {
         t <- terra::rast(file)
         variables <- terra::varnames(t)
-        stop("Missing variables. Choose one from: ", list(variables))
+        stop("Missing variable. Choose one from: ", paste(variables, collapse = ", "))
     }
 
     # Read raster
