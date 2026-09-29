@@ -137,24 +137,29 @@ importRaster <- function(
             terra::global(t, mean, na.rm = TRUE)
         )
         if (srHasTime) {
-            message("Raster statistics -------------------------------------------------------------------------")
+            # time labesl and width of time labels (used to align columns)
+            tLabels <- format(terra::time(t))
+            tWidth <- max(nchar(tLabels))
+            header <- "Raster statistics "
+            message(header, strrep("-", 8 + 23 + 2 + tWidth + 3 * 13 - nchar(header)))
             message(sprintf(
-                "%8s (min, max, dx)        : %19s %12.3f %12.3f %12.3f",
+                "%8s (min, max, dx)        : %*s %12.3f %12.3f %12.3f",
                 "X",
-                " ",
+                tWidth,
+                "",
                 xvalues[1],
                 xvalues[2],
                 xvalues[3]
             ))
             message(sprintf(
-                "%8s (min, max, dy)        : %19s %12.3f %12.3f %12.3f",
+                "%8s (min, max, dy)        : %*s %12.3f %12.3f %12.3f",
                 "Y",
-                " ",
+                tWidth,
+                "",
                 yvalues[1],
                 yvalues[2],
                 yvalues[3]
             ))
-            tLabels <- format(terra::time(t))
             nl <- length(tLabels)
             nShow <- 3
             if (nl > nShow * 2) {
@@ -180,16 +185,18 @@ importRaster <- function(
                 ))
             }
             message(sprintf(
-                "%8s (all, min, max, mean) : %19s %12.2e %12.2e %12.2e",
+                "%8s (all, min, max, mean) : %*s %12.2e %12.2e %12.2e",
                 variable,
-                " ",
+                tWidth,
+                "",
                 min(zvalues$min, na.rm = TRUE),
                 max(zvalues$max, na.rm = TRUE),
                 mean(zvalues$mean, na.rm = TRUE)
             ))
-            message("-------------------------------------------------------------------------------------------")
+            message(strrep("-", 8 + 23 + 2 + tWidth + 3 * 13))
         } else {
-        message("Raster statistics -----------------------------------------------")
+            header <- "Raster statistics "
+            message(header, strrep("-", 47))
             message(sprintf(
                 "%8s (min, max, dx)  : %12.3f %12.3f %12.3f",
                 "X",
@@ -211,7 +218,7 @@ importRaster <- function(
                 zvalues[2],
                 zvalues[3]
             ))
-        message("-----------------------------------------------------------------")
+            message(strrep("-", 65))
         }
     }
 
