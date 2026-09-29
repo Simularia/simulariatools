@@ -136,24 +136,40 @@ importRaster <- function(
             terra::global(t, max, na.rm = TRUE),
             terra::global(t, mean, na.rm = TRUE)
         )
-        message("Raster statistics -----------------------------------------------")
-        message(sprintf(
-            "%8s (min, max, dx)  : %12.3f %12.3f %12.3f",
-            "X",
-            xvalues[1],
-            xvalues[2],
-            xvalues[3]
-        ))
-        message(sprintf(
-            "%8s (min, max, dy)  : %12.3f %12.3f %12.3f",
-            "Y",
-            yvalues[1],
-            yvalues[2],
-            yvalues[3]
-        ))
         if (srHasTime) {
+            message("Raster statistics -------------------------------------------------------------------------")
+            message(sprintf(
+                "%8s (min, max, dx)        : %19s %12.3f %12.3f %12.3f",
+                "X",
+                " ",
+                xvalues[1],
+                xvalues[2],
+                xvalues[3]
+            ))
+            message(sprintf(
+                "%8s (min, max, dy)        : %19s %12.3f %12.3f %12.3f",
+                "Y",
+                " ",
+                yvalues[1],
+                yvalues[2],
+                yvalues[3]
+            ))
             tLabels <- format(terra::time(t))
-            for (idx in seq_along(tLabels)) {
+            nl <- length(tLabels)
+            nShow <- 3
+            if (nl > nShow * 2) {
+                idxShow <- c(seq_len(nShow), seq(nl - nShow + 1, nl))
+            } else {
+                idxShow <- seq_len(nl)
+            }
+            for (idx in idxShow) {
+                if (idx == nl - nShow + 1) {
+                    message(sprintf(
+                        "%8s … omitted %d deadlines …",
+                        "",
+                        (nl - nShow * 2)
+                    ))
+                }
                 message(sprintf(
                     "%8s (time, min, max, mean): %s %12.2e %12.2e %12.2e",
                     variable,
@@ -163,7 +179,31 @@ importRaster <- function(
                     zvalues$mean[idx]
                 ))
             }
+            message(sprintf(
+                "%8s (all, min, max, mean) : %19s %12.2e %12.2e %12.2e",
+                variable,
+                " ",
+                min(zvalues$min, na.rm = TRUE),
+                max(zvalues$max, na.rm = TRUE),
+                mean(zvalues$mean, na.rm = TRUE)
+            ))
+            message("-------------------------------------------------------------------------------------------")
         } else {
+        message("Raster statistics -----------------------------------------------")
+            message(sprintf(
+                "%8s (min, max, dx)  : %12.3f %12.3f %12.3f",
+                "X",
+                xvalues[1],
+                xvalues[2],
+                xvalues[3]
+            ))
+            message(sprintf(
+                "%8s (min, max, dy)  : %12.3f %12.3f %12.3f",
+                "Y",
+                yvalues[1],
+                yvalues[2],
+                yvalues[3]
+            ))
             message(sprintf(
                 "%8s (min, max, mean): %12.2e %12.2e %12.2e",
                 variable,
@@ -171,8 +211,8 @@ importRaster <- function(
                 zvalues[2],
                 zvalues[3]
             ))
-        }
         message("-----------------------------------------------------------------")
+        }
     }
 
     # Export dataframe with x, y, z columns if no time is present.
