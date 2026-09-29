@@ -165,7 +165,7 @@ importRaster <- function(
             for (idx in idxShow) {
                 if (idx == nl - nShow + 1) {
                     message(sprintf(
-                        "%8s … omitted %d deadlines …",
+                        "%8s ... omitted %d deadlines ...",
                         "",
                         (nl - nShow * 2)
                     ))
