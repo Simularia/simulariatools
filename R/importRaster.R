@@ -1,6 +1,7 @@
 #' Import generic raster file
 #'
-#' A function to import the first layer of a generic raster file.
+#' A function to import a variable from a generic raster file, including datasets
+#' with more than one time deadline.
 #'
 #' @param file character. Path to the raster file.
 #' @param k numeric. Factor applied to x and y coordinates (default = 1).
@@ -10,22 +11,24 @@
 #' @param dx,dy numeric. Constant to shift x and y coordinates (default = 0).
 #' @param destaggering Use `TRUE` to apply destaggering to X and Y coordinates
 #'   (default = FALSE). See the `Details` section.
-#' @param variable character. The name of the variable to be imported.
+#' @param variable character. The name of the variable to be imported. If missing,
+#' the function stops with an error message printing the list of available variables.
 #' @param verbose logical. If `TRUE`, prints out basic statistics (default = FALSE).
 #'
 #' @details
 #' This function is based on the \pkg{terra} package and it can import any format
-#' managed by it as NetCDF.
+#' managed by it, such as NetCDF.
 #'
 #' Destaggering applies a shift equal to half grid size in both horizontal
 #' directions. It is useful for importing data from the SPRAY air quality dispersion
 #' model and it is not applied by default.
 #'
 #' An optional summary output can be printed out by setting the `verbose` parameter
-#' to `TRUE`.
+#' to `TRUE`. For datasets with time deadlines, statistics are printed for each time step.
 #'
 #' @return A data.frame with x, y and z columns for the grid cells coordinates
-#' and the variable value.
+#' and the variable value. If the raster has more than one time deadline, the columns are
+#' `x, y, variable, z, time` where `variable` is the layer name and `z` is the cell value.
 #'
 #' @seealso [importADSOBIN()], [importSurferGrd()]
 #'
@@ -47,7 +50,7 @@
 #' # Import binary (netcdf) file and convert coordinates from km to m,
 #' # with shift of 100 m in both directions:
 #' mydata <- importRaster(
-#'     file = "/path_to_file/filename.nc",
+#'     file = "/path_tofile/filename.nc",
 #'     variable = "pm10",
 #'     k = 1000,
 #'     dx = 100,

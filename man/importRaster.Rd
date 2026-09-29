@@ -29,27 +29,30 @@ to m (k = 1000).}
 \item{destaggering}{Use \code{TRUE} to apply destaggering to X and Y coordinates
 (default = FALSE). See the \code{Details} section.}
 
-\item{variable}{character. The name of the variable to be imported.}
+\item{variable}{character. The name of the variable to be imported. If missing,
+the function stops with an error message printing the list of available variables.}
 
 \item{verbose}{logical. If \code{TRUE}, prints out basic statistics (default = FALSE).}
 }
 \value{
 A data.frame with x, y and z columns for the grid cells coordinates
-and the variable value.
+and the variable value. If the raster has more than one time deadline, the columns are
+\verb{x, y, variable, z, time} where \code{variable} is the layer name and \code{z} is the cell value.
 }
 \description{
-A function to import the first layer of a generic raster file.
+A function to import a variable from a generic raster file, including datasets
+with more than one time deadline.
 }
 \details{
 This function is based on the \pkg{terra} package and it can import any format
-managed by it as NetCDF.
+managed by it, such as NetCDF.
 
 Destaggering applies a shift equal to half grid size in both horizontal
 directions. It is useful for importing data from the SPRAY air quality dispersion
 model and it is not applied by default.
 
 An optional summary output can be printed out by setting the \code{verbose} parameter
-to \code{TRUE}.
+to \code{TRUE}. For datasets with time deadlines, statistics are printed for each time step.
 }
 \examples{
 \dontrun{
@@ -65,7 +68,7 @@ mydata <- importRaster(
 # Import binary (netcdf) file and convert coordinates from km to m,
 # with shift of 100 m in both directions:
 mydata <- importRaster(
-    file = "/path_to_file/filename.nc",
+    file = "/path_tofile/filename.nc",
     variable = "pm10",
     k = 1000,
     dx = 100,

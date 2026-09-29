@@ -3,6 +3,10 @@
 - New feature: `contourPlot2()` has the option to plot labels on contour lines
   with `contour_labels = TRUE`. It is available only with `fill = FALSE`
   and it is disabled by default.
+- New feature: `importRaster()` supports rasters with time variable. If more than one
+  time step is present, it returns a data.frame in long format with columns
+  `x, y, variable, z, time`, where `z` is the cell value. A bug with verbose
+  output is also fixed.
 - Bug fix: in `contourPlot2()` with `fill = TRUE` show the legend when the data
   range is outside level bounds. Also set `x, y` scale limits which previously
   were undetermined.
