@@ -12,6 +12,7 @@ importRaster(
   dy = 0,
   destaggering = FALSE,
   variable = NULL,
+  level = NULL,
   verbose = FALSE
 )
 }
@@ -31,6 +32,10 @@ to m (k = 1000).}
 
 \item{variable}{character. The name of the variable to be imported. If missing,
 the function stops with an error message printing the list of available variables.}
+
+\item{level}{numeric. Vertical level to import for variables with more than one level.
+If missing, the function stops with an error message printing the list of available
+vertical levels.}
 
 \item{verbose}{logical. If \code{TRUE}, prints out basic statistics (default = FALSE).}
 }
@@ -63,6 +68,13 @@ mydata <- importRaster(
     variable = "NOx",
     k = 1000,
     destaggering = FALSE
+)
+
+# Select wind speed at 10m height
+mydata <- importRaster(
+    file = "/path_to_file/filename.nc",
+    variable = "ws",
+    level = 10
 )
 
 # Import binary (netcdf) file and convert coordinates from km to m,

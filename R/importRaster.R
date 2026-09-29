@@ -13,6 +13,9 @@
 #'   (default = FALSE). See the `Details` section.
 #' @param variable character. The name of the variable to be imported. If missing,
 #' the function stops with an error message printing the list of available variables.
+#' @param level numeric. Vertical level to import for variables with more than one level.
+#' If missing, the function stops with an error message printing the list of available
+#' vertical levels.
 #' @param verbose logical. If `TRUE`, prints out basic statistics (default = FALSE).
 #'
 #' @details
@@ -47,6 +50,13 @@
 #'     destaggering = FALSE
 #' )
 #'
+#' # Select wind speed at 10m height
+#' mydata <- importRaster(
+#'     file = "/path_to_file/filename.nc",
+#'     variable = "ws",
+#'     level = 10
+#' )
+#'
 #' # Import binary (netcdf) file and convert coordinates from km to m,
 #' # with shift of 100 m in both directions:
 #' mydata <- importRaster(
@@ -65,6 +75,7 @@ importRaster <- function(
     dy = 0,
     destaggering = FALSE,
     variable = NULL,
+    level = NULL,
     verbose = FALSE
 ) {
     if (missing(variable)) {
@@ -72,7 +83,25 @@ importRaster <- function(
         variables <- terra::varnames(t)
         stop("Missing variables. Choose one from: ", list(variables))
     }
+
+    # Read raster
     t <- terra::rast(file, subds = as.character(variable))
+
+    # Vertical levels
+    levels <- unique(terra::depth(t))
+    if (length(levels) > 1) {
+        # Missing level argument
+        if (is.null(level)) {
+            stop("Missing level. Choose one from: ", paste(levels, collapse = ", "))
+        }
+        # level argument is not in the list of available levels
+        if (!level %in% levels) {
+            stop("Level ", level, " not found. Choose one level from: ", paste(levels, collapse = ", "))
+        }
+        t <- t[[terra::depth(t) == level]]
+    } else if (!is.null(level)) {
+        warning("Variable ", variable, " does not have vertical levels. `level` is ignored.")
+    }
 
     # Apply conversion factor
     terra::xmax(t) <- terra::xmax(t) * k

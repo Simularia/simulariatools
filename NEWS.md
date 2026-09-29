@@ -7,6 +7,8 @@
   time step is present, it returns a data.frame in long format with columns
   `x, y, variable, z, time`, where `z` is the cell value. A bug with verbose
   output is also fixed.
+- New feature: `importRaster()` gets a `level` argument to select the value of the
+  vertical level for variables with more than one.
 - Bug fix: in `contourPlot2()` with `fill = TRUE` show the legend when the data
   range is outside level bounds. Also set `x, y` scale limits which previously
   were undetermined.
