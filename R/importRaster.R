@@ -163,7 +163,7 @@ importRaster <- function(
                 idxShow <- seq_len(nl)
             }
             for (idx in idxShow) {
-                if (idx == nl - nShow + 1) {
+                if (nl > nShow && idx == nl - nShow + 1) {
                     message(sprintf(
                         "%8s ... omitted %d deadlines ...",
                         "",
