@@ -96,11 +96,20 @@ importRaster <- function(
         }
         # level argument is not in the list of available levels
         if (!level %in% levels) {
-            stop("Level ", level, " not found. Choose one level from: ", paste(levels, collapse = ", "))
+            stop(
+                "Level ",
+                level,
+                " not found. Choose one level from: ",
+                paste(levels, collapse = ", ")
+            )
         }
         t <- t[[terra::depth(t) == level]]
     } else if (!is.null(level)) {
-        warning("Variable ", variable, " does not have vertical levels. `level` is ignored.")
+        warning(
+            "Variable ",
+            variable,
+            " does not have vertical levels. `level` is ignored."
+        )
     }
 
     # Apply conversion factor
@@ -225,10 +234,22 @@ importRaster <- function(
     # Export dataframe with x, y, z columns if no time is present.
     # Otherwise export x, y, variable, z, time
     if (srHasTime) {
-        grd3D <- terra::as.data.frame(t, xy = TRUE, time = TRUE, wide = FALSE, row.names = FALSE)
+        grd3D <- terra::as.data.frame(
+            t,
+            xy = TRUE,
+            time = TRUE,
+            wide = FALSE,
+            row.names = FALSE
+        )
         colnames(grd3D) <- c("x", "y", "variable", "z", "time")
     } else {
-        grd3D <- terra::as.data.frame(t, xy = TRUE, time = FALSE, wide = TRUE, row.names = FALSE)
+        grd3D <- terra::as.data.frame(
+            t,
+            xy = TRUE,
+            time = FALSE,
+            wide = TRUE,
+            row.names = FALSE
+        )
         colnames(grd3D) <- c("x", "y", "z")
     }
     return(grd3D)
