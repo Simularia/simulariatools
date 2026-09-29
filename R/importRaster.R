@@ -29,7 +29,7 @@
 #'
 #' @seealso [importADSOBIN()], [importSurferGrd()]
 #'
-#' @importFrom terra rast res xmin xmax ymin ymax shift global as.data.frame
+#' @importFrom terra has.time time rast varnames res xmin xmax ymin ymax shift global as.data.frame
 #'
 #' @export
 #'
@@ -66,7 +66,7 @@ importRaster <- function(
 ) {
     if (missing(variable)) {
         t <- terra::rast(file)
-        variables <- as.character(names(t))
+        variables <- terra::varnames(t)
         stop("Missing variables. Choose one from: ", list(variables))
     }
     t <- terra::rast(file, subds = as.character(variable))
@@ -92,11 +92,18 @@ importRaster <- function(
     # Shift coordinates
     t <- terra::shift(t, dx = dx, dy = dy)
 
+    # Check if SpatRaster has more than 1 deadline
+    srHasTime <- terra::has.time(t) && terra::nlyr(t) > 1
+
     # Print some values
     if (verbose == TRUE) {
         xvalues <- c(terra::xmin(t), terra::xmax(t), terra::res(t)[1])
         yvalues <- c(terra::ymin(t), terra::ymax(t), terra::res(t)[2])
-        zvalues <- c(terra::global(t, min), terra::global(t, max), terra::global(t, mean))
+        zvalues <- c(
+            terra::global(t, min, na.rm = TRUE),
+            terra::global(t, max, na.rm = TRUE),
+            terra::global(t, mean, na.rm = TRUE)
+        )
         message("Raster statistics -----------------------------------------------")
         message(sprintf(
             "%8s (min, max, dx)  : %12.3f %12.3f %12.3f",
@@ -112,18 +119,38 @@ importRaster <- function(
             yvalues[2],
             yvalues[3]
         ))
-        message(sprintf(
-            "%8s (min, max, mean): %12.2e %12.2e %12.2e",
-            variable,
-            zvalues[1],
-            zvalues[2],
-            zvalues[3]
-        ))
+        if (srHasTime) {
+            tLabels <- format(terra::time(t))
+            for (idx in seq_along(tLabels)) {
+                message(sprintf(
+                    "%8s (time, min, max, mean): %s %12.2e %12.2e %12.2e",
+                    variable,
+                    tLabels[idx],
+                    zvalues$min[idx],
+                    zvalues$max[idx],
+                    zvalues$mean[idx]
+                ))
+            }
+        } else {
+            message(sprintf(
+                "%8s (min, max, mean): %12.2e %12.2e %12.2e",
+                variable,
+                zvalues[1],
+                zvalues[2],
+                zvalues[3]
+            ))
+        }
         message("-----------------------------------------------------------------")
     }
 
-    # Export dataframe with x, y, x columns
-    grd3D <- terra::as.data.frame(t, xy = TRUE)
-    colnames(grd3D) <- c("x", "y", "z")
+    # Export dataframe with x, y, z columns if no time is present.
+    # Otherwise export x, y, variable, z, time
+    if (srHasTime) {
+        grd3D <- terra::as.data.frame(t, xy = TRUE, time = TRUE, wide = FALSE, row.names = FALSE)
+        colnames(grd3D) <- c("x", "y", "variable", "z", "time")
+    } else {
+        grd3D <- terra::as.data.frame(t, xy = TRUE, time = FALSE, wide = TRUE, row.names = FALSE)
+        colnames(grd3D) <- c("x", "y", "z")
+    }
     return(grd3D)
 }
